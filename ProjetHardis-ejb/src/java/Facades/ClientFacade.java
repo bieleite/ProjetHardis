@@ -1,0 +1,156 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Facades;
+
+import Entites.Client;
+import Entites.Entreprise;
+import java.util.Date;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author gabrielleite
+ */
+@Stateless
+public class ClientFacade extends AbstractFacade<Client> implements ClientFacadeLocal {
+
+    @PersistenceContext(unitName = "ProjetHardis-ejbPU")
+    private EntityManager em;
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public ClientFacade() {
+        super(Client.class);
+    }
+    
+    @Override
+    public void creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise) {
+        Client cl = new Client();
+        cl.setNom(Nom);
+        cl.setPrenom(Prenom);
+        cl.setLogin(Login);
+        cl.setMdp(MDP);
+        cl.setQuestionSecrete(QuestionSecrete);
+        cl.setReponseSecrete(ReponseSecrete);
+        cl.setRGPD(RGPD);
+        cl.setDateRGPD(dateRDGP);
+        em.persist(cl);
+    }
+    
+    @Override
+    public List<Client> listClient() {
+        List<Client> cl=null;
+        String txt="SELECT cl FROM Client AS cl ";
+        Query req=getEntityManager().createQuery(txt);
+        List<Client> result=req.getResultList();
+        return result;
+    }
+
+    @Override
+    public Client rechercheClient(Long id) {
+        Client cl = null;        
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", id);  
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (Client) res.get(0);
+        }
+        return cl;
+    }
+
+    @Override
+    public  Client rechercheClientParNom(String nom) {
+        Client cl = null;        
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.nom=:nom ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("nom", nom);
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (Client) res.get(0);
+        }
+        return cl;
+    }
+    
+    @Override
+    public  Client rechercheClientParLogin(String login) {
+        Client cl = null;        
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.login=:login ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("login", login);
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (Client) res.get(0);
+        }
+        return cl;
+    }
+    
+     @Override
+    public  Client modfiClientNomPrenom(Client client, String Nom, String Prenom) {
+        Client cl = null;        
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.codePostal=:CP ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("CP", Nom);
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (Client) res.get(0);
+        }
+        return cl;
+    }
+    
+    @Override
+    public  Client modfiClientVille(Client adresse, String Ville) {
+        Client cl = null;        
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.Ville=:ville ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("ville", Ville);
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (Client) res.get(0);
+        }
+        return cl;
+    }
+    
+    @Override
+    public  Client modfiClientNumRue(Client adresse, int NumRue) {
+        Client cl = null;        
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.NumRue=:numrue ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("numrue", NumRue);
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (Client) res.get(0);
+        }
+        return cl;
+    }
+    
+    @Override
+    public  Client modfiClientNomRue(Client clresse, String NomRue) {
+        Client cl = null;        
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.NomRue=:nomrue ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("nomrue", NomRue);
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (Client) res.get(0);
+        }
+        return cl;
+    }
+}

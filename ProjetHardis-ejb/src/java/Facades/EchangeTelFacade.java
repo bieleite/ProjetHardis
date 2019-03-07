@@ -1,0 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Facades;
+
+import Entites.EchangeTel;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author gabrielleite
+ */
+@Stateless
+public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements EchangeTelFacadeLocal {
+
+    @PersistenceContext(unitName = "ProjetHardis-ejbPU")
+    private EntityManager em;
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public EchangeTelFacade() {
+        super(EchangeTel.class);
+    }
+    
+}
