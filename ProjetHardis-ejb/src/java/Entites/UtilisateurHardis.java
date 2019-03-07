@@ -70,8 +70,6 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
     @OneToOne(mappedBy = "refLocal")
     private HistoriqueTraitement historiqueTraitement;
 
-    @OneToOne(mappedBy = "refLocal")
-    private Devis devis;
 
     @OneToMany(mappedBy = "utilHardis")
     private List<HistoriqueDevis> historiqueDeviss;
