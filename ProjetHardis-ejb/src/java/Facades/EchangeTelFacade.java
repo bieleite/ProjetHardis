@@ -49,7 +49,7 @@ public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements Echa
     @Override
     public EchangeTel rechercheEchangeTel(Long id) {
         EchangeTel co = null;        
-        String txt = "SELECT co FROM EchangeTel AS ad WHERE co.id=:id";
+        String txt = "SELECT co FROM EchangeTel AS co WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("id", id);  
         List<EchangeTel> res = req.getResultList();

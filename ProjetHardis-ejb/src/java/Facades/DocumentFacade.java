@@ -48,7 +48,7 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
     @Override
     public Document rechercheDocument(Long id) {
         Document co = null;        
-        String txt = "SELECT co FROM Document AS ad WHERE co.id=:id";
+        String txt = "SELECT co FROM Document AS co WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("id", id);  
         List<Document> res = req.getResultList();
