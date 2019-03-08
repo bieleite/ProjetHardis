@@ -22,7 +22,17 @@ import javax.persistence.OneToOne;
 public class ProfilMetier implements Serializable {
 
     @OneToMany(mappedBy = "profil")
-    private List<Offre_Profil_Util> offre_Profil_Utils;
+    private List<Offre_Profil_Util_CV> offre_Profil_Utils;
+
+    public List<Offre_Profil_Util_CV> getOffre_Profil_Utils() {
+        return offre_Profil_Utils;
+    }
+
+    public void setOffre_Profil_Utils(List<Offre_Profil_Util_CV> offre_Profil_Utils) {
+        this.offre_Profil_Utils = offre_Profil_Utils;
+    }
+    
+    
 
     private static final long serialVersionUID = 1L;
     

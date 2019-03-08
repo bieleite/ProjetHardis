@@ -56,14 +56,14 @@ public class Livrable implements Serializable {
     }
     
     @ManyToOne
-        private ServiceStandard service;
+        private Service service;
 
     /**
      * Get the value of service
      *
      * @return the value of service
      */
-    public ServiceStandard getService() {
+    public Service getService() {
         return service;
     }
 
@@ -72,7 +72,7 @@ public class Livrable implements Serializable {
      *
      * @param service new value of service
      */
-    public void setService(ServiceStandard service) {
+    public void setService(Service service) {
         this.service = service;
     }
 

@@ -6,6 +6,7 @@
 package Entites;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -17,15 +18,23 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/v3
 
 /**
  *
  * @author anastasia.salari
  */
 @Entity
+<<<<<<< HEAD
 @Inheritance
     (strategy=InheritanceType.TABLE_PER_CLASS)
+=======
+ @Inheritance
+(strategy=InheritanceType.TABLE_PER_CLASS)
+>>>>>>> origin/v3
 public class Utilisateur implements Serializable {
 
     private boolean Visible;
@@ -125,8 +134,12 @@ public class Utilisateur implements Serializable {
         this.login = login;
     }
 
+<<<<<<< HEAD
     
         private String mdp;
+=======
+    private String mdp;
+>>>>>>> origin/v3
 
     /**
      * Get the value of mdp
@@ -145,9 +158,10 @@ public class Utilisateur implements Serializable {
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
+
+   
     
-    
-        private String questionSecrete;
+    private String questionSecrete;
 
     /**
      * Get the value of questionSecrete
@@ -189,9 +203,28 @@ public class Utilisateur implements Serializable {
     }
     
     
-    
+        private boolean visible;
 
-    
+    /**
+     * Get the value of visible
+     *
+     * @return the value of visible
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * Set the value of visible
+     *
+     * @param visible new value of visible
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+
+    @Column(nullable = true)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
         private Date dateRGPD;
 

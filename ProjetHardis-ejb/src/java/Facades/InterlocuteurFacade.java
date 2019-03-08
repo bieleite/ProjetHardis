@@ -5,6 +5,7 @@
  */
 package Facades;
 
+<<<<<<< HEAD
 import Entites.Interlocuteur;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,6 +14,20 @@ import javax.persistence.PersistenceContext;
 /**
  *
  * @author gabrielleite
+=======
+import Entites.Entreprise;
+import Entites.Interlocuteur;
+import Entites.Livrable;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+/**
+ *
+ * @author anastasia.salari
+>>>>>>> origin/v3
  */
 @Stateless
 public class InterlocuteurFacade extends AbstractFacade<Interlocuteur> implements InterlocuteurFacadeLocal {
@@ -28,5 +43,74 @@ public class InterlocuteurFacade extends AbstractFacade<Interlocuteur> implement
     public InterlocuteurFacade() {
         super(Interlocuteur.class);
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void creerInterlocuteur(String nom, String prenom, String fonction, String tel, Entreprise entreprise) {
+        Interlocuteur inter = new Interlocuteur();
+        inter.setEntreprise(entreprise);
+        inter.setFonctionInterlocuteur(fonction);
+        inter.setNomInterlocuteur(fonction);
+        inter.setPrenomInterlocuteur(prenom);
+inter.setTelInterlocuteur(tel);
+em.persist(inter);
+    }
+
+    @Override
+    public void modifierInterlocuteur(Interlocuteur inter, String nom, String prenom, String fonction, String tel, Entreprise entreprise ) {
+        Interlocuteur inte = null;
+        Query requete = em.createQuery("SELECT s from Interlocuteur as s where s.id=:id");
+        requete.setParameter("id",inter.getId());     
+        List<Interlocuteur> listeI =  requete.getResultList();
+        if (!listeI.isEmpty()){
+            inte =   listeI.get(0);
+            if (nom.equals(""))
+                inte.setNomInterlocuteur(nom);
+            if (entreprise!=null)
+                  inte.setEntreprise(entreprise);
+            if (prenom.equals(""))
+                inte.setPrenomInterlocuteur(prenom);
+            if (tel.equals(""))
+                inte.setTelInterlocuteur(tel);
+            if (fonction.equals(""))
+                inte.setFonctionInterlocuteur(fonction);
+            em.merge(inte);
+    } 
+    }
+
+    @Override
+    public void supprimerInterlocuteur(long id) {
+         Interlocuteur pm = null;
+        Query requete = em.createQuery("SELECT p from Interlocuteur as p where p.id=:id");
+        requete.setParameter("id",id);     
+        List<Interlocuteur> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            pm  =  liste.get(0); 
+            em.remove(pm);
+        }
+    }
+
+    @Override
+    public Interlocuteur rechercheInterlocuteurParId(long id) {
+        Interlocuteur s = null;
+        Query requete = em.createQuery("SELECT s from Interlocuteur as s where s.id=:id");
+        requete.setParameter("id",id);     
+        List<Interlocuteur> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            s =   liste.get(0); 
+        }
+        return s;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+>>>>>>> origin/v3
     
 }

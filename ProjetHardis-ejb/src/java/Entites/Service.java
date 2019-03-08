@@ -21,17 +21,27 @@ import javax.persistence.OneToOne;
  * @author anastasia.salari
  */
 @Entity
+<<<<<<< HEAD
 @Inheritance
     (strategy=InheritanceType.TABLE_PER_CLASS)
+=======
+ @Inheritance
+(strategy=InheritanceType.TABLE_PER_CLASS)
+>>>>>>> origin/v3
 public class Service implements Serializable {
 
     @OneToMany(mappedBy = "service")
     private List<HistoriqueEtats> historiqueEtatss;
 
-    @OneToOne(mappedBy = "service")
-    private Devis devis;
+    public List<HistoriqueEtats> getHistoriqueEtatss() {
+        return historiqueEtatss;
+    }
 
-    
+    public void setHistoriqueEtatss(List<HistoriqueEtats> historiqueEtatss) {
+        this.historiqueEtatss = historiqueEtatss;
+    }
+
+   
     
     private static final long serialVersionUID = 1L;
     

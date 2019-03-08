@@ -6,12 +6,20 @@
 package Facades;
 
 import Entites.Offre;
+<<<<<<< HEAD
+=======
+import Entites.Offre_Profil_Util_CV;
+>>>>>>> origin/v3
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+<<<<<<< HEAD
  * @author gabrielleite
+=======
+ * @author anastasia.salari
+>>>>>>> origin/v3
  */
 @Local
 public interface OffreFacadeLocal {
@@ -29,5 +37,16 @@ public interface OffreFacadeLocal {
     List<Offre> findRange(int[] range);
 
     int count();
+<<<<<<< HEAD
+=======
+
+    void creerOffre(String lib, List<Offre_Profil_Util_CV> liste);
+
+    void modifierOffre(Offre offre ,  List<Offre_Profil_Util_CV> liste, String lib );
+
+    void supprimerOffre(long id);
+
+    Offre rechercheOffreParId(long id);
+>>>>>>> origin/v3
     
 }

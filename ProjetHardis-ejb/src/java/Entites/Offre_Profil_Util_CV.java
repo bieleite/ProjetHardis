@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entités;
+package Entites;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  * @author anastasia.salari
  */
 @Entity
-public class Offre_Profil_Util implements Serializable {
+public class Offre_Profil_Util_CV implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -41,6 +41,27 @@ public class Offre_Profil_Util implements Serializable {
     public void setOffre(Offre offre) {
         this.offre = offre;
     }
+    
+        private String lienCV;
+
+    /**
+     * Get the value of lienCV
+     *
+     * @return the value of lienCV
+     */
+    public String getLienCV() {
+        return lienCV;
+    }
+
+    /**
+     * Set the value of lienCV
+     *
+     * @param lienCV new value of lienCV
+     */
+    public void setLienCV(String lienCV) {
+        this.lienCV = lienCV;
+    }
+
 
     @ManyToOne
     private UtilisateurHardis utilisateur;
@@ -107,10 +128,10 @@ public class Offre_Profil_Util implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Offre_Profil_Util)) {
+        if (!(object instanceof Offre_Profil_Util_CV)) {
             return false;
         }
-        Offre_Profil_Util other = (Offre_Profil_Util) object;
+        Offre_Profil_Util_CV other = (Offre_Profil_Util_CV) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

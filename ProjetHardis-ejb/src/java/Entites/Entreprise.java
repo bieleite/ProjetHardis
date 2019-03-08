@@ -7,6 +7,7 @@ package Entites;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -53,6 +54,48 @@ public class Entreprise implements Serializable {
      */
     public void setAgence(Agence agence) {
         this.agence = agence;
+    }
+
+        private String mdpEntreprise;
+
+    /**
+     * Get the value of mdpEntreprise
+     *
+     * @return the value of mdpEntreprise
+     */
+    public String getMdpEntreprise() {
+        return mdpEntreprise;
+    }
+
+    /**
+     * Set the value of mdpEntreprise
+     *
+     * @param mdpEntreprise new value of mdpEntreprise
+     */
+    public void setMdpEntreprise(String mdpEntreprise) {
+        this.mdpEntreprise = mdpEntreprise;
+    }
+
+    
+    @Column(unique=true)
+    private String codeContrat;
+
+    /**
+     * Get the value of codeContrat
+     *
+     * @return the value of codeContrat
+     */
+    public String getCodeContrat() {
+        return codeContrat;
+    }
+
+    /**
+     * Set the value of codeContrat
+     *
+     * @param codeContrat new value of codeContrat
+     */
+    public void setCodeContrat(String codeContrat) {
+        this.codeContrat = codeContrat;
     }
 
 
