@@ -52,7 +52,7 @@ public interface AdresseFacadeLocal {
     
     void modfiAdresseVille(Adresse adresse, String ville);
     
-    
+    void supprimerAdresse(Adresse entite);
 
 
 }

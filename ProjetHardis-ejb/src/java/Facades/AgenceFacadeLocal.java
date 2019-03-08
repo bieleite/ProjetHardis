@@ -46,6 +46,7 @@ public interface AgenceFacadeLocal {
     
     Agence modfiAgenceNom(Agence adresse, String NomAgence);
     
+    void supprimerAgence(Agence entite);
 
 
 }

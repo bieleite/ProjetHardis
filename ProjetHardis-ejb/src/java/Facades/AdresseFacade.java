@@ -181,7 +181,17 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
         
     }
     
-    
+    @Override
+    public void supprimerAdresse(Adresse entite) {
+        Query requete = em.createQuery("SELECT s from Adresse as s where s.id=:id");
+        requete.setParameter("id",entite.getId());     
+        List<Adresse> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0); 
+            
+            em.remove(entite);
+        }
+    }
 
 
 }

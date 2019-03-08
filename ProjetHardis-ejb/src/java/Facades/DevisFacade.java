@@ -168,6 +168,18 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     }
 
 
+    @Override
+    public void supprimerDevis(Devis entite) {
+        Query requete = em.createQuery("SELECT s from Devis as s where s.id=:id");
+        requete.setParameter("id",entite.getId());     
+        List<Devis> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0); 
+            
+            em.remove(entite);
+        }
+    }
+    
     public DevisFacade() {
         super(Devis.class);
     }

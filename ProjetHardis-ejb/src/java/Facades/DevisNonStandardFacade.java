@@ -167,6 +167,18 @@ public class DevisNonStandardFacade extends AbstractFacade<DevisNonStandard> imp
         }
     }
 
+    @Override
+    public void supprimerDevisNonStandard(DevisNonStandard entite) {
+        Query requete = em.createQuery("SELECT s from DevisNonStandard as s where s.id=:id");
+        requete.setParameter("id",entite.getId());     
+        List<DevisNonStandard> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0); 
+            
+            em.remove(entite);
+        }
+    }
+    
     public DevisNonStandardFacade() {
         super(DevisNonStandard.class);
     }

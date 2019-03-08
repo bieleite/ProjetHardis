@@ -43,6 +43,7 @@ public interface DevisFacadeLocal {
 
     int count();
     
+    void supprimerDevis(Devis entite);
 
     void creerDevis( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence agence);
     

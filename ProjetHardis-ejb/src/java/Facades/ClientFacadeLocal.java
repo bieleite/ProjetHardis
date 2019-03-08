@@ -59,7 +59,7 @@ public interface ClientFacadeLocal {
     
     void SuppressionClient(Client cl);
     
-    
+    void supprimerClient(Client entite);
 
 
 }

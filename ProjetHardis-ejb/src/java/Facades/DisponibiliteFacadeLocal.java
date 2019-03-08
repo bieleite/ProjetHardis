@@ -39,7 +39,8 @@ public interface DisponibiliteFacadeLocal {
 
     int count();
     
-
+    void supprimerDisponibilite(Disponibilite entite);
+    
     void creerDisponibilite( Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
     
     List<Disponibilite> listDisponibilite();

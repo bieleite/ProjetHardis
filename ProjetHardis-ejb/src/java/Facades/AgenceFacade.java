@@ -112,7 +112,18 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
             em.merge(entite);
         }
     }
-
+    
+    @Override
+    public void supprimerAgence(Agence entite) {
+        Query requete = em.createQuery("SELECT s from Agence as s where s.id=:id");
+        requete.setParameter("id",entite.getId());     
+        List<Agence> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0); 
+            
+            em.remove(entite);
+        }
+    }
 
     public AgenceFacade() {
         super(Agence.class);
