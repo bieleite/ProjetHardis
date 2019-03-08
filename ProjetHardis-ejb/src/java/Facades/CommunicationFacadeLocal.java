@@ -46,7 +46,7 @@ public interface CommunicationFacadeLocal {
     
     List<Communication> listCommunication();
 
-    Communication rechercheCommunication(Long id);
+    Communication rechercheCommunication(long id);
     
     Communication rechercheCommunicationParNom(String NomCommunication);
     

@@ -46,7 +46,6 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
     }
     @Override
     public List<Atelier> listAtelier() {
-        List<Atelier> ad=null;
         String txt="SELECT ad FROM Atelier AS ad ";
         Query req=getEntityManager().createQuery(txt);
         List<Atelier> result=req.getResultList();
@@ -54,7 +53,7 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
     }
 
     @Override
-    public Atelier rechercheAtelier(Long id) {
+    public Atelier rechercheAtelier(long id) {
         Atelier ad = null;        
         String txt = "SELECT ad FROM Atelier AS ad WHERE ad.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -68,11 +67,11 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
     }
 
     @Override
-    public  Atelier rechercheAtelierParNom(String NomAtelier) {
+    public  Atelier rechercheAtelierParNom(String nom) {
         Atelier ag = null;        
         String txt = "SELECT ag FROM Atelier AS ag WHERE ag.NomAtelier=:nomatelier ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("nomatelier", NomAtelier);
+        req = req.setParameter("nomatelier",  nom);
         List<Atelier> res = req.getResultList();
         if (res.size() >= 1)
         {
@@ -84,13 +83,9 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
     
     @Override
     public  void modifAtelier(Atelier entite, String NomAtelier) {       
-        String txt = "SELECT ad FROM Atelier AS ad WHERE ad.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<Atelier> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
        
+        if (entite!=null){
+
             if (!"".equals(NomAtelier))
         {
             entite.setNomAtelier(NomAtelier);

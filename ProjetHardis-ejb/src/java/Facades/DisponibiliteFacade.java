@@ -51,7 +51,6 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
     }
     @Override
     public List<Disponibilite> listDisponibilite() {
-        List<Disponibilite> co=null;
         String txt="SELECT co FROM Disponibilite AS co ";
         Query req=getEntityManager().createQuery(txt);
         List<Disponibilite> result=req.getResultList();
@@ -59,7 +58,7 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
     }
 
     @Override
-    public Disponibilite rechercheDisponibilite(Long id) {
+    public Disponibilite rechercheDisponibilite(long id) {
         Disponibilite co = null;        
         String txt = "SELECT co FROM Disponibilite AS ad WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -86,32 +85,11 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
         return di;
     }
     
-     @Override
-    public  Disponibilite modificationDisponibilite(Disponibilite di, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur) {
-               
-        String txt = "SELECT co FROM Disponibilite AS co WHERE co.id=:id";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", di.getId());
-        List<Disponibilite> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            di.setDateDebut(dateDebut);
-            di.setDateFin(dateFin);
-            di.setLibelleActivite(libelle);
-            di.setUtilisateurHardis(utilisateur);
-            em.merge(di);
-        }
-        return di;
-    }
     
     @Override
     public  void modifDisponibilite(Disponibilite entite, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur) {       
-        String txt = "SELECT entite FROM Disponibilite AS entite WHERE entite.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<Disponibilite> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
+      if (entite!=null){
+          
        
             if (dateDebut!=null)
         {

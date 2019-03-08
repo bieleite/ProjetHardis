@@ -45,11 +45,10 @@ public interface EchangeTelFacadeLocal {
     
     List<EchangeTel> listEchangeTel();
     
-    EchangeTel rechercheEchangeTel(Long id);
+    EchangeTel rechercheEchangeTel(long id);
     
     EchangeTel rechercheEchangeTelParUtilisateur(UtilisateurHardis utilisateur);
     
-    EchangeTel modificationEchangeTel(EchangeTel et, String text, Devis devis, UtilisateurHardis interlocuteur);
     
     void modifEchangeTel(EchangeTel entite, String text, Devis devis, UtilisateurHardis interlocuteur);
 

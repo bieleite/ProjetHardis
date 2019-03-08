@@ -6,8 +6,10 @@
 package Facades;
 
 import Entites.Client;
+import Entites.Devis;
 
 import Entites.Entreprise;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -56,12 +58,15 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         cl.setRGPD(RGPD);
         cl.setDateRGPD(dateRDGP);
         cl.setVisible(true);
+        cl.setDeviss(new ArrayList<Devis>());
+        cl.setCertifie(false);
         em.persist(cl);
     }
     
+    
+    
     @Override
     public List<Client> listClient() {
-        List<Client> cl=null;
         String txt="SELECT cl FROM Client AS cl ";
         Query req=getEntityManager().createQuery(txt);
         List<Client> result=req.getResultList();
@@ -69,7 +74,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     }
 
     @Override
-    public Client rechercheClient(Long id) {
+    public Client rechercheClient(long id) {
         Client cl = null;        
         String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -110,21 +115,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         return cl;
     }
     
-     @Override
-    public  void modfiClientNomPrenom(Client cl, String Nom, String Prenom) {
-                
-        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", cl.getId());
-        List<Client> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            cl.setNom(Nom);
-            cl.setPrenom(Prenom);
-            em.merge(cl);
-        }
-        
-    }
+
     
     @Override
     public  void modfiClientMDP(Client cl, String MDP) {
@@ -172,13 +163,9 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     }
    
     @Override
-    public  void modifClient(Client entite, String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise) {       
-        String txt = "SELECT entite FROM Client AS entite WHERE entite.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<Client> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
+    public  void modifClient(Client entite, String Nom,String Prenom, int RGPD, Date dateRDGP, Entreprise entreprise) {       
+      
+        if (entite!=null){
        
             if (!"".equals(Nom))
         {
@@ -188,22 +175,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         {
             entite.setPrenom(Prenom);
         }
-            if (!"".equals(Login))
-        {
-            entite.setLogin(Login);
-        }
-            if (!"".equals(MDP))
-        {
-            entite.setMdp(MDP);
-        }
-            if (!"".equals(QuestionSecrete))
-        {
-            entite.setQuestionSecrete(QuestionSecrete);
-        }
-            if (!"".equals(ReponseSecrete))
-        {
-            entite.setReponseSecrete(ReponseSecrete);
-        }
+        
             if (RGPD==0 && RGPD==1)
         {
             entite.setRGPD(RGPD);
@@ -219,6 +191,19 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             
             em.merge(entite);
         }
+    }
+
+    @Override
+    public void majCertif(Client client) {
+          String txt = "SELECT entite FROM Client AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", client.getId());
+        List<Client> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            client =   liste.get(0);
+            client.setCertifie(true);
+        }
+           
     }
 
 }

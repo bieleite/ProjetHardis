@@ -6,6 +6,7 @@
 package Facades;
 
 
+import Entites.Client;
 import Entites.UtilisateurHardis;
 
 import Entites.ProfilTechnique;
@@ -45,5 +46,17 @@ public interface UtilisateurHardisFacadeLocal {
 
     void creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lientCV);
 
+    
+    UtilisateurHardis rechercheUtilisateurParId(Long id);
+       
+    UtilisateurHardis rechercheUtilisateurParLogin(String login);
+    
+    void  modfiUtilisateurMDP(UtilisateurHardis cl, String MDP);
+    
+    void modfiUtilisateurQSRS(UtilisateurHardis cl, String QS, String RS);
+    
+void modifClient(UtilisateurHardis entite1, String nom, String prenom, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV);    
+   
+void SuppressionUtilisateur(UtilisateurHardis cl);
     
 }

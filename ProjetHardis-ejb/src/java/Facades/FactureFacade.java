@@ -5,7 +5,9 @@
  */
 package Facades;
 
+import Entites.Devis;
 import Entites.Facture;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,5 +34,25 @@ public class FactureFacade extends AbstractFacade<Facture> implements FactureFac
     public FactureFacade() {
         super(Facture.class);
     }
+
+    @Override
+    public void creerFacture(Date date, Devis devis, float montant, float montantDepass, String motifDepass) {
+        Facture f = new Facture();
+        f.setDateFacture(date);
+        f.setDevis(devis);
+        f.setMontant(montant);
+        f.setMontantDepass(montantDepass);
+        f.setMotifDepass(motifDepass);
+        em.persist(f);
+    }
+
+    @Override
+    public void modifFacture(Facture fact, Date date, Devis devis, float montant, long montantD, String motifD) {
+        
+    }
+    
+    
+    
+    
     
 }

@@ -39,9 +39,9 @@ public interface AtelierFacadeLocal {
     
     List<Atelier> listAtelier();
 
-    Atelier rechercheAtelier(Long id);
+    Atelier rechercheAtelier(long id);
     
-    Atelier rechercheAtelierParNom(String NomAtelier);
+    Atelier rechercheAtelierParNom(String nom);
     
     void modifAtelier(Atelier entite, String NomAtelier);
 

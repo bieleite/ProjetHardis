@@ -25,6 +25,54 @@ public class Entreprise implements Serializable {
     @OneToOne(mappedBy = "entreprise")
     private Client client;
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+    
+        private boolean certifie;
+
+    /**
+     * Get the value of certifie
+     *
+     * @return the value of certifie
+     */
+    public boolean getCertifie() {
+        return certifie;
+    }
+
+    /**
+     * Set the value of certifie
+     *
+     * @param certifie new value of certifie
+     */
+    public void setCertifie(boolean certifie) {
+        this.certifie = certifie;
+    }
+
+    private String lienJustif;
+
+    /**
+     * Get the value of lienJustif
+     *
+     * @return the value of lienJustif
+     */
+    public String getLienJustif() {
+        return lienJustif;
+    }
+
+    /**
+     * Set the value of lienJustif
+     *
+     * @param lienJustif new value of lienJustif
+     */
+    public void setLienJustif(String lienJustif) {
+        this.lienJustif = lienJustif;
+    }
+
     @OneToMany(mappedBy = "entreprise")
     private List<Interlocuteur> interlocuteurs;
 

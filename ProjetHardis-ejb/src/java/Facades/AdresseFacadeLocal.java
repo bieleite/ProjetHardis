@@ -44,13 +44,7 @@ public interface AdresseFacadeLocal {
     
     void modifAdresse(Adresse ad, int NumRue, String NomRue, String Ville, String CodePostal);
     
-    void modfiAdresseCP(Adresse adresse, String cp);
-    
-    void modfiAdresseNomRue(Adresse adresse, String NomRue);
-    
-    void modfiAdresseNumRue(Adresse adresse, int NumRue);
-    
-    void modfiAdresseVille(Adresse adresse, String ville);
+  
     
     
 

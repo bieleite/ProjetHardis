@@ -5,7 +5,9 @@
  */
 package Facades;
 
+import Entites.Devis;
 import Entites.Facture;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -33,5 +35,9 @@ public interface FactureFacadeLocal {
     List<Facture> findRange(int[] range);
 
     int count();
+
+    void creerFacture(Date date, Devis devis, float montant, float montantDepass, String motifDepass);
+
+    void modifFacture(Facture fact, Date date, Devis devis, float montant, long montantD, String motifD);
     
 }

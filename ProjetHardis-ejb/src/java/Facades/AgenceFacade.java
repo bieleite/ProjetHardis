@@ -46,7 +46,6 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
     }
     @Override
     public List<Agence> listAgence() {
-        List<Agence> ad=null;
         String txt="SELECT ad FROM Agence AS ad ";
         Query req=getEntityManager().createQuery(txt);
         List<Agence> result=req.getResultList();
@@ -54,7 +53,7 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
     }
 
     @Override
-    public Agence rechercheAgence(Long id) {
+    public Agence rechercheAgence(long id) {
         Agence ad = null;        
         String txt = "SELECT ad FROM Agence AS ad WHERE ad.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -81,29 +80,11 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
         return ag;
     }
     
-     @Override
-    public  Agence modfiAgenceNom(Agence ag, String NomAgence) {
-             
-        String txt = "SELECT ad FROM Agence AS ad WHERE ad.id=:id";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", ag.getId());
-        List<Agence> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            ag.setNomAgence(NomAgence);
-            em.merge(ag);
-        }
-        return ag;
-    }
-    
+      
     @Override
     public  void modifAgence(Agence entite, String NomAgence) {       
-        String txt = "SELECT ad FROM Agence AS ad WHERE ad.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<Agence> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
+      
+        if (entite!=null){
        
             if (!"".equals(NomAgence))
         {

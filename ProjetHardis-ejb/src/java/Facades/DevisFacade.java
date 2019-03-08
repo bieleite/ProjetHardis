@@ -10,7 +10,9 @@ import Entites.Agence;
 import Entites.Client;
 import Entites.Devis;
 import Entites.Facturation;
+import Entites.Facture;
 import Entites.Statut;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -56,11 +58,11 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         de.setStatut(statut);
         de.setClient(client);
         de.setAgence(ag);
+        de.setFactures(new ArrayList<Facture>());
         em.persist(de);
     }
     @Override
     public List<Devis> listDevis() {
-        List<Devis> co=null;
         String txt="SELECT co FROM Devis AS co ";
         Query req=getEntityManager().createQuery(txt);
         List<Devis> result=req.getResultList();
@@ -68,7 +70,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     }
 
     @Override
-    public Devis rechercheDevis(Long id) {
+    public Devis rechercheDevis(long id) {
         Devis co = null;        
         String txt = "SELECT co FROM Devis AS ad WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -94,38 +96,13 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         }
         return de;
     }
-    
-     @Override
-    public  void modificDevis(Devis de, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {
-               
-        String txt = "SELECT co FROM Devis AS co WHERE co.id=:id";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", de.getId());
-        List<Devis> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            de.setDateDevis(date_devis);
-            de.setDateIntervSouhaitee(date_intev_souh);
-            de.setIndicateurFact(facturation);
-            de.setMontantDevis(montantdevis);
-            de.setMotifRefus(motifrefus);
-            de.setSaisieLibre(saisielibre);
-            de.setStatut(statut);
-            de.setClient(client);
-            de.setAgence(ag);
-            em.merge(de);
-        }
-        
-    }
+   
     
      @Override
     public  void modifDevis(Devis entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {       
-        String txt = "SELECT entite FROM Devis AS entite WHERE entite.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<Devis> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
+      
+        if (entite!=null){
+
        
             if (date_devis!=null)
         {
@@ -166,10 +143,19 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
             em.merge(entite);
         }
     }
-
+    
+    
+    
 
     public DevisFacade() {
         super(Devis.class);
+    }
+    
+
+    @Override
+    public void majFact(Devis Devis, List<Entites.Facture> listeFact) {
+        Devis.setFactures(listeFact);
+        em.merge(Devis);
     }
     
 }

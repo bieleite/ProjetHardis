@@ -48,12 +48,10 @@ public interface DevisNonStandardFacadeLocal {
     
     List<DevisNonStandard> listDevisNonStandard();
 
-    DevisNonStandard rechercheDevisNonStandard(Long id);
+    DevisNonStandard rechercheDevisNonStandard(long id);
     
     DevisNonStandard rechercheDevisNonStandardParClient(Client client);
-    
-    DevisNonStandard modifDevisNonStandard(DevisNonStandard de, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
-    
+        
     void modifDevis(DevisNonStandard entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
 
 

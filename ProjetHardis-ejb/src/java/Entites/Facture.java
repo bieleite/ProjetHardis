@@ -6,11 +6,13 @@
 package Entites;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -21,6 +23,89 @@ public class Facture implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+        private String motifDepass;
+
+    /**
+     * Get the value of motifDepass
+     *
+     * @return the value of motifDepass
+     */
+    public String getMotifDepass() {
+        return motifDepass;
+    }
+    
+
+    /**
+     * Set the value of motifDepass
+     *
+     * @param motifDepass new value of motifDepass
+     */
+    public void setMotifDepass(String motifDepass) {
+        this.motifDepass = motifDepass;
+    }
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+        private Date dateFacture;
+
+    /**
+     * Get the value of dateFacture
+     *
+     * @return the value of dateFacture
+     */
+    public Date getDateFacture() {
+        return dateFacture;
+    }
+
+    /**
+     * Set the value of dateFacture
+     *
+     * @param dateFacture new value of dateFacture
+     */
+    public void setDateFacture(Date dateFacture) {
+        this.dateFacture = dateFacture;
+    }
+
+    
+        private float montantDepass;
+
+    /**
+     * Get the value of montantDepass
+     *
+     * @return the value of montantDepass
+     */
+    public float getMontantDepass() {
+        return montantDepass;
+    }
+
+    /**
+     * Set the value of montantDepass
+     *
+     * @param montantDepass new value of montantDepass
+     */
+    public void setMontantDepass(float montantDepass) {
+        this.montantDepass = montantDepass;
+    }
+
+        private float montant;
+
+    /**
+     * Get the value of montant
+     *
+     * @return the value of montant
+     */
+    public float getMontant() {
+        return montant;
+    }
+
+    /**
+     * Set the value of montant
+     *
+     * @param montant new value of montant
+     */
+    public void setMontant(float montant) {
+        this.montant = montant;
+    }
+
     @ManyToOne
        private Devis devis;
 

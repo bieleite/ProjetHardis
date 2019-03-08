@@ -5,6 +5,8 @@
  */
 package Facades;
 
+import Entites.Adresse;
+import Entites.Agence;
 import Entites.Entreprise;
 import java.util.List;
 import javax.ejb.Local;
@@ -33,5 +35,11 @@ public interface EntrepriseFacadeLocal {
     List<Entreprise> findRange(int[] range);
 
     int count();
+
+    void majCertif(Entreprise entreprise);
+
+    void creerEntreprise(String numero, Agence agence, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif);
+
+    void modifEntreprise(Entreprise e, Agence agence, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif, String numeroEnt );
     
 }

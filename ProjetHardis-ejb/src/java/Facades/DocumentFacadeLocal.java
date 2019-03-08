@@ -43,11 +43,9 @@ public interface DocumentFacadeLocal {
     
     List<Document> listDocument();
 
-    Document rechercheDocument(Long id);
+    Document rechercheDocument(long id);
     
     Document rechercheDocumentParHistorique(HistoriqueDevis historiquedevis);
-    
-    Document modificationDocument(Document doc, String descriptif, String liendoc, HistoriqueDevis historiquedevis);
     
     void modifDocument(Document entite, String descriptif, String liendoc, HistoriqueDevis historiquedevis);
     

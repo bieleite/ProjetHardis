@@ -51,9 +51,9 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
         ad.setCodePostal(CodePostal);
         em.persist(ad);
     }
+    
     @Override
     public List<Adresse> listAdresse() {
-        List<Adresse> ad=null;
         String txt="SELECT ad FROM Adresse AS ad ";
         Query req=getEntityManager().createQuery(txt);
         List<Adresse> result=req.getResultList();
@@ -88,30 +88,12 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
         return ad;
     }
     
-     @Override
-    public  void modfiAdresseCP(Adresse ad, String cp) {
-                
-        String txt = "SELECT ad FROM Adresse AS ad WHERE ad.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", ad.getId());
-        List<Adresse> res = req.getResultList();
-        
-        if (res.size() >= 1)
-        {
-            ad.setCodePostal(cp);
-            em.merge(ad);
-        }
-        
-    }
+   
     
     @Override
     public  void modifAdresse(Adresse ad, int NumRue, String NomRue, String Ville, String CodePostal) {       
-        String txt = "SELECT ad FROM Adresse AS ad WHERE ad.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", ad.getId());
-        List<Adresse> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            ad =   liste.get(0);
+      
+        if (ad!=null){
        
             if (!"".equals(NomRue))
         {
@@ -136,50 +118,7 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
         }
     }
     
-    @Override
-    public  void modfiAdresseVille(Adresse ad, String Ville) {
-              
-        String txt = "SELECT ad FROM Adresse AS ad WHERE ad.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", ad.getId());
-        List<Adresse> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            ad.setVille(Ville);
-            em.merge(ad);
-        }
-      
-    }
-    
-    @Override
-    public  void modfiAdresseNumRue(Adresse ad, int NumRue) {
-                
-        String txt = "SELECT ad FROM Adresse AS ad WHERE ad.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", ad.getId());
-        List<Adresse> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            ad.setNumeroRue(NumRue);
-            em.merge(ad);
-        }
-      
-    }
-    
-    @Override
-    public  void modfiAdresseNomRue(Adresse ad, String NomRue) {
-               
-        String txt = "SELECT ad FROM Adresse AS ad WHERE ad.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", ad.getId());
-        List<Adresse> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            ad.setNomRue(NomRue);
-            em.merge(ad);
-        }
-        
-    }
+ 
     
     
 

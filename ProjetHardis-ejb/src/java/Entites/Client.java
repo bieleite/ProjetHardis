@@ -21,7 +21,26 @@ import javax.persistence.OneToOne;
 @Entity
 public class Client extends Utilisateur implements Serializable {
 
-   
+       private boolean certifie;
+
+    /**
+     * Get the value of certifie
+     *
+     * @return the value of certifie
+     */
+    public boolean getCertifie() {
+        return certifie;
+    }
+
+    /**
+     * Set the value of certifie
+     *
+     * @param certifie new value of certifie
+     */
+    public void setCertifie(boolean certifie) {
+        this.certifie = certifie;
+    }
+
     @OneToMany(mappedBy = "client")
     private List<Devis> deviss;
 

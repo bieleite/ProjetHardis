@@ -60,7 +60,6 @@ public class DevisNonStandardFacade extends AbstractFacade<DevisNonStandard> imp
     }
     @Override
     public List<DevisNonStandard> listDevisNonStandard() {
-        List<DevisNonStandard> co=null;
         String txt="SELECT co FROM DevisNonStandard AS co ";
         Query req=getEntityManager().createQuery(txt);
         List<DevisNonStandard> result=req.getResultList();
@@ -68,7 +67,7 @@ public class DevisNonStandardFacade extends AbstractFacade<DevisNonStandard> imp
     }
 
     @Override
-    public DevisNonStandard rechercheDevisNonStandard(Long id) {
+    public DevisNonStandard rechercheDevisNonStandard(long id) {
         DevisNonStandard co = null;        
         String txt = "SELECT co FROM DevisNonStandard AS ad WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -95,37 +94,11 @@ public class DevisNonStandardFacade extends AbstractFacade<DevisNonStandard> imp
         return de;
     }
     
-     @Override
-    public  DevisNonStandard modifDevisNonStandard(DevisNonStandard de, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {
-               
-        String txt = "SELECT co FROM DevisNonStandard AS co WHERE co.id=:id";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", de.getId());
-        List<DevisNonStandard> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            de.setDateDevis(date_devis);
-            de.setDateIntervSouhaitee(date_intev_souh);
-            de.setIndicateurFact(facturation);
-            de.setMontantDevis(montantdevis);
-            de.setMotifRefus(motifrefus);
-            de.setSaisieLibre(saisielibre);
-            de.setStatut(statut);
-            de.setClient(client);
-            de.setAgence(ag);
-            em.merge(de);
-        }
-        return de;
-    }
     
     @Override
     public  void modifDevis(DevisNonStandard entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {       
-        String txt = "SELECT entite FROM Devis AS entite WHERE entite.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<DevisNonStandard> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
+        if (entite!=null){
+          
        
             if (date_devis!=null)
         {

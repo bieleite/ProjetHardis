@@ -52,7 +52,6 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
     }
     @Override
     public List<Communication> listCommunication() {
-        List<Communication> co=null;
         String txt="SELECT co FROM Communication AS co ";
         Query req=getEntityManager().createQuery(txt);
         List<Communication> result=req.getResultList();
@@ -60,7 +59,7 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
     }
 
     @Override
-    public Communication rechercheCommunication(Long id) {
+    public Communication rechercheCommunication(long id) {
         Communication co = null;        
         String txt = "SELECT co FROM Communication AS ad WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -119,12 +118,9 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
     
     @Override
     public  void modifCommunication(Communication entite, Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur) {       
-        String txt = "SELECT entite FROM Communication AS entite WHERE entite.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<Communication> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
+       
+        if (entite!=null){
+
        
             if (date_comu!=null)
         {

@@ -48,12 +48,13 @@ public interface DevisFacadeLocal {
     
     List<Devis> listDevis();
 
-    Devis rechercheDevis(Long id);
+    Devis rechercheDevis(long id);
     
     Devis rechercheDevisParClient(Client client);
     
-    void modificDevis(Devis de, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
     
     void modifDevis(Devis entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
+
+    void majFact(Devis Devis, List<Entites.Facture> listeFact);
 
 }

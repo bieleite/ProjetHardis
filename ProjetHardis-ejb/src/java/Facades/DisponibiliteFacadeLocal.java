@@ -44,12 +44,10 @@ public interface DisponibiliteFacadeLocal {
     
     List<Disponibilite> listDisponibilite();
 
-    Disponibilite rechercheDisponibilite(Long id);
+    Disponibilite rechercheDisponibilite(long id);
     
     Disponibilite rechercheDisponibiliteParUtilisateur(UtilisateurHardis utilisateur);
-    
-    Disponibilite modificationDisponibilite(Disponibilite di, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
-    
+       
     void modifDisponibilite(Disponibilite entite, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
 
 

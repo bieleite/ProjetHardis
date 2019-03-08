@@ -40,11 +40,10 @@ public interface AgenceFacadeLocal {
     
     List<Agence> listAgence();
 
-    Agence rechercheAgence(Long id);
+    Agence rechercheAgence(long id);
     
     Agence rechercheAgenceParNom(String NomAgence);
     
-    Agence modfiAgenceNom(Agence adresse, String NomAgence);
     
 
 
