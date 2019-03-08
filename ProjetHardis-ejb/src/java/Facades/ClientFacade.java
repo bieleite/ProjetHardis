@@ -44,6 +44,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         cl.setReponseSecrete(ReponseSecrete);
         cl.setRGPD(RGPD);
         cl.setDateRGPD(dateRDGP);
+        cl.setVisible(true);
         em.persist(cl);
     }
     
@@ -99,58 +100,64 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     }
     
      @Override
-    public  Client modfiClientNomPrenom(Client client, String Nom, String Prenom) {
-        Client cl = null;        
-        String txt = "SELECT cl FROM Client AS cl WHERE cl.codePostal=:CP ";
+    public  Client modfiClientNomPrenom(Client cl, String Nom, String Prenom) {
+                
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("CP", Nom);
+        req = req.setParameter("id", cl.getId());
         List<Client> res = req.getResultList();
         if (res.size() >= 1)
         {
-              cl = (Client) res.get(0);
+            cl.setNom(Nom);
+            cl.setPrenom(Prenom);
+            em.merge(cl);
         }
         return cl;
     }
     
     @Override
-    public  Client modfiClientVille(Client adresse, String Ville) {
-        Client cl = null;        
-        String txt = "SELECT cl FROM Client AS cl WHERE cl.Ville=:ville ";
+    public  Client modfiClientMDP(Client cl, String MDP) {
+                
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("ville", Ville);
+        req = req.setParameter("id", cl.getId());
         List<Client> res = req.getResultList();
         if (res.size() >= 1)
         {
-              cl = (Client) res.get(0);
+            cl.setMdp(MDP);
+            em.merge(cl);
         }
         return cl;
     }
     
     @Override
-    public  Client modfiClientNumRue(Client adresse, int NumRue) {
-        Client cl = null;        
-        String txt = "SELECT cl FROM Client AS cl WHERE cl.NumRue=:numrue ";
+    public  Client modfiClientQSRS(Client cl, String QS, String RS) {
+              
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("numrue", NumRue);
+        req = req.setParameter("id", cl.getId());
         List<Client> res = req.getResultList();
         if (res.size() >= 1)
         {
-              cl = (Client) res.get(0);
+            cl.setMdp(RS);
+            em.merge(cl);
         }
         return cl;
     }
     
     @Override
-    public  Client modfiClientNomRue(Client clresse, String NomRue) {
-        Client cl = null;        
-        String txt = "SELECT cl FROM Client AS cl WHERE cl.NomRue=:nomrue ";
+    public  Client SuppressionClient(Client cl) {
+              
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("nomrue", NomRue);
+        req = req.setParameter("id", cl.getId());
         List<Client> res = req.getResultList();
         if (res.size() >= 1)
         {
-              cl = (Client) res.get(0);
+            cl.setVisible(false);
+            em.merge(cl);
         }
         return cl;
     }
+   
 }

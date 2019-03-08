@@ -28,6 +28,26 @@ import javax.persistence.Temporal;
     (strategy=InheritanceType.TABLE_PER_CLASS)
 public class Utilisateur implements Serializable {
 
+    private boolean Visible;
+
+    /**
+     * Get the value of Visible
+     *
+     * @return the value of Visible
+     */
+    public boolean isVisible() {
+        return Visible;
+    }
+
+    /**
+     * Set the value of Visible
+     *
+     * @param Visible new value of Visible
+     */
+    public void setVisible(boolean Visible) {
+        this.Visible = Visible;
+    }
+
     @OneToMany(mappedBy = "utilisateur")
     private List<Logs> logss;
 

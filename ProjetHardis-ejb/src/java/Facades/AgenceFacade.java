@@ -71,15 +71,16 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
     }
     
      @Override
-    public  Agence modfiAgenceNom(Agence adresse, String NomAgence) {
-        Agence ag = null;        
-        String txt = "SELECT ag FROM Agence AS ag WHERE ag.NomAgence=:nomagence ";
+    public  Agence modfiAgenceNom(Agence ag, String NomAgence) {
+             
+        String txt = "SELECT ad FROM Agence AS ad WHERE ad.id=:id";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("nomagence", NomAgence);
+        req = req.setParameter("id", ag.getId());
         List<Agence> res = req.getResultList();
         if (res.size() >= 1)
         {
-              ag = (Agence) res.get(0);
+            ag.setNomAgence(NomAgence);
+            em.merge(ag);
         }
         return ag;
     }

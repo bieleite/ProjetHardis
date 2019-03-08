@@ -71,17 +71,18 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
     }
     
      @Override
-    public  Atelier modfiAtelierNom(Atelier adresse, String NomAtelier) {
-        Atelier ag = null;        
-        String txt = "SELECT ag FROM Atelier AS ag WHERE ag.NomAtelier=:nomatelier ";
+    public  Atelier modifAtelierNom(Atelier at, String NomAtelier) {
+               
+        String txt = "SELECT ad FROM Atelier AS ad WHERE ad.id=:id";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("nomatelier", NomAtelier);
+        req = req.setParameter("id", at.getId());
         List<Atelier> res = req.getResultList();
         if (res.size() >= 1)
         {
-              ag = (Atelier) res.get(0);
+            at.setNomAtelier(NomAtelier);
+            em.merge(at);
         }
-        return ag;
+        return at;
     }
     
     public AtelierFacade() {

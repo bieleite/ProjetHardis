@@ -44,10 +44,11 @@ public interface ClientFacadeLocal {
     
     Client modfiClientNomPrenom(Client client, String Nom, String Prenom);
     
-    Client modfiClientNomRue(Client adresse, String NomRue);
+    Client modfiClientMDP(Client cl, String MDP);
     
-    Client modfiClientNumRue(Client adresse, int NumRue);
+    Client modfiClientQSRS(Client cl, String QS, String RS);
     
-    Client modfiClientVille(Client adresse, String ville);
+    Client SuppressionClient(Client cl);
+    
     
 }

@@ -38,6 +38,6 @@ public interface AtelierFacadeLocal {
     
     Atelier rechercheAtelierParNom(String NomAtelier);
     
-    Atelier modfiAtelierNom(Atelier adresse, String NomAtelier);
+    Atelier modifAtelierNom(Atelier adresse, String NomAtelier);
     
 }

@@ -6,6 +6,9 @@
 package Facades;
 
 import Entites.Communication;
+import Entites.Devis;
+import Entites.UtilisateurHardis;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,4 +33,15 @@ public interface CommunicationFacadeLocal {
 
     int count();
     
+    void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur );
+    
+    List<Communication> listCommunication();
+
+    Communication rechercheCommunication(Long id);
+    
+    Communication rechercheCommunicationParNom(String NomCommunication);
+    
+    Communication modifCommunicationQR(Communication co, String Typeqr);
+    
+    Communication modifCommunicationNom(Communication co, int delai);
 }
