@@ -116,6 +116,35 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         }
         return co;
     }
+    
+    @Override
+    public  void modifCommunication(Communication entite, Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur) {       
+        String txt = "SELECT entite FROM Communication AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<Communication> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (date_comu!=null)
+        {
+            entite.setDateHeure(date_comu);
+        }
+            if (!"".equals(message))
+        {
+            entite.setMessage(message);
+        }
+            if (devis!=null)
+        {
+            entite.setDevis(devis);
+        }
+            if (utilisateur!=null)
+        {
+            entite.setUtilisateurHardis(utilisateur);
+        }
+            em.merge(entite);
+        }
+    }
 
 
     public CommunicationFacade() {

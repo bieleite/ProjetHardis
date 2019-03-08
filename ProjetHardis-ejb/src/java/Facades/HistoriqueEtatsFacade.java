@@ -104,7 +104,7 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
     }
     
      @Override
-    public  HistoriqueEtats modifHistoriqueEtats(HistoriqueEtats he, Date datemaj, Statut statut, Devis devis, Service service) {
+    public  HistoriqueEtats modificationHistoriqueEtats(HistoriqueEtats he, Date datemaj, Statut statut, Devis devis, Service service) {
                
         String txt = "SELECT hd FROM HistoriqueEtats AS hd WHERE hd.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -121,6 +121,35 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
         return he;
     }
     
+    @Override
+    public  void modifHistoriqueEtats(HistoriqueEtats entite,Date datemaj, Statut statut, Devis devis, Service service) {       
+        String txt = "SELECT entite FROM HistoriqueEtats AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<HistoriqueEtats> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (datemaj!=null)
+        {
+            entite.setDateMAJ(datemaj);
+        }
+            if (statut!=null)
+        {
+            entite.setStatut(statut);
+        }
+            if (devis!=null)
+        {
+            entite.setDevis(devis);
+        }
+            if (service!=null)
+        {
+            entite.setService(service);
+        }
+            
+            em.merge(entite);
+        }
+    }
 
 
     public HistoriqueEtatsFacade() {

@@ -43,8 +43,6 @@ public interface AtelierFacadeLocal {
     
     Atelier rechercheAtelierParNom(String NomAtelier);
     
-    Atelier modifAtelierNom(Atelier adresse, String NomAtelier);
-    
-
+    void modifAtelier(Atelier entite, String NomAtelier);
 
 }

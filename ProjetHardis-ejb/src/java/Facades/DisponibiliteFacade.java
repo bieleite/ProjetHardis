@@ -87,7 +87,7 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
     }
     
      @Override
-    public  Disponibilite modifDisponibilite(Disponibilite di, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur) {
+    public  Disponibilite modificationDisponibilite(Disponibilite di, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur) {
                
         String txt = "SELECT co FROM Disponibilite AS co WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -104,7 +104,35 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
         return di;
     }
     
-
+    @Override
+    public  void modifDisponibilite(Disponibilite entite, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur) {       
+        String txt = "SELECT entite FROM Disponibilite AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<Disponibilite> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (dateDebut!=null)
+        {
+            entite.setDateDebut(dateDebut);
+        }
+            if (dateFin!=null)
+        {
+            entite.setDateFin(dateFin);
+        }
+            if (!"".equals(libelle))
+        {
+            entite.setLibelleActivite(libelle);
+        }
+            if (utilisateur!=null)
+        {
+            entite.setUtilisateurHardis(utilisateur);
+        }
+            
+            em.merge(entite);
+        }
+    }
 
     public DisponibiliteFacade() {
         super(Disponibilite.class);

@@ -53,9 +53,9 @@ public interface HistoriqueEtatsFacadeLocal {
     
     HistoriqueEtats rechercheHistoriqueEtatsParService(Service service);
     
-    HistoriqueEtats modifHistoriqueEtats(HistoriqueEtats he, Date datemaj, Statut statut, Devis devis, Service service);
+    HistoriqueEtats modificationHistoriqueEtats(HistoriqueEtats he, Date datemaj, Statut statut, Devis devis, Service service);
     
-    
+    void modifHistoriqueEtats(HistoriqueEtats entite,Date datemaj, Statut statut, Devis devis, Service service);
 
 
 }

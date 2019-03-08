@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entites.Document;
 import Entites.HistoriqueDevis;
 
 import Entites.UtilisateurHardis;
@@ -40,7 +41,7 @@ public interface HistoriqueDevisFacadeLocal {
     int count();
     
 
-    void creerHistoriqueDevis( Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur);
+    void creerHistoriqueDevis( Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc);
     
     List<HistoriqueDevis> listHistoriqueDevis();
     
@@ -48,8 +49,9 @@ public interface HistoriqueDevisFacadeLocal {
     
     HistoriqueDevis rechercheHistoriqueDevisParUtilisateur(UtilisateurHardis utilisateur);
     
-    HistoriqueDevis modifHistoriqueDevis(HistoriqueDevis hd, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur);
-    
+    HistoriqueDevis modificationHistoriqueDevis(HistoriqueDevis hd, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur);
+        
+    void modifHistoriqueDevis(HistoriqueDevis entite, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc);
 
 
 }

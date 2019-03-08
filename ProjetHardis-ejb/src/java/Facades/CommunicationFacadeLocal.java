@@ -40,6 +40,7 @@ public interface CommunicationFacadeLocal {
 
     int count();
     
+    void modifCommunication(Communication entite, Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur);
 
     void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur );
     

@@ -39,6 +39,7 @@ public interface ClientFacadeLocal {
 
     int count();
     
+    void modifClient(Client entite, String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise);
 
     void creerClient(String Nom,String Prenom, String Login,String MDP,String QuestionSecrete, String ReponseSecrete,int RGPD, Date RDGP, Entreprise entreprise);
     
@@ -50,13 +51,13 @@ public interface ClientFacadeLocal {
     
     Client rechercheClientParLogin(String nom);
     
-    Client modfiClientNomPrenom(Client client, String Nom, String Prenom);
+    void modfiClientNomPrenom(Client client, String Nom, String Prenom);
     
-    Client modfiClientMDP(Client cl, String MDP);
+    void modfiClientMDP(Client cl, String MDP);
     
-    Client modfiClientQSRS(Client cl, String QS, String RS);
+    void modfiClientQSRS(Client cl, String QS, String RS);
     
-    Client SuppressionClient(Client cl);
+    void SuppressionClient(Client cl);
     
     
 

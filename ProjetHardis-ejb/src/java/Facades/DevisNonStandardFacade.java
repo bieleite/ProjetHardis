@@ -118,7 +118,54 @@ public class DevisNonStandardFacade extends AbstractFacade<DevisNonStandard> imp
         return de;
     }
     
-
+    @Override
+    public  void modifDevis(DevisNonStandard entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {       
+        String txt = "SELECT entite FROM Devis AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<DevisNonStandard> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (date_devis!=null)
+        {
+            entite.setDateDevis(date_devis);
+        }
+            if (date_intev_souh!=null)
+        {
+            entite.setDateIntervSouhaitee(date_intev_souh);
+        }
+            if (facturation!=null)
+        {
+            entite.setIndicateurFact(facturation);
+        }
+            if (montantdevis!=0)
+        {
+            entite.setMontantDevis(montantdevis);
+        }
+            if (!"".equals(motifrefus))
+        {
+            entite.setMotifRefus(motifrefus);
+        }
+            if (!"".equals(saisielibre))
+        {
+            entite.setSaisieLibre(saisielibre);
+        }
+            if (statut!=null)
+        {
+            entite.setStatut(statut);
+        }
+            if (client!=null)
+        {
+            entite.setClient(client);
+        }  
+            if (ag!=null)
+        {
+            entite.setAgence(ag);
+        }
+            em.merge(entite);
+        }
+    }
 
     public DevisNonStandardFacade() {
         super(DevisNonStandard.class);

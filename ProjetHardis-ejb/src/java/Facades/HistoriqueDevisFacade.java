@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entites.Document;
 import Entites.HistoriqueDevis;
 
 import Entites.UtilisateurHardis;
@@ -41,12 +42,13 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
 
 
     @Override
-    public void creerHistoriqueDevis( Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur) {
+    public void creerHistoriqueDevis( Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur, List<Document> doc) {
         HistoriqueDevis hd = new HistoriqueDevis();
         hd.setDateDebut(datedebut);
         hd.setDateFin(datefin);
         hd.setNumPropo(numpropo);
         hd.setUtilHardis(utilisateur);
+        hd.setDocuments(doc);
         em.persist(hd);
     }
     @Override
@@ -87,7 +89,7 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
     }
     
      @Override
-    public  HistoriqueDevis modifHistoriqueDevis(HistoriqueDevis hd, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur) {
+    public  HistoriqueDevis modificationHistoriqueDevis(HistoriqueDevis hd, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur) {
                
         String txt = "SELECT hd FROM HistoriqueDevis AS hd WHERE hd.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -104,7 +106,37 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
         return hd;
     }
     
-
+    @Override
+    public  void modifHistoriqueDevis(HistoriqueDevis entite, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc) {       
+        String txt = "SELECT entite FROM HistoriqueDevis AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<HistoriqueDevis> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (datedebut!=null)
+        {
+            entite.setDateDebut(datedebut);
+        }
+            if (datefin!=null)
+        {
+            entite.setDateFin(datefin);
+        }
+            if (numpropo!=0)
+        {
+            entite.setNumPropo(numpropo);
+        }
+            if (utilisateur!=null)
+        {
+            entite.setUtilHardis(utilisateur);
+        }
+            if(!doc.isEmpty()){
+                entite.setDocuments(doc);
+            }
+            em.merge(entite);
+        }
+    }
 
     public HistoriqueDevisFacade() {
         super(HistoriqueDevis.class);

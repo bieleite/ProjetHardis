@@ -85,7 +85,7 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
     }
     
      @Override
-    public  Document modifDocument(Document doc, String descriptif, String liendoc, HistoriqueDevis historiquedevis) {
+    public  Document modificationDocument(Document doc, String descriptif, String liendoc, HistoriqueDevis historiquedevis) {
                
         String txt = "SELECT doc FROM Document AS doc WHERE doc.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -101,7 +101,31 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
         return doc;
     }
     
-
+    @Override
+    public  void modifDocument(Document entite, String descriptif, String liendoc, HistoriqueDevis historiquedevis) {       
+        String txt = "SELECT entite FROM Document AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<Document> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (!"".equals(descriptif))
+        {
+            entite.setDescriptif(descriptif);
+        }
+            if (!"".equals(liendoc))
+        {
+            entite.setLienDoc(liendoc);
+        }
+            if (historiquedevis!=null)
+        {
+            entite.setHistoDevis(historiquedevis);
+        }
+            
+            em.merge(entite);
+        }
+    }
 
     public DocumentFacade() {
         super(Document.class);

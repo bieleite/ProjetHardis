@@ -96,7 +96,22 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
         return ag;
     }
     
-    
+    @Override
+    public  void modifAgence(Agence entite, String NomAgence) {       
+        String txt = "SELECT ad FROM Agence AS ad WHERE ad.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<Agence> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (!"".equals(NomAgence))
+        {
+            entite.setNomAgence(NomAgence);
+        }
+            em.merge(entite);
+        }
+    }
 
 
     public AgenceFacade() {

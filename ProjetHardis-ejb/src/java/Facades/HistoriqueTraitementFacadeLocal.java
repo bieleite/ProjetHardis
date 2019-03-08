@@ -57,7 +57,7 @@ public interface HistoriqueTraitementFacadeLocal {
     
     HistoriqueTraitement rechercheHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis utilisateurCourant);
     
-    HistoriqueTraitement modifHistoriqueTraitement(HistoriqueTraitement ht, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur);
+    HistoriqueTraitement modificationHistoriqueTraitement(HistoriqueTraitement ht, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur);
 
-
+    void modifHistoriqueTraitement(HistoriqueTraitement entite, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur);
 }

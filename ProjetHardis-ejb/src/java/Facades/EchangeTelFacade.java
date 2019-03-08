@@ -87,7 +87,7 @@ public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements Echa
     }
     
      @Override
-    public  EchangeTel modifEchangeTel(EchangeTel et, String text, Devis devis, UtilisateurHardis interlocuteur) {
+    public  EchangeTel modificationEchangeTel(EchangeTel et, String text, Devis devis, UtilisateurHardis interlocuteur) {
                
         String txt = "SELECT et FROM EchangeTel AS et WHERE et.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -103,7 +103,30 @@ public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements Echa
         return et;
     }
 
-
+    @Override
+    public  void modifEchangeTel(EchangeTel entite, String text, Devis devis, UtilisateurHardis interlocuteur) {       
+        String txt = "SELECT entite FROM EchangeTel AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<EchangeTel> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (!"".equals(text))
+        {
+            entite.setTexte(text);
+        }
+            if (devis!=null)
+        {
+            entite.setDevis(devis);
+        }
+            if (interlocuteur!=null)
+        {
+            entite.setInterlocuteur(interlocuteur);
+        }
+            em.merge(entite);
+        }
+    }
 
     public EchangeTelFacade() {
         super(EchangeTel.class);

@@ -42,13 +42,15 @@ public interface AdresseFacadeLocal {
     
     Adresse rechercheAdresseParCP(String cp);
     
-    Adresse modfiAdresseCP(Adresse adresse, String cp);
+    void modifAdresse(Adresse ad, int NumRue, String NomRue, String Ville, String CodePostal);
     
-    Adresse modfiAdresseNomRue(Adresse adresse, String NomRue);
+    void modfiAdresseCP(Adresse adresse, String cp);
     
-    Adresse modfiAdresseNumRue(Adresse adresse, int NumRue);
+    void modfiAdresseNomRue(Adresse adresse, String NomRue);
     
-    Adresse modfiAdresseVille(Adresse adresse, String ville);
+    void modfiAdresseNumRue(Adresse adresse, int NumRue);
+    
+    void modfiAdresseVille(Adresse adresse, String ville);
     
     
 

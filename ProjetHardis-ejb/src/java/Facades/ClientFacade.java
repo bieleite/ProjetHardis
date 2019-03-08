@@ -111,7 +111,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     }
     
      @Override
-    public  Client modfiClientNomPrenom(Client cl, String Nom, String Prenom) {
+    public  void modfiClientNomPrenom(Client cl, String Nom, String Prenom) {
                 
         String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
@@ -123,11 +123,11 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             cl.setPrenom(Prenom);
             em.merge(cl);
         }
-        return cl;
+        
     }
     
     @Override
-    public  Client modfiClientMDP(Client cl, String MDP) {
+    public  void modfiClientMDP(Client cl, String MDP) {
                 
         String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
@@ -138,11 +138,11 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             cl.setMdp(MDP);
             em.merge(cl);
         }
-        return cl;
+        
     }
     
     @Override
-    public  Client modfiClientQSRS(Client cl, String QS, String RS) {
+    public  void modfiClientQSRS(Client cl, String QS, String RS) {
               
         String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
@@ -153,11 +153,11 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             cl.setMdp(RS);
             em.merge(cl);
         }
-        return cl;
+        
     }
     
     @Override
-    public  Client SuppressionClient(Client cl) {
+    public  void SuppressionClient(Client cl) {
               
         String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
@@ -168,9 +168,57 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             cl.setVisible(false);
             em.merge(cl);
         }
-        return cl;
+        
     }
    
-
+    @Override
+    public  void modifClient(Client entite, String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise) {       
+        String txt = "SELECT entite FROM Client AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<Client> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (!"".equals(Nom))
+        {
+            entite.setNom(Nom);
+        }
+            if (!"".equals(Prenom))
+        {
+            entite.setPrenom(Prenom);
+        }
+            if (!"".equals(Login))
+        {
+            entite.setLogin(Login);
+        }
+            if (!"".equals(MDP))
+        {
+            entite.setMdp(MDP);
+        }
+            if (!"".equals(QuestionSecrete))
+        {
+            entite.setQuestionSecrete(QuestionSecrete);
+        }
+            if (!"".equals(ReponseSecrete))
+        {
+            entite.setReponseSecrete(ReponseSecrete);
+        }
+            if (RGPD==0 && RGPD==1)
+        {
+            entite.setRGPD(RGPD);
+        }
+            if (dateRDGP!=null)
+        {
+            entite.setDateRGPD(dateRDGP);
+        }
+            if (entreprise!=null)
+        {
+            entite.setEntreprise(entreprise);
+        }
+            
+            em.merge(entite);
+        }
+    }
 
 }

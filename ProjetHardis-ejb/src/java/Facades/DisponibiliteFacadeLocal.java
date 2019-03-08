@@ -48,9 +48,9 @@ public interface DisponibiliteFacadeLocal {
     
     Disponibilite rechercheDisponibiliteParUtilisateur(UtilisateurHardis utilisateur);
     
-    Disponibilite modifDisponibilite(Disponibilite di, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
+    Disponibilite modificationDisponibilite(Disponibilite di, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
     
-    
+    void modifDisponibilite(Disponibilite entite, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
 
 
 }

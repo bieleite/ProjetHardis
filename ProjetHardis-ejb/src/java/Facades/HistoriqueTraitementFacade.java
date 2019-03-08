@@ -135,7 +135,7 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
     }
     
      @Override
-    public  HistoriqueTraitement modifHistoriqueTraitement(HistoriqueTraitement ht, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur) {
+    public  HistoriqueTraitement modificationHistoriqueTraitement(HistoriqueTraitement ht, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur) {
                
         String txt = "SELECT ht FROM HistoriqueTraitement AS ht WHERE ht.id=:id";
         Query req = getEntityManager().createQuery(txt);
@@ -155,6 +155,46 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
         return ht;
     }
     
+    @Override
+    public  void modifHistoriqueTraitement(HistoriqueTraitement entite, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur) {       
+        String txt = "SELECT entite FROM HistoriqueTraitement AS entite WHERE entite.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", entite.getId());
+        List<HistoriqueTraitement> liste = req.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0);
+       
+            if (datedebut!=null)
+        {
+            entite.setDateDebut(datedebut);
+        }
+            if (datefin!=null)
+        {
+            entite.setDateFin(datefin);
+        }
+            if (utilisateurcourant!=null)
+        {
+            entite.setUtilisateurCourant(utilisateurcourant);
+        }
+            if (devis!=null)
+        {
+            entite.setDevis(devis);
+        }
+            if (consultant!=null)
+        {
+            entite.setConsultant(consultant);
+        }
+            if (reflocal!=null)
+        {
+            entite.setRefLocal(reflocal);
+        }
+            if (validateur!=null)
+        {
+            entite.setValidateur(validateur);
+        }
+            em.merge(entite);
+        }
+    }
 
 
     public HistoriqueTraitementFacade() {

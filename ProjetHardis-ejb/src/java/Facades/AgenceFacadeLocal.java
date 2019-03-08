@@ -34,6 +34,7 @@ public interface AgenceFacadeLocal {
 
     int count();
     
+    void modifAgence(Agence entite, String NomAgence);
 
     void creerAgence(String NomAgence);
     
