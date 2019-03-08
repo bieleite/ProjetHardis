@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entités;
+package Entites;
 
 import java.io.Serializable;
 import java.util.List;
@@ -159,26 +159,7 @@ public class ServiceStandard extends Service implements Serializable {
         this.nbreHeuresSupportTel = nbreHeuresSupportTel;
     }
 
-        private String descriptionPresta;
-
-    /**
-     * Get the value of descriptionPresta
-     *
-     * @return the value of descriptionPresta
-     */
-    public String getDescriptionPresta() {
-        return descriptionPresta;
-    }
-
-    /**
-     * Set the value of descriptionPresta
-     *
-     * @param descriptionPresta new value of descriptionPresta
-     */
-    public void setDescriptionPresta(String descriptionPresta) {
-        this.descriptionPresta = descriptionPresta;
-    }
-
+     
 
 
     @Override

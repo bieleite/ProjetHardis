@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entités;
+package Entites;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -13,15 +14,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
-import sun.security.provider.MD5;
 
 /**
  *
  * @author anastasia.salari
  */
 @Entity
+ @Inheritance
+(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Utilisateur implements Serializable {
 
     @OneToMany(mappedBy = "utilisateur")
@@ -101,15 +105,14 @@ public class Utilisateur implements Serializable {
         this.login = login;
     }
 
-    
-        private MD5 mdp;
+    private String mdp;
 
     /**
      * Get the value of mdp
      *
      * @return the value of mdp
      */
-    public MD5 getMdp() {
+    public String getMdp() {
         return mdp;
     }
 
@@ -118,12 +121,13 @@ public class Utilisateur implements Serializable {
      *
      * @param mdp new value of mdp
      */
-    public void setMdp(MD5 mdp) {
+    public void setMdp(String mdp) {
         this.mdp = mdp;
     }
+
+   
     
-    
-        private String questionSecrete;
+    private String questionSecrete;
 
     /**
      * Get the value of questionSecrete
@@ -144,14 +148,14 @@ public class Utilisateur implements Serializable {
     }
 
     
-        private MD5 reponseSecrete;
+        private String reponseSecrete;
 
     /**
      * Get the value of reponseSecrete
      *
      * @return the value of reponseSecrete
      */
-    public MD5 getReponseSecrete() {
+    public String getReponseSecrete() {
         return reponseSecrete;
     }
 
@@ -160,14 +164,33 @@ public class Utilisateur implements Serializable {
      *
      * @param reponseSecrete new value of reponseSecrete
      */
-    public void setReponseSecrete(MD5 reponseSecrete) {
+    public void setReponseSecrete(String reponseSecrete) {
         this.reponseSecrete = reponseSecrete;
     }
     
     
-    
+        private boolean visible;
 
-    
+    /**
+     * Get the value of visible
+     *
+     * @return the value of visible
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * Set the value of visible
+     *
+     * @param visible new value of visible
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+
+    @Column(nullable = true)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
         private Date dateRGPD;
 

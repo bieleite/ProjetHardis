@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entités;
+package Entites;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -19,6 +21,7 @@ import javax.persistence.OneToOne;
  * @author anastasia.salari
  */
 @Entity
+
 public class UtilisateurHardis extends Utilisateur implements Serializable {
 
     @OneToMany(mappedBy = "interlocuteur")
@@ -40,13 +43,6 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
         this.historiqueTraitement = historiqueTraitement;
     }
 
-    public Devis getDevis() {
-        return devis;
-    }
-
-    public void setDevis(Devis devis) {
-        this.devis = devis;
-    }
 
     public List<HistoriqueDevis> getHistoriqueDeviss() {
         return historiqueDeviss;
@@ -64,11 +60,11 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
         this.communications = communications;
     }
 
-    public List<Offre_Profil_Util> getOffre_Profil_Utils() {
+    public List<Offre_Profil_Util_CV> getOffre_Profil_Utils() {
         return offre_Profil_Utils;
     }
 
-    public void setOffre_Profil_Utils(List<Offre_Profil_Util> offre_Profil_Utils) {
+    public void setOffre_Profil_Utils(List<Offre_Profil_Util_CV> offre_Profil_Utils) {
         this.offre_Profil_Utils = offre_Profil_Utils;
     }
     
@@ -78,8 +74,6 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
     @OneToOne(mappedBy = "refLocal")
     private HistoriqueTraitement historiqueTraitement;
 
-    @OneToOne(mappedBy = "refLocal")
-    private Devis devis;
 
     @OneToMany(mappedBy = "utilHardis")
     private List<HistoriqueDevis> historiqueDeviss;
@@ -88,7 +82,7 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
     private List<Communication> communications;
 
     @OneToMany(mappedBy = "utilisateur")
-    private List<Offre_Profil_Util> offre_Profil_Utils;
+    private List<Offre_Profil_Util_CV> offre_Profil_Utils;
 
 
     private String lienCVDefaut;

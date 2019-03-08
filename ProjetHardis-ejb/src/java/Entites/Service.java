@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entités;
+package Entites;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -19,15 +21,22 @@ import javax.persistence.OneToOne;
  * @author anastasia.salari
  */
 @Entity
+ @Inheritance
+(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Service implements Serializable {
 
     @OneToMany(mappedBy = "service")
     private List<HistoriqueEtats> historiqueEtatss;
 
-    @OneToOne(mappedBy = "service")
-    private Devis devis;
+    public List<HistoriqueEtats> getHistoriqueEtatss() {
+        return historiqueEtatss;
+    }
 
-    
+    public void setHistoriqueEtatss(List<HistoriqueEtats> historiqueEtatss) {
+        this.historiqueEtatss = historiqueEtatss;
+    }
+
+   
     
     private static final long serialVersionUID = 1L;
     
