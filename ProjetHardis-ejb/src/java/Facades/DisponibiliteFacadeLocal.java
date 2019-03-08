@@ -6,6 +6,8 @@
 package Facades;
 
 import Entites.Disponibilite;
+import Entites.UtilisateurHardis;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,15 +32,15 @@ public interface DisponibiliteFacadeLocal {
 
     int count();
     
-    void creerDisponibilite( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence agence);
+    void creerDisponibilite( Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
     
     List<Disponibilite> listDisponibilite();
 
     Disponibilite rechercheDisponibilite(Long id);
     
-    Disponibilite rechercheDisponibiliteParClient(Client client);
+    Disponibilite rechercheDisponibiliteParUtilisateur(UtilisateurHardis utilisateur);
     
-    Disponibilite modifDisponibilite(Disponibilite de, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
+    Disponibilite modifDisponibilite(Disponibilite di, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
     
     
 }

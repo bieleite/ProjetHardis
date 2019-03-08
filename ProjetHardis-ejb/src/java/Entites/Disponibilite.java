@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -85,7 +86,27 @@ public class Disponibilite implements Serializable {
         this.dateDebut = dateDebut;
     }
 
-    
+    @ManyToOne
+        private UtilisateurHardis UtilisateurHardis;
+
+    /**
+     * Get the value of UtilisateurHardis
+     *
+     * @return the value of UtilisateurHardis
+     */
+    public UtilisateurHardis getUtilisateurHardis() {
+        return UtilisateurHardis;
+    }
+
+    /**
+     * Set the value of UtilisateurHardis
+     *
+     * @param UtilisateurHardis new value of UtilisateurHardis
+     */
+    public void setUtilisateurHardis(UtilisateurHardis UtilisateurHardis) {
+        this.UtilisateurHardis = UtilisateurHardis;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

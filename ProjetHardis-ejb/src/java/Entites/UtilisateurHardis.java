@@ -21,6 +21,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class UtilisateurHardis extends Utilisateur implements Serializable {
 
+    @OneToMany(mappedBy = "UtilisateurHardis")
+    private List<Disponibilite> disponibilites;
+
     @OneToMany(mappedBy = "interlocuteur")
     private List<EchangeTel> echangeTels;
 
@@ -182,6 +185,20 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
     @Override
     public String toString() {
         return "Entit\u00e9s.UtilisateurHardis[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the disponibilites
+     */
+    public List<Disponibilite> getDisponibilites() {
+        return disponibilites;
+    }
+
+    /**
+     * @param disponibilites the disponibilites to set
+     */
+    public void setDisponibilites(List<Disponibilite> disponibilites) {
+        this.disponibilites = disponibilites;
     }
     
 }

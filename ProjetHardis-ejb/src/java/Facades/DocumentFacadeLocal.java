@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Document;
+import Entites.HistoriqueDevis;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,17 @@ public interface DocumentFacadeLocal {
     List<Document> findRange(int[] range);
 
     int count();
+    
+    void creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis);
+    
+    List<Document> listDocument();
+
+    Document rechercheDocument(Long id);
+    
+    Document rechercheDocumentParHistorique(HistoriqueDevis historiquedevis);
+    
+    Document modifDocument(Document doc, String descriptif, String liendoc, HistoriqueDevis historiquedevis);
+    
+    
     
 }
