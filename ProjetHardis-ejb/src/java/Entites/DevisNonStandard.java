@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author anastasia.salari
  */
 @Entity
-public class DevisNonStandard implements Serializable {
+public class DevisNonStandard extends Devis implements Serializable {
 
     private static final long serialVersionUID = 1L;
     

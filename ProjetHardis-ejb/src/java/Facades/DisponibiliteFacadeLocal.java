@@ -30,4 +30,15 @@ public interface DisponibiliteFacadeLocal {
 
     int count();
     
+    void creerDisponibilite( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence agence);
+    
+    List<Disponibilite> listDisponibilite();
+
+    Disponibilite rechercheDisponibilite(Long id);
+    
+    Disponibilite rechercheDisponibiliteParClient(Client client);
+    
+    Disponibilite modifDisponibilite(Disponibilite de, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
+    
+    
 }

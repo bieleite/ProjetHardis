@@ -1,14 +1,1 @@
-Thu Mar 07 09:05:42 CET 2019 : Apache Derby Servidor de Rede - 10.10.2.0 - (1582446) iniciado e pronto para aceitar conexões na porta 1527 em {3}
-----------------------------------------------------------------
-Thu Mar 07 11:09:30 CET 2019:
- Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instância a816c00e-0169-572f-9d8d-0000448795d2
-no diretório de banco de dados /Users/gabrielleite/Desktop/ProjetHardis/Hardis/Hardis 
-
-java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_162-b12
-user.dir=/Users/gabrielleite/Downloads/glassfish411/javadb
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.14.3
-derby.system.home=/Users/gabrielleite/Desktop/ProjetHardis/Hardis
-Carregador de classe do banco de dados iniciado - derby.database.classpath=''
+Fri Mar 08 09:12:16 CET 2019 : DRDA_ListenPort.S, <1527>, <localhost>, <java.net.BindException: Address already in use (Bind failed)>
