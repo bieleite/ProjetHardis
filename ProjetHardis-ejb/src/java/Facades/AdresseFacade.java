@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Adresse;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,6 +16,15 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFacadeLocal {
@@ -31,6 +41,7 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
         super(Adresse.class);
     }
     
+
     @Override
     public void creerAdresse(int NumRue, String NomRue, String Ville, String CodePostal) {
         Adresse ad = new Adresse();
@@ -138,4 +149,6 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
     }
     
     
+
+
 }

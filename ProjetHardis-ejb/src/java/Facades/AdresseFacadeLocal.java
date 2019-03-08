@@ -11,7 +11,11 @@ import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface AdresseFacadeLocal {
@@ -47,4 +51,6 @@ public interface AdresseFacadeLocal {
     Adresse modfiAdresseVille(Adresse adresse, String ville);
     
     
+
+
 }

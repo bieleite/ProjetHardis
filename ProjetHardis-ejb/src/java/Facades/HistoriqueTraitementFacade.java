@@ -5,6 +5,7 @@
  */
 package Facades;
 
+
 import Entites.Devis;
 import Entites.HistoriqueTraitement;
 import Entites.TypeUtilisateur;
@@ -19,6 +20,16 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import Entites.HistoriqueTraitement;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitement> implements HistoriqueTraitementFacadeLocal {
@@ -30,6 +41,7 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
     protected EntityManager getEntityManager() {
         return em;
     }
+
 
     @Override
     public void creerHistoriqueTraitement( Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur ) {
@@ -143,6 +155,8 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
         return ht;
     }
     
+
+
     public HistoriqueTraitementFacade() {
         super(HistoriqueTraitement.class);
     }

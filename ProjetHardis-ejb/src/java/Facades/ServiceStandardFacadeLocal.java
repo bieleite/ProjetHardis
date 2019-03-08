@@ -5,9 +5,9 @@
  */
 package Facades;
 
-<<<<<<< HEAD
+
 import Entites.ServiceStandard;
-=======
+
 import Entites.Atelier;
 import Entites.FacturationFrais;
 import Entites.LieuIntervention;
@@ -15,17 +15,17 @@ import Entites.Livrable;
 import Entites.Offre;
 import Entites.ServiceStandard;
 import Entites.TypeService;
->>>>>>> origin/v3
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
-<<<<<<< HEAD
+
  * @author gabrielleite
-=======
+
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Local
 public interface ServiceStandardFacadeLocal {
@@ -43,8 +43,8 @@ public interface ServiceStandardFacadeLocal {
     List<ServiceStandard> findRange(int[] range);
 
     int count();
-<<<<<<< HEAD
-=======
+
+
 
     void creerServiceStandard(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, List<Livrable> livrable, List<Atelier> listeA, float nbHS);
 
@@ -53,6 +53,6 @@ public interface ServiceStandardFacadeLocal {
     void supprimerServiceStandard(ServiceStandard serv);
 
     ServiceStandard rechercheServiceSParId(long id);
->>>>>>> origin/v3
+
     
 }

@@ -21,13 +21,9 @@ import javax.persistence.OneToOne;
  * @author anastasia.salari
  */
 @Entity
-<<<<<<< HEAD
-@Inheritance
-    (strategy=InheritanceType.TABLE_PER_CLASS)
-=======
  @Inheritance
 (strategy=InheritanceType.TABLE_PER_CLASS)
->>>>>>> origin/v3
+
 public class Service implements Serializable {
 
     @OneToMany(mappedBy = "service")

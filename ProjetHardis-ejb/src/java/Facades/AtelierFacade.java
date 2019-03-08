@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Atelier;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,6 +16,15 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFacadeLocal {
@@ -26,6 +36,7 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
     protected EntityManager getEntityManager() {
         return em;
     }
+
 
     @Override
     public void creerAtelier(String NomAtelier) {
@@ -85,6 +96,8 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
         return at;
     }
     
+
+
     public AtelierFacade() {
         super(Atelier.class);
     }

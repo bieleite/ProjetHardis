@@ -24,8 +24,12 @@ import javax.persistence.Temporal;
  * @author anastasia.salari
  */
 @Entity
+
 @Inheritance
     (strategy=InheritanceType.TABLE_PER_CLASS)
+
+
+
 public class Devis implements Serializable {
 
     @OneToMany(mappedBy = "devis")
@@ -221,6 +225,50 @@ public class Devis implements Serializable {
         this.agence = agence;
     }
 
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date dateFinPresta;
+
+    /**
+     * Get the value of dateFinPresta
+     *
+     * @return the value of dateFinPresta
+     */
+    public Date getDateFinPresta() {
+        return dateFinPresta;
+    }
+
+    /**
+     * Set the value of dateFinPresta
+     *
+     * @param dateFinPresta new value of dateFinPresta
+     */
+    public void setDateFinPresta(Date dateFinPresta) {
+        this.dateFinPresta = dateFinPresta;
+    }
+
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+        private Date dateDebutPresta;
+
+    /**
+     * Get the value of dateDebutPresta
+     *
+     * @return the value of dateDebutPresta
+     */
+    public Date getDateDebutPresta() {
+        return dateDebutPresta;
+    }
+
+    /**
+     * Set the value of dateDebutPresta
+     *
+     * @param dateDebutPresta new value of dateDebutPresta
+     */
+    public void setDateDebutPresta(Date dateDebutPresta) {
+        this.dateDebutPresta = dateDebutPresta;
+    }
+
+    
     @Temporal(javax.persistence.TemporalType.DATE)
         private Date dateDevis;
 

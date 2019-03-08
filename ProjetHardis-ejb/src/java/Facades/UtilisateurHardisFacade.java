@@ -5,9 +5,9 @@
  */
 package Facades;
 
-<<<<<<< HEAD
+
 import Entites.UtilisateurHardis;
-=======
+
 import Entites.EchangeTel;
 import Entites.HistoriqueDevis;
 import Entites.HistoriqueTraitement;
@@ -17,18 +17,18 @@ import Entites.Utilisateur;
 import Entites.UtilisateurHardis;
 import java.util.ArrayList;
 import java.util.Date;
->>>>>>> origin/v3
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
-<<<<<<< HEAD
+
  * @author gabrielleite
-=======
+
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Stateless
 public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> implements UtilisateurHardisFacadeLocal {
@@ -44,8 +44,8 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     public UtilisateurHardisFacade() {
         super(UtilisateurHardis.class);
     }
-<<<<<<< HEAD
-=======
+
+
 
     @Override
     public void creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lientCV) {
@@ -73,6 +73,6 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     
     
     
->>>>>>> origin/v3
+
     
 }

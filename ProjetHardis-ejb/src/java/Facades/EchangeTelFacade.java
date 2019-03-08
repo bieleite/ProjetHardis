@@ -5,6 +5,7 @@
  */
 package Facades;
 
+
 import Entites.Devis;
 import Entites.EchangeTel;
 import Entites.UtilisateurHardis;
@@ -17,6 +18,16 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import Entites.EchangeTel;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements EchangeTelFacadeLocal {
@@ -28,6 +39,7 @@ public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements Echa
     protected EntityManager getEntityManager() {
         return em;
     }
+
     
     @Override
     public void creerEchangeTel( String text, Devis devis, UtilisateurHardis interlocuteur) {
@@ -90,6 +102,8 @@ public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements Echa
         }
         return et;
     }
+
+
 
     public EchangeTelFacade() {
         super(EchangeTel.class);

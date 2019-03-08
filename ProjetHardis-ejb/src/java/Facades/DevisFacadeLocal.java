@@ -5,18 +5,26 @@
  */
 package Facades;
 
+
 import Entites.Agence;
 import Entites.Client;
 import Entites.Devis;
 import Entites.Facturation;
 import Entites.Statut;
 import java.util.Date;
+
+import Entites.Devis;
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface DevisFacadeLocal {
@@ -35,6 +43,7 @@ public interface DevisFacadeLocal {
 
     int count();
     
+
     void creerDevis( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence agence);
     
     List<Devis> listDevis();
@@ -45,4 +54,6 @@ public interface DevisFacadeLocal {
     
     Devis modifDevis(Devis de, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
     
+
+
 }

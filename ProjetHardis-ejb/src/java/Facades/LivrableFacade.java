@@ -6,15 +6,18 @@
 package Facades;
 
 import Entites.Livrable;
-<<<<<<< HEAD
+import Entites.Service;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author gabrielleite
-=======
+
 import Entites.Offre;
 import Entites.Service;
 import java.util.List;
@@ -26,7 +29,7 @@ import javax.persistence.Query;
 /**
  *
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Stateless
 public class LivrableFacade extends AbstractFacade<Livrable> implements LivrableFacadeLocal {
@@ -42,8 +45,8 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
     public LivrableFacade() {
         super(Livrable.class);
     }
-<<<<<<< HEAD
-=======
+
+
 
     @Override
     public void creerLivrable(String nom, Service service) {
@@ -88,6 +91,6 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
     
     
     
->>>>>>> origin/v3
+
     
 }

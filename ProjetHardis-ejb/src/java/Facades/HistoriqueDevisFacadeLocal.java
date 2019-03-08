@@ -6,14 +6,21 @@
 package Facades;
 
 import Entites.HistoriqueDevis;
+
 import Entites.UtilisateurHardis;
 import java.util.Date;
+
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface HistoriqueDevisFacadeLocal {
@@ -32,6 +39,7 @@ public interface HistoriqueDevisFacadeLocal {
 
     int count();
     
+
     void creerHistoriqueDevis( Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur);
     
     List<HistoriqueDevis> listHistoriqueDevis();
@@ -42,4 +50,6 @@ public interface HistoriqueDevisFacadeLocal {
     
     HistoriqueDevis modifHistoriqueDevis(HistoriqueDevis hd, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur);
     
+
+
 }

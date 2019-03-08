@@ -5,23 +5,23 @@
  */
 package Facades;
 
-<<<<<<< HEAD
-=======
+
+
 import Entites.Expertise;
 import Entites.NiveauHabilitation;
 import Entites.Offre_Profil_Util_CV;
->>>>>>> origin/v3
+
 import Entites.ProfilMetier;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
-<<<<<<< HEAD
+
  * @author gabrielleite
-=======
+
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Local
 public interface ProfilMetierFacadeLocal {
@@ -39,8 +39,8 @@ public interface ProfilMetierFacadeLocal {
     List<ProfilMetier> findRange(int[] range);
 
     int count();
-<<<<<<< HEAD
-=======
+
+
 
     void creerProfilMetier(NiveauHabilitation niveau, Expertise expertise, float plafond, List<Offre_Profil_Util_CV> offre_p_util_cv);
 
@@ -49,6 +49,6 @@ public interface ProfilMetierFacadeLocal {
     void supprimerProfilMetier(long id);
 
     ProfilMetier recherchePMParId(long id);
->>>>>>> origin/v3
+
     
 }

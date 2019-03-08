@@ -6,7 +6,9 @@
 package Facades;
 
 import Entites.Offre;
-<<<<<<< HEAD
+import Entites.Offre_Profil_Util_CV;
+import java.util.List;
+import javax.persistence.Query;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +16,7 @@ import javax.persistence.PersistenceContext;
 /**
  *
  * @author gabrielleite
-=======
+
 import Entites.Offre_Profil_Util_CV;
 import Entites.ProfilMetier;
 import Entites.Service;
@@ -27,7 +29,7 @@ import javax.persistence.Query;
 /**
  *
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Stateless
 public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLocal {
@@ -43,8 +45,8 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
     public OffreFacade() {
         super(Offre.class);
     }
-<<<<<<< HEAD
-=======
+
+
 
     @Override
     public void creerOffre(String lib, List<Offre_Profil_Util_CV> liste) {
@@ -100,6 +102,6 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
     
     
    
->>>>>>> origin/v3
+
     
 }

@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Document;
+
 import Entites.HistoriqueDevis;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -16,6 +17,15 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class DocumentFacade extends AbstractFacade<Document> implements DocumentFacadeLocal {
@@ -27,6 +37,7 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
     protected EntityManager getEntityManager() {
         return em;
     }
+
 
     @Override
     public void creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis) {
@@ -90,6 +101,8 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
         return doc;
     }
     
+
+
     public DocumentFacade() {
         super(Document.class);
     }

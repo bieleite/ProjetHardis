@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Disponibilite;
+
 import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,15 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implements DisponibiliteFacadeLocal {
@@ -28,6 +38,7 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
     protected EntityManager getEntityManager() {
         return em;
     }
+
 
     @Override
     public void creerDisponibilite( Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur) {
@@ -93,6 +104,8 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
         return di;
     }
     
+
+
     public DisponibiliteFacade() {
         super(Disponibilite.class);
     }

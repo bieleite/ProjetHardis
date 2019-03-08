@@ -565,9 +565,9 @@ exists or setup the property manually. For example like this:
         <ear2:debug-appclient subprojectname="${app.client}"/>
     </target>
     <!--
-    =================
+    ===
     PROFILING SECTION
-    =================
+    ===
     -->
     <!--
         pre NB7.2 profiling section; consider it deprecated

@@ -5,15 +5,23 @@
  */
 package Facades;
 
+
 import Entites.Devis;
 import Entites.EchangeTel;
 import Entites.UtilisateurHardis;
+
+import Entites.EchangeTel;
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface EchangeTelFacadeLocal {
@@ -32,6 +40,7 @@ public interface EchangeTelFacadeLocal {
 
     int count();
     
+
     void creerEchangeTel( String text, Devis devis, UtilisateurHardis interlocuteur);
     
     List<EchangeTel> listEchangeTel();
@@ -42,4 +51,6 @@ public interface EchangeTelFacadeLocal {
     
     EchangeTel modifEchangeTel(EchangeTel et, String text, Devis devis, UtilisateurHardis interlocuteur);
     
+
+
 }

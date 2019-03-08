@@ -18,44 +18,24 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/v3
+
+
+
 
 /**
  *
  * @author anastasia.salari
  */
 @Entity
-<<<<<<< HEAD
+
 @Inheritance
     (strategy=InheritanceType.TABLE_PER_CLASS)
-=======
- @Inheritance
-(strategy=InheritanceType.TABLE_PER_CLASS)
->>>>>>> origin/v3
+
+
+
 public class Utilisateur implements Serializable {
 
-    private boolean Visible;
-
-    /**
-     * Get the value of Visible
-     *
-     * @return the value of Visible
-     */
-    public boolean isVisible() {
-        return Visible;
-    }
-
-    /**
-     * Set the value of Visible
-     *
-     * @param Visible new value of Visible
-     */
-    public void setVisible(boolean Visible) {
-        this.Visible = Visible;
-    }
 
     @OneToMany(mappedBy = "utilisateur")
     private List<Logs> logss;
@@ -134,12 +114,11 @@ public class Utilisateur implements Serializable {
         this.login = login;
     }
 
-<<<<<<< HEAD
-    
-        private String mdp;
-=======
+
+
+
     private String mdp;
->>>>>>> origin/v3
+
 
     /**
      * Get the value of mdp
@@ -203,7 +182,7 @@ public class Utilisateur implements Serializable {
     }
     
     
-        private boolean visible;
+    private boolean visible;
 
     /**
      * Get the value of visible

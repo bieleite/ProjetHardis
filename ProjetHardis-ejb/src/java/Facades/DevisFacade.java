@@ -5,6 +5,7 @@
  */
 package Facades;
 
+
 import Entites.Agence;
 import Entites.Client;
 import Entites.Devis;
@@ -20,6 +21,16 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import Entites.Devis;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLocal {
@@ -31,6 +42,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     protected EntityManager getEntityManager() {
         return em;
     }
+
     
     @Override
     public void creerDevis( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {
@@ -106,6 +118,9 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         return de;
     }
     
+
+
+
     public DevisFacade() {
         super(Devis.class);
     }

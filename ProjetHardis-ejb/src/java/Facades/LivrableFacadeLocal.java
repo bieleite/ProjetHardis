@@ -6,20 +6,20 @@
 package Facades;
 
 import Entites.Livrable;
-<<<<<<< HEAD
-=======
+
+
 import Entites.Service;
->>>>>>> origin/v3
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
-<<<<<<< HEAD
+
  * @author gabrielleite
-=======
+
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Local
 public interface LivrableFacadeLocal {
@@ -37,12 +37,12 @@ public interface LivrableFacadeLocal {
     List<Livrable> findRange(int[] range);
 
     int count();
-<<<<<<< HEAD
-=======
+
+    void supprimerLivrable(long id);
 
     void creerLivrable(String nom, Service service);
 
     void modifierLivrable(Livrable liv, String nom, Service service);
->>>>>>> origin/v3
+
     
 }

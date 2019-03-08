@@ -6,14 +6,21 @@
 package Facades;
 
 import Entites.Client;
+
 import Entites.Entreprise;
 import java.util.Date;
+
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface ClientFacadeLocal {
@@ -32,6 +39,7 @@ public interface ClientFacadeLocal {
 
     int count();
     
+
     void creerClient(String Nom,String Prenom, String Login,String MDP,String QuestionSecrete, String ReponseSecrete,int RGPD, Date RDGP, Entreprise entreprise);
     
     List<Client> listClient();
@@ -51,4 +59,6 @@ public interface ClientFacadeLocal {
     Client SuppressionClient(Client cl);
     
     
+
+
 }

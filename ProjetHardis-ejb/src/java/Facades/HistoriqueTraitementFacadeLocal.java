@@ -5,17 +5,25 @@
  */
 package Facades;
 
+
 import Entites.Devis;
 import Entites.HistoriqueTraitement;
 import Entites.TypeUtilisateur;
 import Entites.UtilisateurHardis;
 import java.util.Date;
+
+import Entites.HistoriqueTraitement;
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface HistoriqueTraitementFacadeLocal {
@@ -34,6 +42,7 @@ public interface HistoriqueTraitementFacadeLocal {
 
     int count();
     
+
     void creerHistoriqueTraitement( Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur );
     
     List<HistoriqueTraitement> listHistoriqueTraitement();
@@ -49,4 +58,6 @@ public interface HistoriqueTraitementFacadeLocal {
     HistoriqueTraitement rechercheHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis utilisateurCourant);
     
     HistoriqueTraitement modifHistoriqueTraitement(HistoriqueTraitement ht, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur);
+
+
 }

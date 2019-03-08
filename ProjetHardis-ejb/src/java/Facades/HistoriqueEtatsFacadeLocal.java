@@ -5,17 +5,25 @@
  */
 package Facades;
 
+
 import Entites.Devis;
 import Entites.HistoriqueEtats;
 import Entites.Service;
 import Entites.Statut;
 import java.util.Date;
+
+import Entites.HistoriqueEtats;
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface HistoriqueEtatsFacadeLocal {
@@ -34,6 +42,7 @@ public interface HistoriqueEtatsFacadeLocal {
 
     int count();
     
+
     void creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis, Service service );
     
     List<HistoriqueEtats> listHistoriqueEtats();
@@ -47,4 +56,6 @@ public interface HistoriqueEtatsFacadeLocal {
     HistoriqueEtats modifHistoriqueEtats(HistoriqueEtats he, Date datemaj, Statut statut, Devis devis, Service service);
     
     
+
+
 }

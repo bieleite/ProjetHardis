@@ -5,16 +5,19 @@
  */
 package Facades;
 
-<<<<<<< HEAD
+
+import Entites.Entreprise;
 import Entites.Interlocuteur;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author gabrielleite
-=======
+
 import Entites.Entreprise;
 import Entites.Interlocuteur;
 import Entites.Livrable;
@@ -27,7 +30,7 @@ import javax.persistence.Query;
 /**
  *
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Stateless
 public class InterlocuteurFacade extends AbstractFacade<Interlocuteur> implements InterlocuteurFacadeLocal {
@@ -43,8 +46,8 @@ public class InterlocuteurFacade extends AbstractFacade<Interlocuteur> implement
     public InterlocuteurFacade() {
         super(Interlocuteur.class);
     }
-<<<<<<< HEAD
-=======
+
+
 
     @Override
     public void creerInterlocuteur(String nom, String prenom, String fonction, String tel, Entreprise entreprise) {
@@ -111,6 +114,6 @@ em.persist(inter);
     
     
     
->>>>>>> origin/v3
+
     
 }

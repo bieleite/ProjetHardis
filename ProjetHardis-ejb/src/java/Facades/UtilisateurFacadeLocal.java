@@ -11,11 +11,11 @@ import javax.ejb.Local;
 
 /**
  *
-<<<<<<< HEAD
+
  * @author gabrielleite
-=======
+
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Local
 public interface UtilisateurFacadeLocal {

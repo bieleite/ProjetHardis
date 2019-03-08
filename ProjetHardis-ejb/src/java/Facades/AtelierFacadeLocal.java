@@ -11,7 +11,11 @@ import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface AtelierFacadeLocal {
@@ -30,6 +34,7 @@ public interface AtelierFacadeLocal {
 
     int count();
     
+
     void creerAtelier(String NomAtelier);
     
     List<Atelier> listAtelier();
@@ -40,4 +45,6 @@ public interface AtelierFacadeLocal {
     
     Atelier modifAtelierNom(Atelier adresse, String NomAtelier);
     
+
+
 }

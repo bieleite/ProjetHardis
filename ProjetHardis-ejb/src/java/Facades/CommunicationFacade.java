@@ -6,7 +6,7 @@
 package Facades;
 
 import Entites.Communication;
-<<<<<<< HEAD
+
 import Entites.Devis;
 import Entites.UtilisateurHardis;
 import java.util.Date;
@@ -19,7 +19,7 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
-=======
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,7 +27,7 @@ import javax.persistence.PersistenceContext;
 /**
  *
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Stateless
 public class CommunicationFacade extends AbstractFacade<Communication> implements CommunicationFacadeLocal {
@@ -40,7 +40,7 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         return em;
     }
 
-<<<<<<< HEAD
+
      @Override
     public void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur ) {
         Communication co = new Communication();
@@ -116,8 +116,8 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         }
         return co;
     }
-=======
->>>>>>> origin/v3
+
+
     public CommunicationFacade() {
         super(Communication.class);
     }

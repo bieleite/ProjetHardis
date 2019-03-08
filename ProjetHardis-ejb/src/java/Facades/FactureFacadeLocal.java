@@ -11,7 +11,11 @@ import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface FactureFacadeLocal {

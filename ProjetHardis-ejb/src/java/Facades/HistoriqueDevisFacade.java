@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.HistoriqueDevis;
+
 import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,15 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> implements HistoriqueDevisFacadeLocal {
@@ -28,6 +38,7 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
     protected EntityManager getEntityManager() {
         return em;
     }
+
 
     @Override
     public void creerHistoriqueDevis( Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur) {
@@ -93,6 +104,8 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
         return hd;
     }
     
+
+
     public HistoriqueDevisFacade() {
         super(HistoriqueDevis.class);
     }

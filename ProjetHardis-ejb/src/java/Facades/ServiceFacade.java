@@ -5,16 +5,8 @@
  */
 package Facades;
 
-<<<<<<< HEAD
-import Entites.Service;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author gabrielleite
-=======
+
 import Entites.FacturationFrais;
 import Entites.HistoriqueEtats;
 import Entites.LieuIntervention;
@@ -30,8 +22,14 @@ import javax.persistence.Query;
 
 /**
  *
+ * @author gabrielleite
+
+
+
+/**
+ *
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Stateless
 public class ServiceFacade extends AbstractFacade<Service> implements ServiceFacadeLocal {
@@ -47,8 +45,8 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
     public ServiceFacade() {
         super(Service.class);
     }
-<<<<<<< HEAD
-=======
+
+
 
     @Override
     public void creerService(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS) {
@@ -150,6 +148,6 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
     
     
     
->>>>>>> origin/v3
+
     
 }

@@ -5,6 +5,7 @@
  */
 package Facades;
 
+
 import Entites.Devis;
 import Entites.HistoriqueEtats;
 import Entites.Service;
@@ -19,6 +20,16 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import Entites.HistoriqueEtats;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> implements HistoriqueEtatsFacadeLocal {
@@ -30,6 +41,7 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
     protected EntityManager getEntityManager() {
         return em;
     }
+
 
     @Override
     public void creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis, Service service ) {
@@ -109,6 +121,8 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
         return he;
     }
     
+
+
     public HistoriqueEtatsFacade() {
         super(HistoriqueEtats.class);
     }

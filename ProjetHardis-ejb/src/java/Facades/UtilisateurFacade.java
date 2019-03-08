@@ -12,11 +12,11 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
-<<<<<<< HEAD
+
  * @author gabrielleite
-=======
+
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Stateless
 public class UtilisateurFacade extends AbstractFacade<Utilisateur> implements UtilisateurFacadeLocal {
@@ -32,8 +32,8 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> implements Ut
     public UtilisateurFacade() {
         super(Utilisateur.class);
     }
-<<<<<<< HEAD
-=======
+
+
 
     
     
@@ -44,6 +44,6 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> implements Ut
     
     
     
->>>>>>> origin/v3
+
     
 }

@@ -5,21 +5,21 @@
  */
 package Facades;
 
-<<<<<<< HEAD
-=======
+
+
 import Entites.Entreprise;
->>>>>>> origin/v3
+
 import Entites.Interlocuteur;
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
-<<<<<<< HEAD
+
  * @author gabrielleite
-=======
+
  * @author anastasia.salari
->>>>>>> origin/v3
+
  */
 @Local
 public interface InterlocuteurFacadeLocal {
@@ -37,12 +37,12 @@ public interface InterlocuteurFacadeLocal {
     List<Interlocuteur> findRange(int[] range);
 
     int count();
-<<<<<<< HEAD
-=======
+
+    Interlocuteur rechercheInterlocuteurParId(long id);
 
     void creerInterlocuteur(String nom, String prenom, String fonction, String tel, Entreprise entreprise);
 
     void modifierInterlocuteur(Interlocuteur inter, String nom, String prenom, String fonction, String tel, Entreprise entreprise);
->>>>>>> origin/v3
-    
+
+    void supprimerInterlocuteur(long id);
 }

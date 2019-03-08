@@ -974,9 +974,9 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,-pre-debug-fix,-do-debug-fix" if="netbeans.home" name="debug-fix"/>
     <!--
-            =================
+            ===
             PROFILING SECTION
-            =================
+            ===
             -->
     <!--
                 pre NB7.2 profiling section; consider it deprecated

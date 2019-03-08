@@ -6,14 +6,21 @@
 package Facades;
 
 import Entites.Disponibilite;
+
 import Entites.UtilisateurHardis;
 import java.util.Date;
+
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface DisponibiliteFacadeLocal {
@@ -32,6 +39,7 @@ public interface DisponibiliteFacadeLocal {
 
     int count();
     
+
     void creerDisponibilite( Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
     
     List<Disponibilite> listDisponibilite();
@@ -43,4 +51,6 @@ public interface DisponibiliteFacadeLocal {
     Disponibilite modifDisponibilite(Disponibilite di, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
     
     
+
+
 }

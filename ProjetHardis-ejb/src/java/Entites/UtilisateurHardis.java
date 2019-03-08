@@ -46,10 +46,7 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
         this.historiqueTraitement = historiqueTraitement;
     }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/v3
     public List<HistoriqueDevis> getHistoriqueDeviss() {
         return historiqueDeviss;
     }

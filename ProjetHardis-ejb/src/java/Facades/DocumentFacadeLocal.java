@@ -6,13 +6,20 @@
 package Facades;
 
 import Entites.Document;
+
 import Entites.HistoriqueDevis;
+
+
 import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
+
  * @author gabrielleite
+
+ * @author anastasia.salari
+
  */
 @Local
 public interface DocumentFacadeLocal {
@@ -31,6 +38,7 @@ public interface DocumentFacadeLocal {
 
     int count();
     
+
     void creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis);
     
     List<Document> listDocument();
@@ -43,4 +51,6 @@ public interface DocumentFacadeLocal {
     
     
     
+
+
 }

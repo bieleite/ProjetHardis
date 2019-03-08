@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Client;
+
 import Entites.Entreprise;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,15 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class ClientFacade extends AbstractFacade<Client> implements ClientFacadeLocal {
@@ -33,6 +43,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         super(Client.class);
     }
     
+
     @Override
     public void creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise) {
         Client cl = new Client();
@@ -160,4 +171,6 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         return cl;
     }
    
+
+
 }

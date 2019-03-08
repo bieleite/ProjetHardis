@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Agence;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,6 +16,15 @@ import javax.persistence.Query;
 /**
  *
  * @author gabrielleite
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author anastasia.salari
+
  */
 @Stateless
 public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacadeLocal {
@@ -26,6 +36,7 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
     protected EntityManager getEntityManager() {
         return em;
     }
+
 
     @Override
     public void creerAgence(String NomAgence) {
@@ -86,6 +97,8 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
     }
     
     
+
+
     public AgenceFacade() {
         super(Agence.class);
     }
