@@ -42,11 +42,13 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
 
 
      @Override
-    public void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur ) {
+    public void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur, String QR, int delai) {
         Communication co = new Communication();
         co.setDateHeure(date_comu);
         co.setMessage(message);
         co.setDevis(devis);
+        co.setDelai(delai);
+        co.setTypeQR(QR);
         co.setUtilisateurHardis(utilisateur);
         em.persist(co);
     }

@@ -21,6 +21,27 @@ import javax.persistence.Temporal;
 @Entity
 public class Facture implements Serializable {
 
+    
+    private boolean paye;
+
+    /**
+     * Get the value of paye
+     *
+     * @return the value of paye
+     */
+    public boolean isPaye() {
+        return paye;
+    }
+
+    /**
+     * Set the value of paye
+     *
+     * @param paye new value of paye
+     */
+    public void setPaye(boolean paye) {
+        this.paye = paye;
+    }
+
     private static final long serialVersionUID = 1L;
     
         private String motifDepass;

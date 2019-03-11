@@ -6,10 +6,12 @@
 package Entites;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -18,6 +20,9 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Agence implements Serializable {
+
+    @OneToMany(mappedBy = "agence")
+    private List<Utilisateur> utilisateurs;
 
     @OneToOne(mappedBy = "agence")
     private Devis devis;

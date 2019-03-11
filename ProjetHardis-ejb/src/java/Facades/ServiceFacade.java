@@ -60,7 +60,6 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
         s.setNomService(nomService);
         s.setOffre(offre);
         s.setTypeService(typeS);
-        s.setHistoriqueEtatss(new ArrayList<>());
         em.persist(s);
     }
 

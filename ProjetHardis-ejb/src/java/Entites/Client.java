@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -87,6 +88,28 @@ public class Client extends Utilisateur implements Serializable {
     public void setEntreprise(Entreprise entreprise) {
         this.entreprise = entreprise;
     }
+    
+       private String codepostal;
+
+    /**
+     * Get the value of codepostal
+     *
+     * @return the value of codepostal
+     */
+    public String getCodepostal() {
+        return codepostal;
+    }
+
+    /**
+     * Set the value of codepostal
+     *
+     * @param codepostal new value of codepostal
+     */
+    public void setCodepostal(String codepostal) {
+        this.codepostal = codepostal;
+    }
+
+
 
 
     @Override

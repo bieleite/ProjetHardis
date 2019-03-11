@@ -26,16 +26,7 @@ import javax.persistence.OneToOne;
 
 public class Service implements Serializable {
 
-    @OneToMany(mappedBy = "service")
-    private List<HistoriqueEtats> historiqueEtatss;
-
-    public List<HistoriqueEtats> getHistoriqueEtatss() {
-        return historiqueEtatss;
-    }
-
-    public void setHistoriqueEtatss(List<HistoriqueEtats> historiqueEtatss) {
-        this.historiqueEtatss = historiqueEtatss;
-    }
+   
 
    
     

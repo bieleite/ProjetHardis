@@ -14,6 +14,8 @@ import Entites.Statut;
 import java.util.Date;
 
 import Entites.Devis;
+import Entites.Service;
+import Entites.TypeService;
 
 import java.util.List;
 import javax.ejb.Local;
@@ -45,7 +47,7 @@ public interface DevisFacadeLocal {
     
     void supprimerDevis(Devis entite);
 
-    void creerDevis( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence agence);
+    Devis creerDevis(TypeService type,Service service, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence agence);
     
     List<Devis> listDevis();
 
@@ -57,5 +59,9 @@ public interface DevisFacadeLocal {
     void modifDevis(Devis entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
 
     void majFact(Devis Devis, List<Entites.Facture> listeFact);
+
+    void accepterRefuserDevis(Devis d, String choix);
+
+    void modifDateInterv(Devis d, Date date);
 
 }

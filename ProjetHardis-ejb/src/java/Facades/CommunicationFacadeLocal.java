@@ -42,7 +42,7 @@ public interface CommunicationFacadeLocal {
     
     void modifCommunication(Communication entite, Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur);
 
-    void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur );
+    void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur, String QR, int delai );
     
     List<Communication> listCommunication();
 

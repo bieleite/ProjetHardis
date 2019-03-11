@@ -5,6 +5,8 @@
  */
 package Facades;
 
+import Entites.Adresse;
+import Entites.Agence;
 import Entites.Client;
 import Entites.Devis;
 
@@ -47,7 +49,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     
 
     @Override
-    public void creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise) {
+    public void creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise, Agence agence, String cp) {
         Client cl = new Client();
         cl.setNom(Nom);
         cl.setPrenom(Prenom);
@@ -61,6 +63,8 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         cl.setDeviss(new ArrayList<Devis>());
         cl.setCertifie(false);
         cl.setEntreprise(entreprise);
+        cl.setAgence(agence);
+        cl.setCodepostal(cp);
         em.persist(cl);
     }
     
@@ -177,7 +181,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             entite.setPrenom(Prenom);
         }
         
-            if (RGPD==0 && RGPD==1)
+         if (RGPD >= 0)
         {
             entite.setRGPD(RGPD);
         }
@@ -208,6 +212,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
            
     }
 
+    
 
      @Override
     public void supprimerClient(Client entite) {
@@ -227,6 +232,15 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         c.setEntreprise(ent);
         em.merge(c);
     }
-    
 
+    @Override
+    public Client authentificationClient(String log, String mdp) {
+        Query requete = em.createQuery("SELECT a from Client as a where a.login=:lo and a.mdp=:m");
+        requete.setParameter("lo", log);
+        requete.setParameter("m", mdp);       
+        List<Client> liste =  requete.getResultList();
+        if (!liste.isEmpty())
+            return (Client)liste.get(0);
+        else return null;
+    }
 }

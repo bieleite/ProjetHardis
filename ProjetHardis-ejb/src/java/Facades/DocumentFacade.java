@@ -40,12 +40,12 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
 
 
     @Override
-    public void creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis) {
+    public Document creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis) {
         Document doc = new Document();
         doc.setDescriptif(descriptif);
         doc.setHistoDevis(historiquedevis);
         doc.setLienDoc(liendoc);
-        em.persist(doc);
+        em.persist(doc);return doc;
     }
     
     

@@ -44,12 +44,11 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
 
 
     @Override
-    public void creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis, Service service ) {
+    public void creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis) {
         HistoriqueEtats he = new HistoriqueEtats();
         he.setDateMAJ(datemaj);
         he.setStatut(statut);
         he.setDevis(devis);
-        he.setService(service);
         em.persist(he);
     }
     @Override
@@ -96,7 +95,7 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
     
     
     @Override
-    public  void modifHistoriqueEtats(HistoriqueEtats entite,Date datemaj, Statut statut, Devis devis, Service service) {       
+    public  void modifHistoriqueEtats(HistoriqueEtats entite,Date datemaj, Statut statut, Devis devis) {       
       
         if (entite!=null){
             
@@ -112,10 +111,6 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
             if (devis!=null)
         {
             entite.setDevis(devis);
-        }
-            if (service!=null)
-        {
-            entite.setService(service);
         }
             
             em.merge(entite);

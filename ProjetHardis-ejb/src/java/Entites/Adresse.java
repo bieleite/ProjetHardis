@@ -6,10 +6,12 @@
 package Entites;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -18,6 +20,20 @@ import javax.persistence.Id;
 @Entity
 public class Adresse implements Serializable {
 
+    @OneToMany(mappedBy = "adresse")
+    private List<Entreprise> entreprises;
+
+    public List<Entreprise> getEntreprises() {
+        return entreprises;
+    }
+
+    public void setEntreprises(List<Entreprise> entreprises) {
+        this.entreprises = entreprises;
+    }
+
+    
+    
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,7 +48,7 @@ public class Adresse implements Serializable {
     }
     
     
-        private int numeroRue;
+    private int numeroRue;
 
     /**
      * Get the value of numeroRue

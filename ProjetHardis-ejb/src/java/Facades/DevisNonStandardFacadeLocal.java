@@ -45,7 +45,7 @@ public interface DevisNonStandardFacadeLocal {
     
     void supprimerDevisNonStandard(DevisNonStandard entite);
 
-    void creerDevisNonStandard( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence agence);
+    DevisNonStandard creerDevisNonStandard( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence agence);
     
     List<DevisNonStandard> listDevisNonStandard();
 
@@ -54,6 +54,8 @@ public interface DevisNonStandardFacadeLocal {
     DevisNonStandard rechercheDevisNonStandardParClient(Client client);
         
     void modifDevis(DevisNonStandard entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
+
+    void accepterRefuserDevisNS(DevisNonStandard d, String choix);
 
 
 }

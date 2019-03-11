@@ -45,7 +45,7 @@ public class DevisNonStandardFacade extends AbstractFacade<DevisNonStandard> imp
 
 
     @Override
-    public void creerDevisNonStandard( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {
+    public DevisNonStandard creerDevisNonStandard( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {
         DevisNonStandard de = new DevisNonStandard();
         de.setDateDevis(date_devis);
         de.setDateIntervSouhaitee(date_intev_souh);
@@ -57,6 +57,7 @@ public class DevisNonStandardFacade extends AbstractFacade<DevisNonStandard> imp
         de.setClient(client);
         de.setAgence(ag);
         em.persist(de);
+        return de;
     }
     @Override
     public List<DevisNonStandard> listDevisNonStandard() {
@@ -155,5 +156,16 @@ public class DevisNonStandardFacade extends AbstractFacade<DevisNonStandard> imp
     public DevisNonStandardFacade() {
         super(DevisNonStandard.class);
     }
+
+    @Override
+    public void accepterRefuserDevisNS(DevisNonStandard d, String choix) {
+         if (choix.equals("a"))
+            d.setStatut(Statut.Valide);
+        else if (choix.equals("r"))
+            d.setStatut(Statut.Refuse);
+        em.merge(d);
+    }
+    
+    
     
 }

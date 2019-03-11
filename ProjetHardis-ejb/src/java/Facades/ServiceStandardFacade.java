@@ -63,7 +63,6 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
         s.setNomService(nomService);
         s.setOffre(offre);
         s.setTypeService(typeS);
-        s.setHistoriqueEtatss(new ArrayList<>());
         s.setAteliers(listeA);
         s.setLivrables(livrable);
         s.setNbreHeuresEntretien(nbHA);

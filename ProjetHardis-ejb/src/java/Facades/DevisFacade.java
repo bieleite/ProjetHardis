@@ -11,7 +11,9 @@ import Entites.Client;
 import Entites.Devis;
 import Entites.Facturation;
 import Entites.Facture;
+import Entites.Service;
 import Entites.Statut;
+import Entites.TypeService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,8 +49,10 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
 
     
     @Override
-    public void creerDevis( Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {
+    public Devis creerDevis( TypeService type, Service service, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {
         Devis de = new Devis();
+        de.setTypeDevis(type);
+        de.setService(service);
         de.setDateDevis(date_devis);
         de.setDateIntervSouhaitee(date_intev_souh);
         de.setIndicateurFact(facturation);
@@ -59,7 +63,9 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         de.setClient(client);
         de.setAgence(ag);
         de.setFactures(new ArrayList<>());
+        
         em.persist(de);
+        return de;
     }
     @Override
     public List<Devis> listDevis() {
@@ -97,6 +103,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         return de;
     }
    
+    
     
      @Override
     public  void modifDevis(Devis entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag) {       
@@ -146,6 +153,8 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     
     
     
+    
+    
 
     @Override
     public void supprimerDevis(Devis entite) {
@@ -168,6 +177,21 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     public void majFact(Devis Devis, List<Entites.Facture> listeFact) {
         Devis.setFactures(listeFact);
         em.merge(Devis);
+    }
+
+    @Override
+    public void accepterRefuserDevis(Devis d, String choix) {
+        if (choix.equals("a"))
+            d.setStatut(Statut.Valide);
+        else if (choix.equals("r"))
+            d.setStatut(Statut.Refuse);
+        em.merge(d);
+    }
+
+    @Override
+    public void modifDateInterv(Devis d, Date date) {
+        d.setDateIntervSouhaitee(date);
+        em.merge(d);
     }
     
 }

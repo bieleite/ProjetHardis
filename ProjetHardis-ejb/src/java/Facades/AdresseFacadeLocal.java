@@ -34,7 +34,7 @@ public interface AdresseFacadeLocal {
 
     int count();
     
-    void creerAdresse(int NumRue, String NomRue, String Ville, String CodePostal);
+    Adresse creerAdresse(int NumRue, String NomRue, String Ville, String CodePostal);
     
     List<Adresse> listAdresse();
 

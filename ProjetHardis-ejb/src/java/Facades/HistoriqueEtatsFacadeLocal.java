@@ -43,7 +43,7 @@ public interface HistoriqueEtatsFacadeLocal {
     int count();
     
 
-    void creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis, Service service );
+    void creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis );
     
     List<HistoriqueEtats> listHistoriqueEtats();
     
@@ -54,7 +54,7 @@ public interface HistoriqueEtatsFacadeLocal {
     List<HistoriqueEtats> rechercheHistoriqueEtatsParService(Service service);
     
     
-    void modifHistoriqueEtats(HistoriqueEtats entite,Date datemaj, Statut statut, Devis devis, Service service);
+    void modifHistoriqueEtats(HistoriqueEtats entite,Date datemaj, Statut statut, Devis devis);
 
 
 }

@@ -33,6 +33,26 @@ import javax.persistence.Temporal;
 public class Devis implements Serializable {
 
     @OneToMany(mappedBy = "devis")
+    private List<HistoriqueDevis> historiqueDeviss;
+
+    public List<HistoriqueDevis> getHistoriqueDeviss() {
+        return historiqueDeviss;
+    }
+
+    public void setHistoriqueDeviss(List<HistoriqueDevis> historiqueDeviss) {
+        this.historiqueDeviss = historiqueDeviss;
+    }
+
+    public List<HistoriqueTraitement> getHistoriqueTraitements() {
+        return historiqueTraitements;
+    }
+
+    public void setHistoriqueTraitements(List<HistoriqueTraitement> historiqueTraitements) {
+        this.historiqueTraitements = historiqueTraitements;
+    }
+    
+
+    @OneToMany(mappedBy = "devis")
     private List<HistoriqueTraitement> historiqueTraitements;
 
     @OneToMany(mappedBy = "devis")
@@ -162,6 +182,27 @@ public class Devis implements Serializable {
         this.service = service;
     }
 
+        private TypeService typeDevis;
+
+    /**
+     * Get the value of typeDevis
+     *
+     * @return the value of typeDevis
+     */
+    public TypeService getTypeDevis() {
+        return typeDevis;
+    }
+
+    /**
+     * Set the value of typeDevis
+     *
+     * @param typeDevis new value of typeDevis
+     */
+    public void setTypeDevis(TypeService typeDevis) {
+        this.typeDevis = typeDevis;
+    }
+
+    
         private Statut statut;
 
     /**
@@ -173,6 +214,7 @@ public class Devis implements Serializable {
         return statut;
     }
 
+    
     /**
      * Set the value of statut
      *

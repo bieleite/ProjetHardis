@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entites.Devis;
 import Entites.Document;
 import Entites.HistoriqueDevis;
 
@@ -40,7 +41,7 @@ public interface HistoriqueDevisFacadeLocal {
 
     int count();
    
-    void creerHistoriqueDevis( Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc);
+    HistoriqueDevis creerHistoriqueDevis( Devis d, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc);
     
     List<HistoriqueDevis> listHistoriqueDevis();
     

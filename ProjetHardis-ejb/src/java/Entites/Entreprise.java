@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -106,7 +107,29 @@ public class Entreprise implements Serializable {
         this.interlocuteurs = interlocuteurs;
     }
     
-        private Agence agence;
+    @ManyToOne
+        private Adresse adresse;
+
+    /**
+     * Get the value of adresse
+     *
+     * @return the value of adresse
+     */
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    /**
+     * Set the value of adresse
+     *
+     * @param adresse new value of adresse
+     */
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
+    }
+
+    
+    private Agence agence;
 
     /**
      * Get the value of agence

@@ -47,5 +47,7 @@ public interface EntrepriseFacadeLocal {
     Entreprise rechercheEntrepriseParId(long id);
 
     Entreprise rechercheEntrepriseParNom(String nom);
+
+    Entreprise rechercheEntrepriseParMDP(String mdp);
     
 }

@@ -5,6 +5,13 @@
  */
 package Session;
 
+import Entites.Client;
+import Entites.Devis;
+import Entites.DevisNonStandard;
+import Entites.Entreprise;
+import Entites.Facture;
+import Entites.Service;
+import java.util.Date;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +20,28 @@ import javax.ejb.Local;
  */
 @Local
 public interface ClientSessionLocal {
+
+    Client authentificationClient(String login, String mdp);
+
+   void majEntreprise(Client cli, Entreprise ent);
+
+    void demandeDevis(Date dateDevis, Date dateInterv, String infosC, Service serv, Client cli);
+
+    void accepterDevis(Client cli, Devis d);
+
+
+
+    void refuserDevis(Client cli, Devis d);
+
+
+
+    void poserQuestion(Client cli, String text, Devis d);
+
+    void payerFacture(Facture f);
+
+    void modifDateInterv(Date date, Devis d, Client cli);
+
+    void afficherDevisClient(String parameter);
+
     
 }

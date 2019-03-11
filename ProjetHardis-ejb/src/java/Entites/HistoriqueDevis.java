@@ -140,6 +140,29 @@ public class HistoriqueDevis implements Serializable {
     public void setNumPropo(int numPropo) {
         this.numPropo = numPropo;
     }
+    
+    
+    @ManyToOne
+        private Devis devis;
+
+    /**
+     * Get the value of devis
+     *
+     * @return the value of devis
+     */
+    public Devis getDevis() {
+        return devis;
+    }
+
+    /**
+     * Set the value of devis
+     *
+     * @param devis new value of devis
+     */
+    public void setDevis(Devis devis) {
+        this.devis = devis;
+    }
+
 
 
     @Override

@@ -85,26 +85,7 @@ public class HistoriqueEtats implements Serializable {
     }
 
     
-    @ManyToOne
-    private Service service;
 
-    /**
-     * Get the value of service
-     *
-     * @return the value of service
-     */
-    public Service getService() {
-        return service;
-    }
-
-    /**
-     * Set the value of service
-     *
-     * @param service new value of service
-     */
-    public void setService(Service service) {
-        this.service = service;
-    }
 
     
     @Id

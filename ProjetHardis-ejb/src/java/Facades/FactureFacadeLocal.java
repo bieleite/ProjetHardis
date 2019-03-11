@@ -43,5 +43,7 @@ public interface FactureFacadeLocal {
     Facture rechercheFactParId(long id);
 
     List<Facture> rechercheFactParDevis(Devis d);
+
+    void payerFacture(Facture f);
     
 }

@@ -39,7 +39,7 @@ public interface DocumentFacadeLocal {
     int count();
     
 
-    void creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis);
+    Document creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis);
     
     List<Document> listDocument();
 

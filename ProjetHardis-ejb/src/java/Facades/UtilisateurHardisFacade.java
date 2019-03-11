@@ -6,6 +6,7 @@
 package Facades;
 
 
+import Entites.Agence;
 import Entites.Client;
 import Entites.UtilisateurHardis;
 
@@ -52,7 +53,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
 
 
     @Override
-    public void creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV) {
+    public void creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, Agence agence) {
        UtilisateurHardis u = new UtilisateurHardis();  
        u.setNom(nom);
        u.setPrenom(prenom);
@@ -67,10 +68,10 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
        u.setHistoriqueDeviss(new ArrayList<HistoriqueDevis>());
        u.setHistoriqueTraitement(new HistoriqueTraitement());
        u.setOffre_Profil_Utils(new ArrayList());
-       u.setHistoriqueDeviss(new ArrayList<HistoriqueDevis>());
        u.setQuestionSecrete(questSecrete);
        u.setReponseSecrete(repSecrete);
          u.setVisible(true);
+         u.setAgence(agence);
        em.persist(u);
     }
     
@@ -129,7 +130,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     @Override
     public  void SuppressionUtilisateur(Long id) {
               
-        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
+        String txt = "SELECT cl FROM UtilisateurHardis AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("id", id);
         List<UtilisateurHardis> res = req.getResultList();
@@ -180,6 +181,29 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
             em.merge(entite);
         }
     }
+
+    @Override
+    public UtilisateurHardis authentificationHardis(String log, String mdp) {
+        Query requete = em.createQuery("SELECT a from UtilisateurHardis as a where a.login=:lo and a.mdp=:m");
+        requete.setParameter("lo", log);
+        requete.setParameter("m", mdp);       
+        List<UtilisateurHardis> liste =  requete.getResultList();
+        if (!liste.isEmpty())
+            return (UtilisateurHardis)liste.get(0);
+        else return null;
+    }
+
+    @Override
+    public List<UtilisateurHardis> rechercheUtilisateurHParAgence(Agence agence) {
+        String txt = "SELECT cl FROM UtilisateurHardis AS cl WHERE cl.agence=:agence";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("agence", agence);
+        List<UtilisateurHardis> res = req.getResultList();
+
+        return res;
+    }
+    
+    
 
     
 }

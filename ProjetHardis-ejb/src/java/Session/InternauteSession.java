@@ -9,6 +9,7 @@ import Entites.Adresse;
 import Entites.Agence;
 import Entites.Client;
 import Entites.Entreprise;
+import Facades.AdresseFacadeLocal;
 import Facades.ClientFacadeLocal;
 import Facades.EntrepriseFacadeLocal;
 import java.util.Date;
@@ -24,19 +25,26 @@ import javax.ejb.Stateless;
 public class InternauteSession implements InternauteSessionLocal {
 
     @EJB
+    private AdresseFacadeLocal adresseFacade;
+
+    @EJB
     private EntrepriseFacadeLocal entrepriseFacade;
 
     @EJB
     private ClientFacadeLocal clientFacade;
+    
+    
+    
 
     @Override
-    public void CreerCompteInternaute(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP) {
+    public void CreerCompteInternaute(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP,  String cp) {
         Client cv = clientFacade.rechercheClientParLogin(Login);
         if(cv!=null){
             System.out.println("Login existant");
         }
         else{
-            clientFacade.creerClient(Nom, Prenom, Login, MDP, QuestionSecrete, ReponseSecrete, RGPD, dateRDGP, null);
+
+            clientFacade.creerClient(Nom, Prenom, Login, MDP, QuestionSecrete, ReponseSecrete, RGPD, dateRDGP, null, null, cp);
         }
     }
     

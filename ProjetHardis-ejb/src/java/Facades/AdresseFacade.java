@@ -43,13 +43,14 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
     
 
     @Override
-    public void creerAdresse(int NumRue, String NomRue, String Ville, String CodePostal) {
+    public Adresse creerAdresse(int NumRue, String NomRue, String Ville, String CodePostal) {
         Adresse ad = new Adresse();
         ad.setNumeroRue(NumRue);
         ad.setNomRue(NomRue);
         ad.setVille(Ville);
         ad.setCodePostal(CodePostal);
         em.persist(ad);
+        return ad;
     }
     
     @Override

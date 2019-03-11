@@ -133,6 +133,23 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
         }
       return entreprise;
     }
+
+    @Override
+    public Entreprise rechercheEntrepriseParMDP(String mdp) {
+         Entreprise entreprise = null;
+        String txt = "SELECT entite FROM Entreprise AS entite WHERE entite.mdpEntreprise=:mdp";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("mdp", mdp);
+        List<Entreprise> liste = req.getResultList();
+        if (!liste.isEmpty()){
+             entreprise =   liste.get(0);
+           
+        }
+      return entreprise;
+    }
+    
+    
+    
     
     
     

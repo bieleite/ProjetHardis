@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -245,6 +246,27 @@ public class Utilisateur implements Serializable {
         this.RGPD = RGPD;
     }
 
+
+    @ManyToOne
+        private Agence agence;
+
+    /**
+     * Get the value of agence
+     *
+     * @return the value of agence
+     */
+    public Agence getAgence() {
+        return agence;
+    }
+
+    /**
+     * Set the value of agence
+     *
+     * @param agence new value of agence
+     */
+    public void setAgence(Agence agence) {
+        this.agence = agence;
+    }
 
 
     @Override

@@ -46,6 +46,7 @@ public class FactureFacade extends AbstractFacade<Facture> implements FactureFac
         f.setMontant(montant);
         f.setMontantDepass(montantDepass);
         f.setMotifDepass(motifDepass);
+        f.setPaye(false);
         em.persist(f);
     }
 
@@ -90,6 +91,12 @@ public class FactureFacade extends AbstractFacade<Facture> implements FactureFac
              entite =   liste;    
         }
       return entite;
+    }
+
+    @Override
+    public void payerFacture(Facture f) {
+        f.setPaye(true);
+        em.merge(f);
     }
     
     

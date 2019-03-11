@@ -5,6 +5,8 @@
  */
 package Facades;
 
+import Entites.Adresse;
+import Entites.Agence;
 import Entites.Client;
 
 import Entites.Entreprise;
@@ -41,7 +43,7 @@ public interface ClientFacadeLocal {
     
     void modifClient(Client entite, String Nom,String Prenom, int RGPD, Date dateRDGP, Entreprise entreprise);
    
-    void creerClient(String Nom,String Prenom, String Login,String MDP,String QuestionSecrete, String ReponseSecrete,int RGPD, Date RDGP, Entreprise entreprise);
+    void creerClient(String Nom,String Prenom, String Login,String MDP,String QuestionSecrete, String ReponseSecrete,int RGPD, Date RDGP, Entreprise entreprise, Agence agence, String cp);
     
     List<Client> listClient();
 
@@ -62,6 +64,8 @@ public interface ClientFacadeLocal {
     void supprimerClient(Client entite);
 
     void majEntrepriseClient(Client c, Entreprise ent);
+
+    Client authentificationClient(String login, String mdp);
 
 
 }

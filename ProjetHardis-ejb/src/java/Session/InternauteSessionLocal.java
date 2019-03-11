@@ -20,7 +20,7 @@ import javax.ejb.Local;
 @Local
 public interface InternauteSessionLocal {
 
-    void CreerCompteInternaute(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP);
+    void CreerCompteInternaute(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, String cp);
 
     void ajouterEntrepriseAuClient(Client client, Entreprise entreprise);
 
