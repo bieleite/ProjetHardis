@@ -36,6 +36,7 @@ public class InternauteSession implements InternauteSessionLocal {
             System.out.println("Login existant");
         }
         else{
+        
             clientFacade.creerClient(Nom, Prenom, Login, MDP, QuestionSecrete, ReponseSecrete, RGPD, dateRDGP, null);
         }
     }
@@ -44,10 +45,10 @@ public class InternauteSession implements InternauteSessionLocal {
     // "Insert Code > Add Business Method")
 
     @Override
-    public void ajouterEntrepriseAuClient(Client client, Entreprise entreprise) {
-        Entreprise en = entrepriseFacade.find(entreprise);//modifier pour le bon methode
+    public void ajouterEntrepriseAuClient(Client client, String codesecrete) {
+        Entreprise en = entrepriseFacade.rechercheEntrepriseSiret(codesecrete);
         if(en!=null){
-            entrepriseFacade.edit(entreprise); // methode pour affecter entreprise au client
+           clientFacade.majEntrepriseClient(client, en);
         }
         else{
             System.out.println("Login existant");

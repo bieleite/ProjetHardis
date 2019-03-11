@@ -53,6 +53,8 @@ public interface ClientFacadeLocal {
         
     void modfiClientMDP(Client cl, String MDP);
     
+    void modfiClientVisible(Client cl);
+    
     void modfiClientQSRS(Client cl, String QS, String RS);
     
     void SuppressionClient(Client cl);
