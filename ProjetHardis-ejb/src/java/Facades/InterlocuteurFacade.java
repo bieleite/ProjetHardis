@@ -47,7 +47,7 @@ public class InterlocuteurFacade extends AbstractFacade<Interlocuteur> implement
         super(Interlocuteur.class);
     }
 
-
+  
 
     @Override
     public void creerInterlocuteur(String nom, String prenom, String fonction, String tel, Entreprise entreprise) {

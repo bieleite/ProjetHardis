@@ -48,5 +48,7 @@ public interface OffreFacadeLocal {
 
     Offre rechercheOffreParId(long id);
 
+    List<Offre> listOffres();
+
     
 }

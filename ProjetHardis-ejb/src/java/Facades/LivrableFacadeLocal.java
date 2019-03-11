@@ -44,5 +44,7 @@ public interface LivrableFacadeLocal {
 
     void modifierLivrable(Livrable liv, String nom, Service service);
 
+    Livrable rechercheLivrableParId(long id);
+
     
 }

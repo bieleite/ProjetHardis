@@ -10,6 +10,7 @@ import Entites.Logs;
 
 import Entites.Action;
 import Entites.Logs;
+import Entites.Utilisateur;
 import Entites.UtilisateurHardis;
 import java.util.Date;
 
@@ -43,7 +44,11 @@ public interface LogsFacadeLocal {
 
 
 
-    void creerLog(Action action, Date date, String libelle, UtilisateurHardis util);
+    void creerLog(Action action, Date date, String libelle, Utilisateur util);
+
+    List<Logs> rechercheLogsParUtilisateur(Utilisateur u);
+
+    List<Logs> rechercheLogsParAction(Action action);
 
     
 }

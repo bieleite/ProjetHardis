@@ -60,6 +60,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         cl.setVisible(true);
         cl.setDeviss(new ArrayList<Devis>());
         cl.setCertifie(false);
+        cl.setEntreprise(entreprise);
         em.persist(cl);
     }
     
@@ -219,5 +220,13 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             em.remove(entite);
         }
     }
+
+
+    @Override
+    public void majEntrepriseClient(Client c, Entreprise ent) {
+        c.setEntreprise(ent);
+        em.merge(c);
+    }
+    
 
 }

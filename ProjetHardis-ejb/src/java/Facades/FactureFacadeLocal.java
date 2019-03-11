@@ -39,5 +39,9 @@ public interface FactureFacadeLocal {
     void creerFacture(Date date, Devis devis, float montant, float montantDepass, String motifDepass);
 
     void modifFacture(Facture fact, Date date, Devis devis, float montant, long montantD, String motifD);
+
+    Facture rechercheFactParId(long id);
+
+    List<Facture> rechercheFactParDevis(Devis d);
     
 }

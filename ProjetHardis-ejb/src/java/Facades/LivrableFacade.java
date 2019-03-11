@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entites.Interlocuteur;
 import Entites.Livrable;
 import Entites.Service;
 import java.util.List;
@@ -83,6 +84,20 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
             em.remove(pm);
         }
     }
+
+    @Override
+    public Livrable rechercheLivrableParId(long id) {
+      Livrable s = null;
+        Query requete = em.createQuery("SELECT s from Livrable as s where s.id=:id");
+        requete.setParameter("id",id);     
+        List<Livrable> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            s =   liste.get(0); 
+        }
+        return s;
+    }
+    
+    
     
     
     

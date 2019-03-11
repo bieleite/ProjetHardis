@@ -54,13 +54,9 @@ public class ProfilMetierFacade extends AbstractFacade<ProfilMetier> implements 
     }
 
     @Override
-    public void modifierProfilMetier(ProfilMetier PM,NiveauHabilitation niveau, Expertise expertise, float plafond, List<Offre_Profil_Util_CV> offre_p_util_cv ) {
-        ProfilMetier pm = null;
-        Query requete = em.createQuery("SELECT p from ProfilMetier as p where p.id=:id");
-        requete.setParameter("id",PM.getId());     
-        List<ProfilMetier> liste =  requete.getResultList();
-        if (!liste.isEmpty()){
-            pm  =  liste.get(0); 
+    public void modifierProfilMetier(ProfilMetier pm,NiveauHabilitation niveau, Expertise expertise, float plafond, List<Offre_Profil_Util_CV> offre_p_util_cv ) {
+       
+        if (pm!=null){
             
             if (expertise!=null)
                 pm.setNiveauExpertise(expertise);
@@ -99,6 +95,13 @@ public class ProfilMetierFacade extends AbstractFacade<ProfilMetier> implements 
         }
         return pm;
     }
+
+    @Override
+    public List<ProfilMetier> recherchePMParExpertise(Expertise exp) {
+        return null;
+    }
+    
+    
     
     
     

@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entites.Agence;
 import Entites.Offre;
 import Entites.Offre_Profil_Util_CV;
 import java.util.List;
@@ -46,6 +47,8 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
         super(Offre.class);
     }
 
+    
+    
 
 
     @Override
@@ -58,17 +61,13 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
 
     @Override
     public void modifierOffre(Offre offre ,  List<Offre_Profil_Util_CV> liste, String lib ) {
-        Offre o = null;
-        Query requete = em.createQuery("SELECT s from Offre as s where s.id=:id");
-        requete.setParameter("id",offre.getId());     
-        List<Offre> listeO =  requete.getResultList();
-        if (!listeO.isEmpty()){
-            o =   listeO.get(0);
+      
+        if (offre!=null){
             if (lib.equals(""))
                 offre.setLibelle(lib);
             if (liste!=null)
                   offre.setOffre_Profil_Utils(liste);
-            em.merge(o);
+            em.merge(offre);
     }
     
     }
@@ -95,6 +94,14 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
             s =   liste.get(0); 
         }
         return s;
+    }
+
+    @Override
+    public List<Offre> listOffres() {
+        String txt="SELECT ad FROM Offre AS ad ";
+        Query req=getEntityManager().createQuery(txt);
+        List<Offre> result=req.getResultList();
+        return result;
     }
     
     
