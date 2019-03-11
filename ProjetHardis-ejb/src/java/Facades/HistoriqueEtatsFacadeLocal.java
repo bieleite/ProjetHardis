@@ -49,11 +49,10 @@ public interface HistoriqueEtatsFacadeLocal {
     
     HistoriqueEtats rechercheHistoriqueEtats(Long id);
     
-    HistoriqueEtats rechercheHistoriqueEtatsParDevis(Devis devis);
+    List<HistoriqueEtats> rechercheHistoriqueEtatsParDevis(Devis devis);
     
-    HistoriqueEtats rechercheHistoriqueEtatsParService(Service service);
+    List<HistoriqueEtats> rechercheHistoriqueEtatsParService(Service service);
     
-    HistoriqueEtats modificationHistoriqueEtats(HistoriqueEtats he, Date datemaj, Statut statut, Devis devis, Service service);
     
     void modifHistoriqueEtats(HistoriqueEtats entite,Date datemaj, Statut statut, Devis devis, Service service);
 

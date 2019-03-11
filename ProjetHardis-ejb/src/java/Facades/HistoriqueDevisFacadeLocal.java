@@ -39,19 +39,18 @@ public interface HistoriqueDevisFacadeLocal {
     List<HistoriqueDevis> findRange(int[] range);
 
     int count();
-    
-
+   
     void creerHistoriqueDevis( Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc);
     
     List<HistoriqueDevis> listHistoriqueDevis();
     
     HistoriqueDevis rechercheHistoriqueDevis(Long id);
     
-    HistoriqueDevis rechercheHistoriqueDevisParUtilisateur(UtilisateurHardis utilisateur);
+    List<HistoriqueDevis> rechercheHistoriqueDevisParUtilisateur(UtilisateurHardis utilisateur);
     
-    HistoriqueDevis modificationHistoriqueDevis(HistoriqueDevis hd, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur);
         
     void modifHistoriqueDevis(HistoriqueDevis entite, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc);
+
 
 
 }

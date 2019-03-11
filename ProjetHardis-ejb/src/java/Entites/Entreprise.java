@@ -22,6 +22,28 @@ import javax.persistence.OneToOne;
 @Entity
 public class Entreprise implements Serializable {
 
+        private String nomEntreprise;
+
+    /**
+     * Get the value of nomEntreprise
+     *
+     * @return the value of nomEntreprise
+     */
+    public String getNomEntreprise() {
+        return nomEntreprise;
+    }
+
+    /**
+     * Set the value of nomEntreprise
+     *
+     * @param nomEntreprise new value of nomEntreprise
+     */
+    public void setNomEntreprise(String nomEntreprise) {
+        this.nomEntreprise = nomEntreprise;
+    }
+
+    
+    
     @OneToOne(mappedBy = "entreprise")
     private Client client;
 

@@ -38,8 +38,14 @@ public interface EntrepriseFacadeLocal {
 
     void majCertif(Entreprise entreprise);
 
-    void creerEntreprise(String numero, Agence agence, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif);
+    void creerEntreprise(String numero, Agence agence,  String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif);
 
-    void modifEntreprise(Entreprise e, Agence agence, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif, String numeroEnt );
+    void modifEntreprise(Entreprise e, Agence agence,  String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif, String numeroEnt );
+
+    Entreprise rechercheEntrepriseSiret(String siret);
+
+    Entreprise rechercheEntrepriseParId(long id);
+
+    Entreprise rechercheEntrepriseParNom(String nom);
     
 }

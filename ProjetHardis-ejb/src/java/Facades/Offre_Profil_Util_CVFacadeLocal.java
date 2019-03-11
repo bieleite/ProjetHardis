@@ -40,5 +40,9 @@ public interface Offre_Profil_Util_CVFacadeLocal {
     void supprimerOPUC(long id);
 
     Offre_Profil_Util_CV rechercheOPUCParId(long id);
+
+    List<Offre_Profil_Util_CV> rechercheOPUCParUtilisateur(UtilisateurHardis u);
+
+    List<Offre_Profil_Util_CV> rechercheOPUCParPM(ProfilMetier pm);
     
 }

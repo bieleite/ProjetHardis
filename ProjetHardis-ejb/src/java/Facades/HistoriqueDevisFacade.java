@@ -5,6 +5,7 @@
  */
 package Facades;
 
+import Entites.Devis;
 import Entites.Document;
 import Entites.HistoriqueDevis;
 
@@ -51,9 +52,9 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
         hd.setDocuments(doc);
         em.persist(hd);
     }
+    
     @Override
     public List<HistoriqueDevis> listHistoriqueDevis() {
-        List<HistoriqueDevis> co=null;
         String txt="SELECT co FROM HistoriqueDevis AS co ";
         Query req=getEntityManager().createQuery(txt);
         List<HistoriqueDevis> result=req.getResultList();
@@ -75,45 +76,20 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
     }
 
     @Override
-    public  HistoriqueDevis rechercheHistoriqueDevisParUtilisateur(UtilisateurHardis utilisateur) {
-        HistoriqueDevis di = null;        
-        String txt = "SELECT di FROM HistoriqueDevis AS di WHERE di.interlocuteur=:utilisateur ";
+    public List<HistoriqueDevis> rechercheHistoriqueDevisParUtilisateur(UtilisateurHardis utilisateur) {
+        String txt = "SELECT di FROM HistoriqueDevis AS di WHERE di.utilHardis=:utilisateur";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("utilisateur",utilisateur.getId() );
         List<HistoriqueDevis> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              di = (HistoriqueDevis) res.get(0);
-        }
-        return di;
+        return res;
     }
     
-     @Override
-    public  HistoriqueDevis modificationHistoriqueDevis(HistoriqueDevis hd, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur) {
-               
-        String txt = "SELECT hd FROM HistoriqueDevis AS hd WHERE hd.id=:id";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", hd.getId());
-        List<HistoriqueDevis> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            hd.setDateDebut(datedebut);
-            hd.setDateFin(datefin);
-            hd.setNumPropo(numpropo);
-            hd.setUtilHardis(utilisateur);
-            em.merge(hd);
-        }
-        return hd;
-    }
+    
+    
     
     @Override
     public  void modifHistoriqueDevis(HistoriqueDevis entite, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc) {       
-        String txt = "SELECT entite FROM HistoriqueDevis AS entite WHERE entite.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<HistoriqueDevis> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
+       if (entite!=null){
        
             if (datedebut!=null)
         {
@@ -141,5 +117,7 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
     public HistoriqueDevisFacade() {
         super(HistoriqueDevis.class);
     }
+
+
     
 }

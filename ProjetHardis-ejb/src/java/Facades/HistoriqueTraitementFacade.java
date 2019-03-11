@@ -57,7 +57,6 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
     }
     @Override
     public List<HistoriqueTraitement> listHistoriqueTraitement() {
-        List<HistoriqueTraitement> co=null;
         String txt="SELECT co FROM HistoriqueTraitement AS co ";
         Query req=getEntityManager().createQuery(txt);
         List<HistoriqueTraitement> result=req.getResultList();
@@ -79,90 +78,56 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
     }
 
     @Override
-    public  HistoriqueTraitement rechercheHistoriqueTraitementParDevis(Devis devis) {
+    public   List<HistoriqueTraitement> rechercheHistoriqueTraitementParDevis(Devis devis) {
         HistoriqueTraitement he = null;        
         String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.devis=:devis ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("devis",devis.getId() );
         List<HistoriqueTraitement> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              he = (HistoriqueTraitement) res.get(0);
-        }
-        return he;
+      
+        return res;
     }
     
     @Override
-    public  HistoriqueTraitement rechercheHistoriqueTraitementParConsultant(UtilisateurHardis consultant) {
+    public   List<HistoriqueTraitement> rechercheHistoriqueTraitementParConsultant(UtilisateurHardis consultant) {
         HistoriqueTraitement he = null;        
         String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.consultant=:consultant ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("consultant",consultant.getId() );
         List<HistoriqueTraitement> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              he = (HistoriqueTraitement) res.get(0);
-        }
-        return he;
+        
+        return res;
     }
     
     @Override
-    public  HistoriqueTraitement rechercheHistoriqueTraitementParValidateur(UtilisateurHardis validateur) {
+    public   List<HistoriqueTraitement> rechercheHistoriqueTraitementParValidateur(UtilisateurHardis validateur) {
         HistoriqueTraitement he = null;        
         String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.validateur=:validateur ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("validateur",validateur.getId() );
         List<HistoriqueTraitement> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              he = (HistoriqueTraitement) res.get(0);
-        }
-        return he;
+     
+        return res;
     }
     
     @Override
-    public  HistoriqueTraitement rechercheHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis utilisateurCourant) {
+    public   List<HistoriqueTraitement> rechercheHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis utilisateurCourant) {
         HistoriqueTraitement he = null;        
         String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.utilisateurCourant=:utilisateurCourant ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("utilisateurCourant",utilisateurCourant.getId() );
         List<HistoriqueTraitement> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              he = (HistoriqueTraitement) res.get(0);
-        }
-        return he;
+       
+        return res;
     }
     
-     @Override
-    public  HistoriqueTraitement modificationHistoriqueTraitement(HistoriqueTraitement ht, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur) {
-               
-        String txt = "SELECT ht FROM HistoriqueTraitement AS ht WHERE ht.id=:id";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", ht.getId());
-        List<HistoriqueTraitement> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            ht.setDateDebut(datedebut);
-            ht.setDateFin(datefin);
-            ht.setUtilisateurCourant(utilisateurcourant);
-            ht.setDevis(devis);
-            ht.setConsultant(consultant);
-            ht.setRefLocal(reflocal);
-            ht.setValidateur(validateur);
-            em.merge(ht);
-        }
-        return ht;
-    }
+    
     
     @Override
     public  void modifHistoriqueTraitement(HistoriqueTraitement entite, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur) {       
-        String txt = "SELECT entite FROM HistoriqueTraitement AS entite WHERE entite.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite.getId());
-        List<HistoriqueTraitement> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            entite =   liste.get(0);
+     
+        if (entite!=null){
+
        
             if (datedebut!=null)
         {

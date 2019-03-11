@@ -50,5 +50,7 @@ public interface ProfilMetierFacadeLocal {
 
     ProfilMetier recherchePMParId(long id);
 
+    List<ProfilMetier> recherchePMParExpertise(Expertise exp);
+
     
 }

@@ -49,15 +49,14 @@ public interface HistoriqueTraitementFacadeLocal {
     
     HistoriqueTraitement rechercheHistoriqueTraitement(Long id);
     
-    HistoriqueTraitement rechercheHistoriqueTraitementParDevis(Devis devis);
+    List<HistoriqueTraitement> rechercheHistoriqueTraitementParDevis(Devis devis);
     
-    HistoriqueTraitement rechercheHistoriqueTraitementParConsultant(UtilisateurHardis consultant);
+     List<HistoriqueTraitement> rechercheHistoriqueTraitementParConsultant(UtilisateurHardis consultant);
     
-    HistoriqueTraitement rechercheHistoriqueTraitementParValidateur(UtilisateurHardis validateur);
+     List<HistoriqueTraitement> rechercheHistoriqueTraitementParValidateur(UtilisateurHardis validateur);
     
-    HistoriqueTraitement rechercheHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis utilisateurCourant);
+     List<HistoriqueTraitement> rechercheHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis utilisateurCourant);
     
-    HistoriqueTraitement modificationHistoriqueTraitement(HistoriqueTraitement ht, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur);
 
     void modifHistoriqueTraitement(HistoriqueTraitement entite, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur);
 }

@@ -61,5 +61,7 @@ public interface ClientFacadeLocal {
     
     void supprimerClient(Client entite);
 
+    void majEntrepriseClient(Client c, Entreprise ent);
+
 
 }

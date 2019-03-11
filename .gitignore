@@ -4,3 +4,4 @@
 /build/
 /ProjetHardis-war/build/
 /ProjetHardis-war/dist/
+*.xml

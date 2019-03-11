@@ -45,13 +45,10 @@ public class Offre_Profil_Util_CVFacade extends AbstractFacade<Offre_Profil_Util
     }
 
     @Override
-    public void modifierOPUC(Offre_Profil_Util_CV ob,Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV ) {
-         Offre_Profil_Util_CV object = null;
-        Query requete = em.createQuery("SELECT p from Offre_Profil_Util_CV as p where p.id=:id");
-        requete.setParameter("id",ob.getId());     
-        List<Offre_Profil_Util_CV> liste =  requete.getResultList();
-        if (!liste.isEmpty()){
-            object  =  liste.get(0); 
+    public void modifierOPUC(Offre_Profil_Util_CV object,Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV ) {
+   
+        if (object!=null){
+          
             
             if (offre!=null)
               object.setOffre(offre);
@@ -90,6 +87,26 @@ public class Offre_Profil_Util_CVFacade extends AbstractFacade<Offre_Profil_Util
         }
         return object;
     }
+
+    @Override
+    public List<Offre_Profil_Util_CV> rechercheOPUCParUtilisateur(UtilisateurHardis u) {
+          
+        Query requete = em.createQuery("SELECT p from Offre_Profil_Util_CV as p where p.utilisateur=:u");
+        requete.setParameter("u",u);     
+        List<Offre_Profil_Util_CV> liste =  requete.getResultList();
+       
+        return liste;
+    }
+
+    @Override
+    public List<Offre_Profil_Util_CV> rechercheOPUCParPM(ProfilMetier pm) {
+        Query requete = em.createQuery("SELECT p from Offre_Profil_Util_CV as p where p.profil=:pm");
+        requete.setParameter("pm",pm);     
+        List<Offre_Profil_Util_CV> liste =  requete.getResultList();   
+        return liste;
+    }
+    
+    
     
     
     

@@ -60,6 +60,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         cl.setVisible(true);
         cl.setDeviss(new ArrayList<Devis>());
         cl.setCertifie(false);
+        cl.setEntreprise(entreprise);
         em.persist(cl);
     }
     
@@ -193,7 +194,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         }
     }
 
-<<<<<<< HEAD
+
     @Override
     public void majCertif(Client client) {
           String txt = "SELECT entite FROM Client AS entite WHERE entite.id=:id ";
@@ -207,7 +208,6 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
            
     }
 
-=======
      @Override
     public void supprimerClient(Client entite) {
         Query requete = em.createQuery("SELECT s from Client as s where s.id=:id");
@@ -219,5 +219,13 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             em.remove(entite);
         }
     }
->>>>>>> 54741b430badeeab3586d93a958dd68e4903bd38
+
+    @Override
+    public void majEntrepriseClient(Client c, Entreprise ent) {
+        c.setEntreprise(ent);
+        em.merge(c);
+    }
+    
+    
+
 }
