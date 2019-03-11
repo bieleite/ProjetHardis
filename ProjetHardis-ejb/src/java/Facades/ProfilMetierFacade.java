@@ -90,7 +90,7 @@ public class ProfilMetierFacade extends AbstractFacade<ProfilMetier> implements 
         requete.setParameter("id",id);     
         List<ProfilMetier> liste =  requete.getResultList();
         if (!liste.isEmpty()){
-            pm  =  liste.get(0); 
+            pm  = (ProfilMetier) liste.get(0); 
             
         }
         return pm;
@@ -98,8 +98,25 @@ public class ProfilMetierFacade extends AbstractFacade<ProfilMetier> implements 
 
     @Override
     public List<ProfilMetier> recherchePMParExpertise(Expertise exp) {
-        return null;
+        Query requete = em.createQuery("SELECT p from ProfilMetier as p where p.niveauExpertise=:exp");
+        requete.setParameter("exp",exp);     
+        List<ProfilMetier> liste =  requete.getResultList();
+      
+        return liste;
     }
+
+    @Override
+    public List<ProfilMetier> recherchePMParHabilitation(NiveauHabilitation habi) {
+         Query requete = em.createQuery("SELECT p from ProfilMetier as p where p.niveauHabilitation=:habi");
+        requete.setParameter("habi",habi);     
+        List<ProfilMetier> liste =  requete.getResultList();
+      
+        return liste;
+    }
+    
+    
+    
+    
     
     
     

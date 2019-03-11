@@ -82,7 +82,7 @@ public class Offre_Profil_Util_CVFacade extends AbstractFacade<Offre_Profil_Util
         requete.setParameter("id",id);     
         List<Offre_Profil_Util_CV> liste =  requete.getResultList();
         if (!liste.isEmpty()){
-            object  =  liste.get(0); 
+            object  =  (Offre_Profil_Util_CV)liste.get(0); 
             
         }
         return object;

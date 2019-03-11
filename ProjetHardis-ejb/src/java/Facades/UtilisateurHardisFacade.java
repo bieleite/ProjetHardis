@@ -107,11 +107,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     @Override
     public void modfiUtilisateurMDP(UtilisateurHardis cl, String MDP) {
                 
-        String txt = "SELECT cl FROM UtilisateurHardis AS cl WHERE cl.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", cl.getId());
-        List<UtilisateurHardis> res = req.getResultList();
-        if (res.size() >= 1)
+     if (cl!=null)
         {
             cl.setMdp(MDP);
             em.merge(cl);
@@ -122,11 +118,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     @Override
     public  void modfiUtilisateurQSRS(UtilisateurHardis cl, String QS, String RS) {
               
-        String txt = "SELECT cl FROM UtilisateurHardis AS cl WHERE cl.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", cl.getId());
-        List<UtilisateurHardis> res = req.getResultList();
-        if (res.size() >= 1)
+         if (cl!=null)
         {
             cl.setMdp(RS);
             em.merge(cl);
@@ -135,29 +127,25 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     }
     
     @Override
-    public  void SuppressionUtilisateur(UtilisateurHardis cl) {
+    public  void SuppressionUtilisateur(Long id) {
               
         String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", cl.getId());
+        req = req.setParameter("id", id);
         List<UtilisateurHardis> res = req.getResultList();
         if (res.size() >= 1)
         {
-            cl.setVisible(false);
-            em.merge(cl);
+            res.get(0).setVisible(false);
+            em.merge(res.get(0));
         }
         
     }
    
     @Override
-    public  void modifClient(UtilisateurHardis entite1, String nom, String prenom, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV) {       
-        String txt = "SELECT entite FROM UtilisateurHardis AS entite WHERE entite.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", entite1.getId());
-        List<UtilisateurHardis> liste = req.getResultList();
-        if (!liste.isEmpty()){
-            
-            UtilisateurHardis entite =   liste.get(0);
+    public  void modifClient(UtilisateurHardis entite, String nom, String prenom, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV) {       
+        if (entite!=null)
+        { 
+         
        
             if (!"".equals(nom))
         {

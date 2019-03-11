@@ -60,18 +60,15 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
         s.setNomService(nomService);
         s.setOffre(offre);
         s.setTypeService(typeS);
-        s.setHistoriqueEtatss(new ArrayList<HistoriqueEtats>());
+        s.setHistoriqueEtatss(new ArrayList<>());
         em.persist(s);
     }
 
     @Override
-    public void modifierService(Service s, String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS) {
-        Service serv = null;
-        Query requete = em.createQuery("SELECT s from Service as s where s.id=:id");
-        requete.setParameter("id",s.getId());     
-        List<Service> liste =  requete.getResultList();
-        if (!liste.isEmpty()){
-            serv =   liste.get(0);
+    public void modifierService(Service serv, String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS) {
+       
+        if (serv!=null){
+
        
         if (!"".equals(nomService))
         {
@@ -119,15 +116,14 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
     }
 
     @Override
-    public void supprimerService(Service serv) {
-        Service s = null;
-        Query requete = em.createQuery("SELECT s from Service as s where s.id=:id");
-        requete.setParameter("id",serv.getId());     
+    public void supprimerService(Long id) {
+        Service pm = null;
+        Query requete = em.createQuery("SELECT p from Service as p where p.id=:id");
+        requete.setParameter("id",id);     
         List<Service> liste =  requete.getResultList();
         if (!liste.isEmpty()){
-            s =   liste.get(0); 
-            
-            em.remove(s);
+            pm  =  liste.get(0); 
+            em.remove(pm);
         }
     }
 
@@ -138,9 +134,17 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
         requete.setParameter("id",id);     
         List<Service> liste =  requete.getResultList();
         if (!liste.isEmpty()){
-            s =   liste.get(0); 
+            s =  (Service) liste.get(0); 
         }
         return s;
+    }
+
+    @Override
+    public List<Service> rechercheServiceParOffre(Offre o) {
+        Query requete = em.createQuery("SELECT s from Service as s where s.offre=:o");
+        requete.setParameter("o",o);     
+        List<Service> liste =  requete.getResultList();    
+        return liste;
     }
     
     
