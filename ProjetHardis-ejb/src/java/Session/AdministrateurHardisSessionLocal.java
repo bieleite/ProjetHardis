@@ -5,6 +5,9 @@
  */
 package Session;
 
+import Entites.Client;
+import Entites.Entreprise;
+import Entites.UtilisateurHardis;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +16,9 @@ import javax.ejb.Local;
  */
 @Local
 public interface AdministrateurHardisSessionLocal {
+
+    void affecterClient(Client client, Entreprise entreprise, UtilisateurHardis hardis);
+
+    void effacerClient(Client client);
     
 }

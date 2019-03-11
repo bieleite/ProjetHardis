@@ -55,13 +55,13 @@ public class InternauteSession implements InternauteSessionLocal {
     }
 
     @Override
-    public void creerEntreprise(String numero, Agence agence, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif) {
+    public void creerEntreprise(String numero, Agence agence, String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif) {
         Entreprise en = entrepriseFacade.find(this);//
         if(en!=null){
             System.out.println("Login existant");
         }
         else{
-            entrepriseFacade.creerEntreprise(numero, agence, interlocuteurs, codeContrat, mdpEntreprise, adresse, lienJustif);
+            entrepriseFacade.creerEntreprise(numero, agence, nom, interlocuteurs, codeContrat, mdpEntreprise, adresse, lienJustif);
         }
     }
     

@@ -24,6 +24,6 @@ public interface InternauteSessionLocal {
 
     void ajouterEntrepriseAuClient(Client client, Entreprise entreprise);
 
-    void creerEntreprise(String numero, Agence agence, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif);
+    void creerEntreprise(String numero, Agence agence, String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif);
     
 }
