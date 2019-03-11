@@ -193,6 +193,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         }
     }
 
+<<<<<<< HEAD
     @Override
     public void majCertif(Client client) {
           String txt = "SELECT entite FROM Client AS entite WHERE entite.id=:id ";
@@ -206,4 +207,17 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
            
     }
 
+=======
+     @Override
+    public void supprimerClient(Client entite) {
+        Query requete = em.createQuery("SELECT s from Client as s where s.id=:id");
+        requete.setParameter("id",entite.getId());     
+        List<Client> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0); 
+            
+            em.remove(entite);
+        }
+    }
+>>>>>>> 54741b430badeeab3586d93a958dd68e4903bd38
 }

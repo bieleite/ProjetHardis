@@ -142,7 +142,18 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         }
     }
 
-
+     @Override
+    public void supprimerCommunication(Communication entite) {
+        Query requete = em.createQuery("SELECT s from Communication as s where s.id=:id");
+        requete.setParameter("id",entite.getId());     
+        List<Communication> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0); 
+            
+            em.remove(entite);
+        }
+    }
+    
     public CommunicationFacade() {
         super(Communication.class);
     }

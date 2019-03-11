@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Disponibilite;
+import Entites.Disponibilite;
 
 import Entites.UtilisateurHardis;
 import java.util.Date;
@@ -112,6 +113,18 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
         }
     }
 
+    @Override
+    public void supprimerDisponibilite(Disponibilite entite) {
+        Query requete = em.createQuery("SELECT s from Disponibilite as s where s.id=:id");
+        requete.setParameter("id",entite.getId());     
+        List<Disponibilite> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0); 
+            
+            em.remove(entite);
+        }
+    }
+    
     public DisponibiliteFacade() {
         super(Disponibilite.class);
     }

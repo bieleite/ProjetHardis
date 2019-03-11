@@ -46,7 +46,7 @@ public interface AdresseFacadeLocal {
     
   
     
-    
+    void supprimerAdresse(Adresse entite);
 
 
 }

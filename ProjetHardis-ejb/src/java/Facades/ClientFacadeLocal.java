@@ -59,7 +59,7 @@ public interface ClientFacadeLocal {
 
     void majCertif(Client client);
     
-    
+    void supprimerClient(Client entite);
 
 
 }

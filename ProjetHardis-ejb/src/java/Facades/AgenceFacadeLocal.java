@@ -45,6 +45,7 @@ public interface AgenceFacadeLocal {
     Agence rechercheAgenceParNom(String NomAgence);
     
     
+    void supprimerAgence(Agence entite);
 
 
 }

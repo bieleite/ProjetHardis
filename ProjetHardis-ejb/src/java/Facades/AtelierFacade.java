@@ -94,6 +94,17 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
         }
     }
     
+     @Override
+    public void supprimerAtelier(Atelier entite) {
+        Query requete = em.createQuery("SELECT s from Atelier as s where s.id=:id");
+        requete.setParameter("id",entite.getId());     
+        List<Atelier> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            entite =   liste.get(0); 
+            
+            em.remove(entite);
+        }
+    }
 
     public AtelierFacade() {
         super(Atelier.class);
