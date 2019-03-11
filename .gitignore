@@ -4,3 +4,7 @@
 /build/
 /ProjetHardis-war/build/
 /ProjetHardis-war/dist/
+*.log
+*.lck
+*.ctrl
+*.dat
