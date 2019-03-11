@@ -101,7 +101,7 @@ em.persist(inter);
         requete.setParameter("id",id);     
         List<Interlocuteur> liste =  requete.getResultList();
         if (!liste.isEmpty()){
-            s =   liste.get(0); 
+            s =  (Interlocuteur) liste.get(0); 
         }
         return s;
     }

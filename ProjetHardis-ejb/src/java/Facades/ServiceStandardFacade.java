@@ -13,6 +13,7 @@ import Entites.HistoriqueEtats;
 import Entites.LieuIntervention;
 import Entites.Livrable;
 import Entites.Offre;
+import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.TypeService;
 import java.util.ArrayList;
@@ -62,8 +63,8 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
         s.setNomService(nomService);
         s.setOffre(offre);
         s.setTypeService(typeS);
-        s.setHistoriqueEtatss(new ArrayList<HistoriqueEtats>());
-        s.setAteliers(listeA);;
+        s.setHistoriqueEtatss(new ArrayList<>());
+        s.setAteliers(listeA);
         s.setLivrables(livrable);
         s.setNbreHeuresEntretien(nbHA);
         s.setNbreHeuresSupportTel(nbHS);
@@ -74,15 +75,10 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
     }
 
     @Override
-    public void modifierServiceStandard(ServiceStandard s, String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, List<Livrable> livrable, List<Atelier> listeA, float nbHS) {
+    public void modifierServiceStandard(ServiceStandard serv, String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, List<Livrable> livrable, List<Atelier> listeA, float nbHS) {
    
-        ServiceStandard serv = null;
-        Query requete = em.createQuery("SELECT s from ServiceStandard as s where s.id=:id");
-        requete.setParameter("id",s.getId());     
-        List<ServiceStandard> liste =  requete.getResultList();
-        
-        if (!liste.isEmpty()){
-            serv =   liste.get(0);
+    
+        if (serv!=null){
        
         if (!"".equals(nomService))
         {
@@ -167,11 +163,11 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
     }
 
     @Override
-    public void supprimerServiceStandard(ServiceStandard serv) {
+    public void supprimerServiceStandard(Long id) {
         
              ServiceStandard s = null;
         Query requete = em.createQuery("SELECT s from ServiceStandard as s where s.id=:id");
-        requete.setParameter("id",serv.getId());     
+        requete.setParameter("id",id);     
         List<ServiceStandard> liste =  requete.getResultList();
         if (!liste.isEmpty()){
             s =   liste.get(0); 
@@ -187,9 +183,17 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
         requete.setParameter("id",id);     
         List<ServiceStandard> liste =  requete.getResultList();
         if (!liste.isEmpty()){
-            s =   liste.get(0); 
+            s = (ServiceStandard)  liste.get(0); 
         }
         return s;
+    }
+
+    @Override
+    public List<ServiceStandard> rechercheServiceStandardParOffre(Offre o) {
+       Query requete = em.createQuery("SELECT s from ServiceStandard as s where s.offre=:o");
+        requete.setParameter("o",o);     
+        List<ServiceStandard> liste =  requete.getResultList();    
+        return liste;
     }
     
     

@@ -91,7 +91,7 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
         requete.setParameter("id",id);     
         List<Offre> liste =  requete.getResultList();
         if (!liste.isEmpty()){
-            s =   liste.get(0); 
+            s =   (Offre)liste.get(0); 
         }
         return s;
     }

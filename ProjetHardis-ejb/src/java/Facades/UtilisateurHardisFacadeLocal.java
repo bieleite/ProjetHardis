@@ -57,6 +57,6 @@ public interface UtilisateurHardisFacadeLocal {
     
 void modifClient(UtilisateurHardis entite1, String nom, String prenom, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV);    
    
-void SuppressionUtilisateur(UtilisateurHardis cl);
+void SuppressionUtilisateur(Long id);
     
 }

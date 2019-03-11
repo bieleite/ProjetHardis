@@ -50,9 +50,11 @@ public interface ServiceStandardFacadeLocal {
 
     void modifierServiceStandard(ServiceStandard s, String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, List<Livrable> livrable, List<Atelier> listeA, float nbHS);
 
-    void supprimerServiceStandard(ServiceStandard serv);
+    void supprimerServiceStandard(Long id);
 
     ServiceStandard rechercheServiceSParId(long id);
+
+    List<ServiceStandard> rechercheServiceStandardParOffre(Offre o);
 
     
 }

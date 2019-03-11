@@ -87,12 +87,12 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
 
     @Override
     public Livrable rechercheLivrableParId(long id) {
-      Livrable s = null;
+        Livrable s = null;
         Query requete = em.createQuery("SELECT s from Livrable as s where s.id=:id");
         requete.setParameter("id",id);     
         List<Livrable> liste =  requete.getResultList();
         if (!liste.isEmpty()){
-            s =   liste.get(0); 
+            s =  (Livrable) liste.get(0); 
         }
         return s;
     }

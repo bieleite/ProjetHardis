@@ -52,5 +52,7 @@ public interface ProfilMetierFacadeLocal {
 
     List<ProfilMetier> recherchePMParExpertise(Expertise exp);
 
+    List<ProfilMetier> recherchePMParHabilitation(NiveauHabilitation habi);
+
     
 }
