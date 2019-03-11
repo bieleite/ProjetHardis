@@ -50,6 +50,7 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
         ad.setVille(Ville);
         ad.setCodePostal(CodePostal);
         em.persist(ad);
+        
         return ad;
     }
     
@@ -76,17 +77,12 @@ public class AdresseFacade extends AbstractFacade<Adresse> implements AdresseFac
     }
 
     @Override
-    public  Adresse rechercheAdresseParCP(String cp) {
-        Adresse ad = null;        
-        String txt = "SELECT ad FROM Adresse AS ad WHERE ad.codePostal=:CP ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("CP", cp);
-        List<Adresse> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              ad = (Adresse) res.get(0);
-        }
-        return ad;
+    public  List<Adresse> rechercheAdresseParCP(String cp) {
+        
+        Query requete = em.createQuery("SELECT ad FROM Adresse AS ad WHERE ad.codePostal=:CP");
+        requete.setParameter("CP",cp);     
+        List<Adresse> liste =  requete.getResultList();    
+        return liste;
     }
     
    

@@ -11,9 +11,13 @@ import Entites.Client;
 import Entites.Devis;
 
 import Entites.Entreprise;
+import Entites.Helpers;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -54,7 +58,12 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         cl.setNom(Nom);
         cl.setPrenom(Prenom);
         cl.setLogin(Login);
-        cl.setMdp(MDP);
+        try {
+            cl.setMdp(Helpers.sha1(MDP));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }//test md5 hash
+        //cl.setMdp(MDP);
         cl.setQuestionSecrete(QuestionSecrete);
         cl.setReponseSecrete(ReponseSecrete);
         cl.setRGPD(RGPD);
@@ -138,6 +147,21 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     }
     
     @Override
+    public  void modfiClientVisible(Client cl) {
+              
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", cl.getId());
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+            cl.setVisible(true);
+            em.merge(cl);
+        }
+        
+    }
+    
+    @Override
     public  void modfiClientQSRS(Client cl, String QS, String RS) {
               
         String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
@@ -146,6 +170,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         List<Client> res = req.getResultList();
         if (res.size() >= 1)
         {
+            cl.setQuestionSecrete(QS);
             cl.setMdp(RS);
             em.merge(cl);
         }

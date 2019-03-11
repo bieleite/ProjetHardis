@@ -42,7 +42,7 @@ public interface ServiceFacadeLocal {
 
     int count();
 
-
+    List<Service> rechercheServiceParOffre(Offre o);
 
     void creerService(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS);
 

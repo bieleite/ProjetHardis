@@ -40,7 +40,7 @@ public interface AdresseFacadeLocal {
 
     Adresse rechercheAdresse(Long id);
     
-    Adresse rechercheAdresseParCP(String cp);
+    List<Adresse> rechercheAdresseParCP(String cp);
     
     void modifAdresse(Adresse ad, int NumRue, String NomRue, String Ville, String CodePostal);
     
