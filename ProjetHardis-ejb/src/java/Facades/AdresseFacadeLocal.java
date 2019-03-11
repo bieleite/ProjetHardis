@@ -34,13 +34,13 @@ public interface AdresseFacadeLocal {
 
     int count();
     
-    void creerAdresse(int NumRue, String NomRue, String Ville, String CodePostal);
+    Adresse creerAdresse(int NumRue, String NomRue, String Ville, String CodePostal);
     
     List<Adresse> listAdresse();
 
     Adresse rechercheAdresse(Long id);
     
-    Adresse rechercheAdresseParCP(String cp);
+    List<Adresse> rechercheAdresseParCP(String cp);
     
     void modifAdresse(Adresse ad, int NumRue, String NomRue, String Ville, String CodePostal);
     

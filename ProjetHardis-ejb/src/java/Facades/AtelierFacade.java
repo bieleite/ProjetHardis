@@ -39,10 +39,11 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
 
 
     @Override
-    public void creerAtelier(String NomAtelier) {
+    public Atelier creerAtelier(String NomAtelier) {
         Atelier ag = new Atelier();
         ag.setNomAtelier(NomAtelier);
         em.persist(ag);
+        return ag;
     }
     @Override
     public List<Atelier> listAtelier() {

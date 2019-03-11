@@ -36,7 +36,7 @@ public interface AtelierFacadeLocal {
     
     void supprimerAtelier(Atelier entite);
     
-    void creerAtelier(String NomAtelier);
+    Atelier creerAtelier(String NomAtelier);
     
     List<Atelier> listAtelier();
 

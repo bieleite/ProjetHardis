@@ -8,6 +8,7 @@ package Session;
 import Entites.Action;
 import Entites.Adresse;
 import Entites.Agence;
+import Entites.Atelier;
 import Entites.Client;
 import Entites.Devis;
 import Entites.Entreprise;
@@ -20,6 +21,9 @@ import Entites.Service;
 import Entites.Statut;
 import Entites.TypeService;
 import Entites.UtilisateurHardis;
+import Facades.AdresseFacadeLocal;
+import Facades.AgenceFacadeLocal;
+import Facades.AtelierFacadeLocal;
 import Facades.ClientFacadeLocal;
 import Facades.DevisFacadeLocal;
 import Facades.EntrepriseFacadeLocal;
@@ -39,6 +43,15 @@ import javax.ejb.Stateless;
 public class AdministrateurHardisSession implements AdministrateurHardisSessionLocal {
 
     @EJB
+    private AtelierFacadeLocal atelierFacade;
+
+    @EJB
+    private AdresseFacadeLocal adresseFacade;
+
+    @EJB
+    private AgenceFacadeLocal agenceFacade;
+
+    @EJB
     private DevisFacadeLocal devisFacade;
 
     @EJB
@@ -56,6 +69,142 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
+    
+    @Override
+    public void creerAdresse(int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis) {
+        Adresse ad = adresseFacade.creerAdresse(numRue, nomRue, ville, CP);
+        Date date = new Date();
+        String libelle = "Ajouté factures au devis id: " + ad.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Create, date, libelle, hardis);
+    }
+
+    @Override
+    public void modifierAdresse(Adresse ad, int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis) {
+        adresseFacade.modifAdresse(ad, numRue, nomRue, ville, CP);
+        Date date = new Date();
+        String libelle = "Ajouté factures au devis id: " + ad.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Update, date, libelle, hardis);
+    }
+    
+    @Override
+    public void supprimerAdresse(Adresse ad, UtilisateurHardis hardis) {
+        adresseFacade.supprimerAdresse(ad);
+        Date date = new Date();
+        String libelle = "Supprimer agence id: " + ad.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Delete, date, libelle, hardis);
+    }
+    
+     @Override
+    public Adresse rechercherAdresse(long id, UtilisateurHardis hardis) {
+        Adresse ad = adresseFacade.rechercheAdresse(id);
+        Date date = new Date();
+        String libelle = "Rechercher lagence id: "+ ad.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Research, date, libelle, hardis);
+        return ad;
+    }
+    
+    @Override
+    public List<Adresse> rechercherAdresseParCP(String CP, UtilisateurHardis hardis) {
+        List<Adresse> ad = adresseFacade.rechercheAdresseParCP(CP);
+        Date date = new Date();
+        String libelle = "Rechercher adresse par le CP: " + CP +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Research, date, libelle, hardis);
+        return ad;       
+    }
+    
+    @Override
+    public void creerAgence(String NomAgence, UtilisateurHardis hardis) {
+        agenceFacade.creerAgence(NomAgence);
+        Agence ag = agenceFacade.rechercheAgenceParNom(NomAgence);
+        Date date = new Date();
+        String libelle = "Ajouté factures au devis id: " + ag.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Create, date, libelle, hardis);
+    }
+
+    @Override
+    public void modifierAgence(Agence agence, String nomagence, UtilisateurHardis hardis) {
+        agenceFacade.modifAgence(agence, nomagence);
+        Date date = new Date();
+        String libelle = "Ajouté factures au devis id: " + agence.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Update, date, libelle, hardis);
+    }
+    
+    @Override
+    public void supprimerAgence(Agence agence, UtilisateurHardis hardis) {
+        agenceFacade.supprimerAgence(agence);
+        Date date = new Date();
+        String libelle = "Supprimer agence id: " + agence.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Delete, date, libelle, hardis);
+    }
+    
+     @Override
+    public Agence rechercherAgence(long id, String nomAgence, UtilisateurHardis hardis) {
+       Agence ag = null;
+        if (!"".equals(nomAgence))
+        {
+            ag = agenceFacade.rechercheAgenceParNom(nomAgence);
+            Date date = new Date();
+            String libelle = "Rechercher lagence id: " + ag.getId() + "nom: "+ag.getNomAgence() +" par lutilisateur: "+ hardis.getId() ;
+            logsFacade.creerLog(Action.Research, date, libelle, hardis);
+        }
+        
+        else  if (id!=0)
+        {
+            ag = agenceFacade.rechercheAgence(id);
+            Date date = new Date();
+            String libelle = "Rechercher lagence id: "+ ag.getId() + "nom: "+ag.getNomAgence() +" par lutilisateur: "+ hardis.getId() ;
+            logsFacade.creerLog(Action.Research, date, libelle, hardis);
+        }
+        
+        return ag;
+    }
+      
+    @Override
+    public void creerAtelier(String NomAtelier, UtilisateurHardis hardis) {
+        Atelier at = atelierFacade.creerAtelier(NomAtelier);
+        Date date = new Date();
+        String libelle = "Ajouté atelier: " + at.getId() +" nom: "+at.getNomAtelier()+" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Create, date, libelle, hardis);
+    }
+
+    @Override
+    public void modifierAtelier(Atelier at, String nomatelier, UtilisateurHardis hardis) {
+        atelierFacade.creerAtelier(nomatelier);
+        Date date = new Date();
+        String libelle = "Modifier atelier id: " + at.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Update, date, libelle, hardis);
+    }
+    
+    @Override
+    public void supprimerAtelier(Atelier at, UtilisateurHardis hardis) {
+        atelierFacade.supprimerAtelier(at);
+        Date date = new Date();
+        String libelle = "Supprimer agence id: " + at.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Delete, date, libelle, hardis);
+    }
+    
+     @Override
+    public Atelier rechercherAtelier(long id, String nomAtelier, UtilisateurHardis hardis) {
+       Atelier at = null;
+        if (!"".equals(nomAtelier))
+        {
+            at = atelierFacade.rechercheAtelierParNom(nomAtelier);
+            Date date = new Date();
+            String libelle = "Rechercher latelier id: " + at.getId() + "nom: "+at.getNomAtelier() +" par lutilisateur: "+ hardis.getId() ;
+            logsFacade.creerLog(Action.Research, date, libelle, hardis);
+        }
+        
+        else  if (id!=0)
+        {
+            at = atelierFacade.rechercheAtelier(id);
+            Date date = new Date();
+            String libelle = "Rechercher latelier id: " + at.getId() + "nom: "+at.getNomAtelier() +" par lutilisateur: "+ hardis.getId() ;
+            logsFacade.creerLog(Action.Research, date, libelle, hardis);
+        }
+        
+        return at;
+    }
+    
     @Override
     public void affecterClient(Client client, Entreprise entreprise, UtilisateurHardis hardis ) {
         clientFacade.majEntrepriseClient(client, entreprise);
@@ -243,6 +392,54 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         String libelle = "Ajouté factures au devis id: " + devis.getId() +" par lutilisateur: "+ hardis.getId() ;
         logsFacade.creerLog(Action.Update, date, libelle, hardis);
     }
+  /*
+    @Override
+    public void creerAtelier(String NomAtelier, UtilisateurHardis hardis) {
+        Atelier at = atelierFacade.creerAtelier(NomAtelier);
+        Date date = new Date();
+        String libelle = "Ajouté atelier: " + at.getId() +" nom: "+at.getNomAtelier()+" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Create, date, libelle, hardis);
+    }
+
+    @Override
+    public void modifierAtelier(Atelier at, String nomatelier, UtilisateurHardis hardis) {
+        atelierFacade.creerAtelier(nomatelier);
+        Date date = new Date();
+        String libelle = "Modifier atelier id: " + at.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Update, date, libelle, hardis);
+    }
+    
+    @Override
+    public void supprimerAtelier(Atelier at, UtilisateurHardis hardis) {
+        atelierFacade.supprimerAtelier(at);
+        Date date = new Date();
+        String libelle = "Supprimer agence id: " + at.getId() +" par lutilisateur: "+ hardis.getId() ;
+        logsFacade.creerLog(Action.Delete, date, libelle, hardis);
+    }
+    
+     @Override
+    public Atelier rechercherAtelier(long id, String nomAtelier, UtilisateurHardis hardis) {
+       Atelier at = null;
+        if (!"".equals(nomAtelier))
+        {
+            at = atelierFacade.rechercheAtelierParNom(nomAtelier);
+            Date date = new Date();
+            String libelle = "Rechercher latelier id: " + at.getId() + "nom: "+at.getNomAtelier() +" par lutilisateur: "+ hardis.getId() ;
+            logsFacade.creerLog(Action.Research, date, libelle, hardis);
+        }
+        
+        else  if (id!=0)
+        {
+            at = atelierFacade.rechercheAtelier(id);
+            Date date = new Date();
+            String libelle = "Rechercher latelier id: " + at.getId() + "nom: "+at.getNomAtelier() +" par lutilisateur: "+ hardis.getId() ;
+            logsFacade.creerLog(Action.Research, date, libelle, hardis);
+        }
+        
+        return at;
+    }
+    */
+    
     
     
     
