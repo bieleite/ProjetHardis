@@ -26,9 +26,5 @@ public class Helpers {
         }
     return sha1;
 }
-    public static void main(String [] args) throws UnsupportedEncodingException{
-        /*Pour Madame Talens, le mdp est password*/
-        System.out.println(sha1("password").equalsIgnoreCase("5BAA61E4C9B93F3F0682250B6CF8331B7EE68FD8")); /*Test password crypted*/
-    }
-    
+ 
 }

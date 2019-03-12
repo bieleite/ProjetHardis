@@ -23,6 +23,19 @@ import javax.persistence.OneToOne;
 public class Offre implements Serializable {
 
     @OneToMany(mappedBy = "offre")
+    private List<Service> services;
+
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+    
+    
+
+    @OneToMany(mappedBy = "offre")
     private List<Offre_Profil_Util_CV> offre_Profil_Utils;
 
     public List<Offre_Profil_Util_CV> getOffre_Profil_Utils() {

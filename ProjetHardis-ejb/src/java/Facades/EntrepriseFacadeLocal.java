@@ -51,5 +51,9 @@ public interface EntrepriseFacadeLocal {
     Entreprise rechercheEntrepriseParMDP(String mdp);
 
     void supprimerEntreprise(Entreprise e);
+
+    String generateString(int n);
+
+    String creerCodeContrat(long id);
     
 }

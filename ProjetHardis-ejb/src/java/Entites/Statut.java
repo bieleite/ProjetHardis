@@ -10,5 +10,5 @@ package Entites;
  * @author anastasia.salari
  */
 public enum Statut {
-    Incomplet, Rep_en_Cours, Envoye, Valide, Refuse, En_nego, Acompte_regle, Presta_terminee
+    Incomplet, Rep_en_Cours, Envoye, Valide, Refuse, En_nego, Acompte_regle, Presta_terminee, Transmettre_au_client
 }
