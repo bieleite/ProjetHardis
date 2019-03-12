@@ -194,6 +194,14 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
         List<ServiceStandard> liste =  requete.getResultList();    
         return liste;
     }
+
+    @Override
+    public List<ServiceStandard> listServStandard() {
+        String txt="SELECT ad FROM ServiceStandard AS ad ";
+        Query req=getEntityManager().createQuery(txt);
+        List<ServiceStandard> result=req.getResultList();
+        return result;
+    }
     
     
     

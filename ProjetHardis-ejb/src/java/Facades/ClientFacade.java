@@ -268,4 +268,8 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
             return (Client)liste.get(0);
         else return null;
     }
+
+
+
+
 }

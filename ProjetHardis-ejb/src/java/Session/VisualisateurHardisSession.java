@@ -5,6 +5,18 @@
  */
 package Session;
 
+import Entites.Client;
+import Entites.Devis;
+import Entites.Service;
+import Entites.ServiceStandard;
+import Entites.UtilisateurHardis;
+import Facades.ClientFacadeLocal;
+import Facades.DevisFacadeLocal;
+import Facades.ServiceFacadeLocal;
+import Facades.ServiceStandardFacadeLocal;
+import Facades.UtilisateurHardisFacadeLocal;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -14,6 +26,49 @@ import javax.ejb.Stateless;
 @Stateless
 public class VisualisateurHardisSession implements VisualisateurHardisSessionLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @EJB
+    private ServiceStandardFacadeLocal serviceStandardFacade;
+
+    @EJB
+    private ServiceFacadeLocal serviceFacade;
+
+    @EJB
+    private UtilisateurHardisFacadeLocal utilisateurHardisFacade;
+
+    @EJB
+    private DevisFacadeLocal devisFacade;
+
+    @EJB
+    private ClientFacadeLocal clientFacade;
+    
+    
+    
+    
+    
+    @Override
+    public List<Service> afficherServices() {
+        return serviceFacade.listServices();
+    }
+
+    @Override
+    public List<Client> afficherClients() {
+        return clientFacade.listClient();
+    }
+
+    @Override
+    public List<Devis> afficherDevis() {
+        return devisFacade.listDevis();
+    }
+
+    @Override
+    public List<UtilisateurHardis> afficherUHardis() {
+        return utilisateurHardisFacade.listUHardis();
+    }
+
+    @Override
+    public List<ServiceStandard> afficherServiceStandard() {
+        return serviceStandardFacade.listServStandard();
+    }
+
+    
 }

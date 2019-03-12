@@ -52,7 +52,8 @@ public interface ServiceFacadeLocal {
 
     Service rechercheServiceParId(long id);
 
-    List<Service> rechercheServiceParOffre(Offre o);
+    List<Service> listServices();
+
 
     
 }

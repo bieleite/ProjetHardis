@@ -7,6 +7,7 @@ package Facades;
 
 
 
+import Entites.Agence;
 import Entites.FacturationFrais;
 import Entites.HistoriqueEtats;
 import Entites.LieuIntervention;
@@ -144,6 +145,14 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
         requete.setParameter("o",o);     
         List<Service> liste =  requete.getResultList();    
         return liste;
+    }
+
+    @Override
+    public List<Service> listServices() {
+       String txt="SELECT ad FROM Service AS ad ";
+        Query req=getEntityManager().createQuery(txt);
+        List<Service> result=req.getResultList();
+        return result;
     }
     
     

@@ -93,16 +93,7 @@ public class ClientSession implements ClientSessionLocal {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
       
 
     @Override
@@ -202,8 +193,16 @@ public class ClientSession implements ClientSessionLocal {
     }
 
     @Override
-    public void afficherDevisClient(String parameter) {
+    public List<Devis> afficherDevisClient(Client cli) {
+       return  devisFacade.afficherDevisClient(cli);
     }
+
+    @Override
+    public List<Devis> afficherDevisStatut(Client cli, Statut s) {
+       return devisFacade.afficherDevisStatut(cli, s);
+    }
+    
+    
 
 
     

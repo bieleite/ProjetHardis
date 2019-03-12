@@ -193,5 +193,26 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         d.setDateIntervSouhaitee(date);
         em.merge(d);
     }
+
+    @Override
+    public List<Devis> afficherDevisClient(Client cli) {
+        Query requete = em.createQuery("SELECT s from Devis as s where s.client=:cli");
+        requete.setParameter("cli",cli);     
+        List<Devis> liste =  requete.getResultList();
+        return liste;
+    }
+
+    @Override
+    public List<Devis> afficherDevisStatut(Client cli, Statut statut) {
+        Query requete = em.createQuery("SELECT s from Devis as s where s.client=:cli and s.statut=:statut");
+        requete.setParameter("cli",cli);     
+        requete.setParameter("statut",statut); 
+        List<Devis> liste =  requete.getResultList();
+        return liste;
+    }
+    
+    
+    
+    
     
 }

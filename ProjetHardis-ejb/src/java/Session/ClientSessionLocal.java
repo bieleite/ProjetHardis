@@ -11,7 +11,9 @@ import Entites.DevisNonStandard;
 import Entites.Entreprise;
 import Entites.Facture;
 import Entites.Service;
+import Entites.Statut;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -41,7 +43,9 @@ public interface ClientSessionLocal {
 
     void modifDateInterv(Date date, Devis d, Client cli);
 
-    void afficherDevisClient(String parameter);
+    List<Devis> afficherDevisClient(Client cli);
+
+    List<Devis> afficherDevisStatut(Client cli, Statut s);
 
     
 }

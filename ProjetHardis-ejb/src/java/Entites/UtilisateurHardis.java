@@ -24,6 +24,9 @@ import javax.persistence.OneToOne;
 
 public class UtilisateurHardis extends Utilisateur implements Serializable {
 
+    @OneToMany(mappedBy = "utilisateurHardis")
+    private List<ContactMail> contactMails;
+
     @OneToMany(mappedBy = "UtilisateurHardis")
     private List<Disponibilite> disponibilites;
 
