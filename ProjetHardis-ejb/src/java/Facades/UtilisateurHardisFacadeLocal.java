@@ -65,5 +65,7 @@ void SuppressionUtilisateur(Long id);
     List<UtilisateurHardis> rechercheUtilisateurHParAgence(Agence agence);
 
     List<UtilisateurHardis> listUHardis();
+
+
     
 }

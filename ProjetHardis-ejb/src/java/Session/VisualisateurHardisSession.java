@@ -51,8 +51,8 @@ public class VisualisateurHardisSession implements VisualisateurHardisSessionLoc
     }
 
     @Override
-    public List<Client> afficherClients() {
-        return clientFacade.listClient();
+    public List<Client> afficherClientsActifs() {
+        return clientFacade.afficherClientsActifs();
     }
 
     @Override
@@ -70,5 +70,6 @@ public class VisualisateurHardisSession implements VisualisateurHardisSessionLoc
         return serviceStandardFacade.listServStandard();
     }
 
+    
     
 }

@@ -65,6 +65,7 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
    e.setNumeroEntreprise(numero);
    e.setLienJustif(lienJustif);
    e.setNomEntreprise(nom);
+   e.setVisible(true);
    em.persist(e);
    
     }
@@ -169,6 +170,12 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
            
         }
       return entreprise;
+    }
+
+    @Override
+    public void supprimerEntreprise(Entreprise e) {
+        e.setVisible(false);
+        em.merge(e);
     }
     
 

@@ -23,6 +23,26 @@ import javax.persistence.OneToOne;
 @Entity
 public class Entreprise implements Serializable {
 
+        private boolean visible;
+
+    /**
+     * Get the value of visible
+     *
+     * @return the value of visible
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * Set the value of visible
+     *
+     * @param visible new value of visible
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
         private String nomEntreprise;
 
     /**

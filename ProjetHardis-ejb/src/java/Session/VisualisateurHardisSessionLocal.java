@@ -22,7 +22,7 @@ public interface VisualisateurHardisSessionLocal {
 
     List<Service> afficherServices();
 
-    List<Client> afficherClients();
+    List<Client> afficherClientsActifs();
 
     List<Devis> afficherDevis();
 

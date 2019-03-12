@@ -212,6 +212,8 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
         List<UtilisateurHardis> result=req.getResultList();
         return result;
     }
+
+    
     
     
 

@@ -72,5 +72,9 @@ public interface ClientFacadeLocal {
     
     Client rechercheClientParDevis(Devis devis);
 
+    List<Client> afficherClientsActifs();
+
+    void majAgenceClient(Client cli, Agence agence);
+
 
 }

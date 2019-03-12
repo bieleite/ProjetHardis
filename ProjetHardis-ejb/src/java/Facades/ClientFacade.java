@@ -271,6 +271,8 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         c.setEntreprise(ent);
         em.merge(c);
     }
+    
+    
 
     @Override
     public Client authentificationClient(String log, String mdp) {
@@ -281,6 +283,20 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         if (!liste.isEmpty())
             return (Client)liste.get(0);
         else return null;
+    }
+
+    @Override
+    public List<Client> afficherClientsActifs() {
+        String txt="SELECT cl FROM Client AS cl where cl.visible:=true ";
+        Query req=getEntityManager().createQuery(txt);
+        List<Client> result=req.getResultList();
+        return result;
+    }
+
+    @Override
+    public void majAgenceClient(Client cli, Agence agence) {
+        cli.setAgence(agence);
+        em.merge(cli);
     }
 
 
