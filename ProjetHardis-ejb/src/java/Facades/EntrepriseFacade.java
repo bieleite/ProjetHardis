@@ -91,6 +91,29 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
             em.merge(e);
     }
     }
+    
+   /* @Override
+    public void modifEntreprise(Entreprise e, Agence agence,  String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif, String numeroEnt ) {
+        if (e!=null){
+
+            if (agence!=null)
+               e.setAgence(agence);
+            if (!codeContrat.equals(""))
+                 e.setCodeContrat(codeContrat);
+            if (adresse !=null)
+                 e.setAdresseFact(adresse);
+            if (!mdpEntreprise.equals(""))
+                 e.setMdpEntreprise(mdpEntreprise);
+            if(!numeroEnt.equals(""))
+                 e.setNumeroEntreprise(numeroEnt);
+            if(!lienJustif.equals(""))
+             e.setLienJustif(lienJustif);
+            if(!nom.equals(""))
+             e.setNomEntreprise(nom);
+            
+            em.merge(e);
+    }
+    }*/
 
     @Override
     public Entreprise rechercheEntrepriseSiret(String siret) {
@@ -147,6 +170,8 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
         }
       return entreprise;
     }
+    
+
     
     
     

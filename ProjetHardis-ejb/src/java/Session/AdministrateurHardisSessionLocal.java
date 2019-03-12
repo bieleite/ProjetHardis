@@ -89,6 +89,6 @@ public interface AdministrateurHardisSessionLocal {
     
     Service rechercherServiceId(long id, UtilisateurHardis hardis);
 
-
+    
 
 }
