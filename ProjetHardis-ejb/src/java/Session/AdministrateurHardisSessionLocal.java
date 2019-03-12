@@ -9,7 +9,9 @@ import Entites.Adresse;
 import Entites.Agence;
 import Entites.Atelier;
 import Entites.Client;
+import Entites.Communication;
 import Entites.Devis;
+import Entites.DevisNonStandard;
 import Entites.Entreprise;
 import Entites.Facturation;
 import Entites.FacturationFrais;
@@ -62,18 +64,36 @@ public interface AdministrateurHardisSessionLocal {
     void supprimerClient(Client client,UtilisateurHardis hardis);
 
     void validerCompteClient(Client client,UtilisateurHardis hardis);
-
+    //criar afecter agence au client
     Client rechercherClient(long id, String nomclient, String loginclient, UtilisateurHardis hardis);
 
     void certifieClient(Client client, UtilisateurHardis hardis);
+    
+    void creerCommunicationHardis(String message, Devis devis, UtilisateurHardis utilisateur);
+
+    void modifierCommunication(Communication entite, Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur, UtilisateurHardis hardis);
+    
+    void supprimerCommunication(Communication co, UtilisateurHardis hardis);
+    
+    List<Communication> rechercherCommunication(Devis devis,UtilisateurHardis utilisateur, UtilisateurHardis hardis);
+    
+    Communication rechercherCommunicationID(long id, UtilisateurHardis hardis);
         
     void supprimerDevis(Devis devis, UtilisateurHardis hardis);
     
-    Devis rechercherService(long id, Client client, UtilisateurHardis hardis);
+    Devis rechercherDevis(long id, Client client, UtilisateurHardis hardis);
     
     void modifieDevis(Devis entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag, UtilisateurHardis hardis);
     
     void devisFactures(Devis devis, List<Facture> listfacture, UtilisateurHardis hardis);
+    
+    void accepterdevisNonStandard(DevisNonStandard devis, String choix, UtilisateurHardis hardis);
+    
+    DevisNonStandard rechercherDevisNonStandart(long id, Client client, UtilisateurHardis hardis);
+    
+    void supprimerDevisNonStandard(DevisNonStandard devis, UtilisateurHardis hardis);
+    
+    void modifieDevisNonStandard(DevisNonStandard entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag, UtilisateurHardis hardis);
     
     Entreprise rechercherEntreprise(long id, String siret, String nomentreprise, UtilisateurHardis hardis);
     
@@ -88,7 +108,5 @@ public interface AdministrateurHardisSessionLocal {
     List<Service> rechercherService(Offre of, UtilisateurHardis hardis);
     
     Service rechercherServiceId(long id, UtilisateurHardis hardis);
-
-    
 
 }

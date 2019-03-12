@@ -36,7 +36,7 @@ public interface AgenceFacadeLocal {
     
     void modifAgence(Agence entite, String NomAgence);
 
-    void creerAgence(String NomAgence);
+    Agence creerAgence(String NomAgence);
     
     List<Agence> listAgence();
 

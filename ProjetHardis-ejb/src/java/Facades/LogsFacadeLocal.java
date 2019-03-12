@@ -42,7 +42,13 @@ public interface LogsFacadeLocal {
 
     int count();
 
-
+    void creerLogResearch(Utilisateur util, Object o);
+    
+    void creerLogUpdate(Utilisateur util, Object o);
+    
+    void creerLogDelete(Utilisateur util, Object o);
+    
+    void creerLogCreate( Utilisateur util, Object o);
 
     void creerLog(Action action, Date date, String libelle, Utilisateur util);
 

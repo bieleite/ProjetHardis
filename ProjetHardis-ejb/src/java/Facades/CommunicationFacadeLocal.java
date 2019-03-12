@@ -42,13 +42,13 @@ public interface CommunicationFacadeLocal {
     
     void modifCommunication(Communication entite, Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur);
 
-    void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur, String QR, int delai );
+    Communication creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur, String QR, int delai );
     
     List<Communication> listCommunication();
 
     Communication rechercheCommunication(long id);
     
-    Communication rechercheCommunicationParNom(String NomCommunication);
+    List<Communication> rechercheCommunicationParUtilisateurHardis(UtilisateurHardis utilisateurHardis);
     
     Communication modifCommunicationQR(Communication co, String Typeqr);
     
@@ -58,5 +58,7 @@ public interface CommunicationFacadeLocal {
     
     List<Communication> rechercheCommunicationParDevis(Devis devis);
 
-    int calculerDelai();
+    int calculerDelai(Devis devis, Date dtnow);
+    
+    
 }

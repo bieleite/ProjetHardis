@@ -11,6 +11,7 @@ import Entites.Devis;
 import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
+import static java.util.concurrent.TimeUnit.SECONDS;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,7 +43,7 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
 
 
      @Override
-    public void creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur, String QR, int delai) {
+    public Communication creerCommunication( Date date_comu, String message, Devis devis, UtilisateurHardis utilisateur, String QR, int delai) {
         Communication co = new Communication();
         co.setDateHeure(date_comu);
         co.setMessage(message);
@@ -51,6 +52,7 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         co.setTypeQR(QR);
         co.setUtilisateurHardis(utilisateur);
         em.persist(co);
+        return co;
     }
     @Override
     public List<Communication> listCommunication() {
@@ -83,16 +85,11 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
     }
 
     @Override
-    public  Communication rechercheCommunicationParNom(String NomCommunication) {
-        Communication co = null;        
-        String txt = "SELECT co FROM Communication AS co WHERE co.NomCommunication=:nomcommunication ";
+    public  List<Communication> rechercheCommunicationParUtilisateurHardis(UtilisateurHardis utilisateurHardis) {        
+        String txt = "SELECT co FROM Communication AS co WHERE co.utilisateurHardis=:utilisateurHardis ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("nomcommunication", NomCommunication);
-        List<Communication> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              co = (Communication) res.get(0);
-        }
+        req = req.setParameter("utilisateurHardis", utilisateurHardis);
+        List<Communication> co = req.getResultList();
         return co;
     }
     
@@ -165,8 +162,19 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
     }
     
     @Override
-    public int calculerDelai() {
+    public int calculerDelai(Devis devis, Date dtnow) {
         int delai = 0;
+        Communication co = null;     
+        Query requete = em.createQuery("SELECT c FROM Communication AS c WHERE c.devis=:de");
+        requete.setParameter("de",devis);     
+        List<Communication> liste =  requete.getResultList();
+        if (liste.size() >= 1)
+        {
+              co = (Communication) liste.get(0);
+              Date dtanco = co.getDateHeure();
+              long diff = dtnow.getTime() - dtanco.getTime();
+              delai = (int) diff;   
+        }
         
         return delai;
     }

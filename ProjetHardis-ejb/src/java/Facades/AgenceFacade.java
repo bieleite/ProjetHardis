@@ -39,10 +39,12 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
 
 
     @Override
-    public void creerAgence(String NomAgence) {
+    public Agence creerAgence(String NomAgence) {
         Agence ag = new Agence();
         ag.setNomAgence(NomAgence);
         em.persist(ag);
+        
+        return ag;
     }
     @Override
     public List<Agence> listAgence() {

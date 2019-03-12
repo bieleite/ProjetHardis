@@ -8,7 +8,17 @@ package Facades;
 
 import Entites.Logs;
 
-import Entites.Action;
+import Entites.*;
+import Entites.Adresse;
+import Entites.Agence;
+import Entites.Atelier;
+import Entites.Client;
+import Entites.Communication;
+import Entites.Devis;
+import Entites.DevisNonStandard;
+import Entites.Disponibilite;
+import Entites.Document;
+import Entites.EchangeTel;
 import Entites.Interlocuteur;
 import Entites.Logs;
 import Entites.Utilisateur;
@@ -72,10 +82,429 @@ public class LogsFacade extends AbstractFacade<Logs> implements LogsFacadeLocal 
         return liste;
     }
     
+    @Override
+    public void creerLogCreate( Utilisateur util, Object o) {
+        Logs log = new Logs();
+        log.setActionEffectue(Action.Create);
+        log.setDateAction(new Date());
+        String clas = null;
+        Long id = null;
+        if (o instanceof Adresse ){
+            id = ((Adresse) o).getId();
+            clas = o.getClass().toString();
+        }
+        else if (o instanceof Agence ){
+             id = ((Agence) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Atelier ){
+             id = ((Atelier) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Client ){
+             id = ((Client) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Communication ){
+             id = ((Communication) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Devis ){
+             id = ((Devis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof DevisNonStandard ){
+             id = ((DevisNonStandard) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Document ){
+             id = ((Document) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof EchangeTel ){
+             id = ((EchangeTel) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Entreprise ){
+             id = ((Entreprise) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Facture ){
+             id = ((Facture) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueDevis ){
+             id = ((HistoriqueDevis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueEtats ){
+             id = ((HistoriqueEtats) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueTraitement ){
+             id = ((HistoriqueTraitement) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Interlocuteur ){
+             id = ((Interlocuteur) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Livrable ){
+             id = ((Livrable) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Offre ){
+             id = ((Offre) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Offre_Profil_Util_CV ){
+             id = ((Offre_Profil_Util_CV) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof ProfilMetier ){
+             id = ((ProfilMetier) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Service ){
+             id = ((Service) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof ServiceStandard ){
+             id = ((ServiceStandard) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Utilisateur ){
+             id = ((Utilisateur) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof UtilisateurHardis ){
+             id = ((UtilisateurHardis) o).getId();
+             clas = o.getClass().toString();
+        }
+        String libelle = "Creer en :"+ clas +"id: " + id +" par lutilisateur: "+ util.getId();
+        log.setLibelle(libelle);
+        log.setUtilisateur(util);   
+        em.persist(log);
+    } 
     
+    @Override
+    public void creerLogDelete(Utilisateur util, Object o) {
+        Logs log = new Logs();
+        log.setActionEffectue(Action.Delete);
+        log.setDateAction(new Date());
+        String clas = null;
+        Long id = null;
+        if (o instanceof Adresse ){
+            id = ((Adresse) o).getId();
+            clas = o.getClass().toString();
+        }
+        else if (o instanceof Agence ){
+             id = ((Agence) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Atelier ){
+             id = ((Atelier) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Client ){
+             id = ((Client) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Communication ){
+             id = ((Communication) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Devis ){
+             id = ((Devis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof DevisNonStandard ){
+             id = ((DevisNonStandard) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Document ){
+             id = ((Document) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof EchangeTel ){
+             id = ((EchangeTel) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Entreprise ){
+             id = ((Entreprise) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Facture ){
+             id = ((Facture) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueDevis ){
+             id = ((HistoriqueDevis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueEtats ){
+             id = ((HistoriqueEtats) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueTraitement ){
+             id = ((HistoriqueTraitement) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Interlocuteur ){
+             id = ((Interlocuteur) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Livrable ){
+             id = ((Livrable) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Offre ){
+             id = ((Offre) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Offre_Profil_Util_CV ){
+             id = ((Offre_Profil_Util_CV) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof ProfilMetier ){
+             id = ((ProfilMetier) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Service ){
+             id = ((Service) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof ServiceStandard ){
+             id = ((ServiceStandard) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Utilisateur ){
+             id = ((Utilisateur) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof UtilisateurHardis ){
+             id = ((UtilisateurHardis) o).getId();
+             clas = o.getClass().toString();
+        }
+        String libelle = "Suppression du :"+ clas +"id: " + id +" par lutilisateur: "+ util.getId();
+        log.setLibelle(libelle);
+        log.setUtilisateur(util);   
+        em.persist(log);
+    } 
     
+    @Override
+    public void creerLogUpdate(Utilisateur util, Object o) {
+        Logs log = new Logs();
+        log.setActionEffectue(Action.Update);
+        log.setDateAction(new Date());
+        String clas = null;
+        Long id = null;
+        if (o instanceof Adresse ){
+            id = ((Adresse) o).getId();
+            clas = o.getClass().toString();
+        }
+        else if (o instanceof Agence ){
+             id = ((Agence) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Atelier ){
+             id = ((Atelier) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Client ){
+             id = ((Client) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Communication ){
+             id = ((Communication) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Devis ){
+             id = ((Devis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof DevisNonStandard ){
+             id = ((DevisNonStandard) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Document ){
+             id = ((Document) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof EchangeTel ){
+             id = ((EchangeTel) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Entreprise ){
+             id = ((Entreprise) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Facture ){
+             id = ((Facture) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueDevis ){
+             id = ((HistoriqueDevis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueEtats ){
+             id = ((HistoriqueEtats) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueTraitement ){
+             id = ((HistoriqueTraitement) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Interlocuteur ){
+             id = ((Interlocuteur) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Livrable ){
+             id = ((Livrable) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Offre ){
+             id = ((Offre) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Offre_Profil_Util_CV ){
+             id = ((Offre_Profil_Util_CV) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof ProfilMetier ){
+             id = ((ProfilMetier) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Service ){
+             id = ((Service) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof ServiceStandard ){
+             id = ((ServiceStandard) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Utilisateur ){
+             id = ((Utilisateur) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof UtilisateurHardis ){
+             id = ((UtilisateurHardis) o).getId();
+             clas = o.getClass().toString();
+        }
+        String libelle = "Modification du :"+ clas +"id: " + id +" par lutilisateur: "+ util.getId();
+        log.setLibelle(libelle);
+        log.setUtilisateur(util);   
+        em.persist(log);
+    } 
     
-    
+    @Override
+    public void creerLogResearch(Utilisateur util, Object o) {
+        Logs log = new Logs();
+        log.setActionEffectue(Action.Research);
+        log.setDateAction(new Date());
+        String clas = null;
+        Long id = null;
+        if (o instanceof Adresse ){
+            id = ((Adresse) o).getId();
+            clas = o.getClass().toString();
+        }
+        else if (o instanceof Agence ){
+             id = ((Agence) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Atelier ){
+             id = ((Atelier) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Client ){
+             id = ((Client) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Communication ){
+             id = ((Communication) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Devis ){
+             id = ((Devis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof DevisNonStandard ){
+             id = ((DevisNonStandard) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Document ){
+             id = ((Document) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof EchangeTel ){
+             id = ((EchangeTel) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Entreprise ){
+             id = ((Entreprise) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Facture ){
+             id = ((Facture) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueDevis ){
+             id = ((HistoriqueDevis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueEtats ){
+             id = ((HistoriqueEtats) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof HistoriqueTraitement ){
+             id = ((HistoriqueTraitement) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Interlocuteur ){
+             id = ((Interlocuteur) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Livrable ){
+             id = ((Livrable) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Offre ){
+             id = ((Offre) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Offre_Profil_Util_CV ){
+             id = ((Offre_Profil_Util_CV) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof ProfilMetier ){
+             id = ((ProfilMetier) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Service ){
+             id = ((Service) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof ServiceStandard ){
+             id = ((ServiceStandard) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof Utilisateur ){
+             id = ((Utilisateur) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof UtilisateurHardis ){
+             id = ((UtilisateurHardis) o).getId();
+             clas = o.getClass().toString();
+        }
+        else if (o instanceof String ){
+             id = null;
+             clas = o.getClass().toString();
+        }
+        String libelle = "Research du :"+ clas +"id: " + id +" par lutilisateur: "+ util.getId();
+        log.setLibelle(libelle);
+        log.setUtilisateur(util);   
+        em.persist(log);
+    } 
     
 
     

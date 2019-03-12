@@ -87,6 +87,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
               co = (Devis) res.get(0);
         }
         return co;
+        
     }
 
     @Override
