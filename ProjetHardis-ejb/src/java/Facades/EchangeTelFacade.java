@@ -42,12 +42,13 @@ public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements Echa
 
     
     @Override
-    public void creerEchangeTel( String text, Devis devis, UtilisateurHardis interlocuteur) {
+    public EchangeTel creerEchangeTel( String text, Devis devis, UtilisateurHardis interlocuteur) {
         EchangeTel et = new EchangeTel();
         et.setTexte(text);
         et.setDevis(devis);
         et.setInterlocuteur(interlocuteur);
         em.persist(et);
+        return et;
     }
     @Override
     public List<EchangeTel> listEchangeTel() {
@@ -72,17 +73,14 @@ public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements Echa
     }
 
     @Override
-    public  EchangeTel rechercheEchangeTelParUtilisateur(UtilisateurHardis utilisateur) {
-        EchangeTel di = null;        
+    public  List<EchangeTel> rechercheEchangeTelParUtilisateur(UtilisateurHardis utilisateur) {
+     
         String txt = "SELECT di FROM EchangeTel AS di WHERE di.interlocuteur=:utilisateur ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("utilisateur",utilisateur.getId() );
         List<EchangeTel> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              di = (EchangeTel) res.get(0);
-        }
-        return di;
+
+        return res;
     }
     
    

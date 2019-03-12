@@ -116,10 +116,10 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
     }
 
     @Override
-    public void supprimerService(Long id) {
+    public void supprimerService(Service service) {
         Service pm = null;
         Query requete = em.createQuery("SELECT p from Service as p where p.id=:id");
-        requete.setParameter("id",id);     
+        requete.setParameter("id",service);     
         List<Service> liste =  requete.getResultList();
         if (!liste.isEmpty()){
             pm  =  liste.get(0); 

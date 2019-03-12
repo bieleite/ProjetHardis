@@ -40,15 +40,13 @@ public interface EchangeTelFacadeLocal {
 
     int count();
     
-
-    void creerEchangeTel( String text, Devis devis, UtilisateurHardis interlocuteur);
+    EchangeTel creerEchangeTel( String text, Devis devis, UtilisateurHardis interlocuteur);
     
     List<EchangeTel> listEchangeTel();
     
     EchangeTel rechercheEchangeTel(long id);
     
-    EchangeTel rechercheEchangeTelParUtilisateur(UtilisateurHardis utilisateur);
-    
+    List<EchangeTel> rechercheEchangeTelParUtilisateur(UtilisateurHardis utilisateur);
     
     void modifEchangeTel(EchangeTel entite, String text, Devis devis, UtilisateurHardis interlocuteur);
 

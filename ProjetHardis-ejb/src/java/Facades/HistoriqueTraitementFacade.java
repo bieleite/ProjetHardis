@@ -44,7 +44,7 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
 
 
     @Override
-    public void creerHistoriqueTraitement( Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur ) {
+    public HistoriqueTraitement creerHistoriqueTraitement( Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur ) {
         HistoriqueTraitement ht = new HistoriqueTraitement();
         ht.setDateDebut(datedebut);
         ht.setDateFin(datefin);
@@ -54,7 +54,9 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
         ht.setRefLocal(reflocal);
         ht.setValidateur(validateur);
         em.persist(ht);
+        return ht;
     }
+    
     @Override
     public List<HistoriqueTraitement> listHistoriqueTraitement() {
         String txt="SELECT co FROM HistoriqueTraitement AS co ";

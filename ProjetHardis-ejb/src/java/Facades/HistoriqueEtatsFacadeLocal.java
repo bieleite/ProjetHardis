@@ -43,7 +43,7 @@ public interface HistoriqueEtatsFacadeLocal {
     int count();
     
 
-    void creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis );
+    HistoriqueEtats creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis );
     
     List<HistoriqueEtats> listHistoriqueEtats();
     

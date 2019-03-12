@@ -44,12 +44,13 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
 
 
     @Override
-    public void creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis) {
+    public HistoriqueEtats creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis) {
         HistoriqueEtats he = new HistoriqueEtats();
         he.setDateMAJ(datemaj);
         he.setStatut(statut);
         he.setDevis(devis);
         em.persist(he);
+        return he;
     }
     @Override
     public List<HistoriqueEtats> listHistoriqueEtats() {

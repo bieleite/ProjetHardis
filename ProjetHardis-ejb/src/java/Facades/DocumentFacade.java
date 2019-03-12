@@ -45,7 +45,8 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
         doc.setDescriptif(descriptif);
         doc.setHistoDevis(historiquedevis);
         doc.setLienDoc(liendoc);
-        em.persist(doc);return doc;
+        em.persist(doc);
+        return doc;
     }
     
     
@@ -73,17 +74,12 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
     }
 
     @Override
-    public  Document rechercheDocumentParHistorique(HistoriqueDevis historiquedevis) {
-        Document doc = null;        
+    public  List<Document> rechercheDocumentParHistorique(HistoriqueDevis historiquedevis) {       
         String txt = "SELECT doc FROM Document AS doc WHERE doc.histoDevis=:historiquedevis ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("historiquedevis",historiquedevis.getId() );
         List<Document> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              doc = (Document) res.get(0);
-        }
-        return doc;
+        return res;
     }
     
 

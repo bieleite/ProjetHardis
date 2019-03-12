@@ -42,8 +42,7 @@ public interface HistoriqueTraitementFacadeLocal {
 
     int count();
     
-
-    void creerHistoriqueTraitement( Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur );
+    HistoriqueTraitement creerHistoriqueTraitement( Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur );
     
     List<HistoriqueTraitement> listHistoriqueTraitement();
     
@@ -57,6 +56,5 @@ public interface HistoriqueTraitementFacadeLocal {
     
      List<HistoriqueTraitement> rechercheHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis utilisateurCourant);
     
-
     void modifHistoriqueTraitement(HistoriqueTraitement entite, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur);
 }

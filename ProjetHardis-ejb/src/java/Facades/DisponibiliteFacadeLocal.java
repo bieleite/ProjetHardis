@@ -41,13 +41,13 @@ public interface DisponibiliteFacadeLocal {
     
     void supprimerDisponibilite(Disponibilite entite);
     
-    void creerDisponibilite( Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
+    Disponibilite creerDisponibilite( Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
     
     List<Disponibilite> listDisponibilite();
 
     Disponibilite rechercheDisponibilite(long id);
     
-    Disponibilite rechercheDisponibiliteParUtilisateur(UtilisateurHardis utilisateur);
+    List<Disponibilite> rechercheDisponibiliteParUtilisateur(UtilisateurHardis utilisateur);
        
     void modifDisponibilite(Disponibilite entite, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur);
 

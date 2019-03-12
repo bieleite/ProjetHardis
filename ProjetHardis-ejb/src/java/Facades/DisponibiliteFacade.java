@@ -42,13 +42,14 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
 
 
     @Override
-    public void creerDisponibilite( Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur) {
+    public Disponibilite creerDisponibilite( Date dateDebut, Date dateFin, String libelle, UtilisateurHardis utilisateur) {
         Disponibilite de = new Disponibilite();
         de.setDateDebut(dateDebut);
         de.setDateFin(dateFin);
         de.setLibelleActivite(libelle);
         de.setUtilisateurHardis(utilisateur);
         em.persist(de);
+        return de;
     }
     @Override
     public List<Disponibilite> listDisponibilite() {
@@ -73,17 +74,12 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
     }
 
     @Override
-    public  Disponibilite rechercheDisponibiliteParUtilisateur(UtilisateurHardis utilisateur) {
-        Disponibilite di = null;        
+    public  List<Disponibilite> rechercheDisponibiliteParUtilisateur(UtilisateurHardis utilisateur) {        
         String txt = "SELECT di FROM Disponibilite AS di WHERE di.UtilisateurHardis=:utilisateur ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("utilisateur",utilisateur.getId() );
         List<Disponibilite> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              di = (Disponibilite) res.get(0);
-        }
-        return di;
+        return res;
     }
     
     

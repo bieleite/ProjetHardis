@@ -48,7 +48,7 @@ public interface ServiceFacadeLocal {
 
     void modifierService(Service s, String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS);
 
-    void supprimerService(Long id);
+    void supprimerService(Service service);
 
     Service rechercheServiceParId(long id);
 
