@@ -56,5 +56,7 @@ public interface ServiceStandardFacadeLocal {
 
     List<ServiceStandard> rechercheServiceStandardParOffre(Offre o);
 
+    List<ServiceStandard> listServStandard();
+
     
 }

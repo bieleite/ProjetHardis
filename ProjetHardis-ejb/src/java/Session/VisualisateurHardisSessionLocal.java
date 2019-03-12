@@ -5,6 +5,12 @@
  */
 package Session;
 
+import Entites.Client;
+import Entites.Devis;
+import Entites.Service;
+import Entites.ServiceStandard;
+import Entites.UtilisateurHardis;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -13,5 +19,15 @@ import javax.ejb.Local;
  */
 @Local
 public interface VisualisateurHardisSessionLocal {
+
+    List<Service> afficherServices();
+
+    List<Client> afficherClientsActifs();
+
+    List<Devis> afficherDevis();
+
+    List<UtilisateurHardis> afficherUHardis();
+
+    List<ServiceStandard> afficherServiceStandard();
     
 }

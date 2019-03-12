@@ -38,39 +38,32 @@ public class InternauteSession implements InternauteSessionLocal {
 
     @Override
     public void CreerCompteInternaute(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP,  String cp) {
-        Client cv = clientFacade.rechercheClientParLogin(Login);
-        if(cv!=null){
-            System.out.println("Login existant");
-        }
-        else{
 
-            clientFacade.creerClient(Nom, Prenom, Login, MDP, QuestionSecrete, ReponseSecrete, RGPD, dateRDGP, null, null, cp);
-        }
+      clientFacade.creerClient(Nom, Prenom, Login, MDP, QuestionSecrete, ReponseSecrete, RGPD, dateRDGP, null, null, cp);
+
     }
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
     @Override
-    public void ajouterEntrepriseAuClient(Client client, Entreprise entreprise) {
-        Entreprise en = entrepriseFacade.rechercheEntrepriseParId(entreprise.getId());//modifier pour le bon methode
-        if(en!=null){
-            clientFacade.majEntrepriseClient(client, en); // methode pour affecter entreprise au client
-        }
-        else{
-            System.out.println("Login existant");
-        }
+    public void ajouterEntrepriseAuClient(long idCli, long idEnt) {
+        
+        Client client = clientFacade.rechercheClient(idCli);
+        Entreprise entreprise = entrepriseFacade.rechercheEntrepriseParId(idEnt);
+        
+        if(entreprise!=null){
+            clientFacade.majEntrepriseClient(client, entreprise); // methode pour affecter entreprise au client
+        }      
     }
 
     @Override
-    public void creerEntreprise(String numero, Agence agence, String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif) {
-        Entreprise en = entrepriseFacade.find(this);//
-        if(en!=null){
-            System.out.println("Login existant");
-        }
-        else{
-            entrepriseFacade.creerEntreprise(numero, agence, nom, interlocuteurs, codeContrat, mdpEntreprise, adresse, lienJustif);
-        }
+    public void creerEntreprise(String numero,String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, int nrRue, String nomR, String cp, String ville) {
+
+      Adresse adresse =  adresseFacade.creerAdresse(nrRue, nomR, ville, cp);
+      entrepriseFacade.creerEntreprise(numero, null, nom, interlocuteurs, codeContrat, mdpEntreprise, adresse, "");   
+      
+      
     }
     
     @Override
@@ -83,7 +76,9 @@ public class InternauteSession implements InternauteSessionLocal {
             System.out.println("Login existant");
         }
     }
-    
+
+
+
     
     
 }

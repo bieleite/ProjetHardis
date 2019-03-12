@@ -21,6 +21,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Agence implements Serializable {
 
+    
+    
     @OneToMany(mappedBy = "agence")
     private List<Utilisateur> utilisateurs;
 

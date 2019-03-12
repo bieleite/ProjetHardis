@@ -11,7 +11,9 @@ import Entites.DevisNonStandard;
 import Entites.Entreprise;
 import Entites.Facture;
 import Entites.Service;
+import Entites.Statut;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -23,25 +25,27 @@ public interface ClientSessionLocal {
 
     Client authentificationClient(String login, String mdp);
 
-   void majEntreprise(Client cli, Entreprise ent);
+   void majEntreprise(long idCli, long idEnt);
 
-    void demandeDevis(Date dateDevis, Date dateInterv, String infosC, Service serv, Client cli);
+    void demandeDevis(Date dateDevis, Date dateInterv, String infosC, long  idServ, String typeServ, long idCli);
 
-    void accepterDevis(Client cli, Devis d);
-
-
-
-    void refuserDevis(Client cli, Devis d);
+    void accepterDevis(long idCli, long idDevis);
 
 
 
-    void poserQuestion(Client cli, String text, Devis d);
+    void refuserDevis(long idCli, long idDevis);
 
-    void payerFacture(Facture f);
 
-    void modifDateInterv(Date date, Devis d, Client cli);
 
-    void afficherDevisClient(String parameter);
+    void poserQuestion(long idCli, long idDevis, String text);
+
+    void payerFacture(long idF);
+
+    void modifDateInterv(Date date, long idD, long idCli);
+
+    List<Devis> afficherDevisClient(long idCli);
+
+    List<Devis> afficherDevisStatut(long idCli, String statut);
 
     
 }

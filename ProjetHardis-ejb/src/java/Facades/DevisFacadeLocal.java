@@ -64,4 +64,8 @@ public interface DevisFacadeLocal {
 
     void modifDateInterv(Devis d, Date date);
 
+    List<Devis> afficherDevisClient(Client cli);
+
+    List<Devis> afficherDevisStatut(Client cli, Statut statut);
+
 }

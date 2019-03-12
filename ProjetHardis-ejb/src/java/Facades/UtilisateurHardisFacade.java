@@ -50,6 +50,8 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
         super(UtilisateurHardis.class);
     }
 
+    
+    
 
 
     @Override
@@ -202,6 +204,16 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
 
         return res;
     }
+
+    @Override
+    public List<UtilisateurHardis> listUHardis() {
+         String txt="SELECT co FROM UtilisateurHardis AS co ";
+        Query req=getEntityManager().createQuery(txt);
+        List<UtilisateurHardis> result=req.getResultList();
+        return result;
+    }
+
+    
     
     
 

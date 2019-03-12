@@ -49,5 +49,7 @@ public interface EntrepriseFacadeLocal {
     Entreprise rechercheEntrepriseParNom(String nom);
 
     Entreprise rechercheEntrepriseParMDP(String mdp);
+
+    void supprimerEntreprise(Entreprise e);
     
 }

@@ -63,5 +63,9 @@ void SuppressionUtilisateur(Long id);
     UtilisateurHardis authentificationHardis(String log, String mdp);
 
     List<UtilisateurHardis> rechercheUtilisateurHParAgence(Agence agence);
+
+    List<UtilisateurHardis> listUHardis();
+
+
     
 }
