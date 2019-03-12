@@ -1,3 +1,11 @@
+<%-- 
+    Document   : PageAccueil
+    Created on : 12 mars 2019, 16:15:33
+    Author     : 6170361
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 
   <html class="no-js" lang="fr" dir="ltr" prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# book: http://ogp.me/ns/book# profile: http://ogp.me/ns/profile# video: http://ogp.me/ns/video# product: http://ogp.me/ns/product# content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/"> <!--<![endif]-->
   <head profile="http://www.w3.org/1999/xhtml/vocab">
@@ -99,7 +107,7 @@
                               <div class="close-wrapper"><button type="button" class="close" data-toggle="collapse" data-target=".navbar-collapse"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>
                 <ul class="menu nav navbar-nav">
 				<li class="first expanded dropdown yamm-fw level_1 big-menu most mlid-665">
-				<a href="Internaute/AfficheOffres.jsp" title="" data-target="#" class="dropdown-toggle nolink" data-toggle="dropdown">Nos offres </a>
+				<a href="servInternaute?action=afficheOffres" title="" data-target="#" class="dropdown-toggle nolink" data-toggle="dropdown">Nos offres </a>
 				</li>
 
 
@@ -135,7 +143,7 @@
 
 
 <li class="first expanded dropdown yamm-fw level_1 big-menu most mlid-665">
-				<a title="" data-target="#" class="dropdown-toggle nolink" data-toggle="dropdown">Espace pro<span class="caret"></span></a>
+				<a href ="Internaute/FormContact.jsp" title="" data-target="#" class="dropdown-toggle nolink" data-toggle="dropdown">Nous contacter</a>
 </ul>                          </nav>
           </div>
           </div>

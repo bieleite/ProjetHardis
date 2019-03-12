@@ -9,6 +9,7 @@ import Entites.Adresse;
 import Entites.Agence;
 import Entites.Client;
 import Entites.Entreprise;
+import Entites.Offre;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -27,5 +28,9 @@ public interface InternauteSessionLocal {
     void ajouterEntrepriseAuClient(long idCli, long idEnt);
     
     void ajouterEntrepriseAuClientParCode(Client client, String code);
+
+    void contacterHardis(String mess, String email, String nom, String prenom, String tel, String sujet);
+
+    List<Offre> afficheOffres();
     
 }

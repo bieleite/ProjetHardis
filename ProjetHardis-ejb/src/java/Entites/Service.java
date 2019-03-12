@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -98,6 +99,7 @@ public class Service implements Serializable {
         this.lieuInterv = lieuInterv;
     }
 
+    @ManyToOne
     private Offre offre;
 
     /**

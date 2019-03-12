@@ -10,20 +10,14 @@ import Entites.Agence;
 import Entites.Client;
 import Entites.EchangeTel;
 import Entites.Entreprise;
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-/**
- *
-
- * @author gabrielleite
-
- * @author anastasia.salari
-
- */
 @Stateless
 public class EntrepriseFacade extends AbstractFacade<Entreprise> implements EntrepriseFacadeLocal {
 
@@ -55,11 +49,12 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
 
     @Override
     public void creerEntreprise(String numero, Agence agence, String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif) {
-   Entreprise e = new Entreprise();
+   boolean b = false;
+        Entreprise e = new Entreprise();
+   
    e.setAdresseFact(adresse);
    e.setAgence(agence);
    e.setCertifie(false);
-   e.setCodeContrat(codeContrat);
    e.setInterlocuteurs(interlocuteurs);
    e.setMdpEntreprise(mdpEntreprise);
    e.setNumeroEntreprise(numero);
@@ -67,6 +62,20 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
    e.setNomEntreprise(nom);
    e.setVisible(true);
    em.persist(e);
+   e.setCodeContrat(creerCodeContrat(e.getId()));
+   em.merge(e);
+   while (!b){
+    String mdp = generateString(12);
+    Entreprise ent = rechercheEntrepriseParMDP(mdp);
+    if (ent==null)
+    {
+        e.setMdpEntreprise(mdp);
+        em.merge(e);
+        b = true;
+        break;
+    }
+    }
+
    
     }
 
@@ -177,6 +186,48 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
         e.setVisible(false);
         em.merge(e);
     }
+
+    @Override
+    public String generateString(int n) {
+        
+       byte[] array = new byte[256]; 
+        new Random().nextBytes(array); 
+  
+        String randomString 
+            = new String(array, Charset.forName("UTF-8")); 
+  
+        // Create a StringBuffer to store the result 
+        StringBuffer r = new StringBuffer(); 
+  
+        // remove all spacial char 
+        String  AlphaNumericString 
+            = randomString 
+                  .replaceAll("[^A-Za-z0-9]", ""); 
+  
+        // Append first 20 alphanumeric characters 
+        // from the generated random String into the result 
+        for (int k = 0; k < AlphaNumericString.length(); k++) { 
+  
+            if (Character.isLetter(AlphaNumericString.charAt(k)) 
+                    && (n > 0) 
+                || Character.isDigit(AlphaNumericString.charAt(k)) 
+                       && (n > 0)) { 
+  
+                r.append(AlphaNumericString.charAt(k)); 
+                n--; 
+            } 
+        } 
+  
+        // return the resultant string 
+        return r.toString(); 
+    } 
+
+    @Override
+    public String creerCodeContrat(long id) {
+       return  String.format("%06d", id);  
+       
+    }
+    
     
 
     

@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.ContactMail;
+import Entites.UtilisateurHardis;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,11 @@ public interface ContactMailFacadeLocal {
     List<ContactMail> findRange(int[] range);
 
     int count();
+
+    void creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message);
+
+    void majUtilisateurH(ContactMail cm, UtilisateurHardis u);
+
+    void majReponse(ContactMail cm);
     
 }

@@ -9,9 +9,12 @@ import Entites.Adresse;
 import Entites.Agence;
 import Entites.Client;
 import Entites.Entreprise;
+import Entites.Offre;
 import Facades.AdresseFacadeLocal;
 import Facades.ClientFacadeLocal;
+import Facades.ContactMailFacadeLocal;
 import Facades.EntrepriseFacadeLocal;
+import Facades.OffreFacadeLocal;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,6 +26,12 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class InternauteSession implements InternauteSessionLocal {
+
+    @EJB
+    private OffreFacadeLocal offreFacade;
+
+    @EJB
+    private ContactMailFacadeLocal contactMailFacade;
 
     @EJB
     private AdresseFacadeLocal adresseFacade;
@@ -77,7 +86,19 @@ public class InternauteSession implements InternauteSessionLocal {
         }
     }
 
+    @Override
+    public void contacterHardis(String mess, String email, String nom, String prenom, String tel, String sujet) {
+        contactMailFacade.creerContactMail(nom, prenom, email, tel, sujet, mess);
+    }
 
+    @Override
+    public List<Offre> afficheOffres() {
+      return   offreFacade.listOffres();
+    }
+
+
+    
+    
 
     
     
