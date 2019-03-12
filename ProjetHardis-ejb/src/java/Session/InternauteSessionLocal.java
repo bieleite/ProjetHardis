@@ -22,8 +22,10 @@ public interface InternauteSessionLocal {
 
     void CreerCompteInternaute(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, String cp);
 
-    void ajouterEntrepriseAuClient(Client client, String codesecrete);
-
     void creerEntreprise(String numero, Agence agence, String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif);
+    
+    void ajouterEntrepriseAuClient(Client client, Entreprise entreprise);
+    
+    void ajouterEntrepriseAuClientParCode(Client client, String code);
     
 }

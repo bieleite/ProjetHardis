@@ -10,6 +10,7 @@ import Entites.Adresse;
 import Entites.Agence;
 import Entites.Atelier;
 import Entites.Client;
+import Entites.Communication;
 import Entites.Devis;
 import Entites.Entreprise;
 import Entites.Facturation;
@@ -25,6 +26,7 @@ import Facades.AdresseFacadeLocal;
 import Facades.AgenceFacadeLocal;
 import Facades.AtelierFacadeLocal;
 import Facades.ClientFacadeLocal;
+import Facades.CommunicationFacadeLocal;
 import Facades.DevisFacadeLocal;
 import Facades.EntrepriseFacadeLocal;
 import Facades.LogsFacadeLocal;
@@ -41,6 +43,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AdministrateurHardisSession implements AdministrateurHardisSessionLocal {
+
+    @EJB
+    private CommunicationFacadeLocal communicationFacade;
 
     @EJB
     private AtelierFacadeLocal atelierFacade;
@@ -392,17 +397,28 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         String libelle = "Ajouté factures au devis id: " + devis.getId() +" par lutilisateur: "+ hardis.getId() ;
         logsFacade.creerLog(Action.Update, date, libelle, hardis);
     }
-  /*
+  
     @Override
-    public void creerAtelier(String NomAtelier, UtilisateurHardis hardis) {
-        Atelier at = atelierFacade.creerAtelier(NomAtelier);
+    public void creerCommunicationHardis(String message, Devis devis, UtilisateurHardis utilisateur) {
+        Client cl = clientFacade.rechercheClientParDevis(devis);
+        Devis de = devisFacade.rechercheDevis(devis.getId());
+        List<Communication> liste = communicationFacade.rechercheCommunicationParDevis(devis);
         Date date = new Date();
-        String libelle = "Ajouté atelier: " + at.getId() +" nom: "+at.getNomAtelier()+" par lutilisateur: "+ hardis.getId() ;
-        logsFacade.creerLog(Action.Create, date, libelle, hardis);
+        String qr = "R";
+        if(liste.isEmpty()){
+            int delai = 0;
+            communicationFacade.creerCommunication(date, message, devis, utilisateur, qr, delai);
+            String libelle = "Ajouté atelier: " + at.getId() +" nom: "+at.getNomAtelier()+" par lutilisateur: "+ hardis.getId() ;
+            logsFacade.creerLog(Action.Create, date, libelle, hardis);
+        }
+        else{
+            
+            
+        }
     }
 
     @Override
-    public void modifierAtelier(Atelier at, String nomatelier, UtilisateurHardis hardis) {
+    public void modifierCommunication(Atelier at, String nomatelier, UtilisateurHardis hardis) {
         atelierFacade.creerAtelier(nomatelier);
         Date date = new Date();
         String libelle = "Modifier atelier id: " + at.getId() +" par lutilisateur: "+ hardis.getId() ;
@@ -410,7 +426,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void supprimerAtelier(Atelier at, UtilisateurHardis hardis) {
+    public void supprimerCommunication(Atelier at, UtilisateurHardis hardis) {
         atelierFacade.supprimerAtelier(at);
         Date date = new Date();
         String libelle = "Supprimer agence id: " + at.getId() +" par lutilisateur: "+ hardis.getId() ;
@@ -418,7 +434,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
      @Override
-    public Atelier rechercherAtelier(long id, String nomAtelier, UtilisateurHardis hardis) {
+    public Atelier rechercherCommunication(long id, String nomAtelier, UtilisateurHardis hardis) {
        Atelier at = null;
         if (!"".equals(nomAtelier))
         {
@@ -438,7 +454,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         
         return at;
     }
-    */
+    
     
     
     

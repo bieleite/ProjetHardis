@@ -53,9 +53,9 @@ public class InternauteSession implements InternauteSessionLocal {
 
     @Override
     public void ajouterEntrepriseAuClient(Client client, Entreprise entreprise) {
-        Entreprise en = entrepriseFacade.find(entreprise);//modifier pour le bon methode
+        Entreprise en = entrepriseFacade.rechercheEntrepriseParId(entreprise.getId());//modifier pour le bon methode
         if(en!=null){
-            entrepriseFacade.edit(entreprise); // methode pour affecter entreprise au client
+            clientFacade.majEntrepriseClient(client, en); // methode pour affecter entreprise au client
         }
         else{
             System.out.println("Login existant");
@@ -73,7 +73,16 @@ public class InternauteSession implements InternauteSessionLocal {
         }
     }
     
-    
+    @Override
+    public void ajouterEntrepriseAuClientParCode(Client client, String code) {
+        Entreprise en = entrepriseFacade.rechercheEntrepriseParMDP(code);//modifier pour le bon methode
+        if(en!=null){
+            clientFacade.majEntrepriseClient(client, en);// methode pour affecter entreprise au client
+        }
+        else{
+            System.out.println("Login existant");
+        }
+    }
     
     
     

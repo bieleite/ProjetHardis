@@ -59,6 +59,14 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         List<Communication> result=req.getResultList();
         return result;
     }
+    
+    @Override
+    public  List<Communication> rechercheCommunicationParDevis(Devis devis) {
+        Query requete = em.createQuery("SELECT c FROM Communication AS c WHERE c.devis=:de");
+        requete.setParameter("de",devis);     
+        List<Communication> liste =  requete.getResultList();    
+        return liste;
+    }
 
     @Override
     public Communication rechercheCommunication(long id) {
@@ -156,8 +164,17 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         }
     }
     
+    @Override
+    public int calculerDelai() {
+        int delai = 0;
+        
+        return delai;
+    }
+    
     public CommunicationFacade() {
         super(Communication.class);
     }
+
+    
     
 }

@@ -8,6 +8,7 @@ package Facades;
 import Entites.Adresse;
 import Entites.Agence;
 import Entites.Client;
+import Entites.Devis;
 
 import Entites.Entreprise;
 import java.util.Date;
@@ -68,6 +69,8 @@ public interface ClientFacadeLocal {
     void majEntrepriseClient(Client c, Entreprise ent);
 
     Client authentificationClient(String login, String mdp);
+    
+    Client rechercheClientParDevis(Devis devis);
 
 
 }

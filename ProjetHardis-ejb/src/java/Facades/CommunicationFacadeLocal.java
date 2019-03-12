@@ -55,4 +55,8 @@ public interface CommunicationFacadeLocal {
     Communication modifCommunicationNom(Communication co, int delai);
 
     void supprimerCommunication(Communication entite);
+    
+    List<Communication> rechercheCommunicationParDevis(Devis devis);
+
+    int calculerDelai();
 }

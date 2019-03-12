@@ -115,6 +115,20 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         return cl;
     }
     
+     @Override
+    public  Client rechercheClientParDevis(Devis devis) {
+        Client cl = null;        
+        String txt = "SELECT cl FROM Client AS cl WHERE cl.deviss=:devis ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("deviss", devis);
+        List<Client> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (Client) res.get(0);
+        }
+        return cl;
+    }
+    
     @Override
     public  Client rechercheClientParLogin(String login) {
         Client cl = null;        
