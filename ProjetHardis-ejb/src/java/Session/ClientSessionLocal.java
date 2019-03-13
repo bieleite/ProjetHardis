@@ -47,5 +47,9 @@ public interface ClientSessionLocal {
 
     List<Devis> afficherDevisStatut(long idCli, String statut);
 
+    Client rechercheCliParLogin(String log);
+
+    void creerClient(String nom, String prenom, String login, String mdp, String cp, String qs, String rs);
+
     
 }

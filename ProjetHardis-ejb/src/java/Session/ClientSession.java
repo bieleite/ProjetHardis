@@ -110,7 +110,8 @@ public class ClientSession implements ClientSessionLocal {
     
     
     @Override
-    public Client authentificationClient(String login, String mdp) {      
+    public Client authentificationClient(String login, String mdp) {  
+       
          return clientFacade.authentificationClient(login,mdp);   
     }
 
@@ -270,6 +271,17 @@ public class ClientSession implements ClientSessionLocal {
             }
         }
        return devisFacade.afficherDevisStatut(cli, st);
+    }
+
+    @Override
+    public Client rechercheCliParLogin(String log) {
+        return clientFacade.rechercheClientParLogin(log);
+    }
+
+    //creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise, Agence agence, String cp
+    @Override
+    public void creerClient(String nom, String prenom, String login, String mdp, String cp, String qs, String rs) {
+        clientFacade.creerClient(nom, prenom, login, mdp, qs, rs, 1, new Date(), null, null, cp);
     }
     
     

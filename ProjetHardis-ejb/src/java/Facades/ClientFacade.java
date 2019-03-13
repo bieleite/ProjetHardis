@@ -277,9 +277,11 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     @Override
     public Client authentificationClient(String log, String mdp) {
         Client c = null;
-        Query requete = em.createQuery("SELECT a from Client as a where a.login=:lo and a.mdp=:m");
+         try {
+            String m = Helpers.sha1(mdp);
+             Query requete = em.createQuery("SELECT a from Client as a where a.login=:lo and a.mdp=:m");
         requete.setParameter("lo", log);
-        requete.setParameter("m", mdp);       
+        requete.setParameter("m", m);       
         List<Client> liste =  requete.getResultList();
         if (!liste.isEmpty()) {
            c =  (Client)liste.get(0);
@@ -287,6 +289,10 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
            em.merge(c);
            
         }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
         return c;
     }
 

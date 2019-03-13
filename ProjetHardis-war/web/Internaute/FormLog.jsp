@@ -79,7 +79,7 @@
 							
                                                          <div class="input">
 								<span class="fa fa-key" aria-hidden="true"></span>
-								<input type="text" placeholder="Ville" name="ville" required />
+								<input type="text" placeholder="Code Postal" name="cp" required />
 							</div>
                                                         <div class="input">
 								<span class="fa fa-key" aria-hidden="true"></span>
@@ -91,6 +91,16 @@
 								<input type="password" placeholder="Confirmer mot de passe" name="mdpC" required />
                                                                 
 							</div>
+                                                         <div class="input">
+								<span class="fa fa-key" aria-hidden="true"></span>
+								<input type="text" placeholder="Question secrète" name="qs" required />
+							</div>
+                                                        
+                                                         <div class="input">
+								<span class="fa fa-key" aria-hidden="true"></span>
+								<input type="text" placeholder="Réponse secrète" name="rs" required />
+							</div>
+                                                        
                                                          <input type ="hidden" name="action" value="creation">
 							<button type="submit" class="btn submit">S'enregistrer</button>
 						</form>

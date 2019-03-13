@@ -28,7 +28,7 @@ public class servClient extends HttpServlet {
     @EJB
     private ClientSessionLocal clientSession;
 
-    
+      String jspClient = null;
     
  protected void connexion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,8 +47,51 @@ public class servClient extends HttpServlet {
             Client c = clientSession.authentificationClient(email, mdp);
           if (c==null){
               messageErreur = "Erreur, identifiants erronnés";
+              jspClient = "/Internaute/FormLog.jsp";
           }
-          else  request.setAttribute("client", c);
+          else  {request.setAttribute("client", c);
+            jspClient = "/PageAccueil.jsp";
+          
+          }
+        }
+        request.setAttribute("message", message);
+        request.setAttribute("messageErreur", messageErreur);
+
+    }
+ 
+ protected void creation(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    
+        String email = request.getParameter("email");
+        String mdp = request.getParameter("mdp");
+        String mdpC = request.getParameter("mdpC");
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String cp = request.getParameter("cp");
+         String questS = request.getParameter("qs");
+         String repS = request.getParameter("rs");
+        
+
+
+
+        String message = "";
+        String messageErreur = "";
+        
+        if ( mdp.isEmpty() || email.isEmpty() || mdpC.isEmpty() || nom.isEmpty() || prenom.isEmpty() || cp.isEmpty() || questS.isEmpty() || repS.isEmpty()) {
+            messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
+        } else {
+
+            Client c = clientSession.rechercheCliParLogin(email);
+          if (c==null){
+              if (mdp.equals(mdpC))
+              {
+                  clientSession.creerClient(nom, prenom, email, mdp, questS, repS, cp);
+              }
+              else {
+                  messageErreur = "Erreur, les mots de passe sont différents";
+              }
+          }
+          else   messageErreur = "Erreur, email existant";
         }
         request.setAttribute("message", message);
         request.setAttribute("messageErreur", messageErreur);
@@ -72,18 +115,18 @@ public class servClient extends HttpServlet {
         String message = "";
 
         response.setContentType("text/html;charset=UTF-8");
-        String jspClient = null;
+      
         RequestDispatcher Rd;
 
         String act = request.getParameter("action");
         
         if (act.equals("connexion")) {
-            jspClient = "/PageAccueil.jsp";
+          
             connexion(request, response);
 }
         if (act.equals("creation")) {
             jspClient = "/PageAccueil.jsp";
-            connexion(request, response);
+            creation(request, response);
 }
         
         
