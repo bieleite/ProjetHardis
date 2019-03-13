@@ -50,7 +50,7 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
 
 
     @Override
-    public void creerService(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS) {
+    public Service creerService(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS) {
         Service s = new Service();
         s.setConditionsContract(listeCond);
         s.setCoutService(cout);
@@ -62,6 +62,7 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
         s.setOffre(offre);
         s.setTypeService(typeS);
         em.persist(s);
+        return s;
     }
 
     @Override

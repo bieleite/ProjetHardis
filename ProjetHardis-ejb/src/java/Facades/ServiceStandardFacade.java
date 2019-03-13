@@ -52,7 +52,7 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
 
 
     @Override
-    public void creerServiceStandard(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, List<Livrable> livrable, List<Atelier> listeA, float nbHS) {
+    public ServiceStandard creerServiceStandard(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, List<Livrable> livrable, List<Atelier> listeA, float nbHS) {
         ServiceStandard s = new ServiceStandard();
         s.setConditionsContract(listeCond);
         s.setCoutService(cout);
@@ -71,6 +71,7 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
         s.setNbreJoursConsultantJ(nbJJ);
         s.setNbreJoursConsultantS(nbJS);
         em.persist(s);
+        return s;
     }
 
     @Override
@@ -162,11 +163,11 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
     }
 
     @Override
-    public void supprimerServiceStandard(Long id) {
+    public void supprimerServiceStandard(ServiceStandard service) {
         
              ServiceStandard s = null;
         Query requete = em.createQuery("SELECT s from ServiceStandard as s where s.id=:id");
-        requete.setParameter("id",id);     
+        requete.setParameter("id",service.getId());     
         List<ServiceStandard> liste =  requete.getResultList();
         if (!liste.isEmpty()){
             s =   liste.get(0); 

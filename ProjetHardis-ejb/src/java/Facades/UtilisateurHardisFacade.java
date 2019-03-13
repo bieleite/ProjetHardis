@@ -55,7 +55,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
 
 
     @Override
-    public void creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, Agence agence) {
+    public UtilisateurHardis creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, Agence agence) {
        UtilisateurHardis u = new UtilisateurHardis();  
        u.setNom(nom);
        u.setPrenom(prenom);
@@ -72,9 +72,10 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
        u.setOffre_Profil_Utils(new ArrayList());
        u.setQuestionSecrete(questSecrete);
        u.setReponseSecrete(repSecrete);
-         u.setVisible(true);
-         u.setAgence(agence);
+        u.setVisible(true);
+        u.setAgence(agence);
        em.persist(u);
+       return u;
     }
     
     
@@ -130,11 +131,11 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     }
     
     @Override
-    public  void SuppressionUtilisateur(Long id) {
+    public  void SuppressionUtilisateur(UtilisateurHardis utilisateur) {
               
         String txt = "SELECT cl FROM UtilisateurHardis AS cl WHERE cl.id=:id ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", id);
+        req = req.setParameter("id", utilisateur.getId());
         List<UtilisateurHardis> res = req.getResultList();
         if (res.size() >= 1)
         {
@@ -145,7 +146,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     }
    
     @Override
-    public  void modifClient(UtilisateurHardis entite, String nom, String prenom, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV) {       
+    public  void modifUtilisateurHardis(UtilisateurHardis entite, String nom, String prenom, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV,Agence agence) {       
         if (entite!=null)
         { 
          
@@ -174,6 +175,10 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
              if (statut!=null)
         {
             entite.setStatut(statut);
+        }
+             if (agence!=null)
+        {
+            entite.setAgence(agence);
         }
                if (!"".equals(lienCV))
         {

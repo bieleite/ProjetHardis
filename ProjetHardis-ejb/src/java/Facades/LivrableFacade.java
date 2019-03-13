@@ -50,11 +50,12 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
 
 
     @Override
-    public void creerLivrable(String nom, Service service) {
+    public Livrable creerLivrable(String nom, Service service) {
         Livrable liv = new Livrable();
         liv.setNomLivrable(nom);
         liv.setService(service);
         em.persist(liv);
+        return liv;
     }
 
     @Override
@@ -74,10 +75,10 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
   }
 
     @Override
-    public void supprimerLivrable(long id) {
+    public void supprimerLivrable(Livrable liv) {
         Livrable pm = null;
         Query requete = em.createQuery("SELECT p from Livrable as p where p.id=:id");
-        requete.setParameter("id",id);     
+        requete.setParameter("id",liv.getId());     
         List<Livrable> liste =  requete.getResultList();
         if (!liste.isEmpty()){
             pm  =  liste.get(0); 

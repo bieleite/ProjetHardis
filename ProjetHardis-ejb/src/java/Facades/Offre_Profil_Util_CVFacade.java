@@ -35,13 +35,14 @@ public class Offre_Profil_Util_CVFacade extends AbstractFacade<Offre_Profil_Util
     }
 
     @Override
-    public void creerOPUC(Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV) {
+    public Offre_Profil_Util_CV creerOPUC(Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV) {
         Offre_Profil_Util_CV ob = new Offre_Profil_Util_CV();
         ob.setLienCV(lienCV);
         ob.setOffre(offre);
         ob.setProfil(PM);
         ob.setUtilisateur(utilisateur);
         em.persist(ob);
+        return ob;
     }
 
     @Override
@@ -64,10 +65,10 @@ public class Offre_Profil_Util_CVFacade extends AbstractFacade<Offre_Profil_Util
     }
 
     @Override
-    public void supprimerOPUC(long id) {
+    public void supprimerOPUC(Offre_Profil_Util_CV opc) {
          Offre_Profil_Util_CV object = null;
         Query requete = em.createQuery("SELECT p from Offre_Profil_Util_CV as p where p.id=:id");
-        requete.setParameter("id",id);     
+        requete.setParameter("id",opc.getId());     
         List<Offre_Profil_Util_CV> liste =  requete.getResultList();
         if (!liste.isEmpty()){
             object  =  liste.get(0); 

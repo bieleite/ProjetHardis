@@ -38,9 +38,9 @@ public interface LivrableFacadeLocal {
 
     int count();
 
-    void supprimerLivrable(long id);
+    void supprimerLivrable(Livrable liv);
 
-    void creerLivrable(String nom, Service service);
+    Livrable creerLivrable(String nom, Service service);
 
     void modifierLivrable(Livrable liv, String nom, Service service);
 

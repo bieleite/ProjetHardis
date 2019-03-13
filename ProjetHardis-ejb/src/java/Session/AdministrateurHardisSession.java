@@ -40,9 +40,13 @@ import Facades.HistoriqueDevisFacadeLocal;
 import Facades.HistoriqueEtatsFacadeLocal;
 import Facades.HistoriqueTraitementFacadeLocal;
 import Facades.InterlocuteurFacadeLocal;
+import Facades.LivrableFacadeLocal;
 import Facades.LogsFacadeLocal;
 import Facades.OffreFacadeLocal;
+import Facades.Offre_Profil_Util_CVFacadeLocal;
+import Facades.ProfilMetierFacadeLocal;
 import Facades.ServiceFacadeLocal;
+import Facades.ServiceStandardFacadeLocal;
 import Facades.UtilisateurHardisFacadeLocal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,6 +60,18 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AdministrateurHardisSession implements AdministrateurHardisSessionLocal {
+
+    @EJB
+    private ServiceStandardFacadeLocal serviceStandardFacade;
+
+    @EJB
+    private ProfilMetierFacadeLocal profilMetierFacade;
+
+    @EJB
+    private Offre_Profil_Util_CVFacadeLocal offre_Profil_Util_CVFacade;
+
+    @EJB
+    private LivrableFacadeLocal livrableFacade;
 
     @EJB
     private HistoriqueTraitementFacadeLocal historiqueTraitementFacade;
@@ -239,7 +255,25 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         logsFacade.creerLogUpdate(hardis, client);
         
     }
+    
+    @Override
+    public void modifierClient(long idclient, String Nom,String Prenom, int RGPD, Date dateRDGP, long identreprise, UtilisateurHardis hardis ) {
+        Client client = clientFacade.rechercheClient(idclient);
+        Entreprise entreprise = entrepriseFacade.rechercheEntrepriseParId(identreprise);
+        clientFacade.modifClient(client, Nom, Prenom, RGPD, dateRDGP, entreprise);
+        logsFacade.creerLogUpdate(hardis, client);
+        
+    }
 
+    @Override
+    public void modifierAgenceClient(long idclient,long idagence, UtilisateurHardis hardis ) {
+        Client client = clientFacade.rechercheClient(idclient);
+        Agence agence = agenceFacade.rechercheAgence(idagence);
+        clientFacade.majAgenceClient(client, agence);
+        logsFacade.creerLogUpdate(hardis, client);
+        
+    }
+    
     @Override
     public void supprimerClient(long idclient,UtilisateurHardis hardis) {
         Client client = clientFacade.rechercheClient(idclient);
@@ -775,24 +809,259 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public List<HistoriqueTraitement> rechercherHistoriqueTraitementParDevis(long iddevis, UtilisateurHardis hardis) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
-        List<HistoriqueTraitement> historiqueEtats=historiqueEtatsFacade.rechercheHistoriqueEtatsParDevis(devis);
-        logsFacade.creerLogResearch(hardis, historiqueEtats);
-        return historiqueEtats;       
+        List<HistoriqueTraitement> historiqueTraitements = historiqueTraitementFacade.rechercheHistoriqueTraitementParDevis(devis);
+        logsFacade.creerLogResearch(hardis, historiqueTraitements);
+        return historiqueTraitements;       
     }
     
     @Override
-    public List<HistoriqueTraitement> rechercherHistoriqueTraitementParService(long idservice, UtilisateurHardis hardis) {
-        Service service =serviceFacade.rechercheServiceParId(idservice);
-        List<HistoriqueTraitement> historiqueEtats = historiqueEtatsFacade.rechercheHistoriqueEtatsParService(service);
-        logsFacade.creerLogResearch(hardis, historiqueEtats);
-        return historiqueEtats;       
+    public List<HistoriqueTraitement> rechercherHistoriqueTraitementParConsultant(long idconsultant, UtilisateurHardis hardis) {
+        UtilisateurHardis consultant =utilisateurHardisFacade.rechercheUtilisateurParId(idconsultant);
+        List<HistoriqueTraitement> historiqueTraitements = historiqueTraitementFacade.rechercheHistoriqueTraitementParConsultant(consultant);
+        logsFacade.creerLogResearch(hardis, historiqueTraitements);
+        return historiqueTraitements;       
     }
    
     @Override
+    public List<HistoriqueTraitement> rechercherHistoriqueTraitementParValidateur(long idvalidateur, UtilisateurHardis hardis) {
+        UtilisateurHardis validateur =utilisateurHardisFacade.rechercheUtilisateurParId(idvalidateur);
+        List<HistoriqueTraitement> historiqueTraitements = historiqueTraitementFacade.rechercheHistoriqueTraitementParValidateur(validateur);
+        logsFacade.creerLogResearch(hardis, historiqueTraitements);
+        return historiqueTraitements;       
+    }
+    
+    @Override
+    public List<HistoriqueTraitement> rechercherHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis hardis) {
+        List<HistoriqueTraitement> historiqueTraitements = historiqueTraitementFacade.rechercheHistoriqueTraitementParUtilisateurCourant(hardis);
+        logsFacade.creerLogResearch(hardis, historiqueTraitements);
+        return historiqueTraitements;       
+    }
+    
+    @Override
     public List<HistoriqueTraitement> listHistoriqueTraitementEtats( UtilisateurHardis hardis) {
-        List<HistoriqueTraitement> historiqueEtats = historiqueEtatsFacade.listHistoriqueEtats();
-        logsFacade.creerLogResearch(hardis, historiqueEtats);
-        return historiqueEtats;       
+        List<HistoriqueTraitement> historiqueTraitements = historiqueTraitementFacade.listHistoriqueTraitement();
+        logsFacade.creerLogResearch(hardis, historiqueTraitements);
+        return historiqueTraitements;       
+    }
+    
+    @Override
+    public void creerInterlocuteur(String nom, String prenom, String fonction, String tel, long identreprise, UtilisateurHardis hardis) {
+        Entreprise entreprise = entrepriseFacade.rechercheEntrepriseParId(identreprise);
+        Interlocuteur interlocuteur = interlocuteurFacade.creerInterlocuteur(nom, prenom, fonction, tel, entreprise);
+        logsFacade.creerLogCreate(hardis, interlocuteur);
+    }
+
+    @Override
+    public void modifierInterlocuteur(long idinter, String nom, String prenom, String fonction, String tel, long identreprise, UtilisateurHardis hardis) {
+        Interlocuteur interlocuteur = interlocuteurFacade.rechercheInterlocuteurParId(idinter);
+        Entreprise entreprise = entrepriseFacade.rechercheEntrepriseParId(identreprise);
+        interlocuteurFacade.modifierInterlocuteur(interlocuteur, nom, prenom, fonction, tel, entreprise);
+        logsFacade.creerLogUpdate(hardis, interlocuteur);
+    }
+    
+    @Override
+    public void supprimerInterlocuteur(long idinter, UtilisateurHardis hardis) {
+        Interlocuteur interlocuteur = interlocuteurFacade.rechercheInterlocuteurParId(idinter);
+        interlocuteurFacade.supprimerInterlocuteur(idinter);
+        logsFacade.creerLogDelete(hardis, interlocuteur);
+    }
+    
+     @Override
+    public Interlocuteur rechercherInterlocuteur(long idinter, UtilisateurHardis hardis) {
+        Interlocuteur interlocuteur = interlocuteurFacade.rechercheInterlocuteurParId(idinter);
+        logsFacade.creerLogResearch(hardis, interlocuteur);
+        return interlocuteur;
+    }
+    
+    @Override
+    public void creerLivrable(String nom, long idservice, UtilisateurHardis hardis) {
+        Service service = serviceFacade.rechercheServiceParId(idservice);
+        Livrable livrable = livrableFacade.creerLivrable(nom, service);
+        logsFacade.creerLogCreate(hardis, livrable);
+    }
+
+    @Override
+    public void modifierLivrable(long idLivrable, String nom, long idservice, UtilisateurHardis hardis) {
+        Service service = serviceFacade.rechercheServiceParId(idservice);
+        Livrable livrable = livrableFacade.rechercheLivrableParId(idLivrable);
+        livrableFacade.modifierLivrable(livrable, nom, service);
+        logsFacade.creerLogUpdate(hardis, livrable);
+    }
+    
+    @Override
+    public void supprimerLivrable(long idLivrable, UtilisateurHardis hardis) {
+        Livrable livrable = livrableFacade.rechercheLivrableParId(idLivrable);
+        livrableFacade.supprimerLivrable(livrable);
+        logsFacade.creerLogDelete(hardis, livrable);
+    }
+    
+     @Override
+    public Livrable rechercherLivrable(long idLivrable, UtilisateurHardis hardis) {
+        Livrable livrable = livrableFacade.rechercheLivrableParId(idLivrable);
+        logsFacade.creerLogResearch(hardis, livrable);
+        return livrable;
+    }
+    
+    @Override
+    public void creerOffre(String lib, String[] listedesid, UtilisateurHardis hardis) {
+        List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();
+        for (String offre_profil_cv: listedesid){
+            Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
+            Offre_Profil_Util_CV o_p_c= offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_profil_cv);
+            listoffres_profils_cvs.add(o_p_c);
+        }
+        Offre offre = offreFacade.creerOffre(lib, listoffres_profils_cvs);
+        logsFacade.creerLogCreate(hardis, offre);
+    }
+
+    @Override
+    public void modifierOffre(long idOffre, String lib, String[] listedesid, UtilisateurHardis hardis) {
+        Offre offre = offreFacade.rechercheOffreParId(idOffre);
+        List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();
+        for (String offre_profil_cv: listedesid){
+            Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
+            Offre_Profil_Util_CV o_p_c= offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_profil_cv);
+            listoffres_profils_cvs.add(o_p_c);
+        }
+        offreFacade.modifierOffre(offre, listoffres_profils_cvs, lib);
+        logsFacade.creerLogUpdate(hardis, offre);
+    }
+    
+    @Override
+    public void supprimerOffre(long idOffre, UtilisateurHardis hardis) {
+        Offre offre = offreFacade.rechercheOffreParId(idOffre);
+        offreFacade.supprimerOffre(idOffre);;
+        logsFacade.creerLogDelete(hardis, offre);
+    }
+    
+     @Override
+    public Offre rechercherOffre(long idOffre, UtilisateurHardis hardis) {
+        Offre offre = offreFacade.rechercheOffreParId(idOffre);
+        logsFacade.creerLogResearch(hardis, offre);
+        return offre;
+    }
+    
+    @Override
+    public void creerOffre_Profil_Util_CVDate ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis) {
+        Offre offre = offreFacade.rechercheOffreParId(idoffre);
+        ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
+        UtilisateurHardis utilisateur =utilisateurHardisFacade.rechercheUtilisateurParId(idPM);
+        Offre_Profil_Util_CV offre_Profil_Util_CV = offre_Profil_Util_CVFacade.creerOPUC(offre, profilmetier, utilisateur, lienCV);
+        logsFacade.creerLogCreate(hardis, offre_Profil_Util_CV);
+    }
+
+    @Override
+    public void modifierOffre_Profil_Util_CV(long idoffre_Profil_Util_CV, long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis) {
+        Offre_Profil_Util_CV offre_Profil_Util_CV = offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_Profil_Util_CV);
+        Offre offre = offreFacade.rechercheOffreParId(idoffre);
+        ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
+        UtilisateurHardis utilisateur =utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
+        offre_Profil_Util_CVFacade.modifierOPUC(offre_Profil_Util_CV, offre, profilmetier, utilisateur, lienCV);
+        logsFacade.creerLogUpdate(hardis, offre_Profil_Util_CV);
+    }
+    
+    @Override
+    public void supprimerOffre_Profil_Util_CV(long idoffre_Profil_Util_CV, UtilisateurHardis hardis) {
+        Offre_Profil_Util_CV offre_Profil_Util_CV = offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_Profil_Util_CV);
+        offre_Profil_Util_CVFacade.supprimerOPUC(offre_Profil_Util_CV);
+        logsFacade.creerLogDelete(hardis, offre_Profil_Util_CV);
+    }
+    
+     @Override
+    public Offre_Profil_Util_CV rechercherOffre_Profil_Util_CV(long idoffre_Profil_Util_CV, UtilisateurHardis hardis) {
+        Offre_Profil_Util_CV offre_Profil_Util_CV = offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_Profil_Util_CV);
+        logsFacade.creerLogResearch(hardis, offre_Profil_Util_CV);
+        return offre_Profil_Util_CV;
+    }
+    
+    @Override
+    public List<Offre_Profil_Util_CV> rechercherOffre_Profil_Util_CVParUtilisateur(long idutilisateur, UtilisateurHardis hardis) {
+        UtilisateurHardis utilisateur =utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
+        List<Offre_Profil_Util_CV> offre_Profil_Util_CV = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateur(utilisateur);
+        logsFacade.creerLogResearch(hardis, offre_Profil_Util_CV);
+        return offre_Profil_Util_CV;       
+    }
+    
+    @Override
+    public List<Offre_Profil_Util_CV> rechercherOffre_Profil_Util_CVParProfilMetier(long idprofilmetier, UtilisateurHardis hardis) {
+        ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idprofilmetier);
+        List<Offre_Profil_Util_CV> offre_Profil_Util_CV = offre_Profil_Util_CVFacade.rechercheOPUCParPM(profilmetier);
+        logsFacade.creerLogResearch(hardis, offre_Profil_Util_CV);
+        return offre_Profil_Util_CV;       
+    }
+    
+    @Override
+    public List<Offre_Profil_Util_CV> listHistoriqueOffre_Profil_Util_CV( UtilisateurHardis hardis) {
+        List<Offre_Profil_Util_CV> offre_Profil_Util_CV = offre_Profil_Util_CVFacade.findAll();
+        logsFacade.creerLogResearch(hardis, offre_Profil_Util_CV);
+        return offre_Profil_Util_CV;       
+    }
+    
+    @Override
+    public void creerProfilMetier( NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis) {
+        List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();
+        for (String offre_profil_cv: listedesid){
+            Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
+            Offre_Profil_Util_CV o_p_c= offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_profil_cv);
+            listoffres_profils_cvs.add(o_p_c);
+        }
+        ProfilMetier profilmetier = profilMetierFacade.creerProfilMetier(niveau, expertise, plafond, listoffres_profils_cvs);
+        logsFacade.creerLogCreate(hardis, profilmetier);
+    }
+
+    @Override
+    public void modifierProfilMetier(long idPM, NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis) {
+        ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
+        List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();
+        for (String offre_profil_cv: listedesid){
+            Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
+            Offre_Profil_Util_CV o_p_c= offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_profil_cv);
+            listoffres_profils_cvs.add(o_p_c);
+        }
+        profilMetierFacade.modifierProfilMetier(profilmetier, niveau, expertise, plafond, listoffres_profils_cvs);
+        logsFacade.creerLogUpdate(hardis, profilmetier);
+    }
+    
+    @Override
+    public void supprimerProfilMetier(long idPM, UtilisateurHardis hardis) {
+        ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
+        profilMetierFacade.supprimerProfilMetier(profilmetier);
+        logsFacade.creerLogDelete(hardis, profilmetier);
+    }
+    
+     @Override
+    public ProfilMetier rechercherProfilMetier(long idPM, UtilisateurHardis hardis) {
+        ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
+        logsFacade.creerLogResearch(hardis, profilmetier);
+        return profilmetier;
+    }
+    
+    @Override
+    public List<ProfilMetier> rechercherProfilMetierParExpertise(Expertise expertise, UtilisateurHardis hardis) {
+        List<ProfilMetier> offre_Profil_Util_CV = profilMetierFacade.recherchePMParExpertise(expertise);
+        logsFacade.creerLogResearch(hardis, offre_Profil_Util_CV);
+        return offre_Profil_Util_CV;       
+    }
+    
+    @Override
+    public List<ProfilMetier> rechercherProfilMetierParHabilitation(NiveauHabilitation niveauhabilitation, UtilisateurHardis hardis) {
+        List<ProfilMetier> offre_Profil_Util_CV = profilMetierFacade.recherchePMParHabilitation(niveauhabilitation);
+        logsFacade.creerLogResearch(hardis, offre_Profil_Util_CV);
+        return offre_Profil_Util_CV;       
+    }
+    
+    @Override
+    public List<ProfilMetier> listProfilMetier( UtilisateurHardis hardis) {
+        List<ProfilMetier> profilMetier = profilMetierFacade.findAll();
+        logsFacade.creerLogResearch(hardis, profilMetier);
+        return profilMetier;       
+    }
+    
+    @Override
+    public void creerService( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis) {
+        Offre offre = offreFacade.rechercheOffreParId(idoffre);
+        Service service = serviceFacade.creerService(nomService, descriptionService, lieuInterv, offre, cout, facturation, listeCond, delai, typeS);
+        logsFacade.creerLogCreate(hardis, service);
     }
     
     @Override
@@ -811,7 +1080,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public List<Service> rechercherService(long idoffre, UtilisateurHardis hardis) {
+    public List<Service> rechercherServiceParOffre(long idoffre, UtilisateurHardis hardis) {
         Offre of = offreFacade.rechercheOffreParId(idoffre);
         List<Service> se = new ArrayList<Service>();
         se = serviceFacade.rechercheServiceParOffre(of);
@@ -826,9 +1095,152 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         return se;
     }
     
+    @Override
+    public List<Service> listService( UtilisateurHardis hardis) {
+        List<Service> service = serviceFacade.listServices();
+        logsFacade.creerLogResearch(hardis, service);
+        return service;       
+    }
     
+    @Override
+    public void creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis) {
+        List<Livrable> listlivrables= new ArrayList<>();
+        for (String livrable: listidlivrable){
+            Long idlivrable = Long.valueOf(livrable);
+            Livrable livrebles= livrableFacade.rechercheLivrableParId(idlivrable);
+            listlivrables.add(livrebles);
+        }
+        List<Atelier> listateliers= new ArrayList<>();
+        for (String atelier: listeidAtelier){
+            Long idatelier = Long.valueOf(atelier);
+            Atelier ateliers= atelierFacade.rechercheAtelier(idatelier);
+            listateliers.add(ateliers);
+        }
+        Offre offre = offreFacade.rechercheOffreParId(idoffre);
+        ServiceStandard service = serviceStandardFacade.creerServiceStandard(nomService, descriptionService, lieuInterv, offre, cout, facturation, listeCond, delai, typeS, descPresta, nbJS, nbJC, nbJJ, nbHA, listlivrables, listateliers, nbHS);
+        logsFacade.creerLogCreate(hardis, service);
+    }
     
+    @Override
+    public void modifieServiceStandard(long idServiceStandard, String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA,String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis) {
+        ServiceStandard service = serviceStandardFacade.rechercheServiceSParId(idServiceStandard);
+        List<Livrable> listlivrables= new ArrayList<>();
+        for (String livrable: listidlivrable){
+            Long idlivrable = Long.valueOf(livrable);
+            Livrable livrebles= livrableFacade.rechercheLivrableParId(idlivrable);
+            listlivrables.add(livrebles);
+        }
+        List<Atelier> listateliers= new ArrayList<>();
+        for (String atelier: listeidAtelier){
+            Long idatelier = Long.valueOf(atelier);
+            Atelier ateliers= atelierFacade.rechercheAtelier(idatelier);
+            listateliers.add(ateliers);
+        }
+        Offre offre = offreFacade.rechercheOffreParId(idoffre);
+        serviceStandardFacade.modifierServiceStandard(service, nomService, descriptionService, lieuInterv, offre, cout, facturation, listeCond, delai, typeS, descPresta, nbJS, nbJC, nbJJ, nbHA, listlivrables, listateliers, nbHS);
+        logsFacade.creerLogUpdate(hardis, service);
+    }
     
+     @Override
+    public void supprimerServiceStandard(long idServiceStandard ,UtilisateurHardis hardis) {
+        ServiceStandard serviceStandard = serviceStandardFacade.rechercheServiceSParId(idServiceStandard);
+        serviceStandardFacade.supprimerServiceStandard(serviceStandard);
+        logsFacade.creerLogCreate(hardis,serviceStandard );
+    }
+    
+    @Override
+    public List<ServiceStandard> rechercherServiceStandardParOffre(long idoffre, UtilisateurHardis hardis) {
+        Offre of = offreFacade.rechercheOffreParId(idoffre);
+        List<ServiceStandard> se = serviceStandardFacade.rechercheServiceStandardParOffre(of);
+        logsFacade.creerLogResearch(hardis, of);
+        return se;       
+    }
+    
+    @Override
+    public ServiceStandard rechercherServiceStandardId(long id, UtilisateurHardis hardis) {
+       ServiceStandard se = serviceStandardFacade.rechercheServiceSParId(id);
+        logsFacade.creerLogResearch(hardis, se);
+        return se;
+    }
+    
+    @Override
+    public List<ServiceStandard> listServiceStandard( UtilisateurHardis hardis) {
+        List<ServiceStandard> ServiceStandard = serviceStandardFacade.listServStandard();
+        logsFacade.creerLogResearch(hardis, ServiceStandard);
+        return ServiceStandard;       
+    }
+    
+    @Override
+    public void creerUtilisateurHardis( String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, long idagence, UtilisateurHardis hardis) {
+        Agence agence = agenceFacade.rechercheAgence(idagence);
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.creerUtilisateurH(nom, prenom, login, mdp, questSecrete, repSecrete, dateRGPD, rgpd, profil, statut, lienCV, agence);
+        logsFacade.creerLogCreate(hardis, utilisateur);
+    }
+    
+    @Override
+    public void modifieUtilisateurHardisMDP(long idutilisateur, String MDP, UtilisateurHardis hardis) {
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
+        utilisateurHardisFacade.modfiUtilisateurMDP(hardis, MDP);
+        logsFacade.creerLogUpdate(hardis, utilisateur);
+    }
+    
+    @Override
+    public void modifieUtilisateurHardisQSRS(long idutilisateur,String QS, String RS, UtilisateurHardis hardis) {
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
+        utilisateurHardisFacade.modfiUtilisateurQSRS(hardis, QS, RS);
+        logsFacade.creerLogUpdate(hardis, utilisateur);
+    }
+    
+    @Override
+    public void modifieUtilisateurHardis(long idutilisateur,String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, long idagence, UtilisateurHardis hardis) {
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
+        Agence agence = agenceFacade.rechercheAgence(idagence);
+        utilisateurHardisFacade.modifUtilisateurHardis(hardis, nom, prenom, dateRGPD, rgpd, profil, statut, lienCV, agence);
+        logsFacade.creerLogUpdate(hardis, utilisateur);
+    }
+    
+     @Override
+    public void supprimerUtilisateurHardis(long idutilisateur ,UtilisateurHardis hardis) {
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
+        utilisateurHardisFacade.SuppressionUtilisateur(utilisateur);
+        logsFacade.creerLogCreate(hardis,utilisateur );
+    }
+    
+    @Override
+    public List<UtilisateurHardis> rechercherUtilisateurHardisParAgence(long idagence, UtilisateurHardis hardis) {
+        Agence agence = agenceFacade.rechercheAgence(idagence);
+        List<UtilisateurHardis> utilisateurHardis = utilisateurHardisFacade.rechercheUtilisateurHParAgence(agence);
+        logsFacade.creerLogResearch(hardis, agence);
+        return utilisateurHardis;       
+    }
+    
+    @Override
+    public UtilisateurHardis rechercherUtilisateurHardisParId(long id, UtilisateurHardis hardis) {
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(id);
+        logsFacade.creerLogResearch(hardis, utilisateur);
+        return utilisateur;
+    }
+    
+    @Override
+    public UtilisateurHardis authentificationUtilisateurHardis(String login, String mdp) {
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.authentificationHardis(login, mdp);
+        logsFacade.creerLogResearch(utilisateur, utilisateur);
+        return utilisateur;
+    }
+    
+    @Override
+    public UtilisateurHardis rechercherUtilisateurHardisParLogin(String login, UtilisateurHardis hardis) {
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParLogin(login);
+        logsFacade.creerLogResearch(hardis, utilisateur);
+        return utilisateur;
+    }
+    
+    @Override
+    public List<UtilisateurHardis> listUtilisateurHardis( UtilisateurHardis hardis) {
+        List<UtilisateurHardis> utilisateur = utilisateurHardisFacade.listUHardis();
+        logsFacade.creerLogResearch(hardis, hardis);
+        return utilisateur;       
+    }
     
     
     

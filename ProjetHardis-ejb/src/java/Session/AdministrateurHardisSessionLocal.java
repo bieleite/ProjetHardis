@@ -16,16 +16,27 @@ import Entites.Disponibilite;
 import Entites.Document;
 import Entites.EchangeTel;
 import Entites.Entreprise;
+import Entites.Expertise;
 import Entites.Facturation;
 import Entites.FacturationFrais;
 import Entites.Facture;
 import Entites.HistoriqueDevis;
 import Entites.HistoriqueEtats;
+import Entites.HistoriqueTraitement;
+import Entites.Interlocuteur;
 import Entites.LieuIntervention;
+import Entites.Livrable;
+import Entites.NiveauHabilitation;
 import Entites.Offre;
+import Entites.Offre_Profil_Util_CV;
+import Entites.ProfilMetier;
+import Entites.ProfilTechnique;
 import Entites.Service;
+import Entites.ServiceStandard;
 import Entites.Statut;
+import Entites.StatutUtilisateur;
 import Entites.TypeService;
+import Entites.TypeUtilisateur;
 import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
@@ -66,10 +77,14 @@ public interface AdministrateurHardisSessionLocal {
 
     void affecterClient(long iidclient, long identreprise, UtilisateurHardis hardis);
 
+    void modifierClient(long idclient, String Nom,String Prenom, int RGPD, Date dateRDGP, long identreprise, UtilisateurHardis hardis );
+    
+    void modifierAgenceClient(long idclient,long idagence, UtilisateurHardis hardis );
+    
     void supprimerClient(long idclient,UtilisateurHardis hardis);
 
     void validerCompteClient(long idclient,UtilisateurHardis hardis);
-    //criar afecter agence au client
+
     Client rechercherClient(long id, String nomclient, String loginclient, UtilisateurHardis hardis);
 
     void certifieClient(long idclient, UtilisateurHardis hardis);
@@ -171,13 +186,118 @@ public interface AdministrateurHardisSessionLocal {
     List<HistoriqueEtats> rechercherHistoriqueEtatsParService(long idservice, UtilisateurHardis hardis);
     
     List<HistoriqueEtats> listHistoriqueEtats( UtilisateurHardis hardis);
-     
+    
+    void creerHistoriqueTraitement(Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, long iddevis,long idconsultant, long idreflocal, long idvalidateur, UtilisateurHardis hardis);
+    
+    void modifierHistoriqueTraitement(long idhistorique, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, long iddevis,long idconsultant, long idreflocal, long idvalidateur, UtilisateurHardis hardis);
+    
+    void supprimerHistoriqueTraitement(long idhistorique, UtilisateurHardis hardis);
+    
+    HistoriqueTraitement rechercherHistoriqueTraitement(long idhistorique, UtilisateurHardis hardis);
+    
+    List<HistoriqueTraitement> rechercherHistoriqueTraitementParDevis(long iddevis, UtilisateurHardis hardis);
+    
+    List<HistoriqueTraitement> rechercherHistoriqueTraitementParConsultant(long idconsultant, UtilisateurHardis hardis);
+    
+    List<HistoriqueTraitement> rechercherHistoriqueTraitementParValidateur(long idvalidateur, UtilisateurHardis hardis);
+    
+    List<HistoriqueTraitement> rechercherHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis hardis);
+    
+    List<HistoriqueTraitement> listHistoriqueTraitementEtats( UtilisateurHardis hardis);
+    
+    void creerInterlocuteur(String nom, String prenom, String fonction, String tel, long identreprise, UtilisateurHardis hardis);
+    
+    void modifierInterlocuteur(long idinter, String nom, String prenom, String fonction, String tel, long identreprise, UtilisateurHardis hardis);
+    
+    void supprimerInterlocuteur(long idinter, UtilisateurHardis hardis);
+    
+    Interlocuteur rechercherInterlocuteur(long idinter, UtilisateurHardis hardis);
+    
+    void creerLivrable(String nom, long idservice, UtilisateurHardis hardis);
+    
+    void modifierLivrable(long idLivrable, String nom, long idservice, UtilisateurHardis hardis);
+    
+    void supprimerLivrable(long idLivrable, UtilisateurHardis hardis);
+    
+    Livrable rechercherLivrable(long idLivrable, UtilisateurHardis hardis);
+    
+    void creerOffre(String lib, String[] listedesid, UtilisateurHardis hardis);
+    
+    void modifierOffre(long idOffre, String lib, String[] listedesid, UtilisateurHardis hardis);
+    
+    void supprimerOffre(long idOffre, UtilisateurHardis hardis);
+    
+    Offre rechercherOffre(long idOffre, UtilisateurHardis hardis);
+    
+    void creerOffre_Profil_Util_CVDate ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis);
+    
+    void modifierOffre_Profil_Util_CV(long idoffre_Profil_Util_CV, long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis);
+    
+    void supprimerOffre_Profil_Util_CV(long idoffre_Profil_Util_CV, UtilisateurHardis hardis);
+    
+    Offre_Profil_Util_CV rechercherOffre_Profil_Util_CV(long idoffre_Profil_Util_CV, UtilisateurHardis hardis);
+    
+    List<Offre_Profil_Util_CV> rechercherOffre_Profil_Util_CVParUtilisateur(long idutilisateur, UtilisateurHardis hardis);
+    
+    List<Offre_Profil_Util_CV> rechercherOffre_Profil_Util_CVParProfilMetier(long idprofilmetier, UtilisateurHardis hardis);
+    
+    List<Offre_Profil_Util_CV> listHistoriqueOffre_Profil_Util_CV( UtilisateurHardis hardis);
+    
+    void creerProfilMetier( NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis);
+    
+    void modifierProfilMetier(long idPM, NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis);
+    
+    void supprimerProfilMetier(long idPM, UtilisateurHardis hardis);
+    
+    ProfilMetier rechercherProfilMetier(long idPM, UtilisateurHardis hardis);
+    
+    List<ProfilMetier> rechercherProfilMetierParExpertise(Expertise expertise, UtilisateurHardis hardis);
+    
+    List<ProfilMetier> rechercherProfilMetierParHabilitation(NiveauHabilitation niveauhabilitation, UtilisateurHardis hardis);
+        
+    List<ProfilMetier> listProfilMetier( UtilisateurHardis hardis);
+    
+    void creerService( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis);    
+    
     void modifieService(long idservice, String nomService, String descriptionService, LieuIntervention idlieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis);
         
     void supprimerService(long idservice ,UtilisateurHardis hardis);
     
-    List<Service> rechercherService(long idoffre, UtilisateurHardis hardis);
+    List<Service> rechercherServiceParOffre(long idoffre, UtilisateurHardis hardis);
     
     Service rechercherServiceId(long id, UtilisateurHardis hardis);
+    
+    List<Service> listService( UtilisateurHardis hardis);
+    
+    void creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis);
+    
+    void modifieServiceStandard(long idServiceStandard, String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA,String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis);
+        
+    void supprimerServiceStandard(long idServiceStandard ,UtilisateurHardis hardis);
+    
+    List<ServiceStandard> rechercherServiceStandardParOffre(long idoffre, UtilisateurHardis hardis);
+    
+    ServiceStandard rechercherServiceStandardId(long id, UtilisateurHardis hardis);
+    
+    List<ServiceStandard> listServiceStandard( UtilisateurHardis hardis);
+    
+    void creerUtilisateurHardis( String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, long idagence, UtilisateurHardis hardis);
 
+    void modifieUtilisateurHardisMDP(long idutilisateur, String MDP, UtilisateurHardis hardis);
+    
+    void modifieUtilisateurHardisQSRS(long idutilisateur,String QS, String RS, UtilisateurHardis hardis);
+    
+    void modifieUtilisateurHardis(long idutilisateur,String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, long idagence, UtilisateurHardis hardis);
+       
+    void supprimerUtilisateurHardis(long idutilisateur ,UtilisateurHardis hardis);
+    
+    List<UtilisateurHardis> rechercherUtilisateurHardisParAgence(long idagence, UtilisateurHardis hardis);
+    
+    UtilisateurHardis rechercherUtilisateurHardisParId(long id, UtilisateurHardis hardis);
+    
+    UtilisateurHardis authentificationUtilisateurHardis(String login, String mdp);
+    
+    UtilisateurHardis rechercherUtilisateurHardisParLogin(String login, UtilisateurHardis hardis);
+    
+    List<UtilisateurHardis> listUtilisateurHardis( UtilisateurHardis hardis);
 }

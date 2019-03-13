@@ -50,14 +50,15 @@ public class InterlocuteurFacade extends AbstractFacade<Interlocuteur> implement
   
 
     @Override
-    public void creerInterlocuteur(String nom, String prenom, String fonction, String tel, Entreprise entreprise) {
+    public Interlocuteur creerInterlocuteur(String nom, String prenom, String fonction, String tel, Entreprise entreprise) {
         Interlocuteur inter = new Interlocuteur();
         inter.setEntreprise(entreprise);
         inter.setFonctionInterlocuteur(fonction);
         inter.setNomInterlocuteur(fonction);
         inter.setPrenomInterlocuteur(prenom);
-inter.setTelInterlocuteur(tel);
-em.persist(inter);
+        inter.setTelInterlocuteur(tel);
+        em.persist(inter);
+        return inter;
     }
 
     @Override
