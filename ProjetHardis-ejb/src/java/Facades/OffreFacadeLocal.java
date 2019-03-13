@@ -38,9 +38,7 @@ public interface OffreFacadeLocal {
 
     int count();
 
-
-
-    void creerOffre(String lib, List<Offre_Profil_Util_CV> liste);
+    Offre creerOffre(String lib, List<Offre_Profil_Util_CV> liste);
 
     void modifierOffre(Offre offre ,  List<Offre_Profil_Util_CV> liste, String lib );
 

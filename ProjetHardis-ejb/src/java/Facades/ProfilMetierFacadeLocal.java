@@ -40,13 +40,11 @@ public interface ProfilMetierFacadeLocal {
 
     int count();
 
-
-
-    void creerProfilMetier(NiveauHabilitation niveau, Expertise expertise, float plafond, List<Offre_Profil_Util_CV> offre_p_util_cv);
+    ProfilMetier creerProfilMetier(NiveauHabilitation niveau, Expertise expertise, float plafond, List<Offre_Profil_Util_CV> offre_p_util_cv);
 
     void modifierProfilMetier(ProfilMetier PM,NiveauHabilitation niveau, Expertise expertise, float plafond, List<Offre_Profil_Util_CV> offre_p_util_cv );
 
-    void supprimerProfilMetier(long id);
+    void supprimerProfilMetier(ProfilMetier profilMetier);
 
     ProfilMetier recherchePMParId(long id);
 

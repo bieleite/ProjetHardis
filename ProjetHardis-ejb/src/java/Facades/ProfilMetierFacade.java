@@ -44,13 +44,14 @@ public class ProfilMetierFacade extends AbstractFacade<ProfilMetier> implements 
 
 
     @Override
-    public void creerProfilMetier(NiveauHabilitation niveau, Expertise expertise, float plafond, List<Offre_Profil_Util_CV> offre_p_util_cv) {
+    public ProfilMetier creerProfilMetier(NiveauHabilitation niveau, Expertise expertise, float plafond, List<Offre_Profil_Util_CV> offre_p_util_cv) {
         ProfilMetier PM = new ProfilMetier();
         PM.setNiveauExpertise(expertise);
         PM.setNiveauHabilitation(niveau);
         PM.setPlafond(plafond);
         PM.setOffre_Profil_Utils(offre_p_util_cv);
         em.persist(PM);
+        return PM;
     }
 
     @Override
@@ -72,10 +73,10 @@ public class ProfilMetierFacade extends AbstractFacade<ProfilMetier> implements 
     }
 
     @Override
-    public void supprimerProfilMetier(long id) {
+    public void supprimerProfilMetier(ProfilMetier profilMetier) {
           ProfilMetier pm = null;
         Query requete = em.createQuery("SELECT p from ProfilMetier as p where p.id=:id");
-        requete.setParameter("id",id);     
+        requete.setParameter("id",profilMetier.getId());     
         List<ProfilMetier> liste =  requete.getResultList();
         if (!liste.isEmpty()){
             pm  =  liste.get(0); 

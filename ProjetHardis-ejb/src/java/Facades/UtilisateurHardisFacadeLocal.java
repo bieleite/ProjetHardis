@@ -43,10 +43,7 @@ public interface UtilisateurHardisFacadeLocal {
 
     int count();
 
-
-
-    void creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lientCV, Agence agence);
-
+    UtilisateurHardis creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lientCV, Agence agence);
     
     UtilisateurHardis rechercheUtilisateurParId(Long id);
        
@@ -56,9 +53,9 @@ public interface UtilisateurHardisFacadeLocal {
     
     void modfiUtilisateurQSRS(UtilisateurHardis cl, String QS, String RS);
     
-void modifClient(UtilisateurHardis entite1, String nom, String prenom, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV);    
+    void modifUtilisateurHardis(UtilisateurHardis entite, String nom, String prenom, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV,Agence agence);    
    
-void SuppressionUtilisateur(Long id);
+    void SuppressionUtilisateur(UtilisateurHardis utilisateur);
 
     UtilisateurHardis authentificationHardis(String log, String mdp);
 

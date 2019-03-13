@@ -44,7 +44,7 @@ public interface ServiceFacadeLocal {
 
     List<Service> rechercheServiceParOffre(Offre o);
 
-    void creerService(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS);
+    Service creerService(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS);
 
     void modifierService(Service s, String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS);
 

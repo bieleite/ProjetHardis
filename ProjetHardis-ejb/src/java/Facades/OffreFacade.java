@@ -52,11 +52,12 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
 
 
     @Override
-    public void creerOffre(String lib, List<Offre_Profil_Util_CV> liste) {
+    public Offre creerOffre(String lib, List<Offre_Profil_Util_CV> liste) {
      Offre offre = new Offre();
      offre.setLibelle(lib);
      offre.setOffre_Profil_Utils(liste);
      em.persist(offre);
+     return offre;
     }
 
     @Override
