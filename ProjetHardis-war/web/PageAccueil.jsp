@@ -128,23 +128,14 @@
 <li class="leaf level_2 col-sm-3 col-xs-12"><a href="/innovation/geolocalisation-indoor-et-outdoor-chaque-projet-sa-solution" title="Géolocalisation indoor et outdoor : à chaque projet, sa solution">Géolocalisation</a></li>
 <li class="last leaf level_2 col-sm-3 col-xs-12"><a href="/innovation-et-transformation/transformation-de-votre-dsi-par-le-devops" title="Transformation de votre DSI par le DevOps">Transformation de votre DSI par le DevOps</a></li>
 </ul></li>
-<li class="expanded dropdown yamm-fw level_1 big-menu most mlid-667"><a title="" data-target="#" class="dropdown-toggle nolink" data-toggle="dropdown">Société <span class="caret"></span></a><ul class="dropdown-menu row"><li class="first expanded level_2 col-sm-3 col-xs-12"><a href="/societe/hardis-group-ssii-esn-grenoble-lyon-paris-nantes-lille-dates-et-chiffres-cles" title="Hardis Group : SSII et éditeur de logiciels">Qui sommes-nous ?</a><ul><li class="first leaf level_3"><a href="/societe/ssii-esn-grenoble-lyon-paris-nantes-lille-transformation-digitale-et-omnicanal" title="Accompagner la transformation digitale de nos clients">Vision et mission</a></li>
-<li class="leaf level_3"><a href="/societe/qui-sommes-nous/hardis-group-2018-cest-nous" title="Hardis Group 2018, c&#039;est nous !">Stratégie</a></li>
-<li class="leaf level_3"><a href="/societe/principaux-dirigeants-de-hardis-group-ssii-esn-editeur-logiciels-grenoble-lyon-paris-nantes-lille" title="Hardis Group, SSII et éditeur de logiciels : principaux dirigeants">Dirigeants</a></li>
-<li class="last leaf level_3"><a href="/societe/qui-sommes-nous/hardis-group-une-identite-illustree-par-5-valeurs" title="Hardis Group : une identité illustrée par 5 valeurs">Valeurs</a></li>
-</ul></li>
-<li class="expanded level_2 col-sm-3 col-xs-12"><a href="/societe/un-ecosysteme-de-partenaires-innovants-et-orientes-client" title="Un écosystème de partenaires innovants et orientés client">Partenaires</a><ul><li class="first leaf level_3"><a href="/societe/partenaires/ibm" title="IBM">IBM</a></li>
-<li class="leaf level_3"><a href="/societe/partenaires/nos-partenaires-solutions-et-transformation-digitale" title="Nos partenaires solutions et transformation digitale">Solutions</a></li>
-<li class="leaf level_3"><a href="/societe/partenaires/nos-partenaires-solutions-logistiques" title="Nos partenaires solutions logistiques">Logistique</a></li>
-<li class="last leaf level_3"><a href="/societe/partenaires/nos-partenaires-ecoles-et-institutionnels" title="Nos partenaires écoles et institutionnels">Ecoles et institutions</a></li>
-</ul></li>
-<li class="last leaf level_2 col-sm-3 col-xs-12"><a href="/societe/hardis-group-ssii-esn-editeur-en-france-grenoble-lyon-paris-nantes-lille-bordeaux" title="Hardis Group en France">Nous trouver</a></li>
-</ul></li>
+<li class="expanded dropdown yamm-fw level_1 big-menu most mlid-667"><a href ="servInternaute?action=connexion" title="" data-target="#" class="dropdown-toggle nolink" data-toggle="dropdown">Connexion</a>
+</li>
 
 
 <li class="first expanded dropdown yamm-fw level_1 big-menu most mlid-665">
-				<a href ="Internaute/FormContact.jsp" title="" data-target="#" class="dropdown-toggle nolink" data-toggle="dropdown">Nous contacter</a>
-</ul>                          </nav>
+				<a href ="servInternaute?action=afficheFormContact" title="" data-target="#" class="dropdown-toggle nolink" data-toggle="dropdown">Nous contacter</a>
+</ul>                          
+            </nav>
           </div>
           </div>
               </div>

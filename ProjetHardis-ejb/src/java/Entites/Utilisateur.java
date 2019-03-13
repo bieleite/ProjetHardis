@@ -37,6 +37,26 @@ import javax.persistence.Temporal;
 
 public class Utilisateur implements Serializable {
 
+    private boolean connecte;
+
+    /**
+     * Get the value of connecte
+     *
+     * @return the value of connecte
+     */
+    public boolean isConnecte() {
+        return connecte;
+    }
+
+    /**
+     * Set the value of connecte
+     *
+     * @param connecte new value of connecte
+     */
+    public void setConnecte(boolean connecte) {
+        this.connecte = connecte;
+    }
+
 
     @OneToMany(mappedBy = "utilisateur")
     private List<Logs> logss;

@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package serv;
 
-import Entites.Offre;
-import Session.InternauteSessionLocal;
+import Entites.Client;
+import Session.ClientSessionLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,12 +22,39 @@ import javax.servlet.http.HttpSession;
  *
  * @author 6170361
  */
-@WebServlet(urlPatterns = {"/servInternaute"})
-public class servInternaute extends HttpServlet {
+@WebServlet(name = "servClient", urlPatterns = {"/servClient"})
+public class servClient extends HttpServlet {
+
+    @EJB
+    private ClientSessionLocal clientSession;
 
     
-    @EJB
-    private InternauteSessionLocal gestionInternaute;
+    
+ protected void connexion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    
+        String email = request.getParameter("email");
+        String mdp = request.getParameter("mdp");
+
+
+        String message = "";
+        String messageErreur = "";
+        
+        if ( mdp.isEmpty() || email.isEmpty()) {
+            messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
+        } else {
+
+            Client c = clientSession.authentificationClient(email, mdp);
+          if (c==null){
+              messageErreur = "Erreur, identifiants erronnés";
+          }
+          else  request.setAttribute("client", c);
+        }
+        request.setAttribute("message", message);
+        request.setAttribute("messageErreur", messageErreur);
+
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,7 +67,7 @@ public class servInternaute extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-      //  HttpSession sess = request.getSession(true);
+         HttpSession sess = request.getSession(true);
 
         String message = "";
 
@@ -51,34 +77,19 @@ public class servInternaute extends HttpServlet {
 
         String act = request.getParameter("action");
         
-        if (act == null) {
+        if (act.equals("connexion")) {
             jspClient = "/PageAccueil.jsp";
-            request.setAttribute("message", "");
+            connexion(request, response);
 }
-        else if (act.equals("afficheOffres"))
-        {
-             jspClient = "/Internaute/AfficheOffres.jsp";
-             List<Offre> listeO = gestionInternaute.afficheOffres();
-             if (listeO==null)
-                 listeO=new ArrayList();
-             request.setAttribute("listeO", listeO);
-             
-
-        }
-         else if (act.equals("afficheFormContact"))
-        {
-             jspClient = "/Internaute/FormContact.jsp";
-          
-
-        }
-        
-        
+        if (act.equals("creation")) {
+            jspClient = "/PageAccueil.jsp";
+            connexion(request, response);
+}
         
         
         Rd = getServletContext().getRequestDispatcher(jspClient);
 Rd.forward(request, response);
-      
-      
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

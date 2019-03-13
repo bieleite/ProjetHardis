@@ -2,40 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/InternauteSessionLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/AdresseFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/UtilisateurHardisFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ContactMailFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/EntrepriseFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/InternauteSession.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/DevisFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/VisualisateurHardisSessionLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSessionLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/EntrepriseFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/UtilisateurHardisFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSessionLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/DevisFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/EchangeTelFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/LogsFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/ContactMail.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/conf/persistence.xml</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/setup/glassfish-resources.xml</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/AdresseFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Entreprise.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSession.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/VisualisateurHardisSession.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Agence.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/AgenceFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSession.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ClientFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceStandardFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/GestionnaireHardisSession.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Facturation.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ContactMailFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Helpers.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

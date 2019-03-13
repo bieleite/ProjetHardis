@@ -276,13 +276,18 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
 
     @Override
     public Client authentificationClient(String log, String mdp) {
+        Client c = null;
         Query requete = em.createQuery("SELECT a from Client as a where a.login=:lo and a.mdp=:m");
         requete.setParameter("lo", log);
         requete.setParameter("m", mdp);       
         List<Client> liste =  requete.getResultList();
-        if (!liste.isEmpty())
-            return (Client)liste.get(0);
-        else return null;
+        if (!liste.isEmpty()) {
+           c =  (Client)liste.get(0);
+           c.setConnecte(true);
+           em.merge(c);
+           
+        }
+        return c;
     }
 
     @Override
