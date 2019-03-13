@@ -114,6 +114,8 @@ public class ClientSession implements ClientSessionLocal {
        
          return clientFacade.authentificationClient(login,mdp);   
     }
+    
+    
 
     @Override
     public void majEntreprise(long idCli, long idEnt) {
@@ -280,8 +282,20 @@ public class ClientSession implements ClientSessionLocal {
 
     //creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise, Agence agence, String cp
     @Override
-    public void creerClient(String nom, String prenom, String login, String mdp, String cp, String qs, String rs) {
-        clientFacade.creerClient(nom, prenom, login, mdp, qs, rs, 1, new Date(), null, null, cp);
+    public Client creerClient(String nom, String prenom, String login, String mdp, String cp, String qs, String rs) {
+       return clientFacade.creerClient(nom, prenom, login, mdp, qs, rs, 1, new Date(), null, null, cp);
+    }
+
+    @Override
+    public void deconnexion(long id) {
+        Client c = clientFacade.rechercheClient(id);
+        clientFacade.deconnexion(c);
+    }
+
+    @Override
+    public Entreprise rechercheEntrepriseParSiretEtMdp(String siret, String mdp) {
+        Entreprise e = entrepriseFacade.rechercheEntrepriseSiretMdp(siret, mdp);
+return e;
     }
     
     

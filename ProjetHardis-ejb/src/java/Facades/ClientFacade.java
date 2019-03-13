@@ -53,7 +53,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     
 
     @Override
-    public void creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise, Agence agence, String cp) {
+    public Client creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise, Agence agence, String cp) {
         Client cl = new Client();
         cl.setNom(Nom);
         cl.setPrenom(Prenom);
@@ -75,6 +75,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         cl.setAgence(agence);
         cl.setCodepostal(cp);
         em.persist(cl);
+        return cl;
     }
     
     
@@ -310,7 +311,14 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         em.merge(cli);
     }
 
+    @Override
+    public void deconnexion(Client c) {
+        c.setConnecte(false);
+        em.merge(c);
+    }
 
 
+
+    
 
 }

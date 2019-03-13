@@ -227,6 +227,21 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
        return  String.format("%06d", id);  
        
     }
+
+    @Override
+    public Entreprise rechercheEntrepriseSiretMdp(String siret, String mdp) {
+       Entreprise entreprise = null;
+        String txt = "SELECT entite FROM Entreprise AS entite WHERE entite.numeroEntreprise=:siret and entite.mdpEntreprise=:mdp";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("siret", siret);
+              req = req.setParameter("mdp", mdp);
+        List<Entreprise> liste = req.getResultList();
+        if (!liste.isEmpty()){
+             entreprise =   liste.get(0);
+           
+        }
+      return entreprise; 
+    }
     
     
 

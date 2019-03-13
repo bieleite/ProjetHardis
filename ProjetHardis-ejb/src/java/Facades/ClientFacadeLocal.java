@@ -44,7 +44,7 @@ public interface ClientFacadeLocal {
     
     void modifClient(Client entite, String Nom,String Prenom, int RGPD, Date dateRDGP, Entreprise entreprise);
    
-    void creerClient(String Nom,String Prenom, String Login,String MDP,String QuestionSecrete, String ReponseSecrete,int RGPD, Date RDGP, Entreprise entreprise, Agence agence, String cp);
+    Client creerClient(String Nom,String Prenom, String Login,String MDP,String QuestionSecrete, String ReponseSecrete,int RGPD, Date RDGP, Entreprise entreprise, Agence agence, String cp);
     
     List<Client> listClient();
 
@@ -75,6 +75,9 @@ public interface ClientFacadeLocal {
     List<Client> afficherClientsActifs();
 
     void majAgenceClient(Client cli, Agence agence);
+
+    void deconnexion(Client c);
+
 
 
 }

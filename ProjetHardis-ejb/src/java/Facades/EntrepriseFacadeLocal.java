@@ -55,5 +55,7 @@ public interface EntrepriseFacadeLocal {
     String generateString(int n);
 
     String creerCodeContrat(long id);
+
+    Entreprise rechercheEntrepriseSiretMdp(String siret, String mdp);
     
 }

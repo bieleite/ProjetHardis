@@ -110,7 +110,16 @@ public class servInternaute extends HttpServlet {
          else if (act.equals("connexion"))
         {
           
-             jspClient = "/Internaute/FormLog.jsp";
+             jspClient = "/Internaute/login.jsp";
+  
+             
+        
+
+        }
+          else if (act.equals("register"))
+        {
+          
+             jspClient = "/Internaute/signup.jsp";
   
              
         

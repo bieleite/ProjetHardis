@@ -6,6 +6,7 @@
 package serv;
 
 import Entites.Client;
+import Entites.Entreprise;
 import Session.ClientSessionLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,16 +28,21 @@ public class servClient extends HttpServlet {
 
     @EJB
     private ClientSessionLocal clientSession;
+    
+   Client clientT = null;
 
       String jspClient = null;
+       HttpSession sess = null;
+      
+        
     
- protected void connexion(HttpServletRequest request, HttpServletResponse response)
+ protected Client connexion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     
         String email = request.getParameter("email");
         String mdp = request.getParameter("mdp");
 
-
+       Client c = null;
         String message = "";
         String messageErreur = "";
         
@@ -44,19 +50,20 @@ public class servClient extends HttpServlet {
             messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
         } else {
 
-            Client c = clientSession.authentificationClient(email, mdp);
+             c = clientSession.authentificationClient(email, mdp);
           if (c==null){
               messageErreur = "Erreur, identifiants erronnés";
               jspClient = "/Internaute/FormLog.jsp";
           }
-          else  {request.setAttribute("client", c);
-            jspClient = "/PageAccueil.jsp";
+          else  {
+            jspClient = "/Client/tabBord.jsp";
+            
           
           }
         }
         request.setAttribute("message", message);
         request.setAttribute("messageErreur", messageErreur);
-
+return c;
     }
  
  protected void creation(HttpServletRequest request, HttpServletResponse response)
@@ -85,13 +92,18 @@ public class servClient extends HttpServlet {
           if (c==null){
               if (mdp.equals(mdpC))
               {
-                  clientSession.creerClient(nom, prenom, email, mdp, questS, repS, cp);
+                  Client cli = clientSession.creerClient(nom, prenom, email, mdp, questS, repS, cp);
+                  jspClient = "/Internaute/entreprise.jsp";
+                  clientT = cli;
               }
               else {
                   messageErreur = "Erreur, les mots de passe sont différents";
+                   jspClient = "/Internaute/signup.jsp";
               }
           }
-          else   messageErreur = "Erreur, email existant";
+          else  { messageErreur = "Erreur, email existant";
+          jspClient = "/Internaute/signup.jsp";
+          }
         }
         request.setAttribute("message", message);
         request.setAttribute("messageErreur", messageErreur);
@@ -110,7 +122,7 @@ public class servClient extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         HttpSession sess = request.getSession(true);
+       HttpSession sess = request.getSession(true);
 
         String message = "";
 
@@ -122,13 +134,36 @@ public class servClient extends HttpServlet {
         
         if (act.equals("connexion")) {
           
-            connexion(request, response);
+            Client c = connexion(request, response);
+            if (c!=null)
+            sess.setAttribute("client", c);
+}
+         if (act.equals("deconnexion")) {
+             Client c = (Client)sess.getAttribute("client");
+            clientSession.deconnexion(c.getId());
+            sess.setAttribute("client", null);
+              jspClient = "/PageAccueil.jsp";
 }
         if (act.equals("creation")) {
-            jspClient = "/PageAccueil.jsp";
+           
             creation(request, response);
 }
-        
+         if (act.equals("lierE")) {
+           
+            String codeE = request.getParameter("codeE");
+            String siret = request.getParameter("siret");
+            
+            Entreprise e = clientSession.rechercheEntrepriseParSiretEtMdp(siret, codeE);
+            
+            if (e==null)
+            {
+                
+            }
+            else {
+                clientSession.majEntreprise(clientT.getId(), e.getId());
+                jspClient = "/tabBord.jsp";
+            }
+         }
         
         Rd = getServletContext().getRequestDispatcher(jspClient);
 Rd.forward(request, response);

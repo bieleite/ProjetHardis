@@ -49,7 +49,11 @@ public interface ClientSessionLocal {
 
     Client rechercheCliParLogin(String log);
 
-    void creerClient(String nom, String prenom, String login, String mdp, String cp, String qs, String rs);
+    Client creerClient(String nom, String prenom, String login, String mdp, String cp, String qs, String rs);
+
+    void deconnexion(long id);
+
+    Entreprise rechercheEntrepriseParSiretEtMdp(String siret, String mdp);
 
     
 }
