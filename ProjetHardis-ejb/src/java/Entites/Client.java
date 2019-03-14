@@ -22,6 +22,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class Client extends Utilisateur implements Serializable {
 
+    @OneToMany(mappedBy = "client")
+    private List<Notification> notifications;
+
        private boolean certifie;
 
     /**

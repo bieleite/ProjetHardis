@@ -63,6 +63,11 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         de.setClient(client);
         de.setAgence(ag);
         de.setFactures(new ArrayList<>());
+        de.setHistoriqueDeviss(new ArrayList<>());
+        de.setHistoriqueEtatss(new ArrayList<>());
+        de.setHistoriqueTraitements(new ArrayList<>());
+        de.setEchangeTels(new ArrayList<>());
+        de.setCommunications(new ArrayList<>());
         
         em.persist(de);
         return de;

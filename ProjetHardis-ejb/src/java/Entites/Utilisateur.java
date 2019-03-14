@@ -40,6 +40,23 @@ public class Utilisateur implements Serializable {
     @OneToMany(mappedBy = "utilisateur")
     private List<Notification> notifications;
 
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public List<Logs> getLogss() {
+        return logss;
+    }
+
+    public void setLogss(List<Logs> logss) {
+        this.logss = logss;
+    }
+
+    
     private boolean connecte;
 
     /**
