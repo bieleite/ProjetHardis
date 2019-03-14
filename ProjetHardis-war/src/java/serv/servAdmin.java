@@ -13,8 +13,10 @@ import Entites.Devis;
 import Entites.Disponibilite;
 import Entites.Document;
 import Entites.EchangeTel;
+import Entites.Facturation;
 import Entites.HistoriqueDevis;
 import Entites.Offre;
+import Entites.Statut;
 import Entites.UtilisateurHardis;
 import Session.*;
 import java.io.IOException;
@@ -302,27 +304,70 @@ public class servAdmin extends HttpServlet {
         }
         request.setAttribute("message", message);
     }
-    protected void doActionCreerEchangeTele(HttpServletRequest request, HttpServletResponse response)
+    protected void doActionModifierDevis(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        String text = request.getParameter("dtdebutDisponibilite");
-        String devis = request.getParameter("dtdebutDisponibilite");
+        String facturation = request.getParameter("facturationDevis"); 
+        String montantdevis= request.getParameter("montantdevisDevis"); 
+        String motifrefus = request.getParameter("motifrefusDevis");
+        String saisielibre= request.getParameter("saisielibreDevis"); 
+        String statut = request.getParameter("statutDevis");
+        String agence = request.getParameter("agenceDevis");
+        String devis = request.getParameter("Devis");
+        String client = request.getParameter("clientDevis");
         String message = null;
-        if(text.trim().isEmpty()||devis.trim().isEmpty()){
-            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
-        }
-        else {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
+                Facturation fact = null;
+                if(facturation.equals("Auto")){
+                    fact = Facturation.Auto;
+                }
+                else if (facturation.equals("Manuel")){
+                    fact = Facturation.Manuel;
+                }
+                int montant = Integer.valueOf(montantdevis);
+                Statut statuts = null;
+                if(statut.equals("Incomplet")){
+                    statuts = Statut.Incomplet;
+                }
+                else if (statut.equals("Rep_en_Cours")){
+                    statuts = Statut.Rep_en_Cours;
+                }
+                else if (statut.equals("Envoye")){
+                    statuts = Statut.Envoye;
+                }
+                else if (statut.equals("Valide")){
+                    statuts = Statut.Valide;
+                }
+                else if (statut.equals("Refuse")){
+                    statuts = Statut.Refuse;
+                }
+                else if (statut.equals("En_nego")){
+                    statuts = Statut.En_nego;
+                }
+                else if (statut.equals("Acompte_regle")){
+                    statuts = Statut.Acompte_regle;
+                }
+                else if (statut.equals("Presta_terminee")){
+                    statuts = Statut.Presta_terminee;
+                }
+                else if (statut.equals("Transmettre_au_client")){
+                    statuts = Statut.Transmettre_au_client;
+                }
+                Long idagence = Long.valueOf(agence);
                 Long iddevis = Long.valueOf(devis);
-                EchangeTel echangetel = administrateurHardisSession.creerEchangeTel(text, iddevis, ut);
-                String nomentite = echangetel.getInterlocuteur().getNom();
-                String classe = echangetel.getClass().toString();
+                Long idclient = Long.valueOf(client);
+                Float montantadevis = Float.valueOf(montantdevis);
+                administrateurHardisSession.modifieDevis(iddevis, null, null, fact, montantadevis, motifrefus, saisielibre, statuts, idclient, idagence, ut);
+                
+                Devis o= administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
+                String nomentite = o.toString();
+                String classe = o.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
             }
-        }
+        
         request.setAttribute("message", message);
     }
     
