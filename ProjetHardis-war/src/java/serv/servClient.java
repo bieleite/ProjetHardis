@@ -6,10 +6,14 @@
 package serv;
 
 import Entites.Client;
+import Entites.Devis;
 import Entites.Entreprise;
+import Entites.Notification;
 import Session.ClientSessionLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,7 +60,14 @@ public class servClient extends HttpServlet {
               jspClient = "/Internaute/FormLog.jsp";
           }
           else  {
+            List<Notification> listeNotif = clientSession.getNotifsClient(c.getId());
+            List<Devis> listeDevis = clientSession.afficherDevisClient(c.getId());
+            if (listeNotif==null) listeNotif=new ArrayList<>();
+             if (listeDevis==null) listeDevis=new ArrayList<>();
             jspClient = "/Client/tabBord.jsp";
+            
+            request.setAttribute("listeNotif", listeNotif);
+            request.setAttribute("listeDevis", listeDevis);
             
           
           }
@@ -167,6 +178,7 @@ boolean cpo = false;
             
              if (e==null){       
                   Entreprise entreprise = clientSession.creerEntreprise(nomE, siret, Integer.valueOf(nrRue), nomRue, ville, cp);
+                  clientSession.creerNotif(clientT.getId(), "Veuillez certifier votre entreprise");
                   jspClient = "/Internaute/login.jsp";
               }
              else  {
@@ -207,8 +219,10 @@ boolean cpo = false;
         if (act.equals("connexion")) {
           
             Client c = connexion(request, response);
-            if (c!=null)
+            if (c!=null){
             sess.setAttribute("client", c);
+
+            }
 }
          if (act.equals("deconnexion")) {
              Client c = (Client)sess.getAttribute("client");

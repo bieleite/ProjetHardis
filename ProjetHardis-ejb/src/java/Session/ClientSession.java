@@ -16,6 +16,7 @@ import Entites.Entreprise;
 import Entites.Facturation;
 import Entites.Facture;
 import Entites.HistoriqueDevis;
+import Entites.Notification;
 import Entites.Offre_Profil_Util_CV;
 import Entites.ProfilMetier;
 import Entites.Service;
@@ -23,6 +24,7 @@ import Entites.ServiceStandard;
 import Entites.Statut;
 import Entites.TypeService;
 import Entites.TypeUtilisateur;
+import Entites.Utilisateur;
 import Entites.UtilisateurHardis;
 import Facades.AdresseFacadeLocal;
 import Facades.AgenceFacadeLocal;
@@ -37,6 +39,7 @@ import Facades.HistoriqueDevisFacadeLocal;
 import Facades.HistoriqueEtatsFacadeLocal;
 import Facades.HistoriqueTraitementFacadeLocal;
 import Facades.LogsFacadeLocal;
+import Facades.NotificationFacadeLocal;
 import Facades.Offre_Profil_Util_CVFacadeLocal;
 import Facades.ServiceFacadeLocal;
 import Facades.ServiceStandardFacadeLocal;
@@ -54,6 +57,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ClientSession implements ClientSessionLocal {
+
+    @EJB
+    private NotificationFacadeLocal notificationFacade;
 
     @EJB
     private AdresseFacadeLocal adresseFacade;
@@ -320,6 +326,18 @@ return e;
     @Override
     public Adresse creerAdresse(int nrRue, String nomR, String ville, String cp) {
         return adresseFacade.creerAdresse(nrRue, nomR, ville, cp);
+    }
+
+    @Override
+    public void creerNotif(long idU, String mess) {
+        Utilisateur u = (Utilisateur)utilisateurFacade.find(idU);
+        notificationFacade.creerNotif(u, mess);
+    }
+
+    @Override
+    public List<Notification> getNotifsClient(long id) {
+            Client c = clientFacade.rechercheClient(id);
+            return notificationFacade.rechercheNotif(c);
     }
     
     

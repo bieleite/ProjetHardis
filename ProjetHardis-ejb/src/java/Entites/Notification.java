@@ -103,14 +103,14 @@ public class Notification implements Serializable {
 
     
     @ManyToOne
-        private Utilisateur utilisateur;
+        private UtilisateurHardis utilisateur;
 
     /**
      * Get the value of utilisateur
      *
      * @return the value of utilisateur
      */
-    public Utilisateur getUtilisateur() {
+    public UtilisateurHardis getUtilisateur() {
         return utilisateur;
     }
 
@@ -119,8 +119,50 @@ public class Notification implements Serializable {
      *
      * @param utilisateur new value of utilisateur
      */
-    public void setUtilisateur(Utilisateur utilisateur) {
+    public void setUtilisateur(UtilisateurHardis utilisateur) {
         this.utilisateur = utilisateur;
     }
+    
+    @ManyToOne
+        private Client client;
+
+    /**
+     * Get the value of client
+     *
+     * @return the value of client
+     */
+    public Client getClient() {
+        return client;
+    }
+
+    /**
+     * Set the value of client
+     *
+     * @param client new value of client
+     */
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+        private boolean visible;
+
+    /**
+     * Get the value of visible
+     *
+     * @return the value of visible
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * Set the value of visible
+     *
+     * @param visible new value of visible
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
 
 }

@@ -11,6 +11,7 @@ import Entites.Devis;
 import Entites.DevisNonStandard;
 import Entites.Entreprise;
 import Entites.Facture;
+import Entites.Notification;
 import Entites.Service;
 import Entites.Statut;
 import java.util.Date;
@@ -61,6 +62,10 @@ public interface ClientSessionLocal {
     Entreprise creerEntreprise(String nom, String siret, int nrRue, String nomR, String ville, String cp);
 
     Adresse creerAdresse(int nrRue, String nomR, String ville, String cp);
+
+    void creerNotif(long idU, String mess);
+
+    List<Notification> getNotifsClient(long id);
 
     
 }
