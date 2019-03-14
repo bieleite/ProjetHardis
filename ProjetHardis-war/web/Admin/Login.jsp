@@ -31,7 +31,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Connexion</p>
 
-    <form action="servClient" method="get">
+    <form action="servAdmin" method="get">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -52,7 +52,6 @@
     </form>
 
     <a href="#">Mot de passe oublié</a><br>
-    <a href="servInternaute?action=register" class="text-center">S'enregistrer</a>
 
   </div>
   <!-- /.login-box-body -->

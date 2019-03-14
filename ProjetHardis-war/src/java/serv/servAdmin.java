@@ -302,6 +302,29 @@ public class servAdmin extends HttpServlet {
         }
         request.setAttribute("message", message);
     }
+    protected void doActionCreerEchangeTele(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String text = request.getParameter("dtdebutDisponibilite");
+        String devis = request.getParameter("dtdebutDisponibilite");
+        String message = null;
+        if(text.trim().isEmpty()||devis.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long iddevis = Long.valueOf(devis);
+                EchangeTel echangetel = administrateurHardisSession.creerEchangeTel(text, iddevis, ut);
+                String nomentite = echangetel.getInterlocuteur().getNom();
+                String classe = echangetel.getClass().toString();
+                message= " "+classe+":"+ nomentite+" créé avec succès !";
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
