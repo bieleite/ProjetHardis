@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/6170361/Documents/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceStandardFacadeLocal.java</file>
+            <file>file:/C:/Users/6170361/Documents/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSessionLocal.java</file>
+            <file>file:/C:/Users/6170361/Documents/ProjetHardis/ProjetHardis-ejb/src/java/Facades/DevisFacade.java</file>
+            <file>file:/C:/Users/6170361/Documents/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceStandardFacade.java</file>
+            <file>file:/C:/Users/6170361/Documents/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Client.java</file>
+            <file>file:/C:/Users/6170361/Documents/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSession.java</file>
+            <file>file:/C:/Users/6170361/Documents/ProjetHardis/ProjetHardis-ejb/src/java/Facades/DevisFacadeLocal.java</file>
+        </group>
     </open-files>
 </project-private>

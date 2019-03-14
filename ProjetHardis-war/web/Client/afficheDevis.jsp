@@ -72,14 +72,13 @@
                   </thead>
                   <tbody>
                   <tr>
-                      
-                        
+                                              
                    <td><% out.print("DEV"+d.getId());%></td>
-                    <td><%=d.getService().getOffre().getLibelle()%></td>
-                     <td><%=d.getService().getNomService()%></td>
-                    <td><%=d.getStatut()%></span></td>
-                     <td><%=d.getService().getConditionsContract()%></span></td>
-                     <td><%=d.getHistoriqueDeviss().get(0).getDocuments().get(0) %></span></td>
+                   <td><%=d.getService().getOffre().getLibelle()%></td>
+                   <td><%=d.getService().getNomService()%></td>
+                   <td><%=d.getStatut()%></span></td>
+                   <td><%=d.getService().getConditionsContract()%></span></td>
+                   <td><%=d.getHistoriqueDeviss().get(0).getDocuments().get(0)%></span></td>
                   
                   </tr>
 
