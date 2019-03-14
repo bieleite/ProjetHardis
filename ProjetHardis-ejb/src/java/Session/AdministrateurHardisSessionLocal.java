@@ -49,7 +49,7 @@ import javax.ejb.Local;
 @Local
 public interface AdministrateurHardisSessionLocal {
         
-    void creerAdresse(int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis);
+    Adresse creerAdresse(int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis);
     
     void modifierAdresse(long idad, int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis);
     
@@ -59,7 +59,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Adresse> rechercherAdresseParCP(String CP, UtilisateurHardis hardis);
     
-    void creerAgence(String NomAgence, UtilisateurHardis hardis);
+    Agence creerAgence(String NomAgence, UtilisateurHardis hardis);
 
     void modifierAgence(long idagence, String nomagence, UtilisateurHardis hardis);
     
@@ -67,7 +67,7 @@ public interface AdministrateurHardisSessionLocal {
     
     Agence rechercherAgence(long id, String nomAgence, UtilisateurHardis hardis);
         
-    void creerAtelier(String NomAtelier, UtilisateurHardis hardis);
+    Atelier creerAtelier(String NomAtelier, UtilisateurHardis hardis);
     
     void modifierAtelier(long idat, String nomatelier, UtilisateurHardis hardis);
     
@@ -89,7 +89,7 @@ public interface AdministrateurHardisSessionLocal {
 
     void certifieClient(long idclient, UtilisateurHardis hardis);
     
-    void creerCommunicationHardis(String message, long iddevis, UtilisateurHardis utilisateur);
+    Communication creerCommunicationHardis(String message, long iddevis, UtilisateurHardis utilisateur);
 
     void modifierCommunication(long idcommunication, Date date_comu, String message, long iddevis, long idutilisateur, UtilisateurHardis hardis);
     
@@ -115,7 +115,7 @@ public interface AdministrateurHardisSessionLocal {
     
     void modifieDevisNonStandard(long iddevis, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,long idclient, long idagence, UtilisateurHardis hardis);
     
-    void creerDisponibilite(Date dateDebut, Date dateFin, String libelle, UtilisateurHardis hardis);
+    Disponibilite creerDisponibilite(Date dateDebut, Date dateFin, String libelle, UtilisateurHardis hardis);
     
     void modifierDisponibilite(long iddisponibilite, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis hardis);
     
@@ -125,7 +125,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Disponibilite> rechercherDisponibiliteParUtilisateur(long idutilisateur, UtilisateurHardis hardis);
     
-    void creerDocument(String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis);
+    Document creerDocument(String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis);
     
     void modifierDocument(long iddocument, String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis);
     
@@ -135,7 +135,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Document> rechercherDocumentParHistoriqueDevis(long idhistoriquedevis, UtilisateurHardis hardis);
     
-    void creerEchangeTel(String text, long iddevis, long idutilisateur, UtilisateurHardis hardis);
+    EchangeTel creerEchangeTel(String text, long iddevis, UtilisateurHardis hardis);
     
     void modifierEchangeTel(long idechangetel, String text, long iddevis, UtilisateurHardis hardis);
     
@@ -147,11 +147,11 @@ public interface AdministrateurHardisSessionLocal {
     
     Entreprise rechercherEntreprise(long id, String siret, String nomentreprise, UtilisateurHardis hardis);
     
-    void certifieEntreprise(long identreprise, UtilisateurHardis hardis);
+    Entreprise certifieEntreprise(long identreprise, UtilisateurHardis hardis);
 
     void modifieEntreprise(long identreprise,long aidgence,  String nom, String[] listidinterlocuteurs, String codeContrat, String mdpEntreprise, long idadresse, String lienJustif, String numeroEnt, UtilisateurHardis hardis);
 
-    void creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis);
+    Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis);
     
     void modifierFacture(long idfacture, Date date, long iddevis, float montant, long montantD, String motifD, UtilisateurHardis hardis);
     
@@ -161,7 +161,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Facture> rechercherFactureParDevis(long iddevis, UtilisateurHardis hardis);
     
-    void creerHistoriqueDevis(long iddevis, Date datedebut, Date datefin, int numpropo, long idutilisateur,String[] listiddocument, UtilisateurHardis hardis);
+    HistoriqueDevis creerHistoriqueDevis(long iddevis, Date datedebut, Date datefin, int numpropo, long idutilisateur,String[] listiddocument, UtilisateurHardis hardis);
     
     void modifierHistoriqueDevis(long idhistorique, Date datedebut, Date datefin, int numpropo, long idutilisateur,String[] listiddocument, UtilisateurHardis hardis);
     
@@ -173,7 +173,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<HistoriqueDevis> listHistoriqueDevis( UtilisateurHardis hardis);
     
-    void creerHistoriqueEtats(Date datemaj, Statut statut, long iddevis, UtilisateurHardis hardis);
+    HistoriqueEtats creerHistoriqueEtats(Date datemaj, Statut statut, long iddevis, UtilisateurHardis hardis);
     
     void modifierHistoriqueEtats(long idhistorique, Date datemaj, Statut statut, long iddevis, UtilisateurHardis hardis);
     
