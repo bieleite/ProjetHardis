@@ -9,10 +9,15 @@ import Entites.Client;
 import Entites.Devis;
 import Entites.Entreprise;
 import Entites.Notification;
+import Entites.Service;
 import Session.ClientSessionLocal;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -42,7 +47,7 @@ public class servClient extends HttpServlet {
     
  protected Client connexion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
+       sess = request.getSession(true);
         String email = request.getParameter("email");
         String mdp = request.getParameter("mdp");
 
@@ -55,9 +60,10 @@ public class servClient extends HttpServlet {
         } else {
 
              c = clientSession.authentificationClient(email, mdp);
+             
           if (c==null){
               messageErreur = "Erreur, identifiants erronnés";
-              jspClient = "/Internaute/FormLog.jsp";
+              jspClient = "/Internaute/login.jsp";
           }
           else  {
             List<Notification> listeNotif = clientSession.getNotifsClient(c.getId());
@@ -65,9 +71,12 @@ public class servClient extends HttpServlet {
             if (listeNotif==null) listeNotif=new ArrayList<>();
              if (listeDevis==null) listeDevis=new ArrayList<>();
             jspClient = "/Client/tabBord.jsp";
-            
-            request.setAttribute("listeNotif", listeNotif);
-            request.setAttribute("listeDevis", listeDevis);
+      
+            sess.setAttribute("listeNotif", listeNotif);
+            sess.setAttribute("listeDevis", listeDevis);
+            sess.setAttribute("client", c);
+
+clientT = c;
             
           
           }
@@ -77,9 +86,24 @@ public class servClient extends HttpServlet {
 return c;
     }
  
+ 
+ protected void majInfos(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+  List<Notification> listeNotif = clientSession.getNotifsClient(clientT.getId());
+                List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
+                if (listeNotif==null) listeNotif=new ArrayList<>();
+                if (listeDevis==null) listeDevis=new ArrayList<>();
+                jspClient = "/Client/tabBord.jsp";
+      
+                sess.setAttribute("listeNotif", listeNotif);
+                sess.setAttribute("listeDevis", listeDevis);
+                sess.setAttribute("client", clientT);
+ 
+ }
+ 
  protected void creation(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
+       sess = request.getSession(true);
         String email = request.getParameter("email");
         String mdp = request.getParameter("mdp");
         String mdpC = request.getParameter("mdpC");
@@ -129,11 +153,55 @@ boolean cpo = false;
         request.setAttribute("messageErreur", messageErreur);
 
     }
+ 
+
+ 
+ protected void creationDevis(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        sess = request.getSession(true);
+        String libre = request.getParameter("libre");
+        String date = request.getParameter("date");
+        String idS = request.getParameter("idS");
+       
+
+        String message = "";
+        String messageErreur = "";
+        
+        if ( libre.isEmpty() || date.isEmpty() || idS.isEmpty() ) {
+            messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
+        } else {
+
+           if (java.sql.Date.valueOf(date).before(new java.util.Date()))
+           {
+                 messageErreur = "Erreur, la date doit être supérieure à aujourd'hui";
+           }
+           else{
+               Service s = clientSession.rechercheServiceParId(Long.valueOf(idS));
+               Date d = java.sql.Date.valueOf(date);
+               clientSession.demandeDevis(new Date(), d, libre , Long.valueOf(idS), s.getTypeService().toString(), clientT.getId());
+                List<Notification> listeNotif = clientSession.getNotifsClient(clientT.getId());
+                List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
+                if (listeNotif==null) listeNotif=new ArrayList<>();
+                if (listeDevis==null) listeDevis=new ArrayList<>();
+                jspClient = "/Client/tabBord.jsp";
+      
+                sess.setAttribute("listeNotif", listeNotif);
+                sess.setAttribute("listeDevis", listeDevis);
+                sess.setAttribute("client", clientT);
+           }
+   
+        }
+        request.setAttribute("message", message);
+        request.setAttribute("messageErreur", messageErreur);
+        
+        
+
+    }
     
  
   protected void creationEntreprise(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
+       sess = request.getSession(true);
 
         String nomE = request.getParameter("nomE");
         String siret =  request.getParameter("siret");
@@ -192,7 +260,8 @@ boolean cpo = false;
         request.setAttribute("messageErreur", messageErreur);
 
     }
- 
+  
+
  
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -206,7 +275,7 @@ boolean cpo = false;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-       HttpSession sess = request.getSession(true);
+        sess = request.getSession(true);
 
         String message = "";
 
@@ -219,10 +288,7 @@ boolean cpo = false;
         if (act.equals("connexion")) {
           
             Client c = connexion(request, response);
-            if (c!=null){
-            sess.setAttribute("client", c);
-
-            }
+           
 }
          if (act.equals("deconnexion")) {
              Client c = (Client)sess.getAttribute("client");
@@ -255,11 +321,52 @@ boolean cpo = false;
          {
             creationEntreprise(request, response);
          }
+         
+          if (act.equals("appelDevis"))
+         {
+            jspClient = "/Client/demandeDevis.jsp";
+            List<Service> listeS = clientSession.recupServices();
+            if (listeS==null) listeS=new ArrayList<>();
+            sess.setAttribute("listeS", listeS);
+         }
+          
+          if (act.equals("creerDevis"))
+          {
+              creationDevis(request, response);
+              
+          }
+          if (act.equals("afficheDevis"))
+          {
+             String idD = request.getParameter("idDev");
+             if (idD!="")
+             {
+                 long id = Long.valueOf(idD);
+                 Devis d = clientSession.recupDevis(id);
+                 
+                List<Notification> listeNotif = clientSession.getNotifsClient(clientT.getId());
+                if (listeNotif==null) listeNotif=new ArrayList<>();
+
+                jspClient = "/Client/afficheDevis.jsp";
+      
+                sess.setAttribute("listeNotif", listeNotif);
+                sess.setAttribute("devis", d);
+                sess.setAttribute("client", clientT);
+                
+             
+                 
+             }
+             
+              
+          }
+          
+          
         
         Rd = getServletContext().getRequestDispatcher(jspClient);
 Rd.forward(request, response);
        
     }
+    
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

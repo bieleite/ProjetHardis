@@ -14,15 +14,7 @@
   <title>AdminLTE 2 | Log in</title>
 <%@include  file = "meta.jsp" %>
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -30,14 +22,20 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Connexion</p>
-
+    <p style="color:red"> 
+        <% 
+            String message = (String)request.getAttribute("messageErreur");
+    if (message!="" && message!=null)
+    {
+      out.println(message);
+}%> </p>
     <form action="servClient" method="get">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="mdp" class="form-control" placeholder="Password" name="mdp">
+        <input type="password" class="form-control" placeholder="Password" name="mdp">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -58,21 +56,6 @@
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-
-<!-- jQuery 3 -->
-<script src="Client/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="Client/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="Client/plugins/iCheck/icheck.min.js"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-  });
-</script>
+<%@include  file = "script.jsp" %>
 </body>
 </html>

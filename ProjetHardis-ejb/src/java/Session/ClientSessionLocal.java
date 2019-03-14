@@ -67,5 +67,12 @@ public interface ClientSessionLocal {
 
     List<Notification> getNotifsClient(long id);
 
+    List<Service> recupServices();
+
+    Service rechercheServiceParId(long id);
+
+    Devis recupDevis(long id);
+
+
     
 }

@@ -83,7 +83,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     @Override
     public Devis rechercheDevis(long id) {
         Devis co = null;        
-        String txt = "SELECT co FROM Devis AS ad WHERE co.id=:id";
+        String txt = "SELECT co FROM Devis AS co WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("id", id);  
         List<Devis> res = req.getResultList();

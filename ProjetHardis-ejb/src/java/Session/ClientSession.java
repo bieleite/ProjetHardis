@@ -141,11 +141,11 @@ public class ClientSession implements ClientSessionLocal {
          ServiceStandard servSt = null;
         if (typeServ.equals("Standard"))
         {
-              serv = serviceFacade.rechercheServiceParId(idServ);
+              servSt = serviceStandardFacade.rechercheServiceSParId(idServ);
         }
         else if (typeServ.equals("Non_Standard"))
         {
-              servSt = serviceStandardFacade.rechercheServiceSParId(idServ);
+              serv =  serviceFacade.rechercheServiceParId(idServ);
         }
         Client cli = clientFacade.rechercheClient(idCli);
              
@@ -339,6 +339,25 @@ return e;
             Client c = clientFacade.rechercheClient(id);
             return notificationFacade.rechercheNotif(c);
     }
+
+    @Override
+    public List<Service> recupServices() {
+        return serviceFacade.listServices();
+    }
+
+//
+
+    @Override
+    public Service rechercheServiceParId(long id) {
+        return serviceFacade.rechercheServiceParId(id);
+    }
+
+    @Override
+    public Devis recupDevis(long id) {
+        return devisFacade.rechercheDevis(id);
+    }
+
+
     
     
     
