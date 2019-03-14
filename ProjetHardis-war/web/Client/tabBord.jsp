@@ -20,18 +20,18 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="Client/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="Client/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="Client/bower_components/Ionicons/css/ionicons.min.css">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="Client/bower_components/jvectormap/jquery-jvectormap.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="Client/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="Client/dist/css/skins/_all-skins.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -192,7 +192,7 @@
 
 
         <li>
-          <a href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/pages/mailbox/mailbox.html">
+          <a href="pages/mailbox/mailbox.html">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-yellow">12</small>
@@ -258,7 +258,7 @@
                   </thead>
                   <tbody>
                   <tr>
-                    <td><a href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/pages/examples/invoice.html">OR9842</a></td>
+                    <td><a href="pages/examples/invoice.html">OR9842</a></td>
                     <td>Call of Duty IV</td>
                     <td><span class="label label-success">Shipped</span></td>
                     <td>
@@ -393,26 +393,26 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="Client/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="Client/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- FastClick -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="Client/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/dist/js/adminlte.min.js"></script>
+<script src="Client/dist/js/adminlte.min.js"></script>
 <!-- Sparkline -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+<script src="Client/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 <!-- jvectormap  -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script src="Client/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="Client/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 <!-- SlimScroll -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="Client/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/chart.js/Chart.js"></script>
+<script src="Client/bower_components/chart.js/Chart.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/dist/js/pages/dashboard2.js"></script>
+<script src="Client/dist/js/pages/dashboard2.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/dist/js/demo.js"></script>
+<script src="Client/dist/js/demo.js"></script>
 </body>
 </html>
 
