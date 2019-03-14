@@ -737,9 +737,8 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
    
     @Override
-    public List<HistoriqueDevis> listHistoriqueDevis( UtilisateurHardis hardis) {
+    public List<HistoriqueDevis> listHistoriqueDevis( ) {
         List<HistoriqueDevis> historiqueDevis = historiqueDevisFacade.listHistoriqueDevis();
-        logsFacade.creerLogResearch(hardis, historiqueDevis);
         return historiqueDevis;       
     }
     
@@ -1127,9 +1126,8 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public List<Service> listService( UtilisateurHardis hardis) {
+    public List<Service> listService( ) {
         List<Service> service = serviceFacade.listServices();
-        logsFacade.creerLogResearch(hardis, service);
         return service;       
     }
     
@@ -1196,9 +1194,8 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public List<ServiceStandard> listServiceStandard( UtilisateurHardis hardis) {
+    public List<ServiceStandard> listServiceStandard() {
         List<ServiceStandard> ServiceStandard = serviceStandardFacade.listServStandard();
-        logsFacade.creerLogResearch(hardis, ServiceStandard);
         return ServiceStandard;       
     }
     
@@ -1275,7 +1272,23 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         return utilisateur;       
     }
     
+    @Override
+    public List<Agence> listAgence() {
+        List<Agence> ad = agenceFacade.findAll();
+        return ad;       
+    }
     
+    @Override
+    public List<Offre> listOffre() {
+        List<Offre> l = offreFacade.findAll();
+        return l;       
+    }
+    
+    @Override
+    public List<Client> listClient() {
+        List<Client> l = clientFacade.findAll();
+        return l;       
+    }
     
     
 }

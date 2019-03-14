@@ -175,7 +175,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<HistoriqueDevis> rechercherHistoriqueDevisParUtilisateur(long idutilisateur, UtilisateurHardis hardis);
     
-    List<HistoriqueDevis> listHistoriqueDevis( UtilisateurHardis hardis);
+    List<HistoriqueDevis> listHistoriqueDevis( );
     
     HistoriqueEtats creerHistoriqueEtats( Statut statut, long iddevis, UtilisateurHardis hardis);
     
@@ -273,7 +273,7 @@ public interface AdministrateurHardisSessionLocal {
     
     Service rechercherServiceId(long id, UtilisateurHardis hardis);
     
-    List<Service> listService( UtilisateurHardis hardis);
+    List<Service> listService( );
     
     ServiceStandard creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis);
     
@@ -285,7 +285,7 @@ public interface AdministrateurHardisSessionLocal {
     
     ServiceStandard rechercherServiceStandardId(long id, UtilisateurHardis hardis);
     
-    List<ServiceStandard> listServiceStandard( UtilisateurHardis hardis);
+    List<ServiceStandard> listServiceStandard( );
     
     UtilisateurHardis creerUtilisateurHardis( String nom, String prenom, String login, String mdp, ProfilTechnique profil, long idagence, UtilisateurHardis hardis);
 
@@ -306,4 +306,10 @@ public interface AdministrateurHardisSessionLocal {
     UtilisateurHardis rechercherUtilisateurHardisParLogin(String login, UtilisateurHardis hardis);
     
     List<UtilisateurHardis> listUtilisateurHardis( UtilisateurHardis hardis);
+    
+    List<Client> listClient();
+    
+    List<Agence> listAgence();
+    
+    List<Offre> listOffre();
 }

@@ -8,6 +8,7 @@ package serv;
 import Entites.Adresse;
 import Entites.Agence;
 import Entites.Atelier;
+import Entites.Client;
 import Entites.Communication;
 import Entites.Devis;
 import Entites.Disponibilite;
@@ -140,6 +141,97 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerCommunication(request,response);
+            }
+            else if(act.equals("CreerDisponibilite"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerDisponibilite(request,response);
+            }
+            else if(act.equals("listeHistoriquesDevisDoc"))
+            {
+                List<HistoriqueDevis> listhistdevis= administrateurHardisSession.listHistoriqueDevis();
+                request.setAttribute("listHistDevis",listhistdevis);
+                jspClient="/Admin/CreerCommunication.jsp";
+            }
+            else if(act.equals("CreerDocument"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerDocument(request,response);
+            }
+             else if(act.equals("listeDevisEchangeTel"))
+            {
+                List<Devis> listdevis= administrateurHardisSession.listDevis();
+                request.setAttribute("listeDevis",listdevis);
+                jspClient="/Admin/CreerEchangeTel.jsp";
+            }
+            else if(act.equals("CreerEchangeTel"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerEchangeTel(request,response);
+            }
+            else if(act.equals("listesPourModifierDevis"))
+            {
+                List<Agence> listagence= administrateurHardisSession.listAgence();
+                request.setAttribute("listeAgence",listagence);
+                List<Client> listclient= administrateurHardisSession.listClient();
+                request.setAttribute("listeClient",listclient);
+                List<Devis> listdevis= administrateurHardisSession.listDevis();
+                request.setAttribute("listeDevis",listdevis);
+                jspClient="/Admin/ModifierDevis.jsp";
+            }
+            else if(act.equals("modifierDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionModifierDevis(request,response);
+            }
+            else if(act.equals("listesCreerLivrable"))
+            {
+                List<Service> listservice= administrateurHardisSession.listService();
+                request.setAttribute("listeService",listservice);
+                jspClient="/Admin/CreerLivrable.jsp";
+            }
+            else if(act.equals("CreerLivrable"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerLivrable(request,response);
+            }
+            else if(act.equals("CreerOffre"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerOffre(request,response);
+            }
+            else if(act.equals("listesCreerService"))
+            {
+                List<Offre> listoffre= administrateurHardisSession.listOffre();
+                request.setAttribute("listoffre",listoffre);
+                jspClient="/Admin/CreerService.jsp";
+            }
+            else if(act.equals("CreerService"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerService(request,response);
+            }
+            else if(act.equals("listesCreerServiceStandard"))
+            {
+                List<Offre> listoffre= administrateurHardisSession.listOffre();
+                request.setAttribute("listoffre",listoffre);
+                jspClient="/Admin/CreerServiceStandard.jsp";
+            }
+            else if(act.equals("CreerServiceStandard"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerServiceStandard(request,response);
+            }
+            else if(act.equals("listesCreerUtiliateurHardis"))
+            {
+                List<Agence> listagence= administrateurHardisSession.listAgence();
+                request.setAttribute("listeAgence",listagence);
+                jspClient="/Admin/CreerServiceStandard.jsp";
+            }
+            else if(act.equals("CreerUtilisateurHardis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerUtilisateur(request,response);
             }
 //            else{
 //                jspClient="/ChoixE.jsp";
