@@ -34,11 +34,11 @@
     
     <form action="servClient" method="get">
         <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Siret" name="siret">
+        <input type="text" class="form-control" placeholder="Code contrat (6 chiffres)" name="codeC">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Code entreprise" name="codeE">
+        <input type="text" class="form-control" placeholder="Code entreprise" name="mdp">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
            <input type ="hidden" name="action" value="lierE">

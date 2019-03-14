@@ -48,17 +48,16 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
     }
 
     @Override
-    public void creerEntreprise(String numero, Agence agence, String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif) {
+    public Entreprise creerEntreprise(String numero, String nom, List<Entites.Interlocuteur> interlocuteurs, Adresse adresse) {
    boolean b = false;
         Entreprise e = new Entreprise();
    
    e.setAdresseFact(adresse);
-   e.setAgence(agence);
+   e.setAgence(null);
    e.setCertifie(false);
    e.setInterlocuteurs(interlocuteurs);
-   e.setMdpEntreprise(mdpEntreprise);
    e.setNumeroEntreprise(numero);
-   e.setLienJustif(lienJustif);
+   e.setLienJustif("");
    e.setNomEntreprise(nom);
    e.setVisible(true);
    em.persist(e);
@@ -75,7 +74,7 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
         break;
     }
     }
-
+return e;
    
     }
 
@@ -229,11 +228,11 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
     }
 
     @Override
-    public Entreprise rechercheEntrepriseSiretMdp(String siret, String mdp) {
+    public Entreprise rechercheEntrepriseSiretMdp(String code, String mdp) {
        Entreprise entreprise = null;
-        String txt = "SELECT entite FROM Entreprise AS entite WHERE entite.numeroEntreprise=:siret and entite.mdpEntreprise=:mdp";
+        String txt = "SELECT entite FROM Entreprise AS entite WHERE entite.codeContrat=:code and entite.mdpEntreprise=:mdp";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("siret", siret);
+        req = req.setParameter("code", code);
               req = req.setParameter("mdp", mdp);
         List<Entreprise> liste = req.getResultList();
         if (!liste.isEmpty()){

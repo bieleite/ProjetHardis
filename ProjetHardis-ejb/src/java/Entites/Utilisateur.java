@@ -37,6 +37,9 @@ import javax.persistence.Temporal;
 
 public class Utilisateur implements Serializable {
 
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Notification> notifications;
+
     private boolean connecte;
 
     /**

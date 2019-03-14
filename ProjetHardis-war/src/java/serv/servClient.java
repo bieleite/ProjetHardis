@@ -79,7 +79,7 @@ return c;
          String repS = request.getParameter("rs");
         
 
-
+boolean cpo = false;
 
         String message = "";
         String messageErreur = "";
@@ -88,6 +88,15 @@ return c;
             messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
         } else {
 
+             try {
+               int codepos = (Integer.parseInt(cp));
+               cpo = true;
+            }
+            catch (NumberFormatException ex)
+            {
+                 messageErreur = "Erreur, le code postal doit être une valuer numérique";
+            }
+             if (cpo){
             Client c = clientSession.rechercheCliParLogin(email);
           if (c==null){
               if (mdp.equals(mdpC))
@@ -103,13 +112,76 @@ return c;
           }
           else  { messageErreur = "Erreur, email existant";
           jspClient = "/Internaute/signup.jsp";
-          }
+          }}
         }
         request.setAttribute("message", message);
         request.setAttribute("messageErreur", messageErreur);
 
     }
     
+ 
+  protected void creationEntreprise(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    
+
+        String nomE = request.getParameter("nomE");
+        String siret =  request.getParameter("siret");
+        String ville = request.getParameter("ville");
+        String cp = request.getParameter("cp");
+         String nrRue = request.getParameter("nrRue");
+         String nomRue = request.getParameter("nomRue");
+        
+
+
+
+        String message = "";
+        boolean nrRu =  false;
+        boolean cpo = false;
+         
+        String messageErreur = "";
+        
+        if ( nomE.isEmpty() || siret.isEmpty() || ville.isEmpty() || nrRue.isEmpty() || nomRue.isEmpty() || cp.isEmpty()) {
+            messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
+        } else {
+            try {
+               int r = (Integer.parseInt(siret));
+               nrRu =true;
+            }
+            catch (NumberFormatException ex)
+            {
+                 messageErreur = "Erreur, le numéro rue doit être une valuer numérique";
+            }
+            
+             try {
+               int codepos = (Integer.parseInt(cp));
+               cpo = true;
+            }
+            catch (NumberFormatException ex)
+            {
+                 messageErreur = "Erreur, le numéro rue doit être une valuer numérique";
+            }
+            
+            if (cpo&&nrRu){
+
+            Entreprise e = clientSession.rechercheEntrepriseParSiret(siret);
+            
+             if (e==null){       
+                  Entreprise entreprise = clientSession.creerEntreprise(nomE, siret, Integer.valueOf(nrRue), nomRue, ville, cp);
+                  jspClient = "/Internaute/login.jsp";
+              }
+             else  {
+                 messageErreur = "Erreur, siret existant, veuillez réesayer ou contactez l'admin";
+                     jspClient = "/Internaute/entreprise.jsp";
+             }
+      
+          }
+        }
+        request.setAttribute("message", message);
+        request.setAttribute("messageErreur", messageErreur);
+
+    }
+ 
+ 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -150,10 +222,10 @@ return c;
 }
          if (act.equals("lierE")) {
            
-            String codeE = request.getParameter("codeE");
-            String siret = request.getParameter("siret");
+            String mdp = request.getParameter("mdp");
+            String codeC = request.getParameter("codeC");
             
-            Entreprise e = clientSession.rechercheEntrepriseParSiretEtMdp(siret, codeE);
+            Entreprise e = clientSession.rechercheEntrepriseParCodeEtMdp(codeC, mdp);
             
             if (e==null)
             {
@@ -163,6 +235,11 @@ return c;
                 clientSession.majEntreprise(clientT.getId(), e.getId());
                 jspClient = "/tabBord.jsp";
             }
+         }
+         
+         if (act.equals("creationE"))
+         {
+            creationEntreprise(request, response);
          }
         
         Rd = getServletContext().getRequestDispatcher(jspClient);

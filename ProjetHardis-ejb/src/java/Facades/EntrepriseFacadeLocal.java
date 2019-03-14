@@ -38,7 +38,7 @@ public interface EntrepriseFacadeLocal {
 
     void majCertif(Entreprise entreprise);
 
-    void creerEntreprise(String numero, Agence agence,  String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif);
+    Entreprise creerEntreprise(String numero, String nom, List<Entites.Interlocuteur> interlocuteurs, Adresse adresse);
 
     void modifEntreprise(Entreprise e, Agence agence,  String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, Adresse adresse, String lienJustif, String numeroEnt );
 

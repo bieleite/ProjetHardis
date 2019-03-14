@@ -6,6 +6,7 @@
 package Session;
 
 import Entites.Action;
+import Entites.Adresse;
 import Entites.Agence;
 import Entites.Client;
 import Entites.Devis;
@@ -23,6 +24,7 @@ import Entites.Statut;
 import Entites.TypeService;
 import Entites.TypeUtilisateur;
 import Entites.UtilisateurHardis;
+import Facades.AdresseFacadeLocal;
 import Facades.AgenceFacadeLocal;
 import Facades.ClientFacadeLocal;
 import Facades.CommunicationFacadeLocal;
@@ -52,6 +54,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ClientSession implements ClientSessionLocal {
+
+    @EJB
+    private AdresseFacadeLocal adresseFacade;
 
     @EJB
     private ServiceStandardFacadeLocal serviceStandardFacade;
@@ -293,10 +298,34 @@ public class ClientSession implements ClientSessionLocal {
     }
 
     @Override
-    public Entreprise rechercheEntrepriseParSiretEtMdp(String siret, String mdp) {
-        Entreprise e = entrepriseFacade.rechercheEntrepriseSiretMdp(siret, mdp);
+    public Entreprise rechercheEntrepriseParCodeEtMdp(String code, String mdp) {
+        Entreprise e = entrepriseFacade.rechercheEntrepriseSiretMdp(code, mdp);
 return e;
     }
+
+    @Override
+    public Entreprise rechercheEntrepriseParSiret(String siret) {
+        Entreprise e = entrepriseFacade.rechercheEntrepriseSiret(siret);
+        return e;
+    }
+
+    //String numero, String nom, List<Entites.Interlocuteur> interlocuteurs, Adresse adresse
+    @Override
+    public Entreprise creerEntreprise(String nom, String siret, int nrRue, String nomR, String ville, String cp) {
+        Adresse ad = creerAdresse(nrRue, nomR, ville, cp);
+       Entreprise ent = entrepriseFacade.creerEntreprise(siret, nom, null, ad);
+       return ent;
+    }
+
+    @Override
+    public Adresse creerAdresse(int nrRue, String nomR, String ville, String cp) {
+        return adresseFacade.creerAdresse(nrRue, nomR, ville, cp);
+    }
+    
+    
+    
+    
+    
     
     
 

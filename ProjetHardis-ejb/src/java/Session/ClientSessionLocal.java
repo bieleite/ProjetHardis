@@ -5,6 +5,7 @@
  */
 package Session;
 
+import Entites.Adresse;
 import Entites.Client;
 import Entites.Devis;
 import Entites.DevisNonStandard;
@@ -53,7 +54,13 @@ public interface ClientSessionLocal {
 
     void deconnexion(long id);
 
-    Entreprise rechercheEntrepriseParSiretEtMdp(String siret, String mdp);
+    Entreprise rechercheEntrepriseParCodeEtMdp(String siret, String mdp);
+
+    Entreprise rechercheEntrepriseParSiret(String siret);
+
+    Entreprise creerEntreprise(String nom, String siret, int nrRue, String nomR, String ville, String cp);
+
+    Adresse creerAdresse(int nrRue, String nomR, String ville, String cp);
 
     
 }

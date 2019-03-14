@@ -66,14 +66,7 @@ public class InternauteSession implements InternauteSessionLocal {
         }      
     }
 
-    @Override
-    public void creerEntreprise(String numero,String nom, List<Entites.Interlocuteur> interlocuteurs, String codeContrat, String mdpEntreprise, int nrRue, String nomR, String cp, String ville) {
 
-      Adresse adresse =  adresseFacade.creerAdresse(nrRue, nomR, ville, cp);
-      entrepriseFacade.creerEntreprise(numero, null, nom, interlocuteurs, codeContrat, mdpEntreprise, adresse, "");   
-      
-      
-    }
     
     @Override
     public void ajouterEntrepriseAuClientParCode(Client client, String code) {
