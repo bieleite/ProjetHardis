@@ -6,12 +6,12 @@
 
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="Client/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="Client/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="Client/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="Client/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/dist/css/AdminLTE.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="Client/plugins/iCheck/square/blue.css">
+  <link rel="stylesheet" href="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/plugins/iCheck/square/blue.css">

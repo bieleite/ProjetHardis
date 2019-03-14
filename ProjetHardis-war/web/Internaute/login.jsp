@@ -60,11 +60,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->
-<script src="Client/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="Client/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="Client/plugins/iCheck/icheck.min.js"></script>
+<script src="https://projethardisboots.000webhostapp.com/?dir=projethardis/AdminLTE-2.4.10/plugins/iCheck/icheck.min.js"></script>
 <script>
   $(function () {
     $('input').iCheck({
