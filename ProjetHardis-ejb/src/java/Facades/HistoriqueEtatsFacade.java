@@ -44,9 +44,9 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
 
 
     @Override
-    public HistoriqueEtats creerHistoriqueEtats( Date datemaj, Statut statut, Devis devis) {
+    public HistoriqueEtats creerHistoriqueEtats(  Statut statut, Devis devis) {
         HistoriqueEtats he = new HistoriqueEtats();
-        he.setDateMAJ(datemaj);
+        he.setDateMAJ(new Date(System.currentTimeMillis()));
         he.setStatut(statut);
         he.setDevis(devis);
         em.persist(he);

@@ -43,7 +43,7 @@ public interface UtilisateurHardisFacadeLocal {
 
     int count();
 
-    UtilisateurHardis creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lientCV, Agence agence);
+    UtilisateurHardis creerUtilisateurH(String nom, String prenom, String login, String mdp, ProfilTechnique profil, Agence agence);
     
     UtilisateurHardis rechercheUtilisateurParId(Long id);
        

@@ -38,13 +38,15 @@ public interface OffreFacadeLocal {
 
     int count();
 
-    Offre creerOffre(String lib, List<Offre_Profil_Util_CV> liste);
+    Offre creerOffre(String lib);
 
     void modifierOffre(Offre offre ,  List<Offre_Profil_Util_CV> liste, String lib );
 
     void supprimerOffre(long id);
 
     Offre rechercheOffreParId(long id);
+    
+    Offre rechercheOffreParLibelle(String lib);
 
     List<Offre> listOffres();
 

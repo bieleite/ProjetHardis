@@ -55,7 +55,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
 
 
     @Override
-    public UtilisateurHardis creerUtilisateurH(String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, Agence agence) {
+    public UtilisateurHardis creerUtilisateurH(String nom, String prenom, String login, String mdp, ProfilTechnique profil, Agence agence) {
        UtilisateurHardis u = new UtilisateurHardis();  
        u.setNom(nom);
        u.setPrenom(prenom);
@@ -63,15 +63,15 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
        u.setMdp(mdp);
        u.setDateRGPD(null);
        u.setRGPD(-1);
-       u.setStatut(statut);
-       u.setLienCVDefaut(lienCV);
+       u.setStatut(StatutUtilisateur.Actif);
+       u.setLienCVDefaut("");
        u.setProfilTechique(profil);
        u.setEchangeTels(new ArrayList<EchangeTel>());
        u.setHistoriqueDeviss(new ArrayList<HistoriqueDevis>());
        u.setHistoriqueTraitement(new HistoriqueTraitement());
        u.setOffre_Profil_Utils(new ArrayList());
-       u.setQuestionSecrete(questSecrete);
-       u.setReponseSecrete(repSecrete);
+       u.setQuestionSecrete("");
+       u.setReponseSecrete("");
         u.setVisible(true);
         u.setAgence(agence);
        em.persist(u);

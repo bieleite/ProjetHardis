@@ -99,6 +99,10 @@ public interface AdministrateurHardisSessionLocal {
     
     Communication rechercherCommunicationID(long id, UtilisateurHardis hardis);
         
+    Statut rechercherStatutParDevis(long iddevis, UtilisateurHardis hardis);
+    
+    List<Devis> listDevis( );
+    
     void supprimerDevis(long iddevis, UtilisateurHardis hardis);
     
     Devis rechercherDevis(long id, long idclient, UtilisateurHardis hardis);
@@ -173,7 +177,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<HistoriqueDevis> listHistoriqueDevis( UtilisateurHardis hardis);
     
-    HistoriqueEtats creerHistoriqueEtats(Date datemaj, Statut statut, long iddevis, UtilisateurHardis hardis);
+    HistoriqueEtats creerHistoriqueEtats( Statut statut, long iddevis, UtilisateurHardis hardis);
     
     void modifierHistoriqueEtats(long idhistorique, Date datemaj, Statut statut, long iddevis, UtilisateurHardis hardis);
     
@@ -213,7 +217,7 @@ public interface AdministrateurHardisSessionLocal {
     
     Interlocuteur rechercherInterlocuteur(long idinter, UtilisateurHardis hardis);
     
-    void creerLivrable(String nom, long idservice, UtilisateurHardis hardis);
+    Livrable creerLivrable(String nom, long idservice, UtilisateurHardis hardis);
     
     void modifierLivrable(long idLivrable, String nom, long idservice, UtilisateurHardis hardis);
     
@@ -221,7 +225,7 @@ public interface AdministrateurHardisSessionLocal {
     
     Livrable rechercherLivrable(long idLivrable, UtilisateurHardis hardis);
     
-    void creerOffre(String lib, String[] listedesid, UtilisateurHardis hardis);
+    Offre creerOffre(String lib, UtilisateurHardis hardis);
     
     void modifierOffre(long idOffre, String lib, String[] listedesid, UtilisateurHardis hardis);
     
@@ -229,7 +233,9 @@ public interface AdministrateurHardisSessionLocal {
     
     Offre rechercherOffre(long idOffre, UtilisateurHardis hardis);
     
-    void creerOffre_Profil_Util_CVDate ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis);
+    Offre rechercherOffreLibelle(String libelleoffre, UtilisateurHardis hardis);
+    
+    Offre_Profil_Util_CV creerOffre_Profil_Util_CV ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis);
     
     void modifierOffre_Profil_Util_CV(long idoffre_Profil_Util_CV, long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis);
     
@@ -243,7 +249,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Offre_Profil_Util_CV> listHistoriqueOffre_Profil_Util_CV( UtilisateurHardis hardis);
     
-    void creerProfilMetier( NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis);
+    ProfilMetier creerProfilMetier( NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis);
     
     void modifierProfilMetier(long idPM, NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis);
     
@@ -257,7 +263,7 @@ public interface AdministrateurHardisSessionLocal {
         
     List<ProfilMetier> listProfilMetier( UtilisateurHardis hardis);
     
-    void creerService( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis);    
+    Service creerService( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis);    
     
     void modifieService(long idservice, String nomService, String descriptionService, LieuIntervention idlieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis);
         
@@ -269,7 +275,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Service> listService( UtilisateurHardis hardis);
     
-    void creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis);
+    ServiceStandard creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis);
     
     void modifieServiceStandard(long idServiceStandard, String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA,String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis);
         
@@ -281,7 +287,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<ServiceStandard> listServiceStandard( UtilisateurHardis hardis);
     
-    void creerUtilisateurHardis( String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, long idagence, UtilisateurHardis hardis);
+    UtilisateurHardis creerUtilisateurHardis( String nom, String prenom, String login, String mdp, ProfilTechnique profil, long idagence, UtilisateurHardis hardis);
 
     void modifieUtilisateurHardisMDP(long idutilisateur, String MDP, UtilisateurHardis hardis);
     

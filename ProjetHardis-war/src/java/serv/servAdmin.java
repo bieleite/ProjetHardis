@@ -14,9 +14,17 @@ import Entites.Disponibilite;
 import Entites.Document;
 import Entites.EchangeTel;
 import Entites.Facturation;
+import Entites.FacturationFrais;
 import Entites.HistoriqueDevis;
+import Entites.HistoriqueEtats;
+import Entites.LieuIntervention;
+import Entites.Livrable;
 import Entites.Offre;
+import Entites.ProfilTechnique;
+import Entites.Service;
+import Entites.ServiceStandard;
 import Entites.Statut;
+import Entites.TypeService;
 import Entites.UtilisateurHardis;
 import Session.*;
 import java.io.IOException;
@@ -111,6 +119,27 @@ public class servAdmin extends HttpServlet {
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAgence(request,response);
+            }
+            else if(act.equals("CreerAdresse"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+               doActionCreerAdresse(request,response);
+            }
+             else if(act.equals("CreerAtelier"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+               doActionCreerAtelier(request,response);
+            }
+             else if(act.equals("listeDevisComunnication"))
+            {
+                List<Devis> listdevis= administrateurHardisSession.listDevis();
+                request.setAttribute("listeDevis",listdevis);
+                jspClient="/Admin/CreerCommunication.jsp";
+            }
+            else if(act.equals("CreerCommunication"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCreerCommunication(request,response);
             }
 //            else{
 //                jspClient="/ChoixE.jsp";
@@ -324,7 +353,6 @@ public class servAdmin extends HttpServlet {
                 else if (facturation.equals("Manuel")){
                     fact = Facturation.Manuel;
                 }
-                int montant = Integer.valueOf(montantdevis);
                 Statut statuts = null;
                 if(statut.equals("Incomplet")){
                     statuts = Statut.Incomplet;
@@ -356,11 +384,16 @@ public class servAdmin extends HttpServlet {
                 Long idagence = Long.valueOf(agence);
                 Long iddevis = Long.valueOf(devis);
                 Long idclient = Long.valueOf(client);
+                Statut sta = administrateurHardisSession.rechercherStatutParDevis(iddevis, ut);
                 Float montantadevis = Float.valueOf(montantdevis);
                 administrateurHardisSession.modifieDevis(iddevis, null, null, fact, montantadevis, motifrefus, saisielibre, statuts, idclient, idagence, ut);
-                
+                if(sta!=statuts){
+                    List<HistoriqueEtats> liste = administrateurHardisSession.rechercherHistoriqueEtatsParDevis(iddevis, ut);
+                    HistoriqueEtats he = administrateurHardisSession.creerHistoriqueEtats(statuts, iddevis, ut);
+                    liste.add(he);
+                }
                 Devis o= administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
-                String nomentite = o.toString();
+                String nomentite = o.getId().toString();
                 String classe = o.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";
             }
@@ -370,7 +403,229 @@ public class servAdmin extends HttpServlet {
         
         request.setAttribute("message", message);
     }
+    protected void doActionCreerLivrable(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String nom = request.getParameter("nomLivrable");
+        String service = request.getParameter("serviceLivrable");
+        String message = null;
+        if(nom.trim().isEmpty()||service.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idservice = Long.valueOf(service);
+                Livrable o = administrateurHardisSession.creerLivrable(nom, idservice, ut);
+                String nomentite = o.getNomLivrable();
+                String classe = o.getClass().toString();
+                message= " "+classe+":"+ nomentite+" créé avec succès !";
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionCreerOffre(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String libelle = request.getParameter("libelleOffre");
+        String message = null;
+        if(libelle.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Offre o =administrateurHardisSession.rechercherOffreLibelle(libelle, ut);
+                if(o==null){
+                o = administrateurHardisSession.creerOffre(libelle, ut);
+                String nomentite = o.getLibelle();
+                String classe = o.getClass().toString();
+                message= " "+classe+":"+ nomentite+" créé avec succès !";
+                }
+                else{
+                    message= "Erreur offre"+o.getLibelle() + "deja dans la base de données";
+                }
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
     
+     protected void doActionCreerService(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String nomService = request.getParameter("nomService");
+        String descriptionService= request.getParameter("descriptionService");
+        String lieuInterv= request.getParameter("lieuInterv");
+        String offre= request.getParameter("offre");
+        String cout= request.getParameter("cout");
+        String facturation= request.getParameter("facturation");
+        String listeCond= request.getParameter("listeCond");
+        String delai = request.getParameter("delai");
+        String typeS= request.getParameter("typeS");
+        String message = null;
+        if(nomService.trim().isEmpty()||descriptionService.trim().isEmpty()||lieuInterv.trim().isEmpty()||offre.trim().isEmpty()||cout.trim().isEmpty()||facturation.trim().isEmpty()||listeCond.trim().isEmpty()||delai.trim().isEmpty()||typeS.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+
+                LieuIntervention lieuIntervs= null;
+                if(lieuInterv.equals("Agence_Hardis")){
+                    lieuIntervs = LieuIntervention.Agence_Hardis;
+                }
+                else if (lieuInterv.equals("Mixte")){
+                    lieuIntervs = LieuIntervention.Mixte;
+                }
+                else if (lieuInterv.equals("Site_Client")){
+                    lieuIntervs = LieuIntervention.Site_Client;
+                }
+                Long idoffre= Long.valueOf(offre);
+                Float coutService= Float.valueOf(cout);
+                FacturationFrais facturations= null;
+                if(facturation.equals("Oui")){
+                    facturations = FacturationFrais.Oui;
+                }
+                else if (facturation.equals("Non")){
+                    facturations = FacturationFrais.Non;
+                }
+                int delaiService = Integer.valueOf(delai);
+                TypeService typeSs= null;
+                if(typeS.equals("Standard")){
+                    typeSs = TypeService.Standard;
+                }
+                else if (facturation.equals("Non_Standard")){
+                    typeSs = TypeService.Non_Standard;
+                }
+                Service o = administrateurHardisSession.creerService(nomService, descriptionService, lieuIntervs, idoffre, coutService, facturations, listeCond, delaiService, typeSs, ut);
+                String nomentite = o.getNomService();
+                String classe = o.getClass().toString();
+                message= " "+classe+":"+ nomentite+" créé avec succès !";
+ 
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
+      protected void doActionCreerServiceStandard(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String descPresta = request.getParameter("descPrestaService");
+        String snbJS= request.getParameter("nbJSService");
+        String snbJC = request.getParameter("nbJCService");
+        String snbJJ= request.getParameter("nbJJService");
+        String snbHA= request.getParameter("nbHAService");
+        String snbHS= request.getParameter("nbHSService");
+        String[] listidlivrable = request.getParameterValues("nomService");
+        String[] listeidAtelier= request.getParameterValues("nomService");
+        String nomService = request.getParameter("nomService");
+        String descriptionService= request.getParameter("descriptionService");
+        String lieuInterv= request.getParameter("lieuInterv");
+        String offre= request.getParameter("offre");
+        String cout= request.getParameter("cout");
+        String facturation= request.getParameter("facturation");
+        String listeCond= request.getParameter("listeCond");
+        String delai = request.getParameter("delai");
+        String typeS= request.getParameter("typeS");
+        String message = null;
+        if(nomService.trim().isEmpty()||descriptionService.trim().isEmpty()||lieuInterv.trim().isEmpty()||offre.trim().isEmpty()||cout.trim().isEmpty()||facturation.trim().isEmpty()||listeCond.trim().isEmpty()||delai.trim().isEmpty()||typeS.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Float nbJS= Float.valueOf(snbJS);
+                Float nbJC= Float.valueOf(snbJC);
+                Float nbJJ= Float.valueOf(snbJJ);
+                Float nbHA= Float.valueOf(snbHA);
+                Float nbHS= Float.valueOf(snbHS);
+                LieuIntervention lieuIntervs= null;
+                if(lieuInterv.equals("Agence_Hardis")){
+                    lieuIntervs = LieuIntervention.Agence_Hardis;
+                }
+                else if (lieuInterv.equals("Mixte")){
+                    lieuIntervs = LieuIntervention.Mixte;
+                }
+                else if (lieuInterv.equals("Site_Client")){
+                    lieuIntervs = LieuIntervention.Site_Client;
+                }
+                Long idoffre= Long.valueOf(offre);
+                Float coutService= Float.valueOf(cout);
+                FacturationFrais facturations= null;
+                if(facturation.equals("Oui")){
+                    facturations = FacturationFrais.Oui;
+                }
+                else if (facturation.equals("Non")){
+                    facturations = FacturationFrais.Non;
+                }
+                int delaiService = Integer.valueOf(delai);
+                TypeService typeSs= null;
+                if(typeS.equals("Standard")){
+                    typeSs = TypeService.Standard;
+                }
+                else if (facturation.equals("Non_Standard")){
+                    typeSs = TypeService.Non_Standard;
+                }
+                ServiceStandard o = administrateurHardisSession.creerServiceStandard(nomService, descriptionService, lieuIntervs, idoffre, coutService, facturations, listeCond, delaiService, typeSs, descPresta, nbJS, nbJC, nbJJ, nbHA, listidlivrable, listeidAtelier, nbHS, ut);
+                String nomentite = o.getNomService();
+                String classe = o.getClass().toString();
+                message= " "+classe+":"+ nomentite+" créé avec succès !";
+ 
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
+      
+      protected void doActionCreerUtilisateur(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String nom = request.getParameter("nomUtilisateur");
+        String prenom= request.getParameter("prenomUtilisateur");
+        String login= request.getParameter("loginUtilisateur");
+        String mdp= request.getParameter("mdpUtilisateur");
+        String profil = request.getParameter("PFUtilisateur");
+        String agence= request.getParameter("libelleOffre");
+        String message = null;
+        if(nom.trim().isEmpty()||prenom.trim().isEmpty()||login.trim().isEmpty()||mdp.trim().isEmpty()||profil.trim().isEmpty()||agence.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                UtilisateurHardis o =administrateurHardisSession.rechercherUtilisateurHardisParLogin(login, ut);
+                if(o==null){
+                ProfilTechnique profilt= null;
+                if(profil.equals("Admin")){
+                    profilt = ProfilTechnique.Admin;
+                }
+                else if (profil.equals("Gestion")){
+                    profilt = ProfilTechnique.Gestion;
+                }
+                else if (profil.equals("Visiteur")){
+                    profilt = ProfilTechnique.Visiteur;
+                }
+                Long idagence = Long.valueOf(agence);
+                o = administrateurHardisSession.creerUtilisateurHardis(nom, prenom, login, mdp, profilt, idagence, ut);
+                String nomentite = o.getNom();
+                String classe = o.getClass().toString();
+                message= " "+classe+":"+ nomentite+" créé avec succès !";
+                }
+                else{
+                    message= "Erreur login "+o.getLogin() + "deja dans la base de données";
+                }
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

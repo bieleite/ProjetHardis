@@ -68,4 +68,5 @@ public interface DevisFacadeLocal {
 
     List<Devis> afficherDevisStatut(Client cli, Statut statut);
 
+  
 }

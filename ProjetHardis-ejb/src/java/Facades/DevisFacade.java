@@ -193,7 +193,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
             d.setStatut(Statut.Refuse);
         em.merge(d);
     }
-
+    
     @Override
     public void modifDateInterv(Devis d, Date date) {
         d.setDateIntervSouhaitee(date);
