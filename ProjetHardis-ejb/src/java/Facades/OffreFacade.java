@@ -8,6 +8,7 @@ package Facades;
 import Entites.Agence;
 import Entites.Offre;
 import Entites.Offre_Profil_Util_CV;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 import javax.ejb.Stateless;
@@ -52,10 +53,10 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
 
 
     @Override
-    public Offre creerOffre(String lib, List<Offre_Profil_Util_CV> liste) {
+    public Offre creerOffre(String lib) {
      Offre offre = new Offre();
      offre.setLibelle(lib);
-     offre.setOffre_Profil_Utils(liste);
+     offre.setOffre_Profil_Utils(new ArrayList<>());
      em.persist(offre);
      return offre;
     }
@@ -97,6 +98,18 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
         return s;
     }
 
+    @Override
+    public Offre rechercheOffreParLibelle(String lib) {
+        Offre s = null;
+        Query requete = em.createQuery("SELECT s from Offre as s where s.libelle=:lib");
+        requete.setParameter("lib",lib);     
+        List<Offre> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            s =   (Offre)liste.get(0); 
+        }
+        return s;
+    }
+    
     @Override
     public List<Offre> listOffres() {
         String txt="SELECT ad FROM Offre AS ad ";

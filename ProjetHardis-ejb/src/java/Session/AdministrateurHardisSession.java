@@ -138,9 +138,10 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
 
     
     @Override
-    public void creerAdresse(int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis) {
+    public Adresse creerAdresse(int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis) {
         Adresse ad = adresseFacade.creerAdresse(numRue, nomRue, ville, CP);
         logsFacade.creerLogCreate(hardis, ad);
+        return ad;
     }
 
     @Override
@@ -172,9 +173,10 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerAgence(String NomAgence, UtilisateurHardis hardis) {
+    public Agence creerAgence(String NomAgence, UtilisateurHardis hardis) {
         Agence ag =agenceFacade.creerAgence(NomAgence);
         logsFacade.creerLogCreate(hardis, ag);
+        return ag;
     }
 
     @Override
@@ -210,9 +212,10 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
       
     @Override
-    public void creerAtelier(String NomAtelier, UtilisateurHardis hardis) {
+    public Atelier creerAtelier(String NomAtelier, UtilisateurHardis hardis) {
         Atelier at = atelierFacade.creerAtelier(NomAtelier);
         logsFacade.creerLogCreate(hardis, at);
+        return at;
     }
 
     @Override
@@ -319,22 +322,24 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerCommunicationHardis(String message, long iddevis, UtilisateurHardis utilisateur) {
+    public Communication creerCommunicationHardis(String message, long iddevis, UtilisateurHardis utilisateur) {
+        Communication co = null;
         Devis devis = devisFacade.rechercheDevis(iddevis);
         List<Communication> liste = communicationFacade.rechercheCommunicationParDevis(devis);
         Date date = new Date();
         String qr = "R";
         if(liste.isEmpty()){
             int delai = 0;
-            Communication co =communicationFacade.creerCommunication(date, message, devis, utilisateur, qr, delai);
+            co =communicationFacade.creerCommunication(date, message, devis, utilisateur, qr, delai);
             logsFacade.creerLogCreate(utilisateur, co);
         }
         else{
             int delai = communicationFacade.calculerDelai(devis, date);
-            Communication co =communicationFacade.creerCommunication(date, message, devis, utilisateur, qr, delai);
+            co =communicationFacade.creerCommunication(date, message, devis, utilisateur, qr, delai);
             logsFacade.creerLogCreate(utilisateur, co);
             
         }
+        return co;
     }
 
     @Override
@@ -404,6 +409,12 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         return de;
     }
     
+     @Override
+    public List<Devis> listDevis( ) {
+        List<Devis> devis = devisFacade.listDevis();
+        return devis;       
+    }
+    
     @Override
     public void modifieDevis(long iddevis, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,long idclient, long idagence, UtilisateurHardis hardis) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
@@ -470,9 +481,10 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
   
     @Override
-    public void creerDisponibilite(Date dateDebut, Date dateFin, String libelle, UtilisateurHardis hardis) {
+    public Disponibilite creerDisponibilite(Date dateDebut, Date dateFin, String libelle, UtilisateurHardis hardis) {
         Disponibilite di = disponibiliteFacade.creerDisponibilite(dateDebut, dateFin, libelle, hardis);
         logsFacade.creerLogCreate(hardis, di);
+        return di;
     }
 
     @Override
@@ -505,10 +517,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerDocument(String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis) {
+    public Document creerDocument(String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis) {
         HistoriqueDevis historiquedevis = historiqueDevisFacade.rechercheHistoriqueDevis(idhistoriquedevis);
         Document doc = documentFacade.creerDocument(descriptif, liendoc, historiquedevis);
         logsFacade.creerLogCreate(hardis, doc);
+        return doc;
     }
 
     @Override
@@ -542,11 +555,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerEchangeTel(String text, long iddevis, long idutilisateur, UtilisateurHardis hardis) {
+    public EchangeTel creerEchangeTel(String text, long iddevis, UtilisateurHardis hardis) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
-        UtilisateurHardis interlocuteur = utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
-        EchangeTel et = echangeTelFacade.creerEchangeTel(text, devis, interlocuteur);
+        EchangeTel et = echangeTelFacade.creerEchangeTel(text, devis, hardis);
         logsFacade.creerLogCreate(hardis, et);
+        return et;
     }
 
     @Override
@@ -604,10 +617,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
      
     
     @Override
-    public void certifieEntreprise(long identreprise, UtilisateurHardis hardis) {
+    public Entreprise certifieEntreprise(long identreprise, UtilisateurHardis hardis) {
         Entreprise entreprise = entrepriseFacade.rechercheEntrepriseParId(identreprise);
         entrepriseFacade.majCertif(entreprise);
         logsFacade.creerLogUpdate(hardis, entreprise);
+        return entreprise;
     }
 
     @Override
@@ -626,10 +640,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis) {
+    public Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
         Facture facture = factureFacade.creerFacture(date, devis, montant, montantDepass, motifDepass);
         logsFacade.creerLogCreate(hardis, facture);
+        return facture;
     }
 
     @Override
@@ -663,7 +678,15 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
    
     @Override
-    public void creerHistoriqueDevis(long iddevis, Date datedebut, Date datefin, int numpropo, long idutilisateur,String[] listiddocument, UtilisateurHardis hardis) {
+    public Statut rechercherStatutParDevis(long iddevis, UtilisateurHardis hardis) {
+        Devis devis = devisFacade.rechercheDevis(iddevis);
+        Statut statut = devis.getStatut();
+        logsFacade.creerLogResearch(hardis, devis);
+        return statut;       
+    }
+    
+    @Override
+    public HistoriqueDevis creerHistoriqueDevis(long iddevis, Date datedebut, Date datefin, int numpropo, long idutilisateur,String[] listiddocument, UtilisateurHardis hardis) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
         UtilisateurHardis utilisateur =utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
         List<Document> listdocuments= new ArrayList<>();
@@ -674,6 +697,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         }
         HistoriqueDevis historiqueDevis = historiqueDevisFacade.creerHistoriqueDevis(devis, datedebut, datefin, numpropo, utilisateur, listdocuments);
         logsFacade.creerLogCreate(hardis, historiqueDevis);
+        return historiqueDevis;
     }
 
     @Override
@@ -713,17 +737,17 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
    
     @Override
-    public List<HistoriqueDevis> listHistoriqueDevis( UtilisateurHardis hardis) {
+    public List<HistoriqueDevis> listHistoriqueDevis( ) {
         List<HistoriqueDevis> historiqueDevis = historiqueDevisFacade.listHistoriqueDevis();
-        logsFacade.creerLogResearch(hardis, historiqueDevis);
         return historiqueDevis;       
     }
     
     @Override
-    public void creerHistoriqueEtats(Date datemaj, Statut statut, long iddevis, UtilisateurHardis hardis) {
+    public HistoriqueEtats creerHistoriqueEtats( Statut statut, long iddevis, UtilisateurHardis hardis) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
-        HistoriqueEtats historiqueEtats = historiqueEtatsFacade.creerHistoriqueEtats(datemaj, statut, devis);
+        HistoriqueEtats historiqueEtats = historiqueEtatsFacade.creerHistoriqueEtats( statut, devis);
         logsFacade.creerLogCreate(hardis, historiqueEtats);
+        return historiqueEtats;
     }
 
     @Override
@@ -874,10 +898,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerLivrable(String nom, long idservice, UtilisateurHardis hardis) {
+    public Livrable creerLivrable(String nom, long idservice, UtilisateurHardis hardis) {
         Service service = serviceFacade.rechercheServiceParId(idservice);
         Livrable livrable = livrableFacade.creerLivrable(nom, service);
         logsFacade.creerLogCreate(hardis, livrable);
+        return livrable;
     }
 
     @Override
@@ -903,15 +928,10 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerOffre(String lib, String[] listedesid, UtilisateurHardis hardis) {
-        List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();
-        for (String offre_profil_cv: listedesid){
-            Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
-            Offre_Profil_Util_CV o_p_c= offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_profil_cv);
-            listoffres_profils_cvs.add(o_p_c);
-        }
-        Offre offre = offreFacade.creerOffre(lib, listoffres_profils_cvs);
+    public Offre creerOffre(String lib,  UtilisateurHardis hardis) {
+        Offre offre = offreFacade.creerOffre(lib);
         logsFacade.creerLogCreate(hardis, offre);
+        return offre;
     }
 
     @Override
@@ -942,12 +962,20 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerOffre_Profil_Util_CVDate ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis) {
+    public Offre rechercherOffreLibelle(String libelleoffre, UtilisateurHardis hardis) {
+        Offre offre = offreFacade.rechercheOffreParLibelle(libelleoffre);
+        logsFacade.creerLogResearch(hardis, offre);
+        return offre;
+    }
+    
+    @Override
+    public Offre_Profil_Util_CV creerOffre_Profil_Util_CV ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis) {
         Offre offre = offreFacade.rechercheOffreParId(idoffre);
         ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
         UtilisateurHardis utilisateur =utilisateurHardisFacade.rechercheUtilisateurParId(idPM);
         Offre_Profil_Util_CV offre_Profil_Util_CV = offre_Profil_Util_CVFacade.creerOPUC(offre, profilmetier, utilisateur, lienCV);
         logsFacade.creerLogCreate(hardis, offre_Profil_Util_CV);
+        return offre_Profil_Util_CV;
     }
 
     @Override
@@ -998,7 +1026,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerProfilMetier( NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis) {
+    public ProfilMetier creerProfilMetier( NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis) {
         List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();
         for (String offre_profil_cv: listedesid){
             Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
@@ -1007,6 +1035,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         }
         ProfilMetier profilmetier = profilMetierFacade.creerProfilMetier(niveau, expertise, plafond, listoffres_profils_cvs);
         logsFacade.creerLogCreate(hardis, profilmetier);
+        return profilmetier;
     }
 
     @Override
@@ -1058,10 +1087,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerService( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis) {
+    public Service creerService( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis) {
         Offre offre = offreFacade.rechercheOffreParId(idoffre);
         Service service = serviceFacade.creerService(nomService, descriptionService, lieuInterv, offre, cout, facturation, listeCond, delai, typeS);
         logsFacade.creerLogCreate(hardis, service);
+        return service;
     }
     
     @Override
@@ -1096,14 +1126,13 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public List<Service> listService( UtilisateurHardis hardis) {
+    public List<Service> listService( ) {
         List<Service> service = serviceFacade.listServices();
-        logsFacade.creerLogResearch(hardis, service);
         return service;       
     }
     
     @Override
-    public void creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis) {
+    public ServiceStandard creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis) {
         List<Livrable> listlivrables= new ArrayList<>();
         for (String livrable: listidlivrable){
             Long idlivrable = Long.valueOf(livrable);
@@ -1119,6 +1148,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         Offre offre = offreFacade.rechercheOffreParId(idoffre);
         ServiceStandard service = serviceStandardFacade.creerServiceStandard(nomService, descriptionService, lieuInterv, offre, cout, facturation, listeCond, delai, typeS, descPresta, nbJS, nbJC, nbJJ, nbHA, listlivrables, listateliers, nbHS);
         logsFacade.creerLogCreate(hardis, service);
+        return service;
     }
     
     @Override
@@ -1164,17 +1194,17 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public List<ServiceStandard> listServiceStandard( UtilisateurHardis hardis) {
+    public List<ServiceStandard> listServiceStandard() {
         List<ServiceStandard> ServiceStandard = serviceStandardFacade.listServStandard();
-        logsFacade.creerLogResearch(hardis, ServiceStandard);
         return ServiceStandard;       
     }
     
     @Override
-    public void creerUtilisateurHardis( String nom, String prenom, String login, String mdp, String questSecrete, String repSecrete, Date dateRGPD, int rgpd, ProfilTechnique profil, StatutUtilisateur statut, String lienCV, long idagence, UtilisateurHardis hardis) {
+    public UtilisateurHardis creerUtilisateurHardis( String nom, String prenom, String login, String mdp, ProfilTechnique profil, long idagence, UtilisateurHardis hardis) {
         Agence agence = agenceFacade.rechercheAgence(idagence);
-        UtilisateurHardis utilisateur = utilisateurHardisFacade.creerUtilisateurH(nom, prenom, login, mdp, questSecrete, repSecrete, dateRGPD, rgpd, profil, statut, lienCV, agence);
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.creerUtilisateurH(nom, prenom, login, mdp, profil,agence);
         logsFacade.creerLogCreate(hardis, utilisateur);
+        return utilisateur;
     }
     
     @Override
@@ -1242,7 +1272,23 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         return utilisateur;       
     }
     
+    @Override
+    public List<Agence> listAgence() {
+        List<Agence> ad = agenceFacade.findAll();
+        return ad;       
+    }
     
+    @Override
+    public List<Offre> listOffre() {
+        List<Offre> l = offreFacade.findAll();
+        return l;       
+    }
+    
+    @Override
+    public List<Client> listClient() {
+        List<Client> l = clientFacade.findAll();
+        return l;       
+    }
     
     
 }

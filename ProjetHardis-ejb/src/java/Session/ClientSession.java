@@ -155,7 +155,7 @@ public class ClientSession implements ClientSessionLocal {
         {      
            Devis d =  devisFacade.creerDevis(TypeService.Standard, serv, dateDevis, dateInterv, Facturation.Auto, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getEntreprise().getAgence());
                     
-           historiqueEtatsFacade.creerHistoriqueEtats(new Date(), Statut.Rep_en_Cours, d);
+           historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
           
            List<Document> listeDocs = new ArrayList<>();
           
@@ -169,7 +169,7 @@ public class ClientSession implements ClientSessionLocal {
         {
            Devis d  =  devisFacade.creerDevis(TypeService.Non_Standard, serv, dateDevis, dateInterv, Facturation.Manuel, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getEntreprise().getAgence());
            
-           historiqueEtatsFacade.creerHistoriqueEtats(new Date(), Statut.Rep_en_Cours, d);
+           historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
            
            List<UtilisateurHardis>  listeU =  utilisateurHardisFacade.rechercheUtilisateurHParAgence(cli.getEntreprise().getAgence());
           
@@ -198,7 +198,7 @@ public class ClientSession implements ClientSessionLocal {
         Client cli = clientFacade.rechercheClient(idCli);
         Devis d = devisFacade.rechercheDevis(idDevis);
         devisFacade.accepterRefuserDevis(d, "a");
-        historiqueEtatsFacade.creerHistoriqueEtats(new Date(), Statut.Valide, d);
+        historiqueEtatsFacade.creerHistoriqueEtats( Statut.Valide, d);
         logsFacade.creerLog(Action.Update, new Date(), "maj devis avec id : "+d.getId(), cli);
     }
    
@@ -208,7 +208,7 @@ public class ClientSession implements ClientSessionLocal {
        Client cli = clientFacade.rechercheClient(idCli);
         Devis d = devisFacade.rechercheDevis(idDevis);
           devisFacade.accepterRefuserDevis(d, "r");
-         historiqueEtatsFacade.creerHistoriqueEtats(new Date(), Statut.Refuse, d);
+         historiqueEtatsFacade.creerHistoriqueEtats( Statut.Refuse, d);
           logsFacade.creerLog(Action.Update, new Date(), "maj devis avec id : "+d.getId(), cli);
     }
 
