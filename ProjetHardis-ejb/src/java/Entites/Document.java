@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Document implements Serializable {
 
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -95,6 +96,25 @@ public class Document implements Serializable {
         this.descriptif = descriptif;
     }
 
+    private TypeDoc typeDoc;
+
+    /**
+     * Get the value of typeDoc
+     *
+     * @return the value of typeDoc
+     */
+    public TypeDoc getTypeDoc() {
+        return typeDoc;
+    }
+
+    /**
+     * Set the value of typeDoc
+     *
+     * @param typeDoc new value of typeDoc
+     */
+    public void setTypeDoc(TypeDoc typeDoc) {
+        this.typeDoc = typeDoc;
+    }
 
     @Override
     public int hashCode() {

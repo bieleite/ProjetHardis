@@ -9,6 +9,7 @@ import Entites.Client;
 import Entites.Communication;
 import Entites.Devis;
 import Entites.Entreprise;
+import Entites.Facture;
 import Entites.Notification;
 import Entites.Service;
 import Session.ClientSessionLocal;
@@ -347,7 +348,9 @@ boolean cpo = false;
           {
               
              String idD = request.getParameter("idDev");
-             
+            
+             String lienDevis = clientSession.rechercheDocDevis(Long.valueOf(idD));
+            
              
               String mess= request.getParameter("message");
                if (mess!=null)
@@ -368,14 +371,73 @@ boolean cpo = false;
                 jspClient = "/Client/afficheDevis.jsp";
       
               
+                request.setAttribute("lienD", lienDevis);
                 sess.setAttribute("devis", d);
-              sess.setAttribute("listMessage", listeC);
+                sess.setAttribute("listMessage", listeC);
                 
              
                  
              }
              
               
+          }
+          if (act.equals("consulteDevis"))
+          {
+               jspClient = "/Client/consulteDevis.jsp";
+               String idD = request.getParameter("idDev");
+                long id=0;
+                 if (idD!="")
+             {
+                   id = Long.valueOf(idD);
+                  Devis d = clientSession.recupDevis(id);
+                  sess.setAttribute("devis", d);
+                 
+                 
+             }
+                 
+               String valide= request.getParameter("valide");
+               if (valide!=null&& valide.equals("1"))
+             {
+                  clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
+                  Facture f = clientSession.creerFacture(id);
+                  request.setAttribute("facture",f);
+                  request.setAttribute("valide","1");
+             }
+               
+               
+             
+               
+          }
+          
+          else if (act.equals("payer"))
+          {
+               String idD = request.getParameter("idDev");
+               String idF = request.getParameter("idF");
+                 if (idD!="" && idF!="")
+             {
+                  long id = Long.valueOf(idD);
+                  Devis d = clientSession.recupDevis(id);
+                  
+                  clientSession.payerFacture(Long.valueOf(idF));
+                jspClient = "/Client/tabBord.jsp";
+           
+             }
+          }
+          
+          else if(act.equals("choixConsultants"))
+          {
+              String idD = request.getParameter("idDev");
+                  if (idD!="")
+             {
+                  long id = Long.valueOf(idD);
+                  
+                  Devis d = clientSession.recupDevis(id);
+                  Service s =  d.getService();
+                  
+                  sess.setAttribute("devis", d);
+                 
+                 
+             }
           }
         
            

@@ -8,6 +8,7 @@ package Facades;
 import Entites.Document;
 
 import Entites.HistoriqueDevis;
+import Entites.TypeDoc;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -40,11 +41,12 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
 
 
     @Override
-    public Document creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis) {
+    public Document creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis, TypeDoc type) {
         Document doc = new Document();
         doc.setDescriptif(descriptif);
         doc.setHistoDevis(historiquedevis);
         doc.setLienDoc(liendoc);
+        doc.setTypeDoc(type);
        
         em.persist(doc);
         return doc;

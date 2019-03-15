@@ -20,11 +20,13 @@ import Entites.HistoriqueDevis;
 import Entites.HistoriqueEtats;
 import Entites.HistoriqueTraitement;
 import Entites.Notification;
+import Entites.Offre;
 import Entites.Offre_Profil_Util_CV;
 import Entites.ProfilMetier;
 import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.Statut;
+import Entites.TypeDoc;
 import Entites.TypeService;
 import Entites.TypeUtilisateur;
 import Entites.Utilisateur;
@@ -43,6 +45,7 @@ import Facades.HistoriqueEtatsFacadeLocal;
 import Facades.HistoriqueTraitementFacadeLocal;
 import Facades.LogsFacadeLocal;
 import Facades.NotificationFacadeLocal;
+import Facades.OffreFacadeLocal;
 import Facades.Offre_Profil_Util_CVFacadeLocal;
 import Facades.ServiceFacadeLocal;
 import Facades.ServiceStandardFacadeLocal;
@@ -60,6 +63,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ClientSession implements ClientSessionLocal {
+
+    @EJB
+    private OffreFacadeLocal offreFacade;
 
     @EJB
     private NotificationFacadeLocal notificationFacade;
@@ -123,6 +129,8 @@ public class ClientSession implements ClientSessionLocal {
     
     
     
+    
+    
     @Override
     public Client authentificationClient(String login, String mdp) {  
        
@@ -162,7 +170,7 @@ public class ClientSession implements ClientSessionLocal {
           
            List<Document> listeDocs = new ArrayList<>();
           
-           listeDocs.add(documentFacade.creerDocument("conditions contrat",serv.getConditionsContract(), null));
+           listeDocs.add(documentFacade.creerDocument("conditions contrat",serv.getConditionsContract(), null, TypeDoc.c));
            
            HistoriqueDevis hd = historiqueDevisFacade.creerHistoriqueDevis(d, null, null, 1, null, listeDocs);
            
@@ -196,7 +204,7 @@ devisFacade.majHE(d, he);
                }
            }    
            
-        Document doc = documentFacade.creerDocument("conditions contrat ",serv.getConditionsContract(), null);
+        Document doc = documentFacade.creerDocument("conditions contrat ",serv.getConditionsContract(), null, TypeDoc.c);
          List<Document> listeD = new ArrayList<>();
          listeD.add(doc);
         HistoriqueDevis hd = historiqueDevisFacade.creerHistoriqueDevis(d, null, null, 1, null, listeD);
@@ -220,7 +228,7 @@ devisFacade.majHT(d, ht);
         Client cli = clientFacade.rechercheClient(idCli);
         Devis d = devisFacade.rechercheDevis(idDevis);
         devisFacade.accepterRefuserDevis(d, "a");
-        historiqueEtatsFacade.creerHistoriqueEtats( Statut.Valide, d);
+        historiqueEtatsFacade.creerHistoriqueEtats(Statut.Valide, d);
         logsFacade.creerLog(Action.Update, new Date(), "maj devis avec id : "+d.getId(), cli);
     }
    
@@ -231,6 +239,7 @@ devisFacade.majHT(d, ht);
         Devis d = devisFacade.rechercheDevis(idDevis);
           devisFacade.accepterRefuserDevis(d, "r");
          historiqueEtatsFacade.creerHistoriqueEtats( Statut.Refuse, d);
+         
           logsFacade.creerLog(Action.Update, new Date(), "maj devis avec id : "+d.getId(), cli);
     }
 
@@ -249,7 +258,9 @@ devisFacade.majHT(d, ht);
     @Override
     public void payerFacture(long idF) {
         Facture f = factureFacade.rechercheFactParId(idF);
-        factureFacade.payerFacture(f);
+        factureFacade.payerFacture(f);    
+        devisFacade.changeStatutPaye("1",f.getDevis());
+          historiqueEtatsFacade.creerHistoriqueEtats( Statut.Acompte_regle, f.getDevis());
         logsFacade.creerLog(Action.Create, new Date(), "creation facture pour devis id : "+f.getDevis().getId(), f.getDevis().getClient()); 
     }
 
@@ -390,6 +401,84 @@ return e;
     public void creerComm(String mess, long idD) {
         Devis d = devisFacade.rechercheDevis(idD);
         communicationFacade.creerCommunication(new Date(), mess, d, null, "Q", 0);
+    }
+
+    @Override
+    public String rechercheDocDevis(long id) {
+        String lienDev="";
+          Devis d = devisFacade.rechercheDevis(id);
+         List<HistoriqueDevis> listeHD = d.getHistoriqueDeviss();
+         if (listeHD!=null && listeHD.size()>0)
+         {
+             for (HistoriqueDevis hd : listeHD)
+             {
+                 if (hd.getDocuments()!=null && hd.getDocuments().size()>0)
+                 {
+                     for (Document doc : hd.getDocuments())
+                     {
+                         if (doc.getTypeDoc().toString().equals("d"))
+                             lienDev = doc.getLienDoc();
+                     }
+                 }
+             }
+         }
+        return lienDev;
+    }
+
+    @Override
+    public Facture creerFacture(long id) {
+           Devis d = devisFacade.rechercheDevis(id);
+          Facture f = factureFacade.creerFacture(new Date(), d, d.getMontantDevis(), 0, "");
+           return f;
+    }
+
+    @Override
+    public void payerFactureFinale(long id) {
+                Facture f = factureFacade.rechercheFactParId(id);
+        factureFacade.payerFacture(f);    
+        devisFacade.changeStatutPaye("2",f.getDevis());
+        logsFacade.creerLog(Action.Create, new Date(), "creation facture pour devis id : "+f.getDevis().getId(), f.getDevis().getClient()); 
+     historiqueEtatsFacade.creerHistoriqueEtats( Statut.Total_regle, f.getDevis());
+    }
+
+    @Override
+    public List<UtilisateurHardis> rechercheConsultantsOffre(long id) {
+       Service serv = serviceFacade.rechercheServiceParId(id); //classique
+       ServiceStandard servS = null;
+       
+       if (serv.getTypeService().toString().equals("Standard"))
+       {
+           servS = serviceStandardFacade.rechercheServiceSParId(id);
+       }
+       List<UtilisateurHardis> listeC = new ArrayList<>();
+       Offre o = serv.getOffre();
+       List<Offre_Profil_Util_CV> liste = offre_Profil_Util_CVFacade.rechercheOPUCParOffre(o);
+       
+       for (Offre_Profil_Util_CV off : liste)
+       {
+           if (servS!=null)
+           {   
+                if (off.getProfil().getNiveauExpertise().toString().equals("Senior"))
+                {
+                        if (servS.getNbreJoursConsultantS()>0)
+                            listeC.add(off.getUtilisateur());
+                    }
+                else  if (off.getProfil().getNiveauExpertise().toString().equals("Junior"))
+                {
+                        if (servS.getNbreJoursConsultantJ()>0)
+                            listeC.add(off.getUtilisateur());
+                    }
+                }
+               else  if (off.getProfil().getNiveauExpertise().toString().equals("Confirme"))
+                {
+                        if (servS.getNbreJoursConsultantC()>0)
+                            listeC.add(off.getUtilisateur());
+                    }
+                }
+       
+    
+    return listeC;
+       
     }
 
 

@@ -521,9 +521,15 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public Document creerDocument(String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis) {
+    public Document creerDocument(String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis, String typeD) {
         HistoriqueDevis historiquedevis = historiqueDevisFacade.rechercheHistoriqueDevis(idhistoriquedevis);
-        Document doc = documentFacade.creerDocument(descriptif, liendoc, historiquedevis);
+        TypeDoc type = null;
+        if (typeD.equals("d")) type = TypeDoc.d;
+        else if (typeD.equals("f")) type = TypeDoc.f;
+        else if (typeD.equals("c")) type = TypeDoc.c;
+        else if (typeD.equals("p")) type = TypeDoc.p;
+        
+        Document doc = documentFacade.creerDocument(descriptif, liendoc, historiquedevis, type);
         logsFacade.creerLogCreate(hardis, doc);
         return doc;
     }
