@@ -33,11 +33,11 @@
 
     <form action="servAdmin" method="get">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email" name="email">
+        <input type="login" class="form-control" placeholder="Email" name="login">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="mdp" class="form-control" placeholder="Password" name="mdp">
+        <input type="pass" class="form-control" placeholder="Password" name="pass">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -48,7 +48,7 @@
         </div>
         <!-- /.col -->
       </div>
-              <input type ="hidden" name="action" value="connexion">
+              <input type ="hidden" name="action" value="LoginAdmin">
     </form>
 
     <a href="#">Mot de passe oublié</a><br>
@@ -57,21 +57,6 @@
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-
-<!-- jQuery 3 -->
-<script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/plugins/iCheck/icheck.min.js"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-  });
-</script>
+<%@include  file = "script.jsp" %>
 </body>
 </html>

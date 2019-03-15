@@ -36,4 +36,6 @@ public interface NotificationFacadeLocal {
 
     List<Notification> rechercheNotif(Client u);
     
+    List<Notification> rechercheNotifUtilisateur(Utilisateur u);
+    
 }

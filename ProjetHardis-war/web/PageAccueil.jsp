@@ -66,8 +66,8 @@
 </div>
 
 <div class="col-sm-2 col-md-2 text-center">
-  <ul class="nav nav-pills"><li><a href="/newsletter">Newsletter</a></li></ul>
-</div>
+  <ul class="nav nav-pills"><li><a href="servAdmin?">Intranet</a></li></ul>
+<!--</div>
 <div class="col-sm-3 col-md-2 text-center">
   <ul class="language-switcher-locale-url nav nav-pills"><li class="fr first active"><a href="/" class="language-link active language-link active" xml:lang="fr">FR</a></li>
 <li class="en-en last"><a href="/en" class="language-link language-link" xml:lang="en-en">EN</a></li>
@@ -76,8 +76,8 @@
 </button></span></div><div class="form-actions form-wrapper form-group" id="edit-actions"><button class="element-invisible btn btn-primary form-submit" type="submit" id="edit-submit" name="op" value="Recherche">Recherche</button>
 </div><input type="hidden" name="form_build_id" value="form-D1WcHo193yPgUQ2krXsj10-gdjKOOLfmqOyx2hfrFMk" />
 <input type="hidden" name="form_id" value="search_block_form" />
-
-</div></form></div>          </div>
+-->
+</div><!--</form>--></div>          </div>
   </div>
   <div class="line2">
     <div class="container">

@@ -27,6 +27,7 @@ import Entites.Interlocuteur;
 import Entites.LieuIntervention;
 import Entites.Livrable;
 import Entites.NiveauHabilitation;
+import Entites.Notification;
 import Entites.Offre;
 import Entites.Offre_Profil_Util_CV;
 import Entites.ProfilMetier;
@@ -312,4 +313,6 @@ public interface AdministrateurHardisSessionLocal {
     List<Agence> listAgence();
     
     List<Offre> listOffre();
+    
+    List<Notification> getNotifsAdmin(UtilisateurHardis utlisateur);
 }
