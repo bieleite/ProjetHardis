@@ -60,18 +60,19 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                      
-                   <% List<Devis> listeD = listeDevis; 
+                       <% List<Devis> listeD = listeDevis; 
                    for (Devis d : listeD)  {%>   
                    
+                  <tr>
+                      
+                  
                    <td><a href="servClient?action=afficheDevis&idDev=<%=d.getId()%>"><% out.print("DEV"+d.getId());%></a></td>
                     <td><%=d.getService().getOffre().getLibelle()%></td>
                      <td><%=d.getService().getNomService()%></td>
                     <td><%=d.getStatut()%></span></td>
-                    <%}%>                 
+                               
                   </tr>
-
+    <%}%>  
                   </tbody>
                 </table>
               </div>

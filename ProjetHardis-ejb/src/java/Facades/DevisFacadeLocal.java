@@ -14,6 +14,9 @@ import Entites.Statut;
 import java.util.Date;
 
 import Entites.Devis;
+import Entites.HistoriqueDevis;
+import Entites.HistoriqueEtats;
+import Entites.HistoriqueTraitement;
 import Entites.Service;
 import Entites.TypeService;
 
@@ -67,6 +70,12 @@ public interface DevisFacadeLocal {
     List<Devis> afficherDevisClient(Client cli);
 
     List<Devis> afficherDevisStatut(Client cli, Statut statut);
+
+    void majHD(Devis d, HistoriqueDevis hd);
+
+    void majHT(Devis d, HistoriqueTraitement ht);
+
+    void majHE(Devis d, HistoriqueEtats he);
 
   
 }

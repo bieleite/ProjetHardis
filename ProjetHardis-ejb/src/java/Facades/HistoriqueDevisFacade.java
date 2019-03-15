@@ -43,14 +43,14 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
 
 
     @Override
-    public HistoriqueDevis creerHistoriqueDevis(Devis d, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur, List<Document> doc) {
+    public HistoriqueDevis creerHistoriqueDevis(Devis d, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur, List<Document> listeDoc) {
         HistoriqueDevis hd = new HistoriqueDevis();
         hd.setDateDebut(datedebut);
         hd.setDevis(d);
         hd.setDateFin(datefin);
         hd.setNumPropo(numpropo);
         hd.setUtilHardis(utilisateur);
-        hd.setDocuments(doc);
+        hd.setDocuments(listeDoc);
         em.persist(hd);
         return hd;
     }
@@ -120,6 +120,13 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
     public HistoriqueDevisFacade() {
         super(HistoriqueDevis.class);
     }
+
+    @Override
+    public HistoriqueDevis ajoutDocHistoDevis(HistoriqueDevis h, List<Document> d) {
+       
+       h.setDocuments(d);
+       return h;
+               }
 
 
     

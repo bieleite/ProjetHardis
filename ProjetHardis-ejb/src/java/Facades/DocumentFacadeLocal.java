@@ -48,6 +48,8 @@ public interface DocumentFacadeLocal {
     List<Document> rechercheDocumentParHistorique(HistoriqueDevis historiquedevis);
     
     void modifDocument(Document entite, String descriptif, String liendoc, HistoriqueDevis historiquedevis);
+
+    void majHD(Document d, HistoriqueDevis hd);
     
 
 

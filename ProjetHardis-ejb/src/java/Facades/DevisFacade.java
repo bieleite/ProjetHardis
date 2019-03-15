@@ -11,6 +11,9 @@ import Entites.Client;
 import Entites.Devis;
 import Entites.Facturation;
 import Entites.Facture;
+import Entites.HistoriqueDevis;
+import Entites.HistoriqueEtats;
+import Entites.HistoriqueTraitement;
 import Entites.Service;
 import Entites.Statut;
 import Entites.TypeService;
@@ -216,6 +219,28 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         List<Devis> liste =  requete.getResultList();
         return liste;
     }
+
+    @Override
+    public void majHD(Devis d, HistoriqueDevis hd) {
+        d.getHistoriqueDeviss().add(hd);
+        em.merge(d);
+    }
+
+    @Override
+    public void majHT(Devis d, HistoriqueTraitement ht) {
+        d.getHistoriqueTraitements().add(ht);
+        em.merge(d);
+    }
+
+    @Override
+    public void majHE(Devis d, HistoriqueEtats he) {
+        d.getHistoriqueEtatss().add(he);
+        em.merge(d);
+    }
+    
+    
+    
+    
     
     
     
