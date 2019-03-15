@@ -42,6 +42,7 @@ import Facades.HistoriqueTraitementFacadeLocal;
 import Facades.InterlocuteurFacadeLocal;
 import Facades.LivrableFacadeLocal;
 import Facades.LogsFacadeLocal;
+import Facades.NotificationFacadeLocal;
 import Facades.OffreFacadeLocal;
 import Facades.Offre_Profil_Util_CVFacadeLocal;
 import Facades.ProfilMetierFacadeLocal;
@@ -60,6 +61,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AdministrateurHardisSession implements AdministrateurHardisSessionLocal {
+
+    @EJB
+    private NotificationFacadeLocal notificationFacade;
 
     @EJB
     private ServiceStandardFacadeLocal serviceStandardFacade;
@@ -1290,5 +1294,9 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         return l;       
     }
     
+    @Override
+    public List<Notification> getNotifsAdmin(UtilisateurHardis utlisateur) {
+            return notificationFacade.rechercheNotifUtilisateur(utlisateur);
+    }
     
 }

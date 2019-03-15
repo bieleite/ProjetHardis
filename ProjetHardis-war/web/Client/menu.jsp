@@ -4,6 +4,9 @@
     Author     : 6170361
 --%>
 
+<%@page import="Entites.Client"%>
+<%@page import="java.util.List"%>
+<%@page import="Entites.Notification"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

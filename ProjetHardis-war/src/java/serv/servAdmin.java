@@ -20,6 +20,7 @@ import Entites.HistoriqueDevis;
 import Entites.HistoriqueEtats;
 import Entites.LieuIntervention;
 import Entites.Livrable;
+import Entites.Notification;
 import Entites.Offre;
 import Entites.ProfilTechnique;
 import Entites.Service;
@@ -82,7 +83,7 @@ public class servAdmin extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         String jspClient = null;
-        RequestDispatcher Rd;
+        
 
         String act = request.getParameter("action");
         
@@ -99,7 +100,19 @@ public class servAdmin extends HttpServlet {
                     if(utilisateur!=null){
                         request.setAttribute("message","Bienvenue: "+ utilisateur.getNom());
                         sess.setAttribute("utilisateur", utilisateur);
-                        jspClient="/dashboardAdmin.jsp";    
+                        List<Communication> listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
+                        List<Notification> listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
+                        List<Devis> listeDevis = administrateurHardisSession.listDevis();
+                        List<Client> listeClient = administrateurHardisSession.listClient();
+                        if (listeCommunication==null) listeCommunication=new ArrayList<>();
+                        if (listeNotif==null) listeNotif=new ArrayList<>();
+                        if (listeDevis==null) listeDevis=new ArrayList<>();
+                        if (listeClient==null) listeClient=new ArrayList<>();
+                        request.setAttribute("listeCommunication",listeCommunication);
+                        request.setAttribute("listeNotif",listeNotif);
+                        request.setAttribute("listeDevis",listeDevis);
+                        request.setAttribute("listeClient",listeClient);
+                        jspClient="/Admin/dashboardAdmin.jsp";    
                                 }   
                     else{
                         request.setAttribute("message","Entraineur non trouvé");
@@ -255,7 +268,7 @@ public class servAdmin extends HttpServlet {
 //                doActionInsererContratJouer(request,response);
 //            }
 
-       
+        RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
       

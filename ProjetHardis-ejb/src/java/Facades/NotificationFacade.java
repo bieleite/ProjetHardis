@@ -58,6 +58,14 @@ public class NotificationFacade extends AbstractFacade<Notification> implements 
        
     }
     
+    @Override
+    public List<Notification> rechercheNotifUtilisateur(Utilisateur u) {
+        Query requete = em.createQuery("SELECT p from Notification as p where p.utilisateur.id=:id and p.visible=true order by p.dateNotif desc");
+        requete.setParameter("id",u.getId());     
+        return  requete.getResultList();
+       
+    }
+    
     
     
     
