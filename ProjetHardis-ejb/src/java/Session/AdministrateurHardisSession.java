@@ -1295,6 +1295,18 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
+    public List<Atelier> listAtelier() {
+        List<Atelier> l = atelierFacade.findAll();
+        return l;       
+    }
+    
+    @Override
+    public List<Livrable> listLivrable() {
+        List<Livrable> l = livrableFacade.findAll();
+        return l;       
+    }
+    
+    @Override
     public List<Notification> getNotifsAdmin(UtilisateurHardis utlisateur) {
             return notificationFacade.rechercheNotifUtilisateur(utlisateur);
     }

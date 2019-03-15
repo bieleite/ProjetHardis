@@ -24,6 +24,25 @@ import javax.persistence.OneToOne;
 
 public class UtilisateurHardis extends Utilisateur implements Serializable {
 
+    public List<HistoriqueTraitement> getHistoriqueTraitements() {
+        return historiqueTraitements;
+    }
+
+    public void setHistoriqueTraitements(List<HistoriqueTraitement> historiqueTraitements) {
+        this.historiqueTraitements = historiqueTraitements;
+    }
+
+    public List<ContactMail> getContactMails() {
+        return contactMails;
+    }
+
+    public void setContactMails(List<ContactMail> contactMails) {
+        this.contactMails = contactMails;
+    }
+
+    @OneToMany(mappedBy = "validateur")
+    private List<HistoriqueTraitement> historiqueTraitements;
+
     @OneToMany(mappedBy = "utilisateurHardis")
     private List<ContactMail> contactMails;
 
@@ -41,13 +60,7 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
         this.echangeTels = echangeTels;
     }
 
-    public HistoriqueTraitement getHistoriqueTraitement() {
-        return historiqueTraitement;
-    }
-
-    public void setHistoriqueTraitement(HistoriqueTraitement historiqueTraitement) {
-        this.historiqueTraitement = historiqueTraitement;
-    }
+   
 
 
     public List<HistoriqueDevis> getHistoriqueDeviss() {
@@ -77,8 +90,7 @@ public class UtilisateurHardis extends Utilisateur implements Serializable {
     
     
 
-    @OneToOne(mappedBy = "refLocal")
-    private HistoriqueTraitement historiqueTraitement;
+    
 
 
     @OneToMany(mappedBy = "utilHardis")

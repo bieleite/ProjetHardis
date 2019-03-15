@@ -162,8 +162,8 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
-        <li class="active">Adresse</li>
-        <li class="active">Creer Adresse</li>
+        <li class="active">Agence</li>
+        <li class="active">Creer Agence</li>
       </ol>
     </section>
 
@@ -186,22 +186,10 @@
             <form role="form">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="numRue">Numero Rue</label>
-                  <input type="txt" name="numRue" class="form-control" id="exampleInputEmail1" placeholder="Numero Rue">
+                  <label for="nomAgence">Nom Atelier</label>
+                  <input type="txt" name="nomAgence" class="form-control" id="exampleInputEmail1" placeholder="Nom Agence">
                 </div>
-                <div class="form-group">
-                  <label for="nomRue">Nom Rue</label>
-                  <input type="txt" name="nomRue" class="form-control" id="exampleInputEmail1" placeholder="Nom Rue">
-                </div>
-                <div class="form-group">
-                  <label for="ville">Ville</label>
-                  <input type="txt" name="ville" class="form-control" id="exampleInputEmail1" placeholder="Ville">
-                </div>
-                <div class="form-group">
-                  <label for="cp">Code Postal</label>
-                  <input type="txt" name="cp" class="form-control" id="exampleInputEmail1" placeholder="Code Postal">
-                </div>
-                <input type="hidden" name="action" value="InsererAdresse">
+                <input type="hidden" name="action" value="InsererAgence">
              <!--   <div class="form-group">
                   <label>Select</label>
                   <select class="form-control">

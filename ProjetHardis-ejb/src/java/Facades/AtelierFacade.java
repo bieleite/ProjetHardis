@@ -70,7 +70,7 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
     @Override
     public  Atelier rechercheAtelierParNom(String nom) {
         Atelier ag = null;        
-        String txt = "SELECT ag FROM Atelier AS ag WHERE ag.NomAtelier=:nomatelier ";
+        String txt = "SELECT ag FROM Atelier AS ag WHERE ag.nomAtelier=:nomatelier ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("nomatelier",  nom);
         List<Atelier> res = req.getResultList();

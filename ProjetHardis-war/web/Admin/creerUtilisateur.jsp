@@ -4,6 +4,8 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.Agence"%>
+<%@page import="Entites.ProfilMetier"%>
 <%@page import="Entites.Client"%>
 <%@page import="Entites.Devis"%>
 <%@page import="Entites.Utilisateur"%>
@@ -25,6 +27,8 @@
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listagence" scope="request" class = "java.util.List"> </jsp:useBean>
+   
 
 
 </head>
@@ -162,8 +166,8 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
-        <li class="active">Adresse</li>
-        <li class="active">Creer Adresse</li>
+        <li class="active">Utilisateur</li>
+        <li class="active">Creer Utilisateur</li>
       </ol>
     </section>
 
@@ -186,25 +190,38 @@
             <form role="form">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="numRue">Numero Rue</label>
-                  <input type="txt" name="numRue" class="form-control" id="exampleInputEmail1" placeholder="Numero Rue">
+                  <label for="nomUtilisateur">Nom</label>
+                  <input type="txt" name="nomUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Nom">
                 </div>
                 <div class="form-group">
-                  <label for="nomRue">Nom Rue</label>
-                  <input type="txt" name="nomRue" class="form-control" id="exampleInputEmail1" placeholder="Nom Rue">
+                  <label for="prenomUtilisateur">Prenom</label>
+                  <input type="txt" name="prenomUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Prenom">
                 </div>
                 <div class="form-group">
-                  <label for="ville">Ville</label>
-                  <input type="txt" name="ville" class="form-control" id="exampleInputEmail1" placeholder="Ville">
+                  <label for="loginUtilisateur">Login</label>
+                  <input type="txt" name="loginUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Login">
                 </div>
                 <div class="form-group">
-                  <label for="cp">Code Postal</label>
-                  <input type="txt" name="cp" class="form-control" id="exampleInputEmail1" placeholder="Code Postal">
+                  <label for="mdpUtilisateur">Mot de Passe</label>
+                  <input type="pass" name="mdpUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Mot de Passe">
                 </div>
-                <input type="hidden" name="action" value="InsererAdresse">
+                <label for="PFUtilisateur">Profil Metier</label>
+                <select class="form-control" name="PFUtilisateur">
+                    <option value="Admin">Administrateur</option>
+                    <option value="Gestion">Gestionnaire</option>
+                    <option value="Visiteur">Visualisateur</option>
+                </select>
+                <label for="agence">Agence</label>
+                <select class="form-control" name="agence">
+                    <% List<Agence> lesAgences=listagence; %>
+                     <%  for (Agence a : lesAgences){%>
+                      <option value="<%=a.getId() %>" ><%=a.getNomAgence() %></option>
+                      <%}%>
+                </select>
+                <input type="hidden" name="action" value="InsererUtilisateurHardis">
              <!--   <div class="form-group">
-                  <label>Select</label>
-                  <select class="form-control">
+                  <label for="stadeEquipe">Select</label>
+                  <select class="form-control" name="stadeEquipe">
                     <option>option 1</option>
                     <option>option 2</option>
                     <option>option 3</option>

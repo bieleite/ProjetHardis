@@ -71,7 +71,7 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
     @Override
     public  Agence rechercheAgenceParNom(String NomAgence) {
         Agence ag = null;        
-        String txt = "SELECT ag FROM Agence AS ag WHERE ag.NomAgence=:nomagence ";
+        String txt = "SELECT ag FROM Agence AS ag WHERE ag.nomAgence=:nomagence ";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("nomagence", NomAgence);
         List<Agence> res = req.getResultList();

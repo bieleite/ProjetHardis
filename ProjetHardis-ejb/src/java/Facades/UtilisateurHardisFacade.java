@@ -12,15 +12,19 @@ import Entites.UtilisateurHardis;
 
 import Entites.EchangeTel;
 import Entites.Entreprise;
+import Entites.Helpers;
 import Entites.HistoriqueDevis;
 import Entites.HistoriqueTraitement;
 import Entites.ProfilTechnique;
 import Entites.StatutUtilisateur;
 import Entites.Utilisateur;
 import Entites.UtilisateurHardis;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -60,7 +64,12 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
        u.setNom(nom);
        u.setPrenom(prenom);
        u.setLogin(login);
-       u.setMdp(mdp);
+       try {
+            u.setMdp(Helpers.sha1(mdp));
+        } 
+       catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
        u.setDateRGPD(null);
        u.setRGPD(-1);
        u.setStatut(StatutUtilisateur.Actif);
@@ -68,8 +77,8 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
        u.setProfilTechique(profil);
        u.setEchangeTels(new ArrayList<EchangeTel>());
        u.setHistoriqueDeviss(new ArrayList<HistoriqueDevis>());
-       u.setHistoriqueTraitement(new HistoriqueTraitement());
-       u.setOffre_Profil_Utils(new ArrayList());
+       u.setHistoriqueTraitements(new ArrayList<>());
+       u.setOffre_Profil_Utils(new ArrayList<>());
        u.setQuestionSecrete("");
        u.setReponseSecrete("");
         u.setVisible(true);

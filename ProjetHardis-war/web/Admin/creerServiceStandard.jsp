@@ -4,6 +4,11 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.Atelier"%>
+<%@page import="Entites.Livrable"%>
+<%@page import="Entites.Offre"%>
+<%@page import="Entites.Agence"%>
+<%@page import="Entites.ProfilMetier"%>
 <%@page import="Entites.Client"%>
 <%@page import="Entites.Devis"%>
 <%@page import="Entites.Utilisateur"%>
@@ -25,6 +30,10 @@
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listoffre" scope="request" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listatelier" scope="request" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listlivrable" scope="request" class = "java.util.List"> </jsp:useBean>
+   
 
 
 </head>
@@ -162,8 +171,8 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
-        <li class="active">Adresse</li>
-        <li class="active">Creer Adresse</li>
+        <li class="active">Service</li>
+        <li class="active">Creer Service</li>
       </ol>
     </section>
 
@@ -186,25 +195,105 @@
             <form role="form">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="numRue">Numero Rue</label>
-                  <input type="txt" name="numRue" class="form-control" id="exampleInputEmail1" placeholder="Numero Rue">
+                  <label for="nomService">Nom Service</label>
+                  <input type="txt" name="nomService" class="form-control" id="exampleInputEmail1" placeholder="Nom Service">
                 </div>
                 <div class="form-group">
-                  <label for="nomRue">Nom Rue</label>
-                  <input type="txt" name="nomRue" class="form-control" id="exampleInputEmail1" placeholder="Nom Rue">
+                  <label for="descriptionService">Description Service</label>
+                  <input type="txt" name="descriptionService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
                 </div>
                 <div class="form-group">
-                  <label for="ville">Ville</label>
-                  <input type="txt" name="ville" class="form-control" id="exampleInputEmail1" placeholder="Ville">
+                  <label for="descPrestaService">Description Prestation Service</label>
+                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
                 </div>
                 <div class="form-group">
-                  <label for="cp">Code Postal</label>
-                  <input type="txt" name="cp" class="form-control" id="exampleInputEmail1" placeholder="Code Postal">
+                  <label for="descPrestaService">Nombre d'Heures Consultant Junior</label>
+                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
                 </div>
-                <input type="hidden" name="action" value="InsererAdresse">
+                <div class="form-group">
+                  <label for="descPrestaService">Nombre d'Heures Consultant Confirmé</label>
+                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
+                </div>
+                <div class="form-group">
+                  <label for="descPrestaService">Nombre d'Heures Consultant Senior</label>
+                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
+                </div>
+                  <% List<Livrable> lesLivrables=listlivrable; %>
+                    
+                <div class="form-group">
+                  <div class="checkbox">
+                <label for="listlivrable">Livrables</label>
+                   <table border width=50%>
+                        <tr> 
+                            <td>Nom Livrable</td>
+                            <td>Selecionné</td>
+                        </tr>
+                            <% for (Livrable l : lesLivrables){%>
+                            <tr>
+                                <td width=15%><%=l.getNomLivrable() %></td>
+                                <td width=15%><input type="checkbox" name="listlivrable" value="<%=l.getId()%>"></td>
+                            </tr><%}%>     
+                    </table>
+                  </div>
+                </div>
+                     <% List<Atelier> lesAteliers=listatelier; %>
+                    
+                <div class="form-group">
+                  <div class="checkbox">
+                <label for="listatelier">Atelier</label>
+                   <table border width=50%>
+                        <tr> 
+                            <td>Nom atelier</td>
+                            <td>Selecionné</td>
+                        </tr>
+                            <% for (Atelier a : lesAteliers){%>
+                            <tr>
+                                <td width=15%><%=a.getNomAtelier() %></td>
+                                <td width=15%><input type="checkbox" name="listatelier" value="<%=a.getId()%>"></td>
+                            </tr><%}%>     
+                    </table>
+                  </div>
+                </div>
+                <label for="lieuInterv">Lieu d'intervention</label>
+                <select class="form-control" name="lieuInterv">
+                    <option value="Agence_Hardis">Agence Hardis</option>
+                    <option value="Mixte">Mixte</option>
+                    <option value="Site_Client">Site Client</option>
+                </select>
+                <label for="offre">Offre</label>
+                <select class="form-control" name="offre">
+                    <% List<Offre> lesOffres=listoffre; %>
+                     <%  for (Offre o : lesOffres){%>
+                      <option value="<%=o.getId() %>" ><%=o.getLibelle() %></option>
+                      <%}%>
+                </select>
+                <div class="form-group">
+                  <label for="cout">Cout</label>
+                  <input type="txt" name="cout" class="form-control" id="exampleInputEmail1" placeholder="Login">
+                </div>
+                <label for="facturation">Facturation des Frais</label>
+                <select class="form-control" name="facturation">
+                    <option value="Oui">Oui</option>
+                    <option value="Non">Non</option>
+                </select>
+                <div class="form-group">
+                  <label for="listeCond">Liste de conditions</label>
+                  <input type="text" name="listeCond" class="form-control" id="exampleInputEmail1" placeholder="Liste de conditions">
+                </div>
+                <div class="form-group">
+                  <label for="delai">Delai</label>
+                  <input type="text" name="delai" class="form-control" id="exampleInputEmail1" placeholder="Delai">
+                </div>
+                <label for="typeS">Type de Service</label>
+                <select class="form-control" name="typeS">
+                    <option value="Standard">Standard</option>
+                    <option value="Non_Standard">Non Standard</option>
+                </select>
+                
+                <input type="hidden" name="action" value="InsererServiceStandard">
              <!--   <div class="form-group">
-                  <label>Select</label>
-                  <select class="form-control">
+                  <label for="stadeEquipe">Select</label>
+                  <select class="form-control" name="stadeEquipe">
                     <option>option 1</option>
                     <option>option 2</option>
                     <option>option 3</option>

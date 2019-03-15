@@ -108,10 +108,10 @@ public class servAdmin extends HttpServlet {
                         if (listeNotif==null) listeNotif=new ArrayList<>();
                         if (listeDevis==null) listeDevis=new ArrayList<>();
                         if (listeClient==null) listeClient=new ArrayList<>();
-                        request.setAttribute("listeCommunication",listeCommunication);
-                        request.setAttribute("listeNotif",listeNotif);
-                        request.setAttribute("listeDevis",listeDevis);
-                        request.setAttribute("listeClient",listeClient);
+                        sess.setAttribute("listeCommunication",listeCommunication);
+                        sess.setAttribute("listeNotif",listeNotif);
+                        sess.setAttribute("listeDevis",listeDevis);
+                        sess.setAttribute("listeClient",listeClient);
                         jspClient="/Admin/dashboardAdmin.jsp";    
                                 }   
                     else{
@@ -132,29 +132,30 @@ public class servAdmin extends HttpServlet {
             }
             else if(act.equals("CreerAgence"))
             {
-                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
-                List<Communication> listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
-                List<Notification> listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
-                List<Devis> listeDevis = administrateurHardisSession.listDevis();
-                List<Client> listeClient = administrateurHardisSession.listClient();
-                if (listeCommunication==null) listeCommunication=new ArrayList<>();
-                if (listeNotif==null) listeNotif=new ArrayList<>();
-                if (listeDevis==null) listeDevis=new ArrayList<>();
-                if (listeClient==null) listeClient=new ArrayList<>();
-                request.setAttribute("listeCommunication",listeCommunication);
-                request.setAttribute("listeNotif",listeNotif);
-                request.setAttribute("listeDevis",listeDevis);
-                request.setAttribute("listeClient",listeClient);
+//                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+//                List<Communication> listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
+//                List<Notification> listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
+//                List<Devis> listeDevis = administrateurHardisSession.listDevis();
+//                List<Client> listeClient = administrateurHardisSession.listClient();
+//                if (listeCommunication==null) listeCommunication=new ArrayList<>();
+//                if (listeNotif==null) listeNotif=new ArrayList<>();
+//                if (listeDevis==null) listeDevis=new ArrayList<>();
+//                if (listeClient==null) listeClient=new ArrayList<>();
+//                request.setAttribute("listeCommunication",listeCommunication);
+//                request.setAttribute("listeNotif",listeNotif);
+//                request.setAttribute("listeDevis",listeDevis);
+//                request.setAttribute("listeClient",listeClient);
                 jspClient="/Admin/creerAgence.jsp";
             }
             else if(act.equals("InsererAgence"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAgence(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("CreerAdresse"))
             {
-                                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
                 List<Communication> listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
                 List<Notification> listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();
@@ -173,6 +174,7 @@ public class servAdmin extends HttpServlet {
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAdresse(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("CreerAtelier"))
             {
@@ -182,10 +184,12 @@ public class servAdmin extends HttpServlet {
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAtelier(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
             }
              else if(act.equals("listeDevisComunnication"))
             {
                 List<Devis> listdevis= administrateurHardisSession.listDevis();
+                if (listdevis==null) listdevis=new ArrayList<>();
                 request.setAttribute("listeDevis",listdevis);
                 jspClient="/Admin/CreerCommunication.jsp";
             }
@@ -202,10 +206,12 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerDisponibilite(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("listeHistoriquesDevisDoc"))
             {
                 List<HistoriqueDevis> listhistdevis= administrateurHardisSession.listHistoriqueDevis();
+                if (listhistdevis==null) listhistdevis=new ArrayList<>();
                 request.setAttribute("listHistDevis",listhistdevis);
                 jspClient="/Admin/CreerCommunication.jsp";
             }
@@ -213,10 +219,12 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerDocument(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
              else if(act.equals("listeDevisEchangeTel"))
             {
                 List<Devis> listdevis= administrateurHardisSession.listDevis();
+                if (listdevis==null) listdevis=new ArrayList<>();
                 request.setAttribute("listeDevis",listdevis);
                 jspClient="/Admin/CreerEchangeTel.jsp";
             }
@@ -224,14 +232,18 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerEchangeTel(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("listesPourModifierDevis"))
             {
                 List<Agence> listagence= administrateurHardisSession.listAgence();
+                if (listagence==null) listagence=new ArrayList<>();
                 request.setAttribute("listeAgence",listagence);
                 List<Client> listclient= administrateurHardisSession.listClient();
+                if (listclient==null) listclient=new ArrayList<>();
                 request.setAttribute("listeClient",listclient);
                 List<Devis> listdevis= administrateurHardisSession.listDevis();
+                if (listdevis==null) listdevis=new ArrayList<>();
                 request.setAttribute("listeDevis",listdevis);
                 jspClient="/Admin/ModifierDevis.jsp";
             }
@@ -239,10 +251,12 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionModifierDevis(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("listesCreerLivrable"))
             {
                 List<Service> listservice= administrateurHardisSession.listService();
+                if (listservice==null) listservice=new ArrayList<>();
                 request.setAttribute("listeService",listservice);
                 jspClient="/Admin/CreerLivrable.jsp";
             }
@@ -250,6 +264,7 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerLivrable(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("CreerOffre"))
             {
@@ -259,39 +274,52 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerOffre(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("listesCreerService"))
             {
                 List<Offre> listoffre= administrateurHardisSession.listOffre();
+                if (listoffre==null) listoffre=new ArrayList<>();
                 request.setAttribute("listoffre",listoffre);
-                jspClient="/Admin/CreerService.jsp";
+                jspClient="/Admin/creerService.jsp";
             }
             else if(act.equals("InsererService"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerService(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("listesCreerServiceStandard"))
             {
                 List<Offre> listoffre= administrateurHardisSession.listOffre();
+                List<Atelier> listatelier= administrateurHardisSession.listAtelier();
+                List<Livrable> listlivrable = administrateurHardisSession.listLivrable();
+                if (listoffre==null) listoffre=new ArrayList<>();
+                if (listatelier==null) listatelier=new ArrayList<>();
+                if (listlivrable==null) listlivrable=new ArrayList<>();
                 request.setAttribute("listoffre",listoffre);
-                jspClient="/Admin/CreerServiceStandard.jsp";
+                request.setAttribute("listatelier",listatelier);
+                request.setAttribute("listlivrable",listlivrable);
+                jspClient="/Admin/creerServiceStandard.jsp";
             }
             else if(act.equals("InsererServiceStandard"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerServiceStandard(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("listesCreerUtiliateurHardis"))
             {
                 List<Agence> listagence= administrateurHardisSession.listAgence();
-                request.setAttribute("listeAgence",listagence);
-                jspClient="/Admin/CreerServiceStandard.jsp";
+                if (listagence==null) listagence=new ArrayList<>();
+                request.setAttribute("listagence",listagence);
+                jspClient="/Admin/creerUtilisateur.jsp";
             }
             else if(act.equals("InsererUtilisateurHardis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerUtilisateur(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
 //            else{
 //                jspClient="/ChoixE.jsp";
@@ -331,11 +359,17 @@ public class servAdmin extends HttpServlet {
         else {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
-                administrateurHardisSession.creerAgence(nomAgence, ut);
-                Agence agence = administrateurHardisSession.rechercherAgence(0, nomAgence, ut);
-                String nomagence = agence.getNomAgence();
-                String classe = agence.getClass().toString();
-                message= " "+classe+":"+ nomagence+" créé avec succès !";
+                Agence agence =  administrateurHardisSession.rechercherAgence(0, nomAgence, ut);
+                if(agence!=null){
+                    message= "Erreur agence: "+nomAgence +" déjà dans la base de données";
+                }
+                else{
+                    administrateurHardisSession.creerAgence(nomAgence, ut);
+                    agence = administrateurHardisSession.rechercherAgence(0, nomAgence, ut);
+                    String nomagence = agence.getNomAgence();
+                    String classe = agence.getClass().toString();
+                    message= " "+classe+":"+ nomagence+" créé avec succès !";
+                }
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
@@ -379,11 +413,16 @@ public class servAdmin extends HttpServlet {
         else {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
-                administrateurHardisSession.creerAtelier(nomAtelier, ut);
                 Atelier atelier = administrateurHardisSession.rechercherAtelier(0, nomAtelier, ut);
+                if(atelier!=null){
+                    message= "Erreur atelier: "+nomAtelier +" déjà dans la base de données";
+                }else{
+                administrateurHardisSession.creerAtelier(nomAtelier, ut);
+                atelier = administrateurHardisSession.rechercherAtelier(0, nomAtelier, ut);
                 String nomentite = atelier.getNomAtelier();
                 String classe = atelier.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";
+                }
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
@@ -568,9 +607,13 @@ public class servAdmin extends HttpServlet {
             if(ut!=null){
                 Long idservice = Long.valueOf(service);
                 Livrable o = administrateurHardisSession.creerLivrable(nom, idservice, ut);
+                if(o!=null){
+                    message= "Erreur livrable: "+ nom +" déjà dans la base de données";
+                }else{
+                o = administrateurHardisSession.creerLivrable(nom, idservice, ut);
                 String nomentite = o.getNomLivrable();
                 String classe = o.getClass().toString();
-                message= " "+classe+":"+ nomentite+" créé avec succès !";
+                message= " "+classe+":"+ nomentite+" créé avec succès !";}
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
@@ -672,8 +715,8 @@ public class servAdmin extends HttpServlet {
         String snbJJ= request.getParameter("nbJJService");
         String snbHA= request.getParameter("nbHAService");
         String snbHS= request.getParameter("nbHSService");
-        String[] listidlivrable = request.getParameterValues("nomService");
-        String[] listeidAtelier= request.getParameterValues("nomService");
+        String[] listidlivrable = request.getParameterValues("listlivrable");
+        String[] listeidAtelier= request.getParameterValues("listatelier");
         String nomService = request.getParameter("nomService");
         String descriptionService= request.getParameter("descriptionService");
         String lieuInterv= request.getParameter("lieuInterv");
@@ -742,7 +785,7 @@ public class servAdmin extends HttpServlet {
         String login= request.getParameter("loginUtilisateur");
         String mdp= request.getParameter("mdpUtilisateur");
         String profil = request.getParameter("PFUtilisateur");
-        String agence= request.getParameter("libelleOffre");
+        String agence= request.getParameter("agence");
         String message = null;
         if(nom.trim().isEmpty()||prenom.trim().isEmpty()||login.trim().isEmpty()||mdp.trim().isEmpty()||profil.trim().isEmpty()||agence.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";

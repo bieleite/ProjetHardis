@@ -45,7 +45,8 @@ public class HistoriqueTraitement implements Serializable {
         this.devis = devis;
     }
     
-    @OneToOne
+    
+    @ManyToOne
         private UtilisateurHardis validateur;
 
     /**
