@@ -134,7 +134,7 @@
 
 
         <li>
-          <a href="pages/mailbox/mailbox.html">
+          <a href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/pages/mailbox/mailbox.html">
             <i class="fa fa-envelope"></i> <span>Messages</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-yellow">12</small>
