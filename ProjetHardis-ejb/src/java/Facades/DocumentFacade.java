@@ -45,6 +45,7 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
         doc.setDescriptif(descriptif);
         doc.setHistoDevis(historiquedevis);
         doc.setLienDoc(liendoc);
+       
         em.persist(doc);
         return doc;
     }
@@ -109,5 +110,13 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
     public DocumentFacade() {
         super(Document.class);
     }
+
+    @Override
+    public void majHD(Document d, HistoriqueDevis hd) {
+        d.setHistoDevis(hd);
+        em.merge(d);
+    }
+    
+    
     
 }

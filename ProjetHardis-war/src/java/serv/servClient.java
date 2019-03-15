@@ -6,6 +6,7 @@
 package serv;
 
 import Entites.Client;
+import Entites.Communication;
 import Entites.Devis;
 import Entites.Entreprise;
 import Entites.Notification;
@@ -285,6 +286,13 @@ boolean cpo = false;
 
         String act = request.getParameter("action");
         
+         if (act.equals("retour")) {
+          
+            jspClient = "/Client/tabBord.jsp";
+           
+}
+        
+        
         if (act.equals("connexion")) {
           
             Client c = connexion(request, response);
@@ -337,20 +345,31 @@ boolean cpo = false;
           }
           if (act.equals("afficheDevis"))
           {
+              
              String idD = request.getParameter("idDev");
+             
+             
+              String mess= request.getParameter("message");
+               if (mess!=null)
+             {
+                 clientSession.creerComm(mess, Long.valueOf(idD));
+             }
+               
              if (idD!="")
              {
                  long id = Long.valueOf(idD);
                  Devis d = clientSession.recupDevis(id);
                  
-                List<Notification> listeNotif = clientSession.getNotifsClient(clientT.getId());
-                if (listeNotif==null) listeNotif=new ArrayList<>();
+             
+                
+                 List<Communication> listeC =  clientSession.rechercheCommDev(Long.valueOf(idD));
+                if (listeC==null) listeC=new ArrayList<>();
 
                 jspClient = "/Client/afficheDevis.jsp";
       
-                sess.setAttribute("listeNotif", listeNotif);
+              
                 sess.setAttribute("devis", d);
-                sess.setAttribute("client", clientT);
+              sess.setAttribute("listMessage", listeC);
                 
              
                  
@@ -358,6 +377,9 @@ boolean cpo = false;
              
               
           }
+        
+           
+          
           
           
         

@@ -9,6 +9,7 @@ import Entites.Action;
 import Entites.Adresse;
 import Entites.Agence;
 import Entites.Client;
+import Entites.Communication;
 import Entites.Devis;
 import Entites.DevisNonStandard;
 import Entites.Document;
@@ -16,6 +17,8 @@ import Entites.Entreprise;
 import Entites.Facturation;
 import Entites.Facture;
 import Entites.HistoriqueDevis;
+import Entites.HistoriqueEtats;
+import Entites.HistoriqueTraitement;
 import Entites.Notification;
 import Entites.Offre_Profil_Util_CV;
 import Entites.ProfilMetier;
@@ -155,21 +158,27 @@ public class ClientSession implements ClientSessionLocal {
         {      
            Devis d =  devisFacade.creerDevis(TypeService.Standard, serv, dateDevis, dateInterv, Facturation.Auto, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getEntreprise().getAgence());
                     
-           historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
+           HistoriqueEtats he =   historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
           
            List<Document> listeDocs = new ArrayList<>();
           
            listeDocs.add(documentFacade.creerDocument("conditions contrat",serv.getConditionsContract(), null));
            
            HistoriqueDevis hd = historiqueDevisFacade.creerHistoriqueDevis(d, null, null, 1, null, listeDocs);
-         
+           
+     //      HistoriqueTraitement ht =   historiqueTraitementFacade.creerHistoriqueTraitement(new Date(), null, TypeUtilisateur.r, d, null, ref, null);
+
+         //  historiqueDevisFacade.ajoutDocHistoDevis(hd, listeDocs);
+                 devisFacade.majHD(d, hd);
+devisFacade.majHE(d, he);
+//devisFacade.majHT(d, ht);
            logsFacade.creerLog(Action.Create, new Date(), "création devis avec id : "+d.getId(), cli);
         }
         else if (serv!=null)
         {
            Devis d  =  devisFacade.creerDevis(TypeService.Non_Standard, serv, dateDevis, dateInterv, Facturation.Manuel, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getEntreprise().getAgence());
            
-           historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
+           HistoriqueEtats he = historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
            
            List<UtilisateurHardis>  listeU =  utilisateurHardisFacade.rechercheUtilisateurHParAgence(cli.getEntreprise().getAgence());
           
@@ -185,9 +194,22 @@ public class ClientSession implements ClientSessionLocal {
                    if (pm.getNiveauHabilitation().toString().equals("Referent"))
                        ref = u;
                }
-           }       
-            historiqueTraitementFacade.creerHistoriqueTraitement(new Date(), null, TypeUtilisateur.r, d, null, ref, null);
+           }    
+           
+        Document doc = documentFacade.creerDocument("conditions contrat ",serv.getConditionsContract(), null);
+         List<Document> listeD = new ArrayList<>();
+         listeD.add(doc);
+        HistoriqueDevis hd = historiqueDevisFacade.creerHistoriqueDevis(d, null, null, 1, null, listeD);
+        documentFacade.majHD(doc, hd);
+
+        //historiqueDevisFacade.ajoutDocHistoDevis(hd, listeD);
+                  
+        HistoriqueTraitement ht =   historiqueTraitementFacade.creerHistoriqueTraitement(new Date(), null, TypeUtilisateur.r, d, null, ref, null);
             logsFacade.creerLog(Action.Create, new Date(), "création devis avec id : "+d.getId(), cli);
+       
+                devisFacade.majHD(d, hd);
+devisFacade.majHE(d, he);
+devisFacade.majHT(d, ht);
         }
     }
     }
@@ -355,6 +377,19 @@ return e;
     @Override
     public Devis recupDevis(long id) {
         return devisFacade.rechercheDevis(id);
+    }
+
+    @Override
+    public List<Communication> rechercheCommDev(long id) {
+        Devis d = devisFacade.rechercheDevis(id);
+        List<Communication> liste = communicationFacade.rechercheCommunicationParDevis(d);
+        return liste;
+    }
+
+    @Override
+    public void creerComm(String mess, long idD) {
+        Devis d = devisFacade.rechercheDevis(idD);
+        communicationFacade.creerCommunication(new Date(), mess, d, null, "Q", 0);
     }
 
 

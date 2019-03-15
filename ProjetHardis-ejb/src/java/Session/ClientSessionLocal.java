@@ -7,6 +7,7 @@ package Session;
 
 import Entites.Adresse;
 import Entites.Client;
+import Entites.Communication;
 import Entites.Devis;
 import Entites.DevisNonStandard;
 import Entites.Entreprise;
@@ -72,6 +73,10 @@ public interface ClientSessionLocal {
     Service rechercheServiceParId(long id);
 
     Devis recupDevis(long id);
+
+    List<Communication> rechercheCommDev(long id);
+
+    void creerComm(String mess, long idD);
 
 
     

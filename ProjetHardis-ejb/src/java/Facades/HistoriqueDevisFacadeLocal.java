@@ -41,7 +41,7 @@ public interface HistoriqueDevisFacadeLocal {
 
     int count();
    
-    HistoriqueDevis creerHistoriqueDevis( Devis d, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc);
+    HistoriqueDevis creerHistoriqueDevis( Devis d, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,  List<Document> listeDoc);
     
     List<HistoriqueDevis> listHistoriqueDevis();
     
@@ -51,6 +51,8 @@ public interface HistoriqueDevisFacadeLocal {
     
         
     void modifHistoriqueDevis(HistoriqueDevis entite, Date datedebut, Date datefin, int numpropo, UtilisateurHardis utilisateur,List<Document> doc);
+
+    HistoriqueDevis ajoutDocHistoDevis(HistoriqueDevis h, List<Document> d);
 
 
 

@@ -18,9 +18,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
- <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
-  <jsp:useBean id="listMessage" scope="session" class = "java.util.List"> </jsp:useBean>
-
+ <jsp:useBean id="listMessage" scope="session" class = "java.util.List"> </jsp:useBean>
+  <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
      
   <title>AdminLTE 2 | Dashboard</title>
  <%@include  file = "meta.jsp" %>
@@ -29,10 +28,8 @@
 <div class="wrapper">
 
    <%@include  file = "menu.jsp" %>
-  <% Devis d = devis;%>
-  
-    <% List<Communication> liste = listMessage;
-%>
+  <% List<Communication> liste = listMessage;
+  Devis d = devis;%>
    <body>
         <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -50,81 +47,13 @@
      
       <!-- Main row -->
       <div class="row">
-          
-   <div class="col-md-8">
 
-                    <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Détail devis</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="table-responsive">
-                <table class="table no-margin">
-                  <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Offre</th>
-                    <th>Service</th>
-                    <th>Status</th>
-                     <th>Date intervention</th>
-                    <th>Conditions</th>
-                     <th>Devis</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                                              
-                   <td><% 
-                       out.print("DEV"+d.getId());
-                       %></td>
-                   <td><%=d.getService().getOffre().getLibelle()%></td>
-                   <td><%=d.getService().getNomService()%></td>
-                   <td><%=d.getStatut()%></span></td>
-                    <td><%=d.getDateIntervSouhaitee()%></span></td>
-                   <td><%=d.getService().getConditionsContract()%></span></td>
-                   <td><%=d.getHistoriqueDeviss().get(0).getDocuments().get(0).getLienDoc()%></span></td>
-                  
-                  </tr>
-
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.table-responsive -->
-            </div>
-                   <div row>
-                          <div class="box-footer clearfix">
-                              <div class="col-md-10">
-              <a href="servClient?action=appelDevis" class="btn btn-sm btn-info btn-flat pull-right">Accepte devis</a>
-                              </div>
-               <div class="col-md-2">
-              <a href="servClient?action=appelDevis" class="btn btn-sm btn-danger btn-flat pull-right">Refuse devis</a>
-               </div></div>
-                   </div>
-            <!-- /.box-body -->
-           
-                    </div>
-            <!-- /.box-footer -->
-
-          </div>      
-            <div class="row">
-                <div class="col-md-4">
+            <div class="col-md-6">
               <!-- DIRECT CHAT -->
               <div class="box box-warning direct-chat direct-chat-warning">
                 <div class="box-header with-border">
                   <h3 class="box-title">Communication</h3>
- <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-               
-             
-                  </div>
+
 
                 </div>
                 <!-- /.box-header -->
@@ -177,7 +106,6 @@
                   </div>
                   <!-- /.direct-chat-pane -->
                 </div>
-              </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
                   <form action="servClient" method="get">
@@ -196,6 +124,7 @@
               <!--/.direct-chat -->
             </div>
             <!-- /.col -->
+
    
    
         </div>
