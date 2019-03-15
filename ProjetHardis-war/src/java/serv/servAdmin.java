@@ -395,6 +395,7 @@ public class servAdmin extends HttpServlet {
         throws ServletException, IOException {
         String descriptif = request.getParameter("descripitfDocument"); 
         String liendoc = request.getParameter("lienDocument"); 
+         String typeDoc = request.getParameter("typeDoc"); 
         String historiquedevis = request.getParameter("historiquedevisDocument");
         String message = null;
         if(descriptif.trim().isEmpty()||liendoc.trim().isEmpty()||historiquedevis.trim().isEmpty()){
@@ -404,7 +405,7 @@ public class servAdmin extends HttpServlet {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
                 Long idhistorique = Long.valueOf(historiquedevis);
-                Document document = administrateurHardisSession.creerDocument(descriptif, liendoc, idhistorique, ut);
+                Document document = administrateurHardisSession.creerDocument(descriptif, liendoc, idhistorique, ut, typeDoc);
                 String nomentite = document.getDescriptif();
                 String classe = document.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";

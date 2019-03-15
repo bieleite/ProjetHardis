@@ -106,6 +106,14 @@ public class Offre_Profil_Util_CVFacade extends AbstractFacade<Offre_Profil_Util
         List<Offre_Profil_Util_CV> liste =  requete.getResultList();   
         return liste;
     }
+
+    @Override
+    public List<Offre_Profil_Util_CV> rechercheOPUCParOffre(Offre o) {
+         Query requete = em.createQuery("SELECT p from Offre_Profil_Util_CV as p where p.offre=:o");
+        requete.setParameter("o",o);     
+        List<Offre_Profil_Util_CV> liste =  requete.getResultList();   
+        return liste;
+    }
     
     
     

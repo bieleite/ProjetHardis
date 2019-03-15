@@ -77,5 +77,9 @@ public interface DevisFacadeLocal {
 
     void majHE(Devis d, HistoriqueEtats he);
 
+    String rechercheDocDevis(Devis d);
+
+    void changeStatutPaye(String type, Devis d);
+
   
 }

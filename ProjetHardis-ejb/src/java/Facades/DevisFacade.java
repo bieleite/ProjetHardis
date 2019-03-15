@@ -237,6 +237,22 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         d.getHistoriqueEtatss().add(he);
         em.merge(d);
     }
+
+    @Override
+    public String rechercheDocDevis(Devis d) {
+      return "";
+    }
+
+    @Override
+    public void changeStatutPaye(String type, Devis d) {
+        if (type.equals("1"))
+        {
+            d.setStatut(Statut.Acompte_regle);
+        }
+        else if (type.equals("2"))
+             d.setStatut(Statut.Total_regle);
+        em.merge(d);
+    }
     
     
     

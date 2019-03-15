@@ -69,7 +69,7 @@
                    <td><a href="servClient?action=afficheDevis&idDev=<%=d.getId()%>"><% out.print("DEV"+d.getId());%></a></td>
                     <td><%=d.getService().getOffre().getLibelle()%></td>
                      <td><%=d.getService().getNomService()%></td>
-                    <td><%=d.getStatut()%></span></td>
+                    <td><%=d.getStatut().toString() %></span></td>
                                
                   </tr>
     <%}%>  

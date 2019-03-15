@@ -8,6 +8,7 @@ package Facades;
 import Entites.Document;
 
 import Entites.HistoriqueDevis;
+import Entites.TypeDoc;
 
 
 import java.util.List;
@@ -39,7 +40,7 @@ public interface DocumentFacadeLocal {
     int count();
     
 
-    Document creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis);
+    Document creerDocument( String descriptif, String liendoc, HistoriqueDevis historiquedevis, TypeDoc type);
     
     List<Document> listDocument();
 

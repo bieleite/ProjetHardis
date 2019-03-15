@@ -15,6 +15,7 @@ import Entites.Facture;
 import Entites.Notification;
 import Entites.Service;
 import Entites.Statut;
+import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -77,6 +78,14 @@ public interface ClientSessionLocal {
     List<Communication> rechercheCommDev(long id);
 
     void creerComm(String mess, long idD);
+
+    String rechercheDocDevis(long id);
+
+    Facture creerFacture(long id);
+
+    void payerFactureFinale(long id);
+
+    List<UtilisateurHardis> rechercheConsultantsOffre(long id);
 
 
     

@@ -4,6 +4,8 @@
     Author     : 6170361
 --%>
 
+<%@page import="Entites.HistoriqueDevis"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entites.Communication"%>
 <%@page import="Entites.Service"%>
 <%@page import="Entites.Devis"%>
@@ -81,15 +83,17 @@
                   <tbody>
                   <tr>
                                               
-                   <td><% 
+                   <td><% SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
+                   String devislien = (String)request.getAttribute("lienD");
+                   
                        out.print("DEV"+d.getId());
                        %></td>
                    <td><%=d.getService().getOffre().getLibelle()%></td>
                    <td><%=d.getService().getNomService()%></td>
                    <td><%=d.getStatut()%></span></td>
-                    <td><%=d.getDateIntervSouhaitee()%></span></td>
-                   <td><%=d.getService().getConditionsContract()%></span></td>
-                   <td><%=d.getHistoriqueDeviss().get(0).getDocuments().get(0).getLienDoc()%></span></td>
+                   <td><%=dformat.format(d.getDateIntervSouhaitee())%></span></td>
+                   <td><a href="<%=d.getService().getConditionsContract()%>" >Conditions générales</a></span></td>
+                   <td><a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>">Devis</a></span></td>
                   
                   </tr>
 
@@ -101,10 +105,10 @@
                    <div row>
                           <div class="box-footer clearfix">
                               <div class="col-md-10">
-              <a href="servClient?action=appelDevis" class="btn btn-sm btn-info btn-flat pull-right">Accepte devis</a>
+              <a href="" class="btn btn-sm btn-info btn-flat pull-right">Changer date</a>
                               </div>
                <div class="col-md-2">
-              <a href="servClient?action=appelDevis" class="btn btn-sm btn-danger btn-flat pull-right">Refuse devis</a>
+              <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
                </div></div>
                    </div>
             <!-- /.box-body -->
@@ -183,8 +187,8 @@
                   <form action="servClient" method="get">
                     <div class="input-group">
                       <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                                        <input type ="hidden" name="action" value="poseQuestDev">
-                                        <input type ="hidden" name="idD" value="<%=d.getId()%>">
+                                        <input type ="hidden" name="action" value="afficheDevis">
+                                        <input type ="hidden" name="idDev" value="<%=d.getId()%>">
                       <span class="input-group-btn">
                          <button type="submit" class="btn btn-primary">Envoyer</button>
                           </span>

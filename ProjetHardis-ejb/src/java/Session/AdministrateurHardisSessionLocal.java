@@ -130,7 +130,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Disponibilite> rechercherDisponibiliteParUtilisateur(long idutilisateur, UtilisateurHardis hardis);
     
-    Document creerDocument(String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis);
+    Document creerDocument(String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis, String typeD);
     
     void modifierDocument(long iddocument, String descriptif, String liendoc, long idhistoriquedevis, UtilisateurHardis hardis);
     
