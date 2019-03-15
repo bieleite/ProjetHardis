@@ -123,6 +123,7 @@ public class servAdmin extends HttpServlet {
                     request.setAttribute("message","Login ou/et password non rempli");
                     jspClient="/Admin/Login.jsp";
                 }
+                
             }
             else if(act.equals("Menu"))
             {
@@ -131,15 +132,53 @@ public class servAdmin extends HttpServlet {
             }
             else if(act.equals("CreerAgence"))
             {
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<Communication> listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
+                List<Notification> listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();
+                List<Client> listeClient = administrateurHardisSession.listClient();
+                if (listeCommunication==null) listeCommunication=new ArrayList<>();
+                if (listeNotif==null) listeNotif=new ArrayList<>();
+                if (listeDevis==null) listeDevis=new ArrayList<>();
+                if (listeClient==null) listeClient=new ArrayList<>();
+                request.setAttribute("listeCommunication",listeCommunication);
+                request.setAttribute("listeNotif",listeNotif);
+                request.setAttribute("listeDevis",listeDevis);
+                request.setAttribute("listeClient",listeClient);
+                jspClient="/Admin/creerAgence.jsp";
+            }
+            else if(act.equals("InsererAgence"))
+            {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAgence(request,response);
             }
             else if(act.equals("CreerAdresse"))
             {
+                                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<Communication> listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
+                List<Notification> listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();
+                List<Client> listeClient = administrateurHardisSession.listClient();
+                if (listeCommunication==null) listeCommunication=new ArrayList<>();
+                if (listeNotif==null) listeNotif=new ArrayList<>();
+                if (listeDevis==null) listeDevis=new ArrayList<>();
+                if (listeClient==null) listeClient=new ArrayList<>();
+                request.setAttribute("listeCommunication",listeCommunication);
+                request.setAttribute("listeNotif",listeNotif);
+                request.setAttribute("listeDevis",listeDevis);
+                request.setAttribute("listeClient",listeClient);
+               jspClient="/Admin/creerAdresse.jsp";
+            }
+            else if(act.equals("InsererAdresse"))
+            {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAdresse(request,response);
             }
-             else if(act.equals("CreerAtelier"))
+            else if(act.equals("CreerAtelier"))
+            {
+               jspClient="/Admin/creerAtelier.jsp";
+            }
+             else if(act.equals("InsererAtelier"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAtelier(request,response);
@@ -150,12 +189,16 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeDevis",listdevis);
                 jspClient="/Admin/CreerCommunication.jsp";
             }
-            else if(act.equals("CreerCommunication"))
+            else if(act.equals("InsererCommunication"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerCommunication(request,response);
             }
             else if(act.equals("CreerDisponibilite"))
+            {
+               jspClient="/Admin/creerDisponibilite.jsp";
+            }
+            else if(act.equals("InsererDisponibilite"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerDisponibilite(request,response);
@@ -166,7 +209,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listHistDevis",listhistdevis);
                 jspClient="/Admin/CreerCommunication.jsp";
             }
-            else if(act.equals("CreerDocument"))
+            else if(act.equals("InsererDocument"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerDocument(request,response);
@@ -177,7 +220,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeDevis",listdevis);
                 jspClient="/Admin/CreerEchangeTel.jsp";
             }
-            else if(act.equals("CreerEchangeTel"))
+            else if(act.equals("InsererEchangeTel"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerEchangeTel(request,response);
@@ -203,12 +246,16 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeService",listservice);
                 jspClient="/Admin/CreerLivrable.jsp";
             }
-            else if(act.equals("CreerLivrable"))
+            else if(act.equals("InsererLivrable"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerLivrable(request,response);
             }
             else if(act.equals("CreerOffre"))
+            {
+               jspClient="/Admin/creerOffre.jsp";
+            }
+            else if(act.equals("InsererOffre"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerOffre(request,response);
@@ -219,7 +266,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listoffre",listoffre);
                 jspClient="/Admin/CreerService.jsp";
             }
-            else if(act.equals("CreerService"))
+            else if(act.equals("InsererService"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerService(request,response);
@@ -230,7 +277,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listoffre",listoffre);
                 jspClient="/Admin/CreerServiceStandard.jsp";
             }
-            else if(act.equals("CreerServiceStandard"))
+            else if(act.equals("InsererServiceStandard"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerServiceStandard(request,response);
@@ -241,7 +288,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeAgence",listagence);
                 jspClient="/Admin/CreerServiceStandard.jsp";
             }
-            else if(act.equals("CreerUtilisateurHardis"))
+            else if(act.equals("InsererUtilisateurHardis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerUtilisateur(request,response);
