@@ -45,4 +45,6 @@ public interface InterlocuteurFacadeLocal {
     void modifierInterlocuteur(Interlocuteur inter, String nom, String prenom, String fonction, String tel, Entreprise entreprise);
 
     void supprimerInterlocuteur(long id);
+
+    List<Interlocuteur> rechercheInterParEntreprise(Entreprise e);
 }

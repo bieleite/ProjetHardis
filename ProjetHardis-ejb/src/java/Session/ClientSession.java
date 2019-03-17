@@ -19,6 +19,7 @@ import Entites.Facture;
 import Entites.HistoriqueDevis;
 import Entites.HistoriqueEtats;
 import Entites.HistoriqueTraitement;
+import Entites.Interlocuteur;
 import Entites.Notification;
 import Entites.Offre;
 import Entites.Offre_Profil_Util_CV;
@@ -43,6 +44,7 @@ import Facades.FactureFacadeLocal;
 import Facades.HistoriqueDevisFacadeLocal;
 import Facades.HistoriqueEtatsFacadeLocal;
 import Facades.HistoriqueTraitementFacadeLocal;
+import Facades.InterlocuteurFacadeLocal;
 import Facades.LogsFacadeLocal;
 import Facades.NotificationFacadeLocal;
 import Facades.OffreFacadeLocal;
@@ -64,6 +66,10 @@ import javax.ejb.Stateless;
 @Stateless
 public class ClientSession implements ClientSessionLocal {
 
+    @EJB
+    private InterlocuteurFacadeLocal interlocuteurFacade;
+
+    
     @EJB
     private OffreFacadeLocal offreFacade;
 
@@ -431,6 +437,7 @@ return e;
           Facture f = factureFacade.creerFacture(new Date(), d, d.getMontantDevis(), 0, "");
            return f;
     }
+    
 
     @Override
     public void payerFactureFinale(long id) {
@@ -479,6 +486,24 @@ return e;
     
     return listeC;
        
+    }
+
+    @Override
+    public List<Facture> rechercheFactParDevis(long id) {
+        Devis d = devisFacade.rechercheDevis(id);
+        return factureFacade.rechercheFactParDevis(d);
+    }
+
+    @Override
+    public void creerInter(String nom, String prenom, String email, String fonction, String tel, long idEnt) {
+        Entreprise e = entrepriseFacade.rechercheEntrepriseParId(idEnt);
+        interlocuteurFacade.creerInterlocuteur(nom, prenom, fonction, tel, e);
+    }
+
+    @Override
+    public List<Interlocuteur> recupInter(long id) {
+        Entreprise e = entrepriseFacade.rechercheEntrepriseParId(id);
+        return interlocuteurFacade.rechercheInterParEntreprise(e);
     }
 
 

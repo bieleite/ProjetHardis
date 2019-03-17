@@ -3,18 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/InterlocuteurFacade.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Notification.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/UtilisateurHardisFacade.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/UtilisateurHardis.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/DevisFacade.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Utilisateur.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/CommunicationFacade.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSession.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/NotificationFacade.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/NotificationFacadeLocal.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSession.java</file>
-            <file>file:/C:/Users/6171217/Desktop/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSessionLocal.java</file>
+            <file>file:/C:/Users/anastasia.salari/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Adresse.java</file>
+            <file>file:/C:/Users/anastasia.salari/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Action.java</file>
+            <file>file:/C:/Users/anastasia.salari/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSession.java</file>
         </group>
     </open-files>
 </project-private>

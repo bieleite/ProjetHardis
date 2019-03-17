@@ -110,7 +110,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="servClient?action=majEnt" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="servClient?action=deconnexion" class="btn btn-default btn-flat">Sign out</a>

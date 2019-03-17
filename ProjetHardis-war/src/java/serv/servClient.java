@@ -10,6 +10,7 @@ import Entites.Communication;
 import Entites.Devis;
 import Entites.Entreprise;
 import Entites.Facture;
+import Entites.Interlocuteur;
 import Entites.Notification;
 import Entites.Service;
 import Session.ClientSessionLocal;
@@ -29,6 +30,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 
 /**
  *
@@ -157,6 +162,32 @@ boolean cpo = false;
     }
  
 
+ protected void creationInter(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String email = request.getParameter("email");
+        String fonction = request.getParameter("fonction");
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+         String tel = request.getParameter("tel");
+
+
+        String message = "";
+        String messageErreur = "";
+        
+        if ( tel.isEmpty() || email.isEmpty() || nom.isEmpty() || prenom.isEmpty() || fonction.isEmpty() ) {
+            messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
+        } else {
+
+         clientSession.creerInter(nom, prenom, email, fonction, tel, clientT.getEntreprise().getId());
+       
+          }
+            
+        request.setAttribute("message", message);
+        request.setAttribute("messageErreur", messageErreur);
+
+    }
+ 
  
  protected void creationDevis(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -347,6 +378,8 @@ boolean cpo = false;
           if (act.equals("afficheDevis"))
           {
               
+             
+              
              String idD = request.getParameter("idDev");
             
              String lienDevis = clientSession.rechercheDocDevis(Long.valueOf(idD));
@@ -378,31 +411,46 @@ boolean cpo = false;
              
                  
              }
+             List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
+                   sess.setAttribute("listeDevis", listeDevis);
              
               
           }
           if (act.equals("consulteDevis"))
           {
+            
                jspClient = "/Client/consulteDevis.jsp";
                String idD = request.getParameter("idDev");
+               String fact = request.getParameter("fact");
                 long id=0;
+                 Devis d  = null;
                  if (idD!="")
              {
                    id = Long.valueOf(idD);
-                  Devis d = clientSession.recupDevis(id);
+                   d = clientSession.recupDevis(id);
                   sess.setAttribute("devis", d);
                  
                  
              }
-                 
-               String valide= request.getParameter("valide");
-               if (valide!=null&& valide.equals("1"))
+                   String valide= request.getParameter("valide");
+               if (valide!=null&& valide.equals("1") )
              {
                   clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
                   Facture f = clientSession.creerFacture(id);
                   request.setAttribute("facture",f);
                   request.setAttribute("valide","1");
              }
+                 
+                if (d.getStatut().toString().equals("Valide") && fact!=null)
+                {
+                     request.setAttribute("valide","1");
+                     List<Facture> f = clientSession.rechercheFactParDevis(Long.valueOf(idD));
+                     request.setAttribute("facture",f.get(0));
+                     
+                }
+                 
+             List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
+                   sess.setAttribute("listeDevis", listeDevis);
                
                
              
@@ -420,6 +468,8 @@ boolean cpo = false;
                   
                   clientSession.payerFacture(Long.valueOf(idF));
                 jspClient = "/Client/tabBord.jsp";
+                  List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
+                   sess.setAttribute("listeDevis", listeDevis);
            
              }
           }
@@ -440,8 +490,24 @@ boolean cpo = false;
              }
           }
         
-           
+          else if (act.equals("majEnt"))
+          {
+              List<Interlocuteur> liste = clientSession.recupInter(clientT.getEntreprise().getId());
+              if (liste==null) liste=new ArrayList<>();
+              request.setAttribute("listeInt", liste);
+               jspClient = "/Client/majEntreprise.jsp";
+              
+          }
           
+           
+             else if(act.equals("ajoutInter"))
+          {
+              creationInter(request, response);
+                jspClient = "/Client/majEntreprise.jsp";
+                List<Interlocuteur> liste = clientSession.recupInter(clientT.getEntreprise().getId());
+                request.setAttribute("listeInt", liste);
+              
+          }
           
           
         

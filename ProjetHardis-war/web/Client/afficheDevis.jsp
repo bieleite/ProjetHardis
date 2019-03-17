@@ -4,6 +4,7 @@
     Author     : 6170361
 --%>
 
+<%@page import="java.security.Signature"%>
 <%@page import="Entites.HistoriqueDevis"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entites.Communication"%>
@@ -78,22 +79,47 @@
                      <th>Date intervention</th>
                     <th>Conditions</th>
                      <th>Devis</th>
+                     <th>Facture</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
                                               
-                   <td><% SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
+                   <td><% 
+                       
+                       SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
                    String devislien = (String)request.getAttribute("lienD");
                    
                        out.print("DEV"+d.getId());
                        %></td>
                    <td><%=d.getService().getOffre().getLibelle()%></td>
                    <td><%=d.getService().getNomService()%></td>
-                   <td><%=d.getStatut()%></span></td>
+                   <td><% 
+                      if (d.getStatut().toString().equals("Valide"))
+                      
+                           out.print("<span class=\"label label-danger\">Validé, en attente de paiement</span>");
+                      
+                      else if (d.getStatut().toString().equals("Refuse"))
+                      
+                           out.print("<span class=\"label label-warning\">Validé, en attente de paiement</span>");
+                     
+                      else if (d.getStatut().toString().equals("Acompte_regle"))
+                       
+                           out.print("<span class=\"label label-success\">Acompte reglé</span>");
+                                              
+                       else if (d.getStatut().toString().equals("Rep_en_Cours"))
+                           out.print("<span class=\"label label-info\">En attente de validation</span>");
+
+                       
+                   
+                       
+                      
+                  %></td>
                    <td><%=dformat.format(d.getDateIntervSouhaitee())%></span></td>
                    <td><a href="<%=d.getService().getConditionsContract()%>" >Conditions générales</a></span></td>
                    <td><a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>">Devis</a></span></td>
+                   <td> <% if (d.getStatut().toString().equals("Valide")) { %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%=d.getId()%>">
+                           Facture</a> <% }else out.print("Facture non disponible"); %></td>
                   
                   </tr>
 
@@ -102,6 +128,9 @@
               </div>
               <!-- /.table-responsive -->
             </div>
+                           <% if (d.getStatut().toString().equals("Rep_en_Cours")) {
+                               
+                           %>
                    <div row>
                           <div class="box-footer clearfix">
                               <div class="col-md-10">
@@ -110,7 +139,8 @@
                <div class="col-md-2">
               <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
                </div></div>
-                   </div>
+                   </div> <% }
+                   %>
             <!-- /.box-body -->
            
                     </div>

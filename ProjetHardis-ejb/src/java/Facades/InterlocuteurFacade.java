@@ -106,6 +106,15 @@ public class InterlocuteurFacade extends AbstractFacade<Interlocuteur> implement
         }
         return s;
     }
+
+    @Override
+    public List<Interlocuteur> rechercheInterParEntreprise(Entreprise e) {
+        
+        Query requete = em.createQuery("SELECT s from Interlocuteur as s where s.entreprise=:e");
+        requete.setParameter("e",e);     
+       return requete.getResultList();
+      
+    }
     
     
     

@@ -42,8 +42,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Devis
-        <small> <% out.print("DEV"+d.getId()); %></small>
+          <% if (f.getId()!=null) out.print("Facture"); else out.print("Devis"); %>
+        <small> <% if (f.getId()!=null)  { %> 
+           <% out.print("F"+f.getId()); } else  { %>
+              
+             <% out.print("DEV"+d.getId()); }%></small>
       </h1>
      
     </section>
@@ -57,7 +60,7 @@
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-globe"></i> Hardis Group
-            <small class="pull-right">Date: <%=f.getDateFacture()%></small>
+           <% if (f.getId()!=null) { %>  <small class="pull-right">Date: <%=dformat.format(f.getDateFacture())%></small> <%}%>
           </h2>
         </div>
         <!-- /.col -->
@@ -65,7 +68,7 @@
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-          From
+          De
           <address>
             <strong>Hardis Group <%=d.getClient().getAgence().getNomAgence().toString()%>  </strong><br>
             blabla adresse
@@ -73,7 +76,7 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          To
+          A
           <address>
             <strong><%=d.getClient().getEntreprise().getNomEntreprise()%></strong><br>
             <% Adresse ad = d.getClient().getEntreprise().getAdresseFact();
@@ -87,7 +90,13 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          <b>Devis #<% out.print("DEV"+d.getId()); %></b><br>
+            
+          <b><% if (f.getId()!=null) { %> 
+              Facture #<% out.print("F"+f.getId()); } else  { %>
+              
+              Devis #<% out.print("DEV"+d.getId()); }%></b>
+          
+          <br>
           <br>       
           <b>Code contrat : </b> <% out.print(d.getClient().getEntreprise().getCodeContrat()); %>
         </div>
@@ -178,7 +187,7 @@
         </a>
         </div>
       </div>
-         <%} else if (!d.getStatut().toString().equals("Acompte_regle")){%>
+         <%} else if (d.getStatut().toString().equals("Rep_en_Cours")){%>
         
         <div class="row no-print">
         <div class="col-xs-12">

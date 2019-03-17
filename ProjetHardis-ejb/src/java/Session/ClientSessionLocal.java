@@ -12,6 +12,7 @@ import Entites.Devis;
 import Entites.DevisNonStandard;
 import Entites.Entreprise;
 import Entites.Facture;
+import Entites.Interlocuteur;
 import Entites.Notification;
 import Entites.Service;
 import Entites.Statut;
@@ -86,6 +87,12 @@ public interface ClientSessionLocal {
     void payerFactureFinale(long id);
 
     List<UtilisateurHardis> rechercheConsultantsOffre(long id);
+
+    List<Facture> rechercheFactParDevis(long id);
+
+    void creerInter(String nom, String prenom, String email, String fonction, String tel, long idEnt);
+
+    List<Interlocuteur> recupInter(long id);
 
 
     

@@ -56,6 +56,7 @@
                     <th>ID</th>
                     <th>Offre</th>
                     <th>Service</th>
+              
                     <th>Status</th>
                   </tr>
                   </thead>
@@ -69,7 +70,28 @@
                    <td><a href="servClient?action=afficheDevis&idDev=<%=d.getId()%>"><% out.print("DEV"+d.getId());%></a></td>
                     <td><%=d.getService().getOffre().getLibelle()%></td>
                      <td><%=d.getService().getNomService()%></td>
-                    <td><%=d.getStatut().toString() %></span></td>
+                     
+                    <td> <td><% 
+                      if (d.getStatut().toString().equals("Valide"))
+                      
+                           out.print("<span class=\"label label-danger\">Validé, en attente de paiement</span>");
+                      
+                      else if (d.getStatut().toString().equals("Refuse"))
+                      
+                           out.print("<span class=\"label label-warning\">Validé, en attente de paiement</span>");
+                     
+                      else if (d.getStatut().toString().equals("Acompte_regle"))
+                       
+                           out.print("<span class=\"label label-success\">Acompte reglé</span>");
+                                              
+                       else if (d.getStatut().toString().equals("Rep_en_Cours"))
+                           out.print("<span class=\"label label-info\">En attente de validation</span>");
+
+                       
+                   
+                       
+                      
+                  %></td></td>
                                
                   </tr>
     <%}%>  
