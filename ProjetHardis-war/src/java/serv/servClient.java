@@ -13,6 +13,7 @@ import Entites.Facture;
 import Entites.Interlocuteur;
 import Entites.Notification;
 import Entites.Service;
+import Entites.testFTP;
 import Session.ClientSessionLocal;
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,10 +31,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+/*
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
+*/
 
 /**
  *
@@ -54,6 +55,11 @@ public class servClient extends HttpServlet {
     
  protected Client connexion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+     
+        testFTP t = new testFTP();
+        t.downloadFTP();
+
+                
        sess = request.getSession(true);
         String email = request.getParameter("email");
         String mdp = request.getParameter("mdp");
