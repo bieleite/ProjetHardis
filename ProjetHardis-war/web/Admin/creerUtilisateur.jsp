@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.Offre"%>
 <%@page import="Entites.Agence"%>
 <%@page import="Entites.ProfilMetier"%>
 <%@page import="Entites.Client"%>
@@ -28,6 +29,7 @@
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listagence" scope="request" class = "java.util.List"> </jsp:useBean>
+     <jsp:useBean id="listOffres" scope="request" class = "java.util.List"> </jsp:useBean>
    
 
 
@@ -107,12 +109,40 @@
                   <label for="mdpUtilisateur">Mot de Passe</label>
                   <input type="pass" name="mdpUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Mot de Passe">
                 </div>
-                <label for="PFUtilisateur">Profil Metier</label>
+                
+                <label for="PFUtilisateur">Profil Technique</label>
                 <select class="form-control" name="PFUtilisateur">
                     <option value="Admin">Administrateur</option>
                     <option value="Gestion">Gestionnaire</option>
                     <option value="Visiteur">Visualisateur</option>
                 </select>
+                  <label for="PFUtilisateur">Profil Métier</label>
+                   <label for="PFUtilisateur">Offre</label>
+                <select class="form-control" name="offre">
+                    <% List<Offre> listeO = listOffres;
+                    for (Offre o :listeO ){%>
+                    <option value="<%=o.getId()%>"><%=o.getLibelle()%></option>
+                     <%}%>
+                </select>
+                   <label for="PFUtilisateur">Niveau</label>
+                   
+                   <select class="form-control" name="niveau">
+                    <option value="Porteur">Porteur</option>
+                    <option value="Referent">Référent</option>
+                    <option value="Consultant">Consultant</option>
+                </select>
+                   
+                    <select class="form-control" name="expertise">
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Confirme">Confirmé</option>
+                </select>
+                   
+                     <div class="form-group">
+                      <label for="plafond">Montant délégation</label>
+                  <input type="text" name="plafond" class="form-control" id="exampleInputEmail1" placeholder="plafond">
+                </div>
+                
                 <label for="agence">Agence</label>
                 <select class="form-control" name="agence">
                     <% List<Agence> lesAgences=listagence; %>

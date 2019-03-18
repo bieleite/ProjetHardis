@@ -80,6 +80,11 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
        u.setHistoriqueTraitements(new ArrayList<>());
        u.setOffre_Profil_Utils(new ArrayList<>());
        u.setQuestionSecrete("");
+        try {
+            u.setMailHache(Helpers.sha1(login));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
        u.setReponseSecrete("");
         u.setVisible(true);
         u.setAgence(agence);
@@ -136,9 +141,15 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     @Override
     public  void modfiUtilisateurQSRS(UtilisateurHardis cl, String QS, String RS) {
               
-         if (cl!=null)
+        if (cl!=null)
         {
-            cl.setMdp(RS);
+            cl.setQuestionSecrete(QS);
+            try {
+            cl.setReponseSecrete(Helpers.sha1(RS));
+        } 
+       catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
             em.merge(cl);
         }
         
@@ -252,6 +263,20 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("qs", QS);
         req = req.setParameter("rs", RS);
+        List<UtilisateurHardis> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (UtilisateurHardis) res.get(0);
+        }
+        return cl;
+    }
+
+    @Override
+    public UtilisateurHardis rechercheParEmailHache(String email) {
+        UtilisateurHardis cl = null;        
+        String txt = "SELECT cl FROM UtilisateurHardis AS cl WHERE cl.mailHache=:email";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("email", email);
         List<UtilisateurHardis> res = req.getResultList();
         if (res.size() >= 1)
         {

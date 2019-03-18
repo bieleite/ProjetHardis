@@ -70,6 +70,20 @@ public class VisualisateurHardisSession implements VisualisateurHardisSessionLoc
         return serviceStandardFacade.listServStandard();
     }
 
+    @Override
+    public UtilisateurHardis rechercheUParEmailHache(String email) {
+        return utilisateurHardisFacade.rechercheParEmailHache(email);
+    }
+
+    @Override
+    public void majInfosProfil(long id, String mdp, String qs, String rs) {
+        UtilisateurHardis u = utilisateurHardisFacade.rechercheUtilisateurParId(id);
+        utilisateurHardisFacade.modfiUtilisateurMDP(u, mdp);
+        utilisateurHardisFacade.modfiUtilisateurQSRS(u, qs, rs);
+    }
+
+    
+    
     
     
 }

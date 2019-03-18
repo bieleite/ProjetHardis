@@ -65,6 +65,8 @@ public interface UtilisateurHardisFacadeLocal {
     
     UtilisateurHardis rechercheUtilisateurParQS(String QS, String RS);
 
+    UtilisateurHardis rechercheParEmailHache(String email);
+
 
     
 }

@@ -982,7 +982,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     public Offre_Profil_Util_CV creerOffre_Profil_Util_CV ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis) {
         Offre offre = offreFacade.rechercheOffreParId(idoffre);
         ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
-        UtilisateurHardis utilisateur =utilisateurHardisFacade.rechercheUtilisateurParId(idPM);
+        UtilisateurHardis utilisateur =utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
         Offre_Profil_Util_CV offre_Profil_Util_CV = offre_Profil_Util_CVFacade.creerOPUC(offre, profilmetier, utilisateur, lienCV);
         logsFacade.creerLogCreate(hardis, offre_Profil_Util_CV);
         return offre_Profil_Util_CV;
@@ -1038,11 +1038,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public ProfilMetier creerProfilMetier( NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis) {
         List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();
-        for (String offre_profil_cv: listedesid){
+      /*  for (String offre_profil_cv: listedesid){
             Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
             Offre_Profil_Util_CV o_p_c= offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_profil_cv);
             listoffres_profils_cvs.add(o_p_c);
-        }
+        }*/
         ProfilMetier profilmetier = profilMetierFacade.creerProfilMetier(niveau, expertise, plafond, listoffres_profils_cvs);
         logsFacade.creerLogCreate(hardis, profilmetier);
         return profilmetier;
@@ -1327,5 +1327,12 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     public List<Notification> getNotifsAdmin(UtilisateurHardis utlisateur) {
             return notificationFacade.rechercheNotifUtilisateur(utlisateur);
     }
+
+    @Override
+    public Offre rechercheOffreParId(long id) {
+        return offreFacade.rechercheOffreParId(id);
+    }
+    
+    
     
 }

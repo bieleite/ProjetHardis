@@ -14,26 +14,36 @@ import Entites.Devis;
 import Entites.Disponibilite;
 import Entites.Document;
 import Entites.EchangeTel;
+import Entites.Expertise;
 import Entites.Facturation;
 import Entites.FacturationFrais;
+import Entites.Helpers;
 import Entites.HistoriqueDevis;
 import Entites.HistoriqueEtats;
 import Entites.LieuIntervention;
 import Entites.Livrable;
+import Entites.NiveauHabilitation;
 import Entites.Notification;
 import Entites.Offre;
+import Entites.Offre_Profil_Util_CV;
+import Entites.ProfilMetier;
 import Entites.ProfilTechnique;
+import Entites.SendMail;
 import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.Statut;
 import Entites.TypeService;
 import Entites.UtilisateurHardis;
+import Facades.ClientFacade;
 import Session.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -368,8 +378,10 @@ public class servAdmin extends HttpServlet {
             else if(act.equals("listesCreerUtiliateurHardis"))
             {
                 List<Agence> listagence= administrateurHardisSession.listAgence();
+                List<Offre> listOffres = administrateurHardisSession.listOffre();
                 if (listagence==null) listagence=new ArrayList<>();
                 request.setAttribute("listagence",listagence);
+                request.setAttribute("listOffres",listOffres);
                 jspClient="/Admin/creerUtilisateur.jsp";
             }
             else if(act.equals("InsererUtilisateurHardis"))
@@ -709,6 +721,7 @@ public class servAdmin extends HttpServlet {
     
      protected void doActionCreerService(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+              
         String nomService = request.getParameter("nomService");
         String descriptionService= request.getParameter("descriptionService");
         String lieuInterv= request.getParameter("lieuInterv");
@@ -838,14 +851,23 @@ public class servAdmin extends HttpServlet {
       
       protected void doActionCreerUtilisateur(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+          String mailHache="";
+          
+        
+                
         String nom = request.getParameter("nomUtilisateur");
         String prenom= request.getParameter("prenomUtilisateur");
         String login= request.getParameter("loginUtilisateur");
         String mdp= request.getParameter("mdpUtilisateur");
         String profil = request.getParameter("PFUtilisateur");
         String agence= request.getParameter("agence");
+        String offre= request.getParameter("offre");
+        String niveau= request.getParameter("niveau");
+         String expertise= request.getParameter("expertise");
+         String plafond= request.getParameter("plafond");
+        
         String message = null;
-        if(nom.trim().isEmpty()||prenom.trim().isEmpty()||login.trim().isEmpty()||mdp.trim().isEmpty()||profil.trim().isEmpty()||agence.trim().isEmpty()){
+        if(niveau.trim().isEmpty()||offre.trim().isEmpty()||nom.trim().isEmpty()||prenom.trim().isEmpty()||login.trim().isEmpty()||mdp.trim().isEmpty()||profil.trim().isEmpty()||agence.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
         }
         else {
@@ -854,6 +876,8 @@ public class servAdmin extends HttpServlet {
                 UtilisateurHardis o =administrateurHardisSession.rechercherUtilisateurHardisParLogin(login);
                 if(o==null){
                 ProfilTechnique profilt= null;
+                NiveauHabilitation niveauH = null;
+                Expertise exp = null;
                 if(profil.equals("Admin")){
                     profilt = ProfilTechnique.Admin;
                 }
@@ -863,8 +887,50 @@ public class servAdmin extends HttpServlet {
                 else if (profil.equals("Visiteur")){
                     profilt = ProfilTechnique.Visiteur;
                 }
-                Long idagence = Long.valueOf(agence);
+                
+                
+                  if(niveau.equals("Consultant")){
+                    niveauH = NiveauHabilitation.Consultant;
+                }
+                else if (niveau.equals("Referent")){
+                        niveauH = NiveauHabilitation.Referent;
+                }
+                else if (niveau.equals("Porteur")){
+                    niveauH = NiveauHabilitation.Porteur;
+                }
+                  
+                     if(expertise.equals("Confirme")){
+                    exp = Expertise.Confirme;
+                }  else if(expertise.equals("Junior")){
+                    exp = Expertise.Junior;
+                }
+                else    if(expertise.equals("Senior")){
+                    exp = Expertise.Senior;
+                }
+                  
+                      Long idagence = Long.valueOf(agence);
+                
                 o = administrateurHardisSession.creerUtilisateurHardis(nom, prenom, login, mdp, profilt, idagence, ut);
+                
+                Offre off = administrateurHardisSession.rechercheOffreParId(Long.valueOf(offre));
+                
+                ProfilMetier pm = administrateurHardisSession.creerProfilMetier(niveauH, exp, Float.valueOf(plafond), new String[1], ut);
+                
+                Offre_Profil_Util_CV offP = administrateurHardisSession.creerOffre_Profil_Util_CV(off.getId(), pm.getId(), o.getId(), "", ut);
+                
+        try {
+           mailHache = Helpers.sha1(login);
+        } 
+       catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
+         SendMail send = new SendMail();
+         String messa = "<p>Veuillez cliquer <a href=\"http://localhost:8080/ProjetHardis-war/servEmployes?action=majMDP&email="+mailHache+"\">ici</a> pour créer votre mot de passe</p>";
+         send.sendMail(login,"Création compte Hardis", messa);
+       
+               
+               
                 String nomentite = o.getNom();
                 String classe = o.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";
