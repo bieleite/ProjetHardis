@@ -6,6 +6,7 @@
 package Facades;
 
 import Entites.Atelier;
+import java.util.ArrayList;
 
 import java.util.List;
 import javax.ejb.Stateless;
@@ -42,6 +43,7 @@ public class AtelierFacade extends AbstractFacade<Atelier> implements AtelierFac
     public Atelier creerAtelier(String NomAtelier) {
         Atelier ag = new Atelier();
         ag.setNomAtelier(NomAtelier);
+        ag.setServiceStandard(new ArrayList<>());
         em.persist(ag);
         return ag;
     }

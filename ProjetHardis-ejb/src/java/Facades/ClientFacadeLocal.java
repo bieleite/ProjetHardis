@@ -28,6 +28,10 @@ import javax.ejb.Local;
 @Local
 public interface ClientFacadeLocal {
 
+    List<Client> afficherClientsNonCertifies();
+    
+    List<Client> afficherClientsNonActifs();
+    
     void create(Client client);
 
     void edit(Client client);

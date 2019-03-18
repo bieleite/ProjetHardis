@@ -54,6 +54,7 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
     public Livrable creerLivrable(String nom) {
         Livrable liv = new Livrable();
         liv.setNomLivrable(nom);
+        
         liv.setService(new ArrayList<>());
         em.persist(liv);
         return liv;

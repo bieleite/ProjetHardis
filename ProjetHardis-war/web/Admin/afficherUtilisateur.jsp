@@ -4,6 +4,8 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.UtilisateurHardis"%>
+<%@page import="Entites.Adresse"%>
 <%@page import="Entites.Client"%>
 <%@page import="Entites.Devis"%>
 <%@page import="Entites.Utilisateur"%>
@@ -25,6 +27,7 @@
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listeUtilisateurHardis" scope="request" class = "java.util.List"> </jsp:useBean>
 
 
 </head>
@@ -63,78 +66,61 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
-        <li class="active">Atelier</li>
-        <li class="active">Creer Atelier</li>
+        <li class="active">Adresse</li>
+        <li class="active">Creer Adresse</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      
+      <% List<UtilisateurHardis> lesUtilisateurHardis=listeUtilisateurHardis; %> 
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
         <!-- left column -->
-   
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Atelier</h3>
+        <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Utilisateur Hardis</h3>
             </div>
             <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="nomAtelier">Nom Atelier</label>
-                  <input type="txt" name="nomAtelier" class="form-control" id="exampleInputEmail1" placeholder="Nom Atelier">
-                </div>
-                <input type="hidden" name="action" value="InsererAtelier">
-             <!--   <div class="form-group">
-                  <label>Select</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
-                    <option>option 3</option>
-                    <option>option 4</option>
-                    <option>option 5</option>
-                  </select>
-                </div>
-                <!-- checkbox 
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Checkbox 1
-                    </label>
-                  </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <input type="file" id="exampleInputFile">
-
-                  <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Check me out
-                  </label>
-                </div>
-              </div>-->
-              <!-- /.box-body -->
-
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Nom Utilisateur</th>
+                  <th>Prenom Utilisateur </th>
+                  <th>Agence</th>
+                  <th>Profil Technique</th>
+                  <th>Statut</th>
+                </tr>
+                </thead>
+                <% for (UtilisateurHardis a : lesUtilisateurHardis){%>
+                <tbody>
+                <tr>
+                  <td><%=a.getNom() %></td>
+                  <td><%=a.getPrenom() %></td>
+                  <td><%=a.getAgence().getNomAgence() %></td>
+                  <td><%=a.getProfilTechique().toString() %></td>
+                  <td><%=a.getStatut().toString() %></td>
+                </tr>
+                </tbody>
+                <%}%>
+                <tfoot>
+                <tr>
+                  <th>Nom Utilisateur</th>
+                  <th>Prenom Utilisateur </th>
+                  <th>Agence</th>
+                  <th>Profil Technique</th>
+                  <th>Statut</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
           </div>
-          <!-- /.box -->
-        
-        <!--/.col (left) -->
-        <!-- right column -->
-        
-          <!-- /.box -->
-        </div>
+         
+          
         <!--/.col (right) -->
       </div
       <!-- /.row (main row) -->

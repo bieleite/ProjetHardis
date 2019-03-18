@@ -908,8 +908,8 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public Livrable creerLivrable(String nom, long idservice, UtilisateurHardis hardis) {
-        Service service = serviceFacade.rechercheServiceParId(idservice);
+    public Livrable creerLivrable(String nom,UtilisateurHardis hardis) {
+       
         Livrable livrable = livrableFacade.creerLivrable(nom);
         logsFacade.creerLogCreate(hardis, livrable);
         return livrable;
@@ -1144,19 +1144,26 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public ServiceStandard creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis) {
         List<Livrable> listlivrables= new ArrayList<>();
+        Livrable livrables = null;
+        Atelier ateliers = null;
         for (String livrable: listidlivrable){
             Long idlivrable = Long.valueOf(livrable);
-            Livrable livrebles= livrableFacade.rechercheLivrableParId(idlivrable);
-            listlivrables.add(livrebles);
+            livrables= livrableFacade.rechercheLivrableParId(idlivrable);
+            listlivrables.add(livrables);
+            
         }
         List<Atelier> listateliers= new ArrayList<>();
         for (String atelier: listeidAtelier){
             Long idatelier = Long.valueOf(atelier);
-            Atelier ateliers= atelierFacade.rechercheAtelier(idatelier);
+            ateliers= atelierFacade.rechercheAtelier(idatelier);
             listateliers.add(ateliers);
         }
         Offre offre = offreFacade.rechercheOffreParId(idoffre);
         ServiceStandard service = serviceStandardFacade.creerServiceStandard(nomService, descriptionService, lieuInterv, offre, cout, facturation, listeCond, delai, typeS, descPresta, nbJS, nbJC, nbJJ, nbHA, listlivrables, listateliers, nbHS);
+        List<ServiceStandard> listLivrablesService =livrables.getService();
+        listLivrablesService.add(service);
+        List<ServiceStandard> listAteliersService =ateliers.getServiceStandard();
+        listAteliersService.add(service);
         logsFacade.creerLogCreate(hardis, service);
         return service;
     }
@@ -1281,9 +1288,9 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public List<UtilisateurHardis> listUtilisateurHardis( UtilisateurHardis hardis) {
+    public List<UtilisateurHardis> listUtilisateurHardis() {
         List<UtilisateurHardis> utilisateur = utilisateurHardisFacade.listUHardis();
-        logsFacade.creerLogResearch(hardis, hardis);
+        
         return utilisateur;       
     }
     
@@ -1302,6 +1309,23 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public List<Client> listClient() {
         List<Client> l = clientFacade.findAll();
+        return l;       
+    }
+    
+    @Override
+    public List<Client> listClientVisibles() {
+        List<Client> l = clientFacade.afficherClientsActifs();
+        return l;       
+    }
+    
+    @Override
+    public List<Client> listClientNonVisibles() {
+        List<Client> l = clientFacade.afficherClientsNonActifs();
+        return l;       
+    }
+    @Override
+    public List<Client> listClientNonCertifies() {
+        List<Client> l = clientFacade.afficherClientsNonCertifies();
         return l;       
     }
     

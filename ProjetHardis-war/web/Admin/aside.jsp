@@ -36,7 +36,7 @@
           <ul class="treeview-menu">
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Valider Client</a></li>
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Effacer Client</a></li>
-            <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Certifier Client</a></li>
+            <li><a href="servAdmin?action=listesCertifierClient"><i class="fa fa-circle-o"></i> Certifier Client</a></li>
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
           </ul>
         </li>
@@ -76,6 +76,19 @@
               </ul>
             </li>
             <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> Livrables
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="servAdmin?action=listesCreerLivrable"><i class="fa fa-circle-o"></i> Creer Livrable</a></li>
+                <li><a href="servAdmin?action=AfficherLivrable"><i class="fa fa-circle-o"></i> Afficher Livrable</a></li>
+                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Livrable</a></li>
+                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Livrable</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> Offre
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -109,7 +122,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="servAdmin?action=listesCreerServiceStandard"><i class="fa fa-circle-o"></i> Creer Service Standard</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Afficher Service Standard</a></li>
+                <li><a href="servAdmin?action=AfficherServiceStandard"><i class="fa fa-circle-o"></i> Afficher Service Standard</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Service Standard</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Service Standard</a></li>
               </ul>
@@ -122,7 +135,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="servAdmin?action=listesCreerService"><i class="fa fa-circle-o"></i> Creer Service</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Afficher Service</a></li>
+                <li><a href="servAdmin?action=AfficherService"><i class="fa fa-circle-o"></i> Afficher Service</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Service</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Service</a></li>
               </ul>

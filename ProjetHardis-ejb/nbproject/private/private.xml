@@ -3,24 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/InterlocuteurFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/conf/MANIFEST.MF</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/FactureFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ClientFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/testFTP.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/EntrepriseFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/InternauteSession.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Entreprise.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/EntrepriseFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSessionLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSession.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Interlocuteur.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSessionLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSession.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Client.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ClientFacade.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/InterlocuteurFacadeLocal.java</file>
-            <file>file:/C:/Users/6170361/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceStandardFacade.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/AtelierFacade.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/LivrableFacade.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Atelier.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceStandardFacade.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/testFTP.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSession.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/UtilisateurHardisFacadeLocal.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSessionLocal.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSession.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSessionLocal.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/TypeUtilisateur.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/UtilisateurHardisFacade.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/UtilisateurHardis.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Utilisateur.java</file>
         </group>
     </open-files>
 </project-private>

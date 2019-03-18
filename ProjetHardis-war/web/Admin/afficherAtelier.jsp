@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.ServiceStandard"%>
 <%@page import="Entites.Atelier"%>
 <%@page import="Entites.Agence"%>
 <%@page import="Entites.Adresse"%>
@@ -91,18 +92,24 @@
                 <thead>
                 <tr>
                   <th>Nom Atelier</th>
+                  <th>Nom Service</th>
                 </tr>
                 </thead>
                 <% for (Atelier a : lesAteliers){%>
+     
                 <tbody>
                 <tr>
                   <td><%=a.getNomAtelier() %></td>
+                  <% List<ServiceStandard> lesServ =a.getServiceStandard(); %> 
+                  <% for (ServiceStandard ss : lesServ ){%>
+                  <td><%=ss.getNomService() %></td><%}%>
                 </tr>
                 </tbody>
                 <%}%>
                 <tfoot>
                 <tr>
                   <th>Nom Atelier</th>
+                  <th>Nom Service</th>
                 </tr>
                 </tfoot>
               </table>

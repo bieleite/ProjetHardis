@@ -312,16 +312,22 @@ public class servAdmin extends HttpServlet {
             }
             else if(act.equals("listesCreerLivrable"))
             {
-                List<Service> listservice= administrateurHardisSession.listService();
-                if (listservice==null) listservice=new ArrayList<>();
-                request.setAttribute("listeService",listservice);
-                jspClient="/Admin/CreerLivrable.jsp";
+                
+                jspClient="/Admin/creerLivrable.jsp";
             }
             else if(act.equals("InsererLivrable"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerLivrable(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("AfficherLivrable"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                List<Livrable> listeLivrable = administrateurHardisSession.listLivrable();
+                if (listeLivrable==null) listeLivrable=new ArrayList<>();
+                request.setAttribute("listeLivrable",listeLivrable);
+                jspClient="/Admin/afficherLivrable.jsp";
             }
             else if(act.equals("CreerOffre"))
             {
@@ -332,6 +338,14 @@ public class servAdmin extends HttpServlet {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerOffre(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("AfficherOffre"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                List<Offre> listeOffre = administrateurHardisSession.listOffre();
+                if (listeOffre==null) listeOffre=new ArrayList<>();
+                request.setAttribute("listeOffre",listeOffre);
+                jspClient="/Admin/afficherOffre.jsp";
             }
             else if(act.equals("listesCreerService"))
             {
@@ -345,6 +359,14 @@ public class servAdmin extends HttpServlet {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerService(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("AfficherService"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<Service> listeService = administrateurHardisSession.listService();
+                if (listeService==null) listeService=new ArrayList<>();
+                request.setAttribute("listeService",listeService);
+                jspClient="/Admin/afficherService.jsp";
             }
             else if(act.equals("listesCreerServiceStandard"))
             {
@@ -365,6 +387,14 @@ public class servAdmin extends HttpServlet {
                 doActionCreerServiceStandard(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
             }
+            else if(act.equals("AfficherServiceStandard"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<ServiceStandard> listeServiceStandard = administrateurHardisSession.listServiceStandard();
+                if (listeServiceStandard==null) listeServiceStandard=new ArrayList<>();
+                request.setAttribute("listeServiceStandard",listeServiceStandard);
+                jspClient="/Admin/afficherServiceStandard.jsp";
+            }
             else if(act.equals("listesCreerUtiliateurHardis"))
             {
                 List<Agence> listagence= administrateurHardisSession.listAgence();
@@ -377,6 +407,34 @@ public class servAdmin extends HttpServlet {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerUtilisateur(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
+            }
+             else if(act.equals("AfficherUtilisateur"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
+                if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
+                request.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
+                jspClient="/Admin/afficherUtilisateur.jsp";
+            }
+             else if(act.equals("listesCertifierClient"))
+            {
+                List<Client> listClient= administrateurHardisSession.listClientNonCertifies();
+                if (listClient==null) listClient=new ArrayList<>();
+                request.setAttribute("listClient",listClient);
+                jspClient="/Admin/certifierClient.jsp";
+            }
+             else if(act.equals("RechercherClient"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                List<Client> listClient= new ArrayList<>();
+                String mailClient = request.getParameter("mail");
+                Client client = administrateurHardisSession.rechercherClient(0, jspClient, mailClient, utilisateur);
+                if(client!=null){
+                    listClient.add(client);
+                }else{
+                listClient=new ArrayList<>();}
+                request.setAttribute("listClient",listClient);
+                jspClient="/Admin/certifierClient.jsp";
             }
 //            else{
 //                jspClient="/ChoixE.jsp";
@@ -655,30 +713,29 @@ public class servAdmin extends HttpServlet {
     protected void doActionCreerLivrable(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String nom = request.getParameter("nomLivrable");
-        String service = request.getParameter("serviceLivrable");
         String message = null;
-        if(nom.trim().isEmpty()||service.trim().isEmpty()){
+        if(nom.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
         }
         else {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
-                Long idservice = Long.valueOf(service);
-                Livrable o = administrateurHardisSession.creerLivrable(nom, idservice, ut);
-                if(o!=null){
-                    message= "Erreur livrable: "+ nom +" déjà dans la base de données";
-                }else{
-                o = administrateurHardisSession.creerLivrable(nom, idservice, ut);
+                
+                Livrable o = administrateurHardisSession.creerLivrable(nom,  ut);
+                
+                o = administrateurHardisSession.creerLivrable(nom, ut);
                 String nomentite = o.getNomLivrable();
                 String classe = o.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";}
-            }
+            
             else{
                 message= "Erreur information non inserée dans la base de données";
             }
         }
         request.setAttribute("message", message);
     }
+    
+    
     protected void doActionCreerOffre(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String libelle = request.getParameter("libelleOffre");
@@ -902,6 +959,7 @@ public class servAdmin extends HttpServlet {
         }
         request.setAttribute("message", message);
     }
+      
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

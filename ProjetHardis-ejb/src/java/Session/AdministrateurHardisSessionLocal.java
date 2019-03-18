@@ -218,7 +218,7 @@ public interface AdministrateurHardisSessionLocal {
     
     Interlocuteur rechercherInterlocuteur(long idinter, UtilisateurHardis hardis);
     
-    Livrable creerLivrable(String nom, long idservice, UtilisateurHardis hardis);
+    Livrable creerLivrable(String nom, UtilisateurHardis hardis);
     
     void modifierLivrable(long idLivrable, String nom, long idservice, UtilisateurHardis hardis);
     
@@ -306,9 +306,15 @@ public interface AdministrateurHardisSessionLocal {
     
     UtilisateurHardis rechercherUtilisateurHardisParLogin(String login);
     
-    List<UtilisateurHardis> listUtilisateurHardis( UtilisateurHardis hardis);
+    List<UtilisateurHardis> listUtilisateurHardis( );
     
     List<Client> listClient();
+    
+    List<Client> listClientVisibles();
+    
+    List<Client> listClientNonVisibles();
+    
+    List<Client> listClientNonCertifies();
     
     List<Agence> listAgence();
     

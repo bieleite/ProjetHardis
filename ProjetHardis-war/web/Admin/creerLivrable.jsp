@@ -45,7 +45,8 @@
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-<%@include  file = "head.jsp" %>
+
+      <%@include  file = "head.jsp" %>
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
@@ -80,17 +81,17 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Atelier</h3>
+              <h3 class="box-title">Livrable</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <form role="form">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="nomAtelier">Nom Atelier</label>
-                  <input type="txt" name="nomAtelier" class="form-control" id="exampleInputEmail1" placeholder="Nom Atelier">
+                  <label for="nomLivrable">Libelle Livrable</label>
+                  <input type="txt" name="nomLivrable" class="form-control" id="exampleInputEmail1" placeholder="Libelle Livrable">
                 </div>
-                <input type="hidden" name="action" value="InsererAtelier">
+                <input type="hidden" name="action" value="InsererLivrable">
              <!--   <div class="form-group">
                   <label>Select</label>
                   <select class="form-control">

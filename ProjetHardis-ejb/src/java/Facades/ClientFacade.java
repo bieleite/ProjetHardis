@@ -306,7 +306,24 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
 
     @Override
     public List<Client> afficherClientsActifs() {
-        String txt="SELECT cl FROM Client AS cl where cl.visible:=true ";
+        String txt="SELECT cl FROM Client AS cl where cl.visible=1";
+        Query req=getEntityManager().createQuery(txt);
+        List<Client> result=req.getResultList();
+        return result;
+    }
+    
+    @Override
+    public List<Client> afficherClientsNonActifs() {
+        String txt="SELECT cl FROM Client AS cl where cl.visible=0 ";
+        Query req=getEntityManager().createQuery(txt);
+        List<Client> result=req.getResultList();
+        return result;
+    }
+    
+    @Override
+    public List<Client> afficherClientsNonCertifies() {
+        
+        String txt="SELECT cl FROM Client AS cl where cl.certifie=0 ";
         Query req=getEntityManager().createQuery(txt);
         List<Client> result=req.getResultList();
         return result;

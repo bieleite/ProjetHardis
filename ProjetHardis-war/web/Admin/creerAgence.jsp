@@ -80,14 +80,14 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Quick Example</h3>
+              <h3 class="box-title">Agence</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <form role="form">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="nomAgence">Nom Atelier</label>
+                  <label for="nomAgence">Nom Agence</label>
                   <input type="txt" name="nomAgence" class="form-control" id="exampleInputEmail1" placeholder="Nom Agence">
                 </div>
                 <input type="hidden" name="action" value="InsererAgence">
