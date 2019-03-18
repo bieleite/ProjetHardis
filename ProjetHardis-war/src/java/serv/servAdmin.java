@@ -125,6 +125,49 @@ public class servAdmin extends HttpServlet {
                 }
                 
             }
+            else if(act.equals("MotDePassOublie"))
+            {
+
+                jspClient="/Admin/QSRS.jsp";
+            }
+            else if(act.equals("DSRSAdmin")){
+                String Login = request.getParameter("Login");
+                String QS = request.getParameter("QS");
+                String RS = request.getParameter("RS");
+                UtilisateurHardis ut = administrateurHardisSession.rechercherUtilisateurHardisParLogin(Login);
+                if(ut!=null){
+                    if(!(QS.trim().isEmpty())||!(RS.trim().isEmpty())){
+                        UtilisateurHardis  utilisateur = administrateurHardisSession.recupererUtilisateurHardisQSRS(QS, RS);
+                        if(utilisateur != null){
+                            if(utilisateur.equals(ut)){
+                                sess.setAttribute("utilisateur", utilisateur);
+                                jspClient="/Admin/newpass.jsp";    
+                            }   
+                            else{
+                                request.setAttribute("message","Question Secret ou/et Response secret ne correspond pas au Login");
+                                jspClient="/Admin/Login.jsp";
+                            }
+                        }
+                        else{
+                            request.setAttribute("message","Question Secret ou/et Response secret ne correspond pas au Login");
+                            jspClient="/Admin/Login.jsp";
+                        }
+                    }
+                    else{
+                        request.setAttribute("message","Question Secret ou/et Response secret non rempli");
+                        jspClient="/Admin/Login.jsp";
+                    }
+                }
+                else{
+                request.setAttribute("message","Utilisateur non trouvé");
+                jspClient="/Admin/Login.jsp";}
+            }
+            else if(act.equals("ModifierPass"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+               doActionModifierUtilisateur(request,response);
+               jspClient="/Admin/Login.jsp";
+            }
             else if(act.equals("Menu"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
@@ -808,7 +851,7 @@ public class servAdmin extends HttpServlet {
         else {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
-                UtilisateurHardis o =administrateurHardisSession.rechercherUtilisateurHardisParLogin(login, ut);
+                UtilisateurHardis o =administrateurHardisSession.rechercherUtilisateurHardisParLogin(login);
                 if(o==null){
                 ProfilTechnique profilt= null;
                 if(profil.equals("Admin")){
@@ -829,6 +872,29 @@ public class servAdmin extends HttpServlet {
                 else{
                     message= "Erreur login "+o.getLogin() + "deja dans la base de données";
                 }
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
+      protected void doActionModifierUtilisateur(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String pass = request.getParameter("pass");
+        String message = null;
+        if(pass.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                
+               administrateurHardisSession.modifieUtilisateurHardisMDP(ut, pass);
+            message= "Mot de passe modifié";
+                
+
+                
             }
             else{
                 message= "Erreur information non inserée dans la base de données";

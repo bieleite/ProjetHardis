@@ -118,14 +118,19 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     }
 
     @Override
-    public void modfiUtilisateurMDP(UtilisateurHardis cl, String MDP) {
+    public UtilisateurHardis modfiUtilisateurMDP(UtilisateurHardis cl, String MDP) {
                 
      if (cl!=null)
         {
-            cl.setMdp(MDP);
+            try {
+            cl.setMdp(Helpers.sha1(MDP));
+        } 
+       catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
             em.merge(cl);
         }
-        
+       return cl; 
     }
     
     @Override
@@ -240,7 +245,20 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
         return result;
     }
 
-    
+    @Override
+    public  UtilisateurHardis rechercheUtilisateurParQS(String QS, String RS) {
+        UtilisateurHardis cl = null;        
+        String txt = "SELECT cl FROM UtilisateurHardis AS cl WHERE cl.questionSecrete=:qs and cl.reponseSecrete=:rs ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("qs", QS);
+        req = req.setParameter("rs", RS);
+        List<UtilisateurHardis> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              cl = (UtilisateurHardis) res.get(0);
+        }
+        return cl;
+    }
     
     
 

@@ -49,7 +49,7 @@ public interface UtilisateurHardisFacadeLocal {
        
     UtilisateurHardis rechercheUtilisateurParLogin(String login);
     
-    void  modfiUtilisateurMDP(UtilisateurHardis cl, String MDP);
+    UtilisateurHardis  modfiUtilisateurMDP(UtilisateurHardis cl, String MDP);
     
     void modfiUtilisateurQSRS(UtilisateurHardis cl, String QS, String RS);
     
@@ -62,6 +62,8 @@ public interface UtilisateurHardisFacadeLocal {
     List<UtilisateurHardis> rechercheUtilisateurHParAgence(Agence agence);
 
     List<UtilisateurHardis> listUHardis();
+    
+    UtilisateurHardis rechercheUtilisateurParQS(String QS, String RS);
 
 
     

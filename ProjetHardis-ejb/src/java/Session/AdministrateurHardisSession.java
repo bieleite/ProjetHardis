@@ -1218,10 +1218,10 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void modifieUtilisateurHardisMDP(long idutilisateur, String MDP, UtilisateurHardis hardis) {
-        UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
-        utilisateurHardisFacade.modfiUtilisateurMDP(hardis, MDP);
-        logsFacade.creerLogUpdate(hardis, utilisateur);
+    public UtilisateurHardis modifieUtilisateurHardisMDP(UtilisateurHardis idutilisateur, String MDP) {
+       
+        UtilisateurHardis ut =utilisateurHardisFacade.modfiUtilisateurMDP(idutilisateur, MDP);
+        return ut;
     }
     
     @Override
@@ -1229,6 +1229,12 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
         utilisateurHardisFacade.modfiUtilisateurQSRS(hardis, QS, RS);
         logsFacade.creerLogUpdate(hardis, utilisateur);
+    }
+    
+    @Override
+    public UtilisateurHardis recupererUtilisateurHardisQSRS(String QS, String RS) {
+        UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParQS(QS, RS);
+        return utilisateur;
     }
     
     @Override
@@ -1268,9 +1274,9 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public UtilisateurHardis rechercherUtilisateurHardisParLogin(String login, UtilisateurHardis hardis) {
+    public UtilisateurHardis rechercherUtilisateurHardisParLogin(String login) {
         UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParLogin(login);
-        logsFacade.creerLogResearch(hardis, utilisateur);
+    
         return utilisateur;
     }
     
