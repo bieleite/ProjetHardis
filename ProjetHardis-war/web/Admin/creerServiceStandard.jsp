@@ -203,11 +203,11 @@
                   <label for="delai">Delai</label>
                   <input type="text" name="delai" class="form-control" id="exampleInputEmail1" placeholder="Delai">
                 </div>
-                <label for="typeS">Type de Service</label>
+<!--                <label for="typeS">Type de Service</label>
                 <select class="form-control" name="typeS">
                     <option value="Standard">Standard</option>
                     <option value="Non_Standard">Non Standard</option>
-                </select>
+                </select>-->
                 
                 <input type="hidden" name="action" value="InsererServiceStandard">
              <!--   <div class="form-group">
