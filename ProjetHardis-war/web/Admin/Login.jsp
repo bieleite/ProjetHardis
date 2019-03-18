@@ -25,8 +25,15 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
- 
+<div class="login-box"> 
+    <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <h4><i class="icon fa fa-info"></i> 
+                    <% String attribut = (String) request.getAttribute("message");
+                out.println(attribut); %>
+                </h4>
+    </div>
+
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Connexion</p>
