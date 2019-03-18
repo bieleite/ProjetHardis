@@ -29,6 +29,10 @@
     {
       out.println(message);
 }%> </p>
+    
+  
+  
+  
     <form action="servClient" method="get">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="email">

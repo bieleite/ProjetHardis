@@ -96,26 +96,26 @@ try {
     {
 
         
-                
+            
     String server = "cpanel.freehosting.com";
-     int port = 21;
        String user = "lucialei";
        String pass = "rj3fTOw378";
-
+        String remoteFile = "/public_ftp/conditions.docx";
+  String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;  
        
         FTPClient ftpClient = new FTPClient();
         try {
  
                   
             
-            ftpClient.connect(server, port);
+            ftpClient.connect(server, 21);
             ftpClient.login(user, pass);
             ftpClient.enterLocalPassiveMode();
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
  
             // APPROACH #1: using retrieveFile(String, OutputStream)
-            String remoteFile1 = "test.txt";
-            File downloadFile1 = new File("C:\\Users\\6170361\\Documents\\test.txt");
+            String remoteFile1 = "/public_ftp/conditions.docx";
+            File downloadFile1 = new File("C:\\Users\\anastasia.salari\\Desktop\\cconditions.docx");
             OutputStream outputStream1 = new BufferedOutputStream(new FileOutputStream(downloadFile1));
             boolean success = ftpClient.retrieveFile(remoteFile1, outputStream1);
             outputStream1.close();

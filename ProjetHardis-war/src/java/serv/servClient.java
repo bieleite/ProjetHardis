@@ -55,7 +55,12 @@ public class servClient extends HttpServlet {
     
  protected Client connexion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                
+   //         
+   //  testFTP test = new testFTP();
+   //  test.downloadFTP();
+     
+     
+     
        sess = request.getSession(true);
         String email = request.getParameter("email");
         String mdp = request.getParameter("mdp");
