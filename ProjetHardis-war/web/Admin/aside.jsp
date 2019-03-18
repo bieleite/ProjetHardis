@@ -57,7 +57,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Creer Agence</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Afficher Agence</a></li>
+                <li><a href="servAdmin?action=AfficherAgence"><i class="fa fa-circle-o"></i> Afficher Agence</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Agence</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Agence</a></li>
               </ul>
@@ -70,7 +70,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="servAdmin?action=CreerAtelier"><i class="fa fa-circle-o"></i> Creer Ateliers</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Afficher Ateliers</a></li>
+                <li><a href="servAdmin?action=AfficherAtelier"><i class="fa fa-circle-o"></i> Afficher Ateliers</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Ateliers</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Ateliers</a></li>
               </ul>
@@ -83,9 +83,9 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="servAdmin?action=CreerOffre"><i class="fa fa-circle-o"></i> Creer Offre</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Afficher Utilisateur</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Utilisateur</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Utilisateur</a></li>
+                <li><a href="servAdmin?action=AfficherOffre"><i class="fa fa-circle-o"></i> Afficher Offre</a></li>
+                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Ofrre</a></li>
+                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Offre</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -96,7 +96,7 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="servAdmin?action=listesCreerUtiliateurHardis"><i class="fa fa-circle-o"></i> Creer Utilisateur</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Afficher Utilisateur</a></li>
+                <li><a href="servAdmin?action=AfficherUtilisateur"><i class="fa fa-circle-o"></i> Afficher Utilisateur</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Utilisateur</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Utilisateur</a></li>
               </ul>
