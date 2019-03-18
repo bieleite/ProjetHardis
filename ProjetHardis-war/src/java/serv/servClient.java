@@ -55,10 +55,6 @@ public class servClient extends HttpServlet {
     
  protected Client connexion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-     
-        testFTP t = new testFTP();
-        t.downloadFTP();
-
                 
        sess = request.getSession(true);
         String email = request.getParameter("email");
@@ -498,10 +494,31 @@ boolean cpo = false;
         
           else if (act.equals("majEnt"))
           {
-              List<Interlocuteur> liste = clientSession.recupInter(clientT.getEntreprise().getId());
+              boolean b=false;
+              String code = request.getParameter("code");
+              String mdp = request.getParameter("mdp");
+              
+              
+              if (code==null || mdp==null || code.isEmpty() || mdp.isEmpty())
+              {
+                  
+              }
+              else {
+                   b = clientSession.lierEntreprise(clientT.getId(), code, mdp);
+              }
+              
+              if (b)
+              {
+                  
+              }
+              List<Interlocuteur> liste = null;
+              if (clientT.getEntreprise()!=null){
+                liste = clientSession.recupInter(clientT.getEntreprise().getId());
+              }
               if (liste==null) liste=new ArrayList<>();
+             
               request.setAttribute("listeInt", liste);
-               jspClient = "/Client/majEntreprise.jsp";
+              jspClient = "/Client/majEntreprise.jsp";
               
           }
           

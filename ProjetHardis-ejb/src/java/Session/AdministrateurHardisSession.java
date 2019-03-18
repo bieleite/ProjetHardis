@@ -1312,7 +1312,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public List<Adresse> listAdresse() {
+    public List<Adresse> listAdresse(){
         List<Adresse> l = adresseFacade.listAdresse();
         return l;       
     }

@@ -228,7 +228,7 @@ return e;
     }
 
     @Override
-    public Entreprise rechercheEntrepriseSiretMdp(String code, String mdp) {
+    public Entreprise rechercheEntrepriseCodeMdp(String code, String mdp) {
        Entreprise entreprise = null;
         String txt = "SELECT entite FROM Entreprise AS entite WHERE entite.codeContrat=:code and entite.mdpEntreprise=:mdp";
         Query req = getEntityManager().createQuery(txt);

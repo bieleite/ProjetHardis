@@ -94,6 +94,8 @@ public interface ClientSessionLocal {
 
     List<Interlocuteur> recupInter(long id);
 
+    boolean lierEntreprise(long idC, String codeC, String mdp);
+
 
     
 }

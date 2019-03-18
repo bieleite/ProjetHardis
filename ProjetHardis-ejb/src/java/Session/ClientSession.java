@@ -344,7 +344,7 @@ devisFacade.majHT(d, ht);
 
     @Override
     public Entreprise rechercheEntrepriseParCodeEtMdp(String code, String mdp) {
-        Entreprise e = entrepriseFacade.rechercheEntrepriseSiretMdp(code, mdp);
+        Entreprise e = entrepriseFacade.rechercheEntrepriseCodeMdp(code, mdp);
 return e;
     }
 
@@ -504,6 +504,19 @@ return e;
     public List<Interlocuteur> recupInter(long id) {
         Entreprise e = entrepriseFacade.rechercheEntrepriseParId(id);
         return interlocuteurFacade.rechercheInterParEntreprise(e);
+    }
+
+    @Override
+    public boolean lierEntreprise(long idC, String codeC, String mdp) {
+        Client c = clientFacade.rechercheClient(idC);
+        boolean b = false;
+        Entreprise e = entrepriseFacade.rechercheEntrepriseCodeMdp(codeC,mdp);
+        if (e!=null)
+        {
+            clientFacade.majEntrepriseClient(c, e);
+            b= true;
+        }
+        return b;
     }
 
 
