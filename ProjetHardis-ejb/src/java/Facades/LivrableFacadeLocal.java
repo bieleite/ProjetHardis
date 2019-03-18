@@ -40,7 +40,7 @@ public interface LivrableFacadeLocal {
 
     void supprimerLivrable(Livrable liv);
 
-    Livrable creerLivrable(String nom, Service service);
+    Livrable creerLivrable(String nom);
 
     void modifierLivrable(Livrable liv, String nom, Service service);
 

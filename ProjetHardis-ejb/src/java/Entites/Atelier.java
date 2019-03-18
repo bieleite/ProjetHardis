@@ -6,10 +6,12 @@
 package Entites;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
@@ -53,16 +55,16 @@ public class Atelier implements Serializable {
         this.nomAtelier = nomAtelier;
     }
 
-    @ManyToOne
-        private ServiceStandard serviceStandard;
+    @ManyToMany
+        private List<ServiceStandard> listeServiceStandard;
 
     /**
      * Get the value of serviceStandard
      *
      * @return the value of serviceStandard
      */
-    public ServiceStandard getServiceStandard() {
-        return serviceStandard;
+    public List<ServiceStandard> getServiceStandard() {
+        return listeServiceStandard;
     }
 
     /**
@@ -70,8 +72,8 @@ public class Atelier implements Serializable {
      *
      * @param serviceStandard new value of serviceStandard
      */
-    public void setServiceStandard(ServiceStandard serviceStandard) {
-        this.serviceStandard = serviceStandard;
+    public void setServiceStandard(List<ServiceStandard> serviceStandard) {
+        this.listeServiceStandard = serviceStandard;
     }
 
 
