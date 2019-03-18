@@ -200,13 +200,26 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
 
     @Override
     public UtilisateurHardis authentificationHardis(String log, String mdp) {
-        Query requete = em.createQuery("SELECT a from UtilisateurHardis as a where a.login=:lo and a.mdp=:m");
+        
+        UtilisateurHardis c = null;
+         try {
+            String m = Helpers.sha1(mdp);
+             Query requete = em.createQuery("SELECT a from UtilisateurHardis as a where a.login=:lo and a.mdp=:m");
         requete.setParameter("lo", log);
-        requete.setParameter("m", mdp);       
+        requete.setParameter("m", m);       
         List<UtilisateurHardis> liste =  requete.getResultList();
-        if (!liste.isEmpty())
-            return (UtilisateurHardis)liste.get(0);
-        else return null;
+        if (!liste.isEmpty()) {
+           c =  (UtilisateurHardis)liste.get(0);
+           c.setConnecte(true);
+           em.merge(c);
+           
+        }
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(UtilisateurHardisFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        return c;
+        
     }
 
     @Override

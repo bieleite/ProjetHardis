@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.Agence"%>
 <%@page import="Entites.Adresse"%>
 <%@page import="Entites.Client"%>
 <%@page import="Entites.Devis"%>
@@ -48,105 +49,7 @@
         <span class="sr-only">Toggle navigation</span>
       </a>
 
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-           
-           <!-- Messages: style can be found in dropdown.less-->
-          <% List<Communication> lesCommunication=listeCommunication;
-             int ncomunication = lesCommunication.size();%>
-             <p><% 
-                String attribut = (String) request.getAttribute("message");
-                out.println(attribut);
-                %></p>
-                  
-           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-info"><%=ncomunication%></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                    <% for(Communication co : lesCommunication){%>
-                  <li>
-                     <%=co.getUtilisateurHardis().getNom() %>
-                  </li>
-                  <li>
-                     <%=co.getMessage() %>
-                  </li>
-                  <%}%>
-                </ul>
-              </li>
-            </ul>
-          </li>
-           <!-- end message -->
-          <% List<Notification> listeN = listeNotif;
-             int nbreN = listeN.size();%>
-                  
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning"><%=nbreN%></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                    <% for (Notification n : listeN){%>
-                  <li>
-                     <%=n.getMessage()%>
-                  </li>
-                  <%}%>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-          <% List<Devis> listedevis = listeDevis;
-             int nbreDevis = listedevis.size();%>
-          <li class="dropdown tasks-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger"><%=nbreDevis%></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have <%=nbreDevis%> tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  <%=utilisateur.getNom() %>
-                </p>
-              </li>
-              <!-- Menu Body -->
-               <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
-        </ul>
-      </div>
+      <%@include  file = "head.jsp" %>
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
@@ -172,42 +75,33 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <% List<Adresse> lesAdresses=listeAdresse; %> 
+      <% List<Agence> lesAgences=listeAgence; %> 
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
         <!-- left column -->
         <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Adresse</h3>
+              <h3 class="box-title">Agence</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Numero Rue</th>
-                  <th>Nom Rue</th>
-                  <th>Ville</th>
-                  <th>Code Postal</th>
+                  <th>Nom Agence</th>
                 </tr>
                 </thead>
-                <% for (Adresse a : lesAdresses){%>
+                <% for (Agence a : lesAgences){%>
                 <tbody>
                 <tr>
-                  <td><%=a.getNumeroRue() %></td>
-                  <td><%=a.getNomRue() %></td>
-                  <td><%=a.getVille() %></td>
-                  <td><%=a.getCodePostal() %></td>
+                  <td><%=a.getNomAgence() %></td>
                 </tr>
                 </tbody>
                 <%}%>
                 <tfoot>
                 <tr>
-                  <th>Numero Rue</th>
-                  <th>Nom Rue</th>
-                  <th>Ville</th>
-                  <th>Code Postal</th>
+                  <th>Nom Agence</th>
                 </tr>
                 </tfoot>
               </table>
