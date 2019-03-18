@@ -80,7 +80,11 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         cl.setEntreprise(entreprise);
         cl.setAgence(agence);
         cl.setCodepostal(cp);
-        em.persist(cl);
+       try {
+            cl.setMailHache(Helpers.sha1(Login));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return cl;
     }
     

@@ -29,5 +29,9 @@ public interface VisualisateurHardisSessionLocal {
     List<UtilisateurHardis> afficherUHardis();
 
     List<ServiceStandard> afficherServiceStandard();
+
+    UtilisateurHardis rechercheUParEmailHache(String email);
+
+    void majInfosProfil(long id, String mdp, String qs, String rs);
     
 }

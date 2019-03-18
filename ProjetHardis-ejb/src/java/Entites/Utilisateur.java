@@ -77,6 +77,27 @@ public class Utilisateur implements Serializable {
         this.connecte = connecte;
     }
 
+    
+        private String mailHache;
+
+    /**
+     * Get the value of mailHache
+     *
+     * @return the value of mailHache
+     */
+    public String getMailHache() {
+        return mailHache;
+    }
+
+    /**
+     * Set the value of mailHache
+     *
+     * @param mailHache new value of mailHache
+     */
+    public void setMailHache(String mailHache) {
+        this.mailHache = mailHache;
+    }
+
 
     @OneToMany(mappedBy = "utilisateur")
     private List<Logs> logss;

@@ -329,4 +329,6 @@ public interface AdministrateurHardisSessionLocal {
     List<Notification> getNotifsAdmin(UtilisateurHardis utlisateur);
     
     UtilisateurHardis recupererUtilisateurHardisQSRS(String QS, String RS);
+
+    Offre rechercheOffreParId(long id);
 }
