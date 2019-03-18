@@ -8,6 +8,7 @@ package Facades;
 import Entites.Interlocuteur;
 import Entites.Livrable;
 import Entites.Service;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -50,10 +51,10 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
 
 
     @Override
-    public Livrable creerLivrable(String nom, Service service) {
+    public Livrable creerLivrable(String nom) {
         Livrable liv = new Livrable();
         liv.setNomLivrable(nom);
-        liv.setService(service);
+        liv.setService(new ArrayList<>());
         em.persist(liv);
         return liv;
     }
@@ -69,7 +70,7 @@ public class LivrableFacade extends AbstractFacade<Livrable> implements Livrable
             if (nom.equals(""))
                 livrable.setNomLivrable(nom);
             if (service!=null)
-                  livrable.setService(service);
+                //  livrable.setService(service);
             em.merge(livrable);
     } 
   }

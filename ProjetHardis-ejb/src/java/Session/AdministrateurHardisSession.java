@@ -910,7 +910,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public Livrable creerLivrable(String nom, long idservice, UtilisateurHardis hardis) {
         Service service = serviceFacade.rechercheServiceParId(idservice);
-        Livrable livrable = livrableFacade.creerLivrable(nom, service);
+        Livrable livrable = livrableFacade.creerLivrable(nom);
         logsFacade.creerLogCreate(hardis, livrable);
         return livrable;
     }

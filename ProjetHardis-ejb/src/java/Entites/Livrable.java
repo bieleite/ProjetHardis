@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -55,16 +56,17 @@ public class Livrable implements Serializable {
         this.nomLivrable = nomLivrable;
     }
     
-    @ManyToOne
-        private Service service;
+
+    @ManyToMany
+        private List<ServiceStandard> listeServiceStandard;
 
     /**
      * Get the value of service
      *
      * @return the value of service
      */
-    public Service getService() {
-        return service;
+    public List<ServiceStandard> getService() {
+        return listeServiceStandard;
     }
 
     /**
@@ -72,8 +74,8 @@ public class Livrable implements Serializable {
      *
      * @param service new value of service
      */
-    public void setService(Service service) {
-        this.service = service;
+    public void setService(List<ServiceStandard> service) {
+        this.listeServiceStandard = service;
     }
 
 

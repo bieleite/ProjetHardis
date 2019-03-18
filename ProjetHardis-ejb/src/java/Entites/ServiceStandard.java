@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -20,7 +21,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class ServiceStandard extends Service implements Serializable {
 
-    @OneToMany(mappedBy = "serviceStandard")
+    @ManyToMany(mappedBy = "listeServiceStandard")
     private List<Atelier> ateliers;
 
     public List<Atelier> getAteliers() {
@@ -30,11 +31,13 @@ public class ServiceStandard extends Service implements Serializable {
     public void setAteliers(List<Atelier> ateliers) {
         this.ateliers = ateliers;
     }
-    
-    
 
-    @OneToMany(mappedBy = "service")
+    
+    @ManyToMany(mappedBy = "listeServiceStandard")
     private List<Livrable> livrables;
+    
+    
+    
 
     public List<Livrable> getLivrables() {
         return livrables;
