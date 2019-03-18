@@ -179,7 +179,7 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
     @Override
     public ServiceStandard rechercheServiceSParId(long id) {
          ServiceStandard s = null;
-        Query requete = em.createQuery("SELECT s from Service as s where s.id=:id");
+        Query requete = em.createQuery("SELECT s from ServiceStandard as s where s.id=:id");
         requete.setParameter("id",id);     
         List<ServiceStandard> liste =  requete.getResultList();
         if (!liste.isEmpty()){

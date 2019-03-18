@@ -32,6 +32,26 @@ public class Interlocuteur implements Serializable {
         this.id = id;
     }
     
+    private String emailInterlocuteur;
+
+    /**
+     * Get the value of emailInterlocuteur
+     *
+     * @return the value of emailInterlocuteur
+     */
+    public String getEmailInterlocuteur() {
+        return emailInterlocuteur;
+    }
+
+    /**
+     * Set the value of emailInterlocuteur
+     *
+     * @param emailInterlocuteur new value of emailInterlocuteur
+     */
+    public void setEmailInterlocuteur(String emailInterlocuteur) {
+        this.emailInterlocuteur = emailInterlocuteur;
+    }
+
     
         private String nomInterlocuteur;
 

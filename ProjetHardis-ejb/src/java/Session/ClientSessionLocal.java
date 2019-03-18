@@ -96,6 +96,10 @@ public interface ClientSessionLocal {
 
     boolean lierEntreprise(long idC, String codeC, String mdp);
 
+    boolean verifRepS(long id, String rep);
+
+    void modifMDP(long id, String mdp);
+
 
     
 }

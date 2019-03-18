@@ -65,7 +65,13 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         }//test md5 hash
         //cl.setMdp(MDP);
         cl.setQuestionSecrete(QuestionSecrete);
-        cl.setReponseSecrete(ReponseSecrete);
+         try {
+            cl.setReponseSecrete(Helpers.sha1(ReponseSecrete));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }//test md5 hash
+        //cl.setMdp(MDP);
+      
         cl.setRGPD(RGPD);
         cl.setDateRGPD(dateRDGP);
         cl.setVisible(true);
@@ -148,16 +154,16 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     
     @Override
     public  void modfiClientMDP(Client cl, String MDP) {
-                
-        String txt = "SELECT cl FROM Client AS cl WHERE cl.id=:id ";
-        Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("id", cl.getId());
-        List<Client> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-            cl.setMdp(MDP);
+          try {
+            cl.setMdp(Helpers.sha1(MDP));
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+      
+       
+          
             em.merge(cl);
-        }
+        
         
     }
     
@@ -270,6 +276,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     @Override
     public void majEntrepriseClient(Client c, Entreprise ent) {
         c.setEntreprise(ent);
+        c.getEntreprise().setCertifie(true);
         em.merge(c);
     }
     
@@ -315,6 +322,21 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     public void deconnexion(Client c) {
         c.setConnecte(false);
         em.merge(c);
+    }
+
+    @Override
+    public boolean verifRepS(Client c, String rep) {
+        boolean b = false;
+         try {
+            String m = Helpers.sha1(rep);
+            if (c.getReponseSecrete().equals(m))
+        b = true;
+        
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        return b;
     }
 
 

@@ -78,6 +78,8 @@ public interface ClientFacadeLocal {
 
     void deconnexion(Client c);
 
+    boolean verifRepS(Client c, String rep);
+
 
 
 }

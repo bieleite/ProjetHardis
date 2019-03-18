@@ -40,7 +40,7 @@ public interface InterlocuteurFacadeLocal {
 
     Interlocuteur rechercheInterlocuteurParId(long id);
 
-    Interlocuteur creerInterlocuteur(String nom, String prenom, String fonction, String tel, Entreprise entreprise);
+    Interlocuteur creerInterlocuteur(String nom, String prenom, String fonction, String tel,String email, Entreprise entreprise);
 
     void modifierInterlocuteur(Interlocuteur inter, String nom, String prenom, String fonction, String tel, Entreprise entreprise);
 

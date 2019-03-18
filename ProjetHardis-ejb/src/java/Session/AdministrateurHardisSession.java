@@ -879,9 +879,9 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerInterlocuteur(String nom, String prenom, String fonction, String tel, long identreprise, UtilisateurHardis hardis) {
+    public void creerInterlocuteur(String nom, String prenom, String fonction, String tel, String email, long identreprise, UtilisateurHardis hardis) {
         Entreprise entreprise = entrepriseFacade.rechercheEntrepriseParId(identreprise);
-        Interlocuteur interlocuteur = interlocuteurFacade.creerInterlocuteur(nom, prenom, fonction, tel, entreprise);
+        Interlocuteur interlocuteur = interlocuteurFacade.creerInterlocuteur(nom, prenom, fonction, tel, email, entreprise);
         logsFacade.creerLogCreate(hardis, interlocuteur);
     }
 

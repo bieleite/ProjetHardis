@@ -49,7 +49,7 @@
               <input type ="hidden" name="action" value="connexion">
     </form>
 
-    <a href="#">Mot de passe oublié</a><br>
+    <a href="servClient?action=forgot">Mot de passe oublié</a><br>
     <a href="servInternaute?action=register" class="text-center">S'enregistrer</a>
 
   </div>

@@ -153,14 +153,52 @@
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
                                     <% if (listeI.size()==0) out.print("Vous n'avez pas d'interlocuteurs declarés pour cette entreprise");
-                                    else {
-                                        out.print("Liste interlocuteurs");
-                                        for (Interlocuteur i : listeI)
+                                    else {                                      
+                                        
+                                     %>
+                                       <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Liste interlocuteurs</h3>
+         
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin">
+                  <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Mail</th>
+                    <th>Tél</th>
+                    <th>Fonction</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                       <% for (Interlocuteur i : listeI)
                                         {
-                                            out.print(i.getNomInterlocuteur());
-                                        }
+                               %>
+                  <tr>
+                     
                                        
-                                    } %>
+                    <td><%=i.getNomInterlocuteur()%></td>
+                    <td><%=i.getPrenomInterlocuteur()%></td>
+                     <td><%=i.getEmailInterlocuteur()%></td>
+                     <td><%=i.getTelInterlocuteur()%></td>
+                     <td><%=i.getFonctionInterlocuteur()%></td>
+                  </tr> <% }%>
+                 
+                 
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+
+
+
+            <!-- /.box-footer -->
+          </div> <%}%>
                                     </div>
                                     
                                     <div class="box-header with-border">

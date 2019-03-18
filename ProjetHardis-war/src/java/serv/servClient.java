@@ -515,8 +515,7 @@ boolean cpo = false;
               if (clientT.getEntreprise()!=null){
                 liste = clientSession.recupInter(clientT.getEntreprise().getId());
               }
-              if (liste==null) liste=new ArrayList<>();
-             
+
               request.setAttribute("listeInt", liste);
               jspClient = "/Client/majEntreprise.jsp";
               
@@ -525,12 +524,71 @@ boolean cpo = false;
            
              else if(act.equals("ajoutInter"))
           {
+              
               creationInter(request, response);
                 jspClient = "/Client/majEntreprise.jsp";
                 List<Interlocuteur> liste = clientSession.recupInter(clientT.getEntreprise().getId());
                 request.setAttribute("listeInt", liste);
               
           }
+          
+                   else if (act.equals("forgot"))
+        {
+          
+            
+             jspClient = "/Client/forgot.jsp";
+             String repS = request.getParameter("repS");
+             String mdp = request.getParameter("mdp");
+             String mdp1 = request.getParameter("mdp1");
+             
+             if (mdp==null || mdp.isEmpty() )
+             {
+                 
+             }
+             else {
+                 if (mdp.equals(mdp1))
+                 {
+                     clientSession.modifMDP(clientT.getId(), mdp);
+                     jspClient = "/Internaute/login.jsp";
+                     
+                 }
+             }
+             
+             
+              if (repS==null ||repS.isEmpty())
+  {
+      
+  }
+  else
+              {
+                  if (clientSession.verifRepS(clientT.getId(), repS))
+                          {
+                                request.setAttribute("valide","valide");
+                                 request.setAttribute("client",clientT);
+                          }
+              }
+             
+             
+  String email = request.getParameter("email");
+  if (email==null ||email.isEmpty())
+  {
+      
+  }
+  else{
+   Client c = clientSession.rechercheCliParLogin(email);
+   clientT = c;
+   if (c!=null)
+   {
+      request.setAttribute("client",c);
+   }
+   else {
+        request.setAttribute("messageErreur","Erreur, email non trouvé");
+   }
+  }
+             
+        
+
+        }
           
           
         

@@ -210,7 +210,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<HistoriqueTraitement> listHistoriqueTraitementEtats( UtilisateurHardis hardis);
     
-    void creerInterlocuteur(String nom, String prenom, String fonction, String tel, long identreprise, UtilisateurHardis hardis);
+    void creerInterlocuteur(String nom, String prenom, String fonction, String tel,  String email, long identreprise, UtilisateurHardis hardis);
     
     void modifierInterlocuteur(long idinter, String nom, String prenom, String fonction, String tel, long identreprise, UtilisateurHardis hardis);
     

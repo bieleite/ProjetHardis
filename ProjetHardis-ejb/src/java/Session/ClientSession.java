@@ -332,7 +332,7 @@ devisFacade.majHT(d, ht);
 
     //creerClient(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, Entreprise entreprise, Agence agence, String cp
     @Override
-    public Client creerClient(String nom, String prenom, String login, String mdp, String cp, String qs, String rs) {
+    public Client creerClient(String nom, String prenom, String login, String mdp, String qs, String rs,  String cp) {
        return clientFacade.creerClient(nom, prenom, login, mdp, qs, rs, 1, new Date(), null, null, cp);
     }
 
@@ -495,9 +495,9 @@ return e;
     }
 
     @Override
-    public void creerInter(String nom, String prenom, String email, String fonction, String tel, long idEnt) {
+    public void creerInter(String nom, String prenom, String email, String fonction, String tel,long idEnt) {
         Entreprise e = entrepriseFacade.rechercheEntrepriseParId(idEnt);
-        interlocuteurFacade.creerInterlocuteur(nom, prenom, fonction, tel, e);
+        interlocuteurFacade.creerInterlocuteur(nom, prenom, fonction, tel,email, e);
     }
 
     @Override
@@ -519,6 +519,19 @@ return e;
         return b;
     }
 
+    @Override
+    public boolean verifRepS(long id, String rep) {
+                Client c = clientFacade.rechercheClient(id);
+               return clientFacade.verifRepS(c, rep);
+    }
+
+    @Override
+    public void modifMDP(long id, String mdp) {
+        Client c = clientFacade.rechercheClient(id);
+        clientFacade.modfiClientMDP(c, mdp);
+    }
+
+    
 
     
     
