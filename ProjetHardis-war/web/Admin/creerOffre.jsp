@@ -4,9 +4,6 @@
     Author     : 6171217
 --%>
 
-<%@page import="Entites.Offre"%>
-<%@page import="Entites.Agence"%>
-<%@page import="Entites.ProfilMetier"%>
 <%@page import="Entites.Client"%>
 <%@page import="Entites.Devis"%>
 <%@page import="Entites.Utilisateur"%>
@@ -28,8 +25,6 @@
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
-    <jsp:useBean id="listoffre" scope="request" class = "java.util.List"> </jsp:useBean>
-   
 
 
 </head>
@@ -167,8 +162,8 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
-        <li class="active">Service</li>
-        <li class="active">Creer Service</li>
+        <li class="active">Atelier</li>
+        <li class="active">Creer Atelier</li>
       </ol>
     </section>
 
@@ -191,53 +186,13 @@
             <form role="form">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="nomService">Nom Service</label>
-                  <input type="txt" name="nomService" class="form-control" id="exampleInputEmail1" placeholder="Nom Service">
+                  <label for="libelleOffre">Libelle Offre</label>
+                  <input type="txt" name="libelleOffre" class="form-control" id="exampleInputEmail1" placeholder="Libelle Offre">
                 </div>
-                <div class="form-group">
-                  <label for="descriptionService">Description Service</label>
-                  <input type="txt" name="descriptionService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
-                </div>
-                <label for="lieuInterv">Lieu d'intervention</label>
-                <select class="form-control" name="lieuInterv">
-                    <option value="Agence_Hardis">Agence Hardis</option>
-                    <option value="Mixte">Mixte</option>
-                    <option value="Site_Client">Site Client</option>
-                </select>
-                <label for="offre">Offre</label>
-                <select class="form-control" name="offre">
-                    <% List<Offre> lesOffres=listoffre; %>
-                     <%  for (Offre o : lesOffres){%>
-                      <option value="<%=o.getId() %>" ><%=o.getLibelle() %></option>
-                      <%}%>
-                </select>
-                <div class="form-group">
-                  <label for="cout">Cout</label>
-                  <input type="txt" name="cout" class="form-control" id="exampleInputEmail1" placeholder="Login">
-                </div>
-                <label for="facturation">Facturation des Frais</label>
-                <select class="form-control" name="facturation">
-                    <option value="Oui">Oui</option>
-                    <option value="Non">Non</option>
-                </select>
-                <div class="form-group">
-                  <label for="listeCond">Liste de conditions</label>
-                  <input type="text" name="listeCond" class="form-control" id="exampleInputEmail1" placeholder="Liste de conditions">
-                </div>
-                <div class="form-group">
-                  <label for="delai">Delai</label>
-                  <input type="text" name="delai" class="form-control" id="exampleInputEmail1" placeholder="Delai">
-                </div>
-                <label for="typeS">Type de Service</label>
-                <select class="form-control" name="typeS">
-                    <option value="Standard">Standard</option>
-                    <option value="Non_Standard">Non Standard</option>
-                </select>
-                
-                <input type="hidden" name="action" value="InsererService">
+                <input type="hidden" name="action" value="InsererOffre">
              <!--   <div class="form-group">
-                  <label for="stadeEquipe">Select</label>
-                  <select class="form-control" name="stadeEquipe">
+                  <label>Select</label>
+                  <select class="form-control">
                     <option>option 1</option>
                     <option>option 2</option>
                     <option>option 3</option>

@@ -89,14 +89,14 @@ public class servAdmin extends HttpServlet {
         
         if((act==null)||(act.equals("vide")))
             {   
-                request.setAttribute("message","Svp remplir Login et password");
+                request.setAttribute("message","Bienvenue s'il vous plait remplir votre login et mot de passe");
                 jspClient="/Admin/Login.jsp";
             }
             else if(act.equals("LoginAdmin")){
                 String login = request.getParameter("login");
                 String pass = request.getParameter("pass");
                 if(!(login.trim().isEmpty())||!(pass.trim().isEmpty())){
-                UtilisateurHardis utilisateur=administrateurHardisSession.authentificationUtilisateurHardis(login, pass);
+                UtilisateurHardis utilisateur = administrateurHardisSession.authentificationUtilisateurHardis(login, pass);
                     if(utilisateur!=null){
                         request.setAttribute("message","Bienvenue: "+ utilisateur.getNom());
                         sess.setAttribute("utilisateur", utilisateur);
@@ -115,7 +115,7 @@ public class servAdmin extends HttpServlet {
                         jspClient="/Admin/dashboardAdmin.jsp";    
                                 }   
                     else{
-                        request.setAttribute("message","Entraineur non trouvé");
+                        request.setAttribute("message","Utilisateur non trouvé");
                         jspClient="/Admin/Login.jsp";
                     }
                 }
@@ -127,7 +127,8 @@ public class servAdmin extends HttpServlet {
             }
             else if(act.equals("Menu"))
             {
-                jspClient="/dashboardAdmin.jsp";
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                jspClient="/Admin/dashboardAdmin.jsp";
                 request.setAttribute("message","pas d'information");
             }
             else if(act.equals("CreerAgence"))
@@ -172,9 +173,18 @@ public class servAdmin extends HttpServlet {
             }
             else if(act.equals("InsererAdresse"))
             {
-               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAdresse(request,response);
                jspClient="/Admin/dashboardAdmin.jsp";
+               
+            }
+            else if(act.equals("AfficherAdresse"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                List<Adresse> listeAdresse = administrateurHardisSession.listAdresse();
+                if (listeAdresse==null) listeAdresse=new ArrayList<>();
+                request.setAttribute("listeAdresse",listeAdresse);
+                jspClient="/Admin/afficherAdresse.jsp";
             }
             else if(act.equals("CreerAtelier"))
             {
@@ -392,7 +402,7 @@ public class servAdmin extends HttpServlet {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
                 int numRue = Integer.valueOf(NumRue);
-                Adresse adresse = administrateurHardisSession.creerAdresse(numRue, NomRue, Ville, Ville, ut);
+                Adresse adresse = administrateurHardisSession.creerAdresse(numRue, NomRue, Ville, CodePostal, ut);
                 String nomentite = adresse.getNomRue() ;
                 String classe = adresse.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";

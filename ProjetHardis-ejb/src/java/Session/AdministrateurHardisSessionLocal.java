@@ -318,5 +318,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Atelier> listAtelier();
     
+    List<Adresse> listAdresse() ;
+    
     List<Notification> getNotifsAdmin(UtilisateurHardis utlisateur);
 }

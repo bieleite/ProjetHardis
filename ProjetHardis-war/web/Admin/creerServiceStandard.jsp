@@ -42,7 +42,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="servAdmin?action=Menu" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>H</b>G</span>
       <!-- logo for regular state and mobile devices -->
@@ -204,56 +204,74 @@
                 </div>
                 <div class="form-group">
                   <label for="descPrestaService">Description Prestation Service</label>
-                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
+                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Prestation Service">
                 </div>
                 <div class="form-group">
-                  <label for="descPrestaService">Nombre d'Heures Consultant Junior</label>
-                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
+                  <label for="nbHSService">Nombre d'Heures du Service</label>
+                  <input type="txt" name="nbHSService" class="form-control" id="exampleInputEmail1" placeholder="Nombre d'Heures du Service">
                 </div>
                 <div class="form-group">
-                  <label for="descPrestaService">Nombre d'Heures Consultant Confirmé</label>
-                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
+                  <label for="nbJJService">Nombre d'Heures Consultant Junior</label>
+                  <input type="txt" name="nbJJService" class="form-control" id="exampleInputEmail1" placeholder="Nombre d'Heures Consultant Junior">
                 </div>
                 <div class="form-group">
-                  <label for="descPrestaService">Nombre d'Heures Consultant Senior</label>
-                  <input type="txt" name="descPrestaService" class="form-control" id="exampleInputEmail1" placeholder="Description Service">
+                  <label for="nbJCService">Nombre d'Heures Consultant Confirmé</label>
+                  <input type="txt" name="nbJCService" class="form-control" id="exampleInputEmail1" placeholder="Nombre d'Heures Consultant Confirmé">
                 </div>
-                  <% List<Livrable> lesLivrables=listlivrable; %>
-                    
                 <div class="form-group">
-                  <div class="checkbox">
-                <label for="listlivrable">Livrables</label>
-                   <table border width=50%>
-                        <tr> 
-                            <td>Nom Livrable</td>
-                            <td>Selecionné</td>
-                        </tr>
-                            <% for (Livrable l : lesLivrables){%>
-                            <tr>
-                                <td width=15%><%=l.getNomLivrable() %></td>
-                                <td width=15%><input type="checkbox" name="listlivrable" value="<%=l.getId()%>"></td>
-                            </tr><%}%>     
-                    </table>
-                  </div>
+                  <label for="nbJSService">Nombre d'Heures Consultant Senior</label>
+                  <input type="txt" name="nbJSService" class="form-control" id="exampleInputEmail1" placeholder="Nombre d'Heures Consultant Senior">
                 </div>
-                     <% List<Atelier> lesAteliers=listatelier; %>
-                    
+                <% List<Livrable> lesLivrables=listlivrable; %>              
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Livrable</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th>Nom Livrable</th>
+                  <th>Check</th>
+                </tr>
+				<% for (Livrable l : lesLivrables){%>
+                <tr>
+                  <td><%=l.getNomLivrable() %></td>
+                  <td><input type="checkbox" name="listlivrable" value="<%=l.getId()%>"></td>
+                </tr><%}%>
+                
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+                 
+                      <% List<Atelier> lesAteliers=listatelier; %>              
+          <div class="box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Ateliers</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th>Nom Atelier</th>
+                  <th>Check</th>
+                </tr>
+				<% for (Atelier a : lesAteliers){%>
+                <tr>
+                  <td><%=a.getNomAtelier() %></td>
+                  <td><input type="checkbox" name="listatelier" value="<%=a.getId()%>"></td>
+                </tr><%}%>
+                
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>   
                 <div class="form-group">
-                  <div class="checkbox">
-                <label for="listatelier">Atelier</label>
-                   <table border width=50%>
-                        <tr> 
-                            <td>Nom atelier</td>
-                            <td>Selecionné</td>
-                        </tr>
-                            <% for (Atelier a : lesAteliers){%>
-                            <tr>
-                                <td width=15%><%=a.getNomAtelier() %></td>
-                                <td width=15%><input type="checkbox" name="listatelier" value="<%=a.getId()%>"></td>
-                            </tr><%}%>     
-                    </table>
-                  </div>
+                  <label for="nbHAService">Nombre d'Heures d'Atelier</label>
+                  <input type="txt" name="nbHAService" class="form-control" id="exampleInputEmail1" placeholder="Nombre d'Heures d'Atelier">
                 </div>
+                  
                 <label for="lieuInterv">Lieu d'intervention</label>
                 <select class="form-control" name="lieuInterv">
                     <option value="Agence_Hardis">Agence Hardis</option>
@@ -268,8 +286,8 @@
                       <%}%>
                 </select>
                 <div class="form-group">
-                  <label for="cout">Cout</label>
-                  <input type="txt" name="cout" class="form-control" id="exampleInputEmail1" placeholder="Login">
+                  <label for="cout">Coût</label>
+                  <input type="txt" name="cout" class="form-control" id="exampleInputEmail1" placeholder="Coût">
                 </div>
                 <label for="facturation">Facturation des Frais</label>
                 <select class="form-control" name="facturation">

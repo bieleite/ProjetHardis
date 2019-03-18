@@ -1264,7 +1264,6 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public UtilisateurHardis authentificationUtilisateurHardis(String login, String mdp) {
         UtilisateurHardis utilisateur = utilisateurHardisFacade.authentificationHardis(login, mdp);
-        logsFacade.creerLogResearch(utilisateur, utilisateur);
         return utilisateur;
     }
     
@@ -1309,6 +1308,12 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public List<Livrable> listLivrable() {
         List<Livrable> l = livrableFacade.findAll();
+        return l;       
+    }
+    
+    @Override
+    public List<Adresse> listAdresse() {
+        List<Adresse> l = adresseFacade.listAdresse();
         return l;       
     }
     
