@@ -66,6 +66,8 @@ public interface AdministrateurHardisSessionLocal {
     
     void supprimerAgence(long idagence, UtilisateurHardis hardis);
     
+    Agence rechercherAgenceParId(long id);
+    
     Agence rechercherAgence(long id, String nomAgence, UtilisateurHardis hardis);
         
     Atelier creerAtelier(String NomAtelier, UtilisateurHardis hardis);

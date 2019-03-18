@@ -186,7 +186,6 @@ public class servAdmin extends HttpServlet {
             }
             else if(act.equals("CreerAgence"))
             {
-
                 jspClient="/Admin/creerAgence.jsp";
             }
             else if(act.equals("InsererAgence"))
@@ -202,6 +201,34 @@ public class servAdmin extends HttpServlet {
                 if (listeAgence==null) listeAgence=new ArrayList<>();
                 request.setAttribute("listeAgence",listeAgence);
                 jspClient="/Admin/afficherAgence.jsp";
+            }
+            else if(act.equals("RechercherAgence"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                List<Agence> listeAgence= new ArrayList<>();
+                String champ = request.getParameter("champ");
+                Agence a = administrateurHardisSession.rechercherAgence(0, champ, utilisateur);
+                if(a!=null){
+                    listeAgence.add(a);
+                }else{
+                listeAgence=new ArrayList<>();}
+                request.setAttribute("listeAgence",listeAgence);
+                jspClient="/Admin/afficherAgence.jsp";
+            }
+            else if(act.equals("formAgence"))
+            {
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                String champ = request.getParameter("idAgence");
+                Long idagence = Long.valueOf(champ);
+                Agence a = administrateurHardisSession.rechercherAgenceParId(idagence);
+                request.setAttribute("agence",a);
+                jspClient="/Admin/modifierAgence.jsp";
+            }
+             else if(act.equals("ModifierAgence"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+               doActionModifierAgence(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("CreerAdresse"))
             {
@@ -448,6 +475,20 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listClient",listClient);
                 jspClient="/Admin/certifierClient.jsp";
             }
+            
+            else if(act.equals("RechercherAtelier"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                List<Client> listClient= new ArrayList<>();
+                String mailClient = request.getParameter("mail");
+                Client client = administrateurHardisSession.rechercherClient(0, jspClient, mailClient, utilisateur);
+                if(client!=null){
+                    listClient.add(client);
+                }else{
+                listClient=new ArrayList<>();}
+                request.setAttribute("listClient",listClient);
+                jspClient="/Admin/certifierClient.jsp";
+            }
 //            else{
 //                jspClient="/ChoixE.jsp";
 //                request.setAttribute("message","Entraineur non attribué dans une equipe");
@@ -496,6 +537,37 @@ public class servAdmin extends HttpServlet {
                     String nomagence = agence.getNomAgence();
                     String classe = agence.getClass().toString();
                     message= " "+classe+":"+ nomagence+" créé avec succès !";
+                }
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionModifierAgence(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idAgence = request.getParameter("idAgence");
+        String nomAgence = request.getParameter("nomAgence");
+        String message = null;
+        if(nomAgence.trim().isEmpty()||idAgence.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Agence agence =  administrateurHardisSession.rechercherAgence(0, nomAgence, ut);
+                if(agence!=null){
+                    message= "Erreur agence: "+nomAgence +" déjà dans la base de données";
+                }
+                else{
+                    Long id = Long.valueOf(idAgence);
+                    administrateurHardisSession.modifierAgence(id, nomAgence, ut);
+                    agence = administrateurHardisSession.rechercherAgence(0, nomAgence, ut);
+                    String nomagence = agence.getNomAgence();
+                    String classe = agence.getClass().toString();
+                    message= " "+classe+":"+ nomagence+" modifiée avec succès !";
                 }
             }
             else{

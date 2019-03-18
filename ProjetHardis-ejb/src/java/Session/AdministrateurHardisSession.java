@@ -203,15 +203,24 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         if (!"".equals(nomAgence))
         {
             ag = agenceFacade.rechercheAgenceParNom(nomAgence);
-            logsFacade.creerLogResearch(hardis, ag);
+//            logsFacade.creerLogResearch(hardis, ag);
         }
         
         else  if (id!=0)
         {
             ag = agenceFacade.rechercheAgence(id);
-            logsFacade.creerLogResearch(hardis, ag);
+//            logsFacade.creerLogResearch(hardis, ag);
         }
         
+        return ag;
+    }
+    
+     @Override
+    public Agence rechercherAgenceParId(long id) {
+       Agence ag = null;
+ 
+            ag = agenceFacade.rechercheAgence(id);
+
         return ag;
     }
       
@@ -301,7 +310,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         if (!"".equals(nomclient))
         {
             cl = clientFacade.rechercheClientParNom(nomclient);
-            logsFacade.creerLogResearch(hardis, cl);
+//            logsFacade.creerLogResearch(hardis, cl);
         }
         if (!"".equals(loginclient))
         {
@@ -312,7 +321,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         else  if (id!=0)
         {
             cl = clientFacade.rechercheClient(id);
-            logsFacade.creerLogResearch(hardis, cl);
+//            logsFacade.creerLogResearch(hardis, cl);
         }
         
         return cl;

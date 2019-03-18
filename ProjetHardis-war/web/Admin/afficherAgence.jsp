@@ -34,24 +34,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="servAdmin?action=Menu" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>H</b>G</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Hardis</b>GROUP</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-      <%@include  file = "head.jsp" %>
-    </nav>
-  </header>
+  <%@include  file = "header.jsp" %>
   <!-- Left side column. contains the logo and sidebar -->
   <%@include  file = "aside.jsp" %>
 
@@ -77,31 +60,43 @@
       <!-- Small boxes (Stat box) -->
       <% List<Agence> lesAgences=listeAgence; %> 
       <!-- /.row -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="champ" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="action" value="RechercherAgence" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
       <!-- Main row -->
       <div class="row">
         <!-- left column -->
         <div class="box">
             <div class="box-header">
               <h3 class="box-title">Agence</h3>
+
             </div>
+            
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Nom Agence</th>
+                  
                 </tr>
                 </thead>
                 <% for (Agence a : lesAgences){%>
                 <tbody>
                 <tr>
-                  <td><%=a.getNomAgence() %></td>
+                  <td><a href="servAdmin?action=formAgence&idAgence=<%=a.getId().toString() %>" name="idAgence" value="<%=a.getId().toString() %>"><%=a.getNomAgence() %></a></td>
                 </tr>
                 </tbody>
                 <%}%>
                 <tfoot>
                 <tr>
-                  <th>Nom Agence</th>
+                  <th>Nom Agence</th>                
                 </tr>
                 </tfoot>
               </table>
