@@ -717,9 +717,9 @@ public class servAdmin extends HttpServlet {
         String facturation= request.getParameter("facturation");
         String listeCond= request.getParameter("listeCond");
         String delai = request.getParameter("delai");
-        String typeS= request.getParameter("typeS");
+//        String typeS= request.getParameter("typeS");
         String message = null;
-        if(nomService.trim().isEmpty()||descriptionService.trim().isEmpty()||lieuInterv.trim().isEmpty()||offre.trim().isEmpty()||cout.trim().isEmpty()||facturation.trim().isEmpty()||listeCond.trim().isEmpty()||delai.trim().isEmpty()||typeS.trim().isEmpty()){
+        if(nomService.trim().isEmpty()||descriptionService.trim().isEmpty()||lieuInterv.trim().isEmpty()||offre.trim().isEmpty()||cout.trim().isEmpty()||facturation.trim().isEmpty()||listeCond.trim().isEmpty()||delai.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
         }
         else {
@@ -746,13 +746,13 @@ public class servAdmin extends HttpServlet {
                     facturations = FacturationFrais.Non;
                 }
                 int delaiService = Integer.valueOf(delai);
-                TypeService typeSs= null;
-                if(typeS.equals("Standard")){
-                    typeSs = TypeService.Standard;
-                }
-                else if (facturation.equals("Non_Standard")){
-                    typeSs = TypeService.Non_Standard;
-                }
+                TypeService typeSs= TypeService.Non_Standard;
+//                if(typeS.equals("Standard")){
+//                    typeSs = TypeService.Standard;
+//                }
+//                else if (facturation.equals("Non_Standard")){
+//                    typeSs = TypeService.Non_Standard;
+//                }
                 Service o = administrateurHardisSession.creerService(nomService, descriptionService, lieuIntervs, idoffre, coutService, facturations, listeCond, delaiService, typeSs, ut);
                 String nomentite = o.getNomService();
                 String classe = o.getClass().toString();
@@ -783,9 +783,9 @@ public class servAdmin extends HttpServlet {
         String facturation= request.getParameter("facturation");
         String listeCond= request.getParameter("listeCond");
         String delai = request.getParameter("delai");
-        String typeS= request.getParameter("typeS");
+//        String typeS= request.getParameter("typeS");
         String message = null;
-        if(nomService.trim().isEmpty()||descriptionService.trim().isEmpty()||lieuInterv.trim().isEmpty()||offre.trim().isEmpty()||cout.trim().isEmpty()||facturation.trim().isEmpty()||listeCond.trim().isEmpty()||delai.trim().isEmpty()||typeS.trim().isEmpty()){
+        if(nomService.trim().isEmpty()||descriptionService.trim().isEmpty()||lieuInterv.trim().isEmpty()||offre.trim().isEmpty()||cout.trim().isEmpty()||facturation.trim().isEmpty()||listeCond.trim().isEmpty()||delai.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
         }
         else {
@@ -816,13 +816,13 @@ public class servAdmin extends HttpServlet {
                     facturations = FacturationFrais.Non;
                 }
                 int delaiService = Integer.valueOf(delai);
-                TypeService typeSs= null;
-                if(typeS.equals("Standard")){
-                    typeSs = TypeService.Standard;
-                }
-                else if (facturation.equals("Non_Standard")){
-                    typeSs = TypeService.Non_Standard;
-                }
+                TypeService typeSs= TypeService.Standard;
+//                if(typeS.equals("Standard")){
+//                    typeSs = TypeService.Standard;
+//                }
+//                else if (facturation.equals("Non_Standard")){
+//                    typeSs = TypeService.Non_Standard;
+//                }
                 ServiceStandard o = administrateurHardisSession.creerServiceStandard(nomService, descriptionService, lieuIntervs, idoffre, coutService, facturations, listeCond, delaiService, typeSs, descPresta, nbJS, nbJC, nbJJ, nbHA, listidlivrable, listeidAtelier, nbHS, ut);
                 String nomentite = o.getNomService();
                 String classe = o.getClass().toString();
