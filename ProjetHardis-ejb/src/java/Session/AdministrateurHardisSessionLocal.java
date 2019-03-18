@@ -290,7 +290,7 @@ public interface AdministrateurHardisSessionLocal {
     
     UtilisateurHardis creerUtilisateurHardis( String nom, String prenom, String login, String mdp, ProfilTechnique profil, long idagence, UtilisateurHardis hardis);
 
-    void modifieUtilisateurHardisMDP(long idutilisateur, String MDP, UtilisateurHardis hardis);
+    UtilisateurHardis modifieUtilisateurHardisMDP(UtilisateurHardis idutilisateur, String MDP);
     
     void modifieUtilisateurHardisQSRS(long idutilisateur,String QS, String RS, UtilisateurHardis hardis);
     
@@ -304,7 +304,7 @@ public interface AdministrateurHardisSessionLocal {
     
     UtilisateurHardis authentificationUtilisateurHardis(String login, String mdp);
     
-    UtilisateurHardis rechercherUtilisateurHardisParLogin(String login, UtilisateurHardis hardis);
+    UtilisateurHardis rechercherUtilisateurHardisParLogin(String login);
     
     List<UtilisateurHardis> listUtilisateurHardis( UtilisateurHardis hardis);
     
@@ -321,4 +321,6 @@ public interface AdministrateurHardisSessionLocal {
     List<Adresse> listAdresse() ;
     
     List<Notification> getNotifsAdmin(UtilisateurHardis utlisateur);
+    
+    UtilisateurHardis recupererUtilisateurHardisQSRS(String QS, String RS);
 }
