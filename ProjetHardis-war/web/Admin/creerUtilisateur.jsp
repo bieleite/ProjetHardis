@@ -125,6 +125,11 @@
                       <label for="plafond">Montant délégation</label>
                   <input type="text" name="plafond" class="form-control" id="exampleInputEmail1" placeholder="plafond">
                 </div>
+                   
+                     <div class="form-group">
+                      <label for="plafond">Prix journée</label>
+                  <input type="text" name="prix" class="form-control" id="exampleInputEmail1" placeholder="prix">
+                </div>
                 
                 <label for="agence">Agence</label>
                 <select class="form-control" name="agence">

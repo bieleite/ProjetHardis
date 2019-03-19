@@ -12,6 +12,7 @@ import Entites.Client;
 import Entites.Communication;
 import Entites.Devis;
 import Entites.DevisNonStandard;
+import Entites.Disponibilite;
 import Entites.Document;
 import Entites.Entreprise;
 import Entites.Facturation;
@@ -38,6 +39,7 @@ import Facades.ClientFacadeLocal;
 import Facades.CommunicationFacadeLocal;
 import Facades.DevisFacadeLocal;
 import Facades.DevisNonStandardFacadeLocal;
+import Facades.DisponibiliteFacadeLocal;
 import Facades.DocumentFacadeLocal;
 import Facades.EntrepriseFacadeLocal;
 import Facades.FactureFacadeLocal;
@@ -65,6 +67,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class ClientSession implements ClientSessionLocal {
+
+    @EJB
+    private DisponibiliteFacadeLocal disponibiliteFacade;
 
     @EJB
     private InterlocuteurFacadeLocal interlocuteurFacade;
@@ -205,7 +210,7 @@ devisFacade.majHE(d, he);
                for (Offre_Profil_Util_CV compteur : o)
                {
                    ProfilMetier pm = compteur.getProfil();
-                   if (pm.getNiveauHabilitation().toString().equals("Referent"))
+                   if (pm.getNiveauHabilitation().toString().equals("Referent") && compteur.getOffre().equals(d.getService().getOffre()))
                        ref = u;
                }
            }    
@@ -529,6 +534,164 @@ return e;
     public void modifMDP(long id, String mdp) {
         Client c = clientFacade.rechercheClient(id);
         clientFacade.modfiClientMDP(c, mdp);
+    }
+
+    @Override
+    public List<UtilisateurHardis> rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli) {
+         Client c = clientFacade.rechercheClient(idCli);
+            List<UtilisateurHardis>  listeUD = new ArrayList<>();
+         
+        ServiceStandard servSt = null;
+        if (typeS.equals("Standard"))
+        {
+              servSt = serviceStandardFacade.rechercheServiceSParId(idS);
+             
+              
+        float nbreJ =0;
+        
+        if (typeC.equals("Confirme"))
+        nbreJ= servSt.getNbreJoursConsultantC();
+        else if (typeC.equals("Junior"))
+        nbreJ= servSt.getNbreJoursConsultantJ();
+         if (typeC.equals("Senior"))
+        nbreJ= servSt.getNbreJoursConsultantS();
+         
+         
+         
+        
+        List<UtilisateurHardis>  listeU =  utilisateurHardisFacade.rechercheUtilisateurHParAgence(c.getAgence());
+          
+     
+           
+           for (UtilisateurHardis u : listeU )
+           {
+               List<Offre_Profil_Util_CV> o = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateur(u);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   ProfilMetier pm = compteur.getProfil();
+                   if (pm.getNiveauHabilitation().toString().equals("Consultant") && 
+                           compteur.getOffre().equals(servSt.getOffre())&&
+                           pm.getNiveauExpertise().toString().equals(typeC))
+                       listeUD.add(u);
+               }
+           }
+           
+           for (UtilisateurHardis u : listeUD)
+           {
+               List<Disponibilite> liste = disponibiliteFacade.rechercheDisponibiliteParUtilisateur(u);
+               boolean b = true;
+               
+               for (Disponibilite d : liste)
+               {
+                   
+                   if (d.getDateDebut().getDate()==date.getDate() && 
+                           d.getDateDebut().getMonth()==date.getMonth() &&
+                           d.getDateDebut().getYear()==date.getYear())
+                   {
+                       if (nbreJ<1) //demi-journée
+                       {
+                           if (d.getDateDebut().getHours()>=8 && d.getDateFin().getHours()>=14) //si un truc le matin et fini apres 14h
+                               b = false;
+                           else if (d.getDateDebut().getHours()>=14)
+                               b = false;
+                       }
+                       else b = false;
+                   }
+                   
+                   else {
+                       if (nbreJ>1)
+                       {
+                           int t = (int) nbreJ*24;
+                           Date test = date;
+                       
+                           test.setHours(test.getHours()+t);
+                           
+                           if (d.getDateFin().before(test))
+                               
+                               b= false;
+                       }
+                   }
+                       
+               }
+           }
+        
+        
+        
+        
+        
+                }
+        
+        
+        
+        
+        return listeUD;
+    }
+
+    @Override
+    public List<Offre_Profil_Util_CV> rechercheOPUCParU(long idCli, long idO) {
+        Client c = clientFacade.rechercheClient(idCli);
+        Offre off = offreFacade.rechercheOffreParId(idO);
+         List<UtilisateurHardis>  listeU =  utilisateurHardisFacade.rechercheUtilisateurHParAgence(c.getAgence());
+              List<Offre_Profil_Util_CV>  listeUD = new ArrayList<>(); 
+           for (UtilisateurHardis u : listeU )
+           {
+               List<Offre_Profil_Util_CV> o = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateur(u);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   ProfilMetier pm = compteur.getProfil();
+                   if (pm.getNiveauHabilitation().toString().equals("Consultant") && 
+                           compteur.getOffre().equals(off)
+                          )
+                       listeUD.add(compteur);
+               }
+           }
+        return listeUD;
+    }
+
+    @Override
+    public void choixConsultants(long idD, String [] c, String [] j, String [] s) {
+        Devis d = devisFacade.rechercheDevis(idD);
+        
+        if(c!=null && c.length>0)
+        for(String idU : c)
+        {
+            UtilisateurHardis u = utilisateurHardisFacade.rechercheUtilisateurParId(Long.valueOf(idU));
+            historiqueTraitementFacade.creerHistoriqueTraitement(d.getDateDebutPresta(), d.getDateFinPresta(), TypeUtilisateur.p, d, u, null, null);
+        }
+        
+        if(j!=null && j.length>0)
+        for(String idU : j)
+        {
+            UtilisateurHardis u = utilisateurHardisFacade.rechercheUtilisateurParId(Long.valueOf(idU));
+            historiqueTraitementFacade.creerHistoriqueTraitement(d.getDateDebutPresta(), d.getDateFinPresta(), TypeUtilisateur.p, d, u, null, null);
+        }
+        
+        if(s!=null && s.length>0)
+        for(String idU : s)
+        {
+            UtilisateurHardis u = utilisateurHardisFacade.rechercheUtilisateurParId(Long.valueOf(idU));
+            historiqueTraitementFacade.creerHistoriqueTraitement(d.getDateDebutPresta(), d.getDateFinPresta(), TypeUtilisateur.p, d, u, null, null);
+        }
+    }
+
+    @Override
+    public ServiceStandard rechercheSS(long id) {
+        return serviceStandardFacade.rechercheServiceSParId(id);
+    }
+
+    @Override
+    public List<UtilisateurHardis> rechercheCParDevis(long idD) {
+      Devis d = devisFacade.rechercheDevis(idD);
+        List<HistoriqueTraitement> listeH= historiqueTraitementFacade.rechercheHistoriqueTraitementParDevis(d);
+         List<UtilisateurHardis> listeUH = new ArrayList<>();
+        for (HistoriqueTraitement h : listeH)
+        {
+            if (h.getUtilisateurCourant().toString().equals("p"))
+                listeUH.add(h.getConsultant());
+        }
+        return listeUH;
     }
 
     

@@ -77,7 +77,7 @@ public class DisponibiliteFacade extends AbstractFacade<Disponibilite> implement
     public  List<Disponibilite> rechercheDisponibiliteParUtilisateur(UtilisateurHardis utilisateur) {        
         String txt = "SELECT di FROM Disponibilite AS di WHERE di.UtilisateurHardis=:utilisateur ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("utilisateur",utilisateur.getId() );
+        req = req.setParameter("utilisateur",utilisateur);
         List<Disponibilite> res = req.getResultList();
         return res;
     }

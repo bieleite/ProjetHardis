@@ -84,7 +84,7 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
         HistoriqueTraitement he = null;        
         String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.devis=:devis ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("devis",devis.getId() );
+        req = req.setParameter("devis",devis);
         List<HistoriqueTraitement> res = req.getResultList();
       
         return res;

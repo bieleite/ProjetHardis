@@ -10,5 +10,5 @@ package Entites;
  * @author anastasia.salari
  */
 public enum TypeUtilisateur {
-    r, c, v //référent local, consultant, validateur
+    r, c, v, p //référent local, consultant, validateur
 }

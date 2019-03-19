@@ -33,7 +33,7 @@ public interface Offre_Profil_Util_CVFacadeLocal {
 
     int count();
 
-    Offre_Profil_Util_CV creerOPUC(Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV);
+    Offre_Profil_Util_CV creerOPUC(Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV, float prix);
 
     void modifierOPUC(Offre_Profil_Util_CV ob,Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV);
 

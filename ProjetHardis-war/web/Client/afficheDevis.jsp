@@ -4,6 +4,7 @@
     Author     : 6170361
 --%>
 
+<%@page import="Entites.UtilisateurHardis"%>
 <%@page import="java.security.Signature"%>
 <%@page import="Entites.HistoriqueDevis"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -23,6 +24,8 @@
 
  <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
   <jsp:useBean id="listMessage" scope="session" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listeConsu" scope="request" class = "java.util.List"> </jsp:useBean>
+  
 
      
   <title>AdminLTE 2 | Dashboard</title>
@@ -89,6 +92,7 @@
                        
                        SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
                    String devislien = (String)request.getAttribute("lienD");
+                   List<UtilisateurHardis> listeC = listeConsu;
                    
                        out.print("DEV"+d.getId());
                        %></td>
@@ -153,7 +157,10 @@
               <a href="" class="btn btn-sm btn-info btn-flat pull-right">Changer date</a>
                               </div>
                <div class="col-md-2">
+                   <%
+                       if (listeC!=null && listeC.size()==0) { %>                        
               <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
+ <%}%>
                </div></div>
                    </div> <% }
                    %>

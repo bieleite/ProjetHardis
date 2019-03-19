@@ -35,10 +35,11 @@ public class Offre_Profil_Util_CVFacade extends AbstractFacade<Offre_Profil_Util
     }
 
     @Override
-    public Offre_Profil_Util_CV creerOPUC(Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV) {
+    public Offre_Profil_Util_CV creerOPUC(Offre offre, ProfilMetier PM, UtilisateurHardis utilisateur, String lienCV, float prix) {
         Offre_Profil_Util_CV ob = new Offre_Profil_Util_CV();
         ob.setLienCV(lienCV);
         ob.setOffre(offre);
+        ob.setPrixUnit(prix);
         ob.setProfil(PM);
         ob.setUtilisateur(utilisateur);
         em.persist(ob);
