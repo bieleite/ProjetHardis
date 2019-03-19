@@ -84,8 +84,12 @@
                        
                            out.print("<span class=\"label label-success\">Acompte reglé</span>");
                                               
-                       else if (d.getStatut().toString().equals("Rep_en_Cours"))
+                      else if (d.getStatut().toString().equals("Rep_en_Cours") && d.getTypeDevis().toString().equals("Standard"))
                            out.print("<span class=\"label label-info\">En attente de validation</span>");
+ 
+                       else if (d.getStatut().toString().equals("Rep_en_Cours")&& d.getTypeDevis().toString().equals("Non_Standard"))
+                           out.print("<span class=\"label label-info\">Traitement demande</span>");
+
 
                        
                    
