@@ -170,13 +170,13 @@ public class ClientSession implements ClientSessionLocal {
          
         if (servSt!=null) //service standard
         {      
-           Devis d =  devisFacade.creerDevis(TypeService.Standard, serv, dateDevis, dateInterv, Facturation.Auto, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getEntreprise().getAgence());
+           Devis d =  devisFacade.creerDevis(TypeService.Standard, servSt, dateDevis, dateInterv, Facturation.Auto, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getEntreprise().getAgence());
                     
            HistoriqueEtats he =   historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
           
            List<Document> listeDocs = new ArrayList<>();
           
-           listeDocs.add(documentFacade.creerDocument("conditions contrat",serv.getConditionsContract(), null, TypeDoc.c));
+      //    listeDocs.add(documentFacade.creerDocument("conditions contrat",servSt.getConditionsContract(), null, TypeDoc.c));
            
            HistoriqueDevis hd = historiqueDevisFacade.creerHistoriqueDevis(d, null, null, 1, null, listeDocs);
            
@@ -194,7 +194,7 @@ devisFacade.majHE(d, he);
            
            HistoriqueEtats he = historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
            
-           List<UtilisateurHardis>  listeU =  utilisateurHardisFacade.rechercheUtilisateurHParAgence(cli.getEntreprise().getAgence());
+           List<UtilisateurHardis>  listeU =  utilisateurHardisFacade.rechercheUtilisateurHParAgence(cli.getAgence());
           
            UtilisateurHardis ref = null;
            
@@ -210,11 +210,11 @@ devisFacade.majHE(d, he);
                }
            }    
            
-        Document doc = documentFacade.creerDocument("conditions contrat ",serv.getConditionsContract(), null, TypeDoc.c);
+      //  Document doc = documentFacade.creerDocument("conditions contrat ",serv.getConditionsContract(), null, TypeDoc.c);
          List<Document> listeD = new ArrayList<>();
-         listeD.add(doc);
+        // listeD.add(doc);
         HistoriqueDevis hd = historiqueDevisFacade.creerHistoriqueDevis(d, null, null, 1, null, listeD);
-        documentFacade.majHD(doc, hd);
+      //  documentFacade.majHD(doc, hd);
 
         //historiqueDevisFacade.ajoutDocHistoDevis(hd, listeD);
                   

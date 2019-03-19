@@ -101,15 +101,19 @@
                       
                       else if (d.getStatut().toString().equals("Refuse"))
                       
-                           out.print("<span class=\"label label-warning\">Validé, en attente de paiement</span>");
+                           out.print("<span class=\"label label-warning\">Refusé</span>");
                      
                       else if (d.getStatut().toString().equals("Acompte_regle"))
                        
                            out.print("<span class=\"label label-success\">Acompte reglé</span>");
                                               
-                       else if (d.getStatut().toString().equals("Rep_en_Cours"))
+                       else if (d.getStatut().toString().equals("Rep_en_Cours") && d.getTypeDevis().toString().equals("Standard"))
                            out.print("<span class=\"label label-info\">En attente de validation</span>");
+ 
+                       else if (d.getStatut().toString().equals("Rep_en_Cours")&& d.getTypeDevis().toString().equals("Non_Standard"))
+                           out.print("<span class=\"label label-info\">Traitement demande</span>");
 
+                       
                        
                    
                        
@@ -117,9 +121,21 @@
                   %></td>
                    <td><%=dformat.format(d.getDateIntervSouhaitee())%></span></td>
                    <td><a href="<%=d.getService().getConditionsContract()%>" >Conditions générales</a></span></td>
+                   <% if (d.getTypeDevis().toString().equals("Standard")){%>
                    <td><a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>">Devis</a></span></td>
                    <td> <% if (d.getStatut().toString().equals("Valide")) { %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%=d.getId()%>">
                            Facture</a> <% }else out.print("Facture non disponible"); %></td>
+                  <%} else if (d.getTypeDevis().equals("Non_Standard")){
+    if(d.getStatut().toString().equals("Envoye"))
+{ %>
+  <td><a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>">Devis</a></span></td>
+                   <td> <% if (d.getStatut().toString().equals("Envoye")) { %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%=d.getId()%>">
+                           Facture</a> <% }else out.print("Facture non disponible"); %></td>
+   
+<%}%>
+                 
+                  <%}%>
+                  
                   
                   </tr>
 
