@@ -68,10 +68,13 @@ public class servEmployes extends HttpServlet {
             {
 
          String mdp = request.getParameter("mdp");
+         System.out.println(mdp);
         String mdpC = request.getParameter("mdpC");
-
+System.out.println(mdpC);
          String questS = request.getParameter("qs");
+         System.out.println(questS);
          String repS = request.getParameter("rs");
+         System.out.println(repS);
          if (mdp.equals(mdpC))
              visualisateurHardisSession.majInfosProfil(u.getId(), mdp, questS, repS);
           jspClient = "/Admin/Login.jsp";
