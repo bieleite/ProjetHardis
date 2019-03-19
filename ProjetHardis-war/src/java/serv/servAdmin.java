@@ -475,7 +475,12 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listClient",listClient);
                 jspClient="/Admin/certifierClient.jsp";
             }
-            
+            else if(act.equals("CertifierClient"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                doActionCertifierClient(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
+            }
             else if(act.equals("RechercherAtelier"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
@@ -488,6 +493,35 @@ public class servAdmin extends HttpServlet {
                 listClient=new ArrayList<>();}
                 request.setAttribute("listClient",listClient);
                 jspClient="/Admin/certifierClient.jsp";
+            }
+         else if(act.equals("listesAfficherClient"))
+            {
+                List<Client> listClient= administrateurHardisSession.listClientNonCertifies();
+                if (listClient==null) listClient=new ArrayList<>();
+                request.setAttribute("listClient",listClient);
+                jspClient="/Admin/afficherClient.jsp";
+            }
+             else if(act.equals("RechercherClient1"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                List<Client> listClient= new ArrayList<>();
+                String mailClient = request.getParameter("champ");
+                Client client = administrateurHardisSession.rechercherClient(0, jspClient, mailClient, utilisateur);
+                if(client!=null){
+                    listClient.add(client);
+                }else{
+                listClient=new ArrayList<>();}
+                request.setAttribute("listClient",listClient);
+                jspClient="/Admin/afficherClient.jsp";
+            }
+            else if(act.equals("formClient"))
+            {
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                String champ = request.getParameter("idClient");
+                Long idagence = Long.valueOf(champ);
+                Client a = administrateurHardisSession.rechercherClient(idagence, "", "", utilisateur);
+                request.setAttribute("client",a);
+                jspClient="/Admin/detailClient.jsp";
             }
 //            else{
 //                jspClient="/ChoixE.jsp";
@@ -595,6 +629,30 @@ public class servAdmin extends HttpServlet {
                 String nomentite = adresse.getNomRue() ;
                 String classe = adresse.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
+    
+    protected void doActionCertifierClient(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idClient = request.getParameter("idClient");
+        String message = null;
+        if(idClient.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long id = Long.valueOf(idClient);
+                administrateurHardisSession.certifieClient(id, ut);
+                Client adresse = administrateurHardisSession.rechercherClient(id, "", "", ut);
+                String nomentite = adresse.getNom() ;
+                String classe = adresse.getClass().toString();
+                message= " "+classe+":"+ nomentite+" certfiée avec succès !";
             }
             else{
                 message= "Erreur information non inserée dans la base de données";

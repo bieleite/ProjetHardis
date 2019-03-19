@@ -34,11 +34,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="servAdmin?action=AfficherClient"><i class="fa fa-circle-o"></i> Afficher Client</a></li>
+            <li><a href="servAdmin?action=listesAfficherClient"><i class="fa fa-circle-o"></i> Afficher Client</a></li>
+            <li><a href="servAdmin?action=listesCertifierClient"><i class="fa fa-circle-o"></i> Certifier Client</a></li>
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Valider Client</a></li>
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Effacer Client</a></li>
-            <li><a href="servAdmin?action=listesCertifierClient"><i class="fa fa-circle-o"></i> Certifier Client</a></li>
-            <li><a href="servAdmin?action=AfficherClient"><i class="fa fa-circle-o"></i> Afficher Client</a></li>
           </ul>
         </li>
         <li class="treeview">

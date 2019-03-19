@@ -64,7 +64,7 @@
         <div class="input-group">
           <input type="text" name="champ" class="form-control" placeholder="Search...">
           <span class="input-group-btn">
-                <button type="submit" name="action" value="RechercherAgence" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button type="submit" name="action" value="RechercherClient1" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
         </div>
@@ -93,7 +93,7 @@
                 <% for (Client a : lesClients){%>
                 <tbody>
                 <tr>
-                    <td><a href="servAdmin?action=formAgence&idAgence=<%=a.getId().toString() %>" name="idAgence" value="<%=a.getId().toString() %>"><%=a.getNom() %></a></td>
+                    <td><a href="servAdmin?action=formClient&idClient=<%=a.getId().toString() %>" name="idClient" value="<%=a.getId().toString() %>"><%=a.getNom() %></a></td>
                   <td><%=a.getPrenom() %></td>
                   <td><%=a.getAgence().getNomAgence() %></td>
                   <td><%=a.getLogin() %></td>

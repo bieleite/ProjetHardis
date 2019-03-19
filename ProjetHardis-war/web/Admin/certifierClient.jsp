@@ -79,6 +79,7 @@
               <h3 class="box-title">Clients</h3>
             </div>
             <!-- /.box-header -->
+            <form role="form">
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -88,7 +89,7 @@
                   <th>Agence Client</th>
                   <th>Mail Client</th>
                   <th>Entreprise Client</th>
-                  <th>Valider Client</th>
+                  <th>Certfier Client</th>
                 </tr>
                 </thead>
                 <% for (Client a : lesClients){%>
@@ -99,7 +100,7 @@
                   <td><%=a.getAgence().getNomAgence() %></td>
                   <td><%=a.getLogin() %></td>
                   <td><%=a.getEntreprise().getNomEntreprise() %></td>
-                  <td><input type="checkbox" name="listatelier" value="<%=a.getId() %>"></td>
+                  <td><input type="checkbox" name="idClient" value="<%=a.getId() %>"></td>
                 </tr>
                 </tbody>
                 <%}%>
@@ -110,11 +111,14 @@
                   <th>Agence Client</th>
                   <th>Mail Client</th>
                   <th>Entreprise Client</th>
-                  <th>Valider Client</th>
+                  <th>Certfier Client</th>
                 </tr>
                 </tfoot>
               </table>
+                <input type="hidden" name="action" value="CertifierClient">
+                <button type="submit" class="btn btn-primary">Certifier</button>
             </div>
+                 </form>
             <!-- /.box-body -->
           </div>
          
