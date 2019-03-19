@@ -180,23 +180,8 @@
             <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Inline charts</a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>Services</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> General</a></li>
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Icons</a></li>
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Buttons</a></li>
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Sliders</a></li>
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Timeline</a></li>
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Modals</a></li>
-          </ul>
-        </li>
+        <li><a href="servAdmin?action=listesDevis"><i class="fa fa-book"></i> <span>Devis</span></a></li>
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Paramètres</span>

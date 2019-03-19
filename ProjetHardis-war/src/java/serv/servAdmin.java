@@ -523,27 +523,52 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("client",a);
                 jspClient="/Admin/detailClient.jsp";
             }
-//            else{
-//                jspClient="/ChoixE.jsp";
-//                request.setAttribute("message","Entraineur non attribué dans une equipe");
-//            }
-//            }
-//            else if(act.equals("insereComposition"))
-//            {
-//                jspClient="/ChoixE.jsp";
-//                doActionInsererComposition(request,response);
-//            }
-//            else if(act.equals("CreerContratJouer"))
-//            {
-//                List<Jouer> lists= sessionEntraineur.afficherJouer();
-//                request.setAttribute("listeJouer",lists);
-//                jspClient="/Entraineur/AffecterJouer.jsp";
-//            }
-//            else if(act.equals("insereContratJouer"))
-//            {
-//                jspClient="/ChoixE.jsp";
-//                doActionInsererContratJouer(request,response);
-//            }
+             else if(act.equals("listesDevis"))
+            {
+                List<Devis> listeDevis2 = administrateurHardisSession.listDevis();                
+                if (listeDevis2==null) listeDevis2=new ArrayList<>();                  
+                request.setAttribute("listeDevis2",listeDevis2);
+                jspClient="/Admin/afficherDevis.jsp";
+            }
+            else if(act.equals("RechercherDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<Devis> listDevis= new ArrayList<>();
+                String textidDevis = request.getParameter("champ");
+                String idDevis = textidDevis.substring(3);
+                Long id = Long.valueOf(idDevis);
+                Devis devis = administrateurHardisSession.rechercherDevis(id, 0, utilisateur);
+                if(devis!=null){
+                    listDevis.add(devis);
+                }else{
+                listDevis=new ArrayList<>();}
+                request.setAttribute("listeDevis2",listDevis);
+                jspClient="/Admin/afficherDevis.jsp";
+            }
+            else if(act.equals("formDevis"))
+            {
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                String champ = request.getParameter("idDevis");
+                Long iddevis = Long.valueOf(champ);
+                Devis a = administrateurHardisSession.rechercherDevis(iddevis, 0, utilisateur);
+                List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
+                if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
+                request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
+                sess.setAttribute("devistraitement",a);
+                jspClient="/Admin/traitementDevis.jsp";
+            }
+            else if(act.equals("messageDevis"))
+            {
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                Devis devis = (Devis) sess.getAttribute("devistraitement");
+                String champ = request.getParameter("idDevis");
+                Long iddevis = devis.getId();
+                doActionMessageDevis(request,response);
+                List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
+                if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
+                request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
+                jspClient="/Admin/traitementDevis.jsp";
+            }
 
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspClient);
@@ -1145,6 +1170,31 @@ public class servAdmin extends HttpServlet {
                 
                administrateurHardisSession.modifieUtilisateurHardisMDP(ut, pass);
             message= "Mot de passe modifié";
+                
+
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
+      
+      protected void doActionMessageDevis(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String textmessage = request.getParameter("message");
+        String iddevis = request.getParameter("idDev");
+        String message = null;
+        if(textmessage.trim().isEmpty()||iddevis.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long id = Long.valueOf(iddevis);
+                administrateurHardisSession.creerCommunicationHardis(textmessage, id, ut);
+                message= "Message envoyé";
                 
 
                 

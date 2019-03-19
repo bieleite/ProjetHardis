@@ -53,15 +53,15 @@
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <% List<Devis> listedevis = listeDevis;
+         <% List<Devis> listedevis = listeDevis;
              int nbreDevis = listedevis.size();%>
           <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
-              <span class="label label-danger"><%=nbreDevis%></span>
+              <span class="label label-danger"><%=nbreDevis %></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have <%=nbreDevis%> tasks</li>
+              <li class="header">You have <%=nbreDevis %> tasks</li>
             </ul>
             </li> 
                 <!-- inner menu: contains the actual data -->
