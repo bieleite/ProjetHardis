@@ -4,6 +4,8 @@
     Author     : 6170361
 --%>
 
+<%@page import="Entites.ServiceStandard"%>
+<%@page import="Entites.UtilisateurHardis"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entites.Facture"%>
 <%@page import="Entites.Adresse"%>
@@ -23,6 +25,8 @@
 
   <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
    <jsp:useBean id="facture" scope="request" class = "Entites.Facture"> </jsp:useBean>
+    <jsp:useBean id="servS" scope="request" class = "Entites.ServiceStandard"> </jsp:useBean>
+      <jsp:useBean id="listeConsu" scope="request" class = "java.util.List"> </jsp:useBean>
      
   <title>AdminLTE 2 | Dashboard</title>
  <%@include  file = "meta.jsp" %>
@@ -34,7 +38,11 @@
   <% 
   Devis d = devis;
   Facture f= facture;
+  List<UtilisateurHardis> listeC = listeConsu;
+  ServiceStandard s = servS;
+  
   SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");%>
+  
    <body>
         <!-- Content Wrapper. Contains page content -->
     <!-- Content Wrapper. Contains page content -->
@@ -110,15 +118,12 @@
           <table class="table table-striped">
             <thead>
             <tr>
-                <th>Offre</th>
+               <th>Offre</th>
               <th>Service</th>
                <th>Type service</th>
-              <th>Quantité</th>
               <th>Description</th>
               <th>Date intervention</th>
-              <th>Lieu intervention</th>
-              <th>Date fin (prévisionnelle)</th>
-              <th>Montant</th>
+
             </tr>
             </thead>
             <tbody>
@@ -126,11 +131,35 @@
               <td><%=d.getService().getOffre().getLibelle() %></td>
               <td><%=d.getService().getNomService().toString() %></td>
               <td><%=d.getService().getTypeService().toString() %></td>
+            
+             <td><%=d.getService().getDescriptionService()%></td>
+              <td><%=dformat.format(d.getDateIntervSouhaitee()) %></td>
+  
+
+            </tr>  
+            </tbody>
+          </table>
+            
+             <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Consultant</th>
+              <th>Quantité</th>
+              <th>Unité</th>
+              <th>Prix unitaire HT</th>
+              <th>TotalHT</th>           
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Confirmé</td>
+              <td><%=s.getNbreJoursConsultantC()%></td>
+              <td>J</td>
               <td>1</td>
               <td><%=d.getService().getDescriptionService()%></td>
-              <td><%=dformat.format(d.getDateIntervSouhaitee()) %></td>
+              <td><% %></td>
               <td>  </td>
-              <td><%=d.getMontantDevis()%></td>
+              <td></td>
             </tr>  
             </tbody>
           </table>

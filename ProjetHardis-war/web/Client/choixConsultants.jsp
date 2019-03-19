@@ -4,6 +4,7 @@
     Author     : 6170361
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entites.Offre_Profil_Util_CV"%>
 <%@page import="Entites.UtilisateurHardis"%>
 <%@page import="Entites.ServiceStandard"%>
@@ -63,26 +64,47 @@
                                         <h3 class="box-title">Choisir consultants pour son devis</h3>
                                     </div>
 
-                                    <form role="form">
+                                    <form role="form" method="get" action="servClient">
                                         <div class="box-body">
                                             <div class="form-group">
-                                                <label>Offre & service</label>
+                                              
 
                                                 <% Devis d = devis;
-                                                    out.print(d.getTypeDevis().toString());
+                                                  
                                                     ServiceStandard s = serviceS;
 
                                                     List<UtilisateurHardis> listeUC = listeC;
                                                     List<UtilisateurHardis> listeUJ = listeJ;
                                                     List<UtilisateurHardis> listeUS = listeS;
                                                     List<Offre_Profil_Util_CV> listeOPC = offreP;
+                                                    String valide = (String)request.getAttribute("valide");
+                                                     SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
+                                                    if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette date
+                                                        
+                                                    {
+                                                        %>
+                                                        
+                                                        <p>Malheureusement il n'y a pas de consultants disponibles pour la date d'intervention choisie (<%=dformat.format(d.getDateIntervSouhaitee())%>), <br> veuillez
+                                                        choisir une autre date</p> 
+                                                        
+                                                         <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="date" id="datepicker" name="date">
+                </div>
+                                                         <p>Si aucune date ne vous correspond, contactez Hardis au 00-00-00-00-00</p> 
+                                                    
+                                                   <% }
+                                                       
 
-                                                    if (listeUC.size() > 0) {
+                                                    else  {
+                                                        if (listeUC.size() > 0) {
                                                 %>
 
                                                 <div class="box box-info">
                                                     <div class="box-header with-border">
-                                                        <h3 class="box-title">Liste Consultants confirmés disponibles</h3>
+                                                        <h3 class="box-title">Liste Consultants confirmés disponibles (choisir 1)</h3>
 
                                                     </div>
                                                     <!-- /.box-header -->
@@ -105,6 +127,8 @@
                                                                                     lienCV = o.getLienCV();
                                                                                 }
                                                                             }
+                                                                             if (lienCV.equals(""))
+                                                                                                            lienCV = u.getLienCVDefaut();
 
                                                                     %> 
                                                                     <tr>
@@ -113,13 +137,14 @@
                                                                         <td><%=u.getNom()%></td>
                                                                         <td><%=u.getPrenom()%></td>
                                                                         <td><%=lienCV%></td>
+                                                                         <td><input type="checkbox" name="listCS" value="<%=u.getId()%>"></td>
 
                                                                     </tr> <% }
-                                                                    } else if (listeUJ.size() > 0) {
+                                                                    } if (listeUJ.size() > 0) {
                                                                     %>
                                                                 <div class="box box-info">
                                                                     <div class="box-header with-border">
-                                                                        <h3 class="box-title">Liste Consultants Junior disponibles</h3>
+                                                                        <h3 class="box-title">Liste Consultants Junior disponibles (choisir 1)</h3>
 
                                                                     </div>
                                                                     <!-- /.box-header -->
@@ -142,6 +167,8 @@
                                                                                                     lienCV = o.getLienCV();
                                                                                                 }
                                                                                             }
+                                                                                             if (lienCV.equals(""))
+                                                                                                            lienCV = u.getLienCVDefaut();
 
                                                                                     %> 
                                                                                     <tr>
@@ -150,13 +177,14 @@
                                                                                         <td><%=u.getNom()%></td>
                                                                                         <td><%=u.getPrenom()%></td>
                                                                                         <td><%=lienCV%></td>
+                                                                                         <td><input type="checkbox" name="listCJ" value="<%=u.getId()%>"></td>
 
                                                                                     </tr> <% }
-                                                                                    } else if (listeUS.size() > 0) {
+                                                                                    }  if (listeUS.size() > 0) {
                                                                                     %>
                                                                                 <div class="box box-info">
                                                                                     <div class="box-header with-border">
-                                                                                        <h3 class="box-title">Liste Consultants confirmés disponibles</h3>
+                                                                                        <h3 class="box-title">Liste Consultants confirmés disponibles (choisir 1)</h3>
 
                                                                                     </div>
                                                                                     <!-- /.box-header -->
@@ -168,6 +196,7 @@
                                                                                                         <th>Nom</th>
                                                                                                         <th>Prénom</th>
                                                                                                         <th>CV</th>
+                                                                                                          <th>Votre choix</th>
                                                                                                     </tr>
                                                                                                 </thead>
                                                                                                 <tbody>
@@ -179,6 +208,8 @@
                                                                                                                     lienCV = o.getLienCV();
                                                                                                                 }
                                                                                                             }
+                                                                                                            if (lienCV.equals(""))
+                                                                                                            lienCV = u.getLienCVDefaut();
 
                                                                                                     %> 
                                                                                                     <tr>
@@ -186,10 +217,12 @@
 
                                                                                                         <td><%=u.getNom()%></td>
                                                                                                         <td><%=u.getPrenom()%></td>
-                                                                                                        <td><%=lienCV%></td>
+                                                                                                        <td><a href="<%=lienCV%>">Lien CV</a></td>
+                                                                                                         <td><input type="checkbox" name="listCC" value="<%=u.getId()%>"></td>
 
                                                                                                     </tr> <% }
                                                                                                         }
+}
                                                                                                     %>
 
 
@@ -204,30 +237,14 @@
                                                                                     <!-- /.box-footer -->
                                                                                 </div>
 
-                                                                                <%}%>
+                                                     
                                                                                 </select>
                                                                         </div>
 
-                                                                        <div class="form-group">
-                                                                            <label>Date:</label>
+                                                                     
 
-                                                                            <div class="input-group date">
-                                                                                <div class="input-group-addon">
-                                                                                    <i class="fa fa-calendar"></i>
-                                                                                </div>
-                                                                                <input type="date" id="datepicker" name="date">
-                                                                            </div>
-                                                                            <!-- /.input group -->
-                                                                        </div>
-                                                                        <!-- /.form group -->
-
-
-                                                                        <div class="form-group">
-                                                                            <label>Informations complémentaires</label>
-                                                                            <textarea name="libre" class="form-control" rows="3" placeholder="Saisir..."></textarea>
-                                                                        </div>
-                                                                        <input type ="hidden" name="action" value="creerDevis">
-
+                                                                        <input type ="hidden" name="action" value="choixConsultants">
+                                          <input type ="hidden" name="idDev" value="<%=d.getId()%>">
                                                                     </div>
                                                                     <!-- /.box-body -->
 

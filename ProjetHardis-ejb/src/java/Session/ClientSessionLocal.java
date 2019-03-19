@@ -14,8 +14,11 @@ import Entites.Entreprise;
 import Entites.Facture;
 import Entites.Interlocuteur;
 import Entites.Notification;
+import Entites.Offre_Profil_Util_CV;
 import Entites.Service;
+import Entites.ServiceStandard;
 import Entites.Statut;
+import Entites.Utilisateur;
 import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
@@ -99,6 +102,16 @@ public interface ClientSessionLocal {
     boolean verifRepS(long id, String rep);
 
     void modifMDP(long id, String mdp);
+
+    List<UtilisateurHardis> rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli);
+
+    public List<Offre_Profil_Util_CV> rechercheOPUCParU(long idCli, long idO);
+
+    void choixConsultants(long idD, String [] c, String [] j, String [] s);
+
+    ServiceStandard rechercheSS(long id);
+
+    List<UtilisateurHardis> rechercheCParDevis(long idD);
 
 
     

@@ -985,6 +985,7 @@ public class servAdmin extends HttpServlet {
         
                 
         String nom = request.getParameter("nomUtilisateur");
+        String prix = request.getParameter("prix");
         String prenom= request.getParameter("prenomUtilisateur");
         String login= request.getParameter("loginUtilisateur");
         String mdp= request.getParameter("mdpUtilisateur");
@@ -1045,7 +1046,7 @@ public class servAdmin extends HttpServlet {
                 
                 ProfilMetier pm = administrateurHardisSession.creerProfilMetier(niveauH, exp, Float.valueOf(plafond), new String[1], ut);
                 
-                Offre_Profil_Util_CV offP = administrateurHardisSession.creerOffre_Profil_Util_CV(off.getId(), pm.getId(), o.getId(), "", ut);
+                Offre_Profil_Util_CV offP = administrateurHardisSession.creerOffre_Profil_Util_CV(off.getId(), pm.getId(), o.getId(), "", ut, Float.valueOf(prix));
                 
         try {
            mailHache = Helpers.sha1(login);

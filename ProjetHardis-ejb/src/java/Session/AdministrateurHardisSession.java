@@ -988,11 +988,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public Offre_Profil_Util_CV creerOffre_Profil_Util_CV ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis) {
+    public Offre_Profil_Util_CV creerOffre_Profil_Util_CV ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis, float prix) {
         Offre offre = offreFacade.rechercheOffreParId(idoffre);
         ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
         UtilisateurHardis utilisateur =utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
-        Offre_Profil_Util_CV offre_Profil_Util_CV = offre_Profil_Util_CVFacade.creerOPUC(offre, profilmetier, utilisateur, lienCV);
+        Offre_Profil_Util_CV offre_Profil_Util_CV = offre_Profil_Util_CVFacade.creerOPUC(offre, profilmetier, utilisateur, lienCV,  prix);
         logsFacade.creerLogCreate(hardis, offre_Profil_Util_CV);
         return offre_Profil_Util_CV;
     }

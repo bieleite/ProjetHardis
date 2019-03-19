@@ -21,6 +21,27 @@ public class Offre_Profil_Util_CV implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
+    
+        private float prixUnit;
+
+    /**
+     * Get the value of prixUnit
+     *
+     * @return the value of prixUnit
+     */
+    public float getPrixUnit() {
+        return prixUnit;
+    }
+
+    /**
+     * Set the value of prixUnit
+     *
+     * @param prixUnit new value of prixUnit
+     */
+    public void setPrixUnit(float prixUnit) {
+        this.prixUnit = prixUnit;
+    }
+
     @ManyToOne
         private Offre offre;
 

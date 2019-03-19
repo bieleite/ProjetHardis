@@ -238,7 +238,7 @@ public interface AdministrateurHardisSessionLocal {
     
     Offre rechercherOffreLibelle(String libelleoffre, UtilisateurHardis hardis);
     
-    Offre_Profil_Util_CV creerOffre_Profil_Util_CV ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis);
+    Offre_Profil_Util_CV creerOffre_Profil_Util_CV ( long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis, float prix);
     
     void modifierOffre_Profil_Util_CV(long idoffre_Profil_Util_CV, long idoffre, long idPM, long idutilisateur, String lienCV, UtilisateurHardis hardis);
     
