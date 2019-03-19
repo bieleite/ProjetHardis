@@ -1150,6 +1150,12 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         return service;       
     }
     
+     @Override
+    public List<Service> listServiceNonStandard( ) {
+        List<Service> service = serviceFacade.listServicesNonStandard();
+        return service;       
+    }
+    
     @Override
     public ServiceStandard creerServiceStandard( String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis) {
         List<Livrable> listlivrables= new ArrayList<>();

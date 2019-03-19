@@ -333,4 +333,6 @@ public interface AdministrateurHardisSessionLocal {
     UtilisateurHardis recupererUtilisateurHardisQSRS(String QS, String RS);
 
     Offre rechercheOffreParId(long id);
+    
+     List<Service> listServiceNonStandard( );
 }

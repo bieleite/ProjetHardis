@@ -40,11 +40,11 @@
 
     <form action="servAdmin" method="get">
       <div class="form-group has-feedback">
-        <input type="login" class="form-control" placeholder="Email" name="login">
+        <input type="mail" class="form-control" placeholder="Email" name="login">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="pass" class="form-control" placeholder="Password" name="pass">
+        <input type="password" class="form-control" placeholder="Password" name="pass">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">

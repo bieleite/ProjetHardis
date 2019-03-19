@@ -400,7 +400,7 @@ public class servAdmin extends HttpServlet {
             else if(act.equals("AfficherService"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
-                List<Service> listeService = administrateurHardisSession.listService();
+                List<Service> listeService = administrateurHardisSession.listServiceNonStandard();
                 if (listeService==null) listeService=new ArrayList<>();
                 request.setAttribute("listeService",listeService);
                 jspClient="/Admin/afficherService.jsp";
