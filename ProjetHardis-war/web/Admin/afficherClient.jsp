@@ -4,8 +4,9 @@
     Author     : 6171217
 --%>
 
-<%@page import="Entites.Client"%>
 <%@page import="Entites.Agence"%>
+<%@page import="Entites.Adresse"%>
+<%@page import="Entites.Client"%>
 <%@page import="Entites.Devis"%>
 <%@page import="Entites.Utilisateur"%>
 <%@page import="Entites.Notification"%>
@@ -26,7 +27,7 @@
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
-    <jsp:useBean id="agence" scope="request" class = "Entites.Agence"> </jsp:useBean>
+    
 
 
 </head>
@@ -49,81 +50,74 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
-        <li class="active">Agence</li>
-        <li class="active">Creer Agence</li>
+        <li class="active">Adresse</li>
+        <li class="active">Creer Adresse</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      
+      <% List<Client> lesClients=listeClient; %> 
       <!-- /.row -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="text" name="champ" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="action" value="RechercherAgence" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
       <!-- Main row -->
       <div class="row">
         <!-- left column -->
-   
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Agence</h3>
+        <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Client</h3>
+
             </div>
+            
             <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="nomAgence">Id Agence</label>
-                  <input type="txt" name="idAgence" class="form-control" id="exampleInputEmail1" placeholder="<%=agence.getId() %>"  disabled>
-                  <input type="hidden" name="idAgence" value="<%=agence.getId() %>">
-                  <label for="nomAgence">Nom Agence</label>
-                  <input type="txt" name="nomAgence" class="form-control" id="exampleInputEmail1" placeholder="<%=agence.getNomAgence() %>">
-                </div>
-                <input type="hidden" name="action" value="ModifierAgence">
-             <!--   <div class="form-group">
-                  <label>Select</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
-                    <option>option 3</option>
-                    <option>option 4</option>
-                    <option>option 5</option>
-                  </select>
-                </div>
-                <!-- checkbox 
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Checkbox 1
-                    </label>
-                  </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <input type="file" id="exampleInputFile">
-
-                  <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Check me out
-                  </label>
-                </div>
-              </div>-->
-              <!-- /.box-body -->
-
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Nom Client</th>
+                  <th>Prenom Client </th>
+                  <th>Agence Client</th>
+                  <th>Mail Client</th>
+                  <th>Entreprise Client</th>
+                </tr>
+                </thead>
+                <% for (Client a : lesClients){%>
+                <tbody>
+                <tr>
+                    <td><a href="servAdmin?action=formAgence&idAgence=<%=a.getId().toString() %>" name="idAgence" value="<%=a.getId().toString() %>"><%=a.getNom() %></a></td>
+                  <td><%=a.getPrenom() %></td>
+                  <td><%=a.getAgence().getNomAgence() %></td>
+                  <td><%=a.getLogin() %></td>
+                  <td><%=a.getEntreprise().getNomEntreprise() %></td>
+                  
+                </tr>
+                </tbody>
+                <%}%>
+                <tfoot>
+                <tr>
+                  <th>Nom Client</th>
+                  <th>Prenom Client </th>
+                  <th>Agence Client</th>
+                  <th>Mail Client</th>
+                  <th>Entreprise Client</th>
+                                
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.box-body -->
           </div>
-          <!-- /.box -->
-        
-        <!--/.col (left) -->
-        <!-- right column -->
-        
-          <!-- /.box -->
-        </div>
+         
+          
         <!--/.col (right) -->
       </div
       <!-- /.row (main row) -->

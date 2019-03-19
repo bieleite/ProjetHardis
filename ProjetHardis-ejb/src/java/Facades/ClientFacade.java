@@ -85,6 +85,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ClientFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
+       em.persist(cl);
         return cl;
     }
     

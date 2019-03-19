@@ -86,11 +86,11 @@
                 </div>
                 <div class="form-group">
                   <label for="loginUtilisateur">Login</label>
-                  <input type="txt" name="loginUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Login">
+                  <input type="mail" name="loginUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Login">
                 </div>
                 <div class="form-group">
                   <label for="mdpUtilisateur">Mot de Passe</label>
-                  <input type="pass" name="mdpUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Mot de Passe">
+                  <input type="password" name="mdpUtilisateur" class="form-control" id="exampleInputEmail1" placeholder="Mot de Passe">
                 </div>
                 
                 <label for="PFUtilisateur">Profil Technique</label>

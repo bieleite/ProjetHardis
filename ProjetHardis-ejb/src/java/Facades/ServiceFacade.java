@@ -150,6 +150,15 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
 
     @Override
     public List<Service> listServices() {
+       String txt="SELECT ad FROM Service AS ad ";
+        Query req=getEntityManager().createQuery(txt);
+     
+        List<Service> result=req.getResultList();
+        return result;
+    }
+    
+    @Override
+    public List<Service> listServicesNonStandard() {
         TypeService tps = TypeService.Non_Standard;
        String txt="SELECT ad FROM Service AS ad where ad.typeService=:o";
         Query req=getEntityManager().createQuery(txt);
