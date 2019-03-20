@@ -20,6 +20,7 @@ import Entites.FacturationFrais;
 import Entites.Helpers;
 import Entites.HistoriqueDevis;
 import Entites.HistoriqueEtats;
+import Entites.HistoriqueTraitement;
 import Entites.LieuIntervention;
 import Entites.Livrable;
 import Entites.NiveauHabilitation;
@@ -525,9 +526,11 @@ public class servAdmin extends HttpServlet {
             }
              else if(act.equals("listesDevis"))
             {
-                List<Devis> listeDevis2 = administrateurHardisSession.listDevis();                
+                List<Devis> listeDevis2 = administrateurHardisSession.listDevis();   
+                 
                 if (listeDevis2==null) listeDevis2=new ArrayList<>();                  
                 request.setAttribute("listeDevis2",listeDevis2);
+                
                 jspClient="/Admin/afficherDevis.jsp";
             }
             else if(act.equals("RechercherDevis"))
@@ -548,12 +551,14 @@ public class servAdmin extends HttpServlet {
             else if(act.equals("formDevis"))
             {
                 UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
                 String champ = request.getParameter("idDevis");
                 Long iddevis = Long.valueOf(champ);
                 Devis a = administrateurHardisSession.rechercherDevis(iddevis, 0, utilisateur);
                 List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
+                request.setAttribute("listeHTVide",listeHTVide);
                 sess.setAttribute("devistraitement",a);
                 jspClient="/Admin/traitementDevis.jsp";
             }
@@ -568,6 +573,18 @@ public class servAdmin extends HttpServlet {
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
                 jspClient="/Admin/traitementDevis.jsp";
+            }
+            else if(act.equals("ModifierDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionModifierDevis(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("ContactMail"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionEnvoyerMail(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
 
         RequestDispatcher Rd;
@@ -809,23 +826,36 @@ public class servAdmin extends HttpServlet {
     }
     protected void doActionModifierDevis(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        String facturation = request.getParameter("facturationDevis"); 
-        String montantdevis= request.getParameter("montantdevisDevis"); 
-        String motifrefus = request.getParameter("motifrefusDevis");
-        String saisielibre= request.getParameter("saisielibreDevis"); 
+        String facturation = request.getParameter("factDevis"); 
+        String montantdevis= request.getParameter("montDevis"); 
+        String motifrefus = request.getParameter("refusDevis");
+        String saisielibre= request.getParameter("slDevis"); 
         String statut = request.getParameter("statutDevis");
-        String agence = request.getParameter("agenceDevis");
-        String devis = request.getParameter("Devis");
-        String client = request.getParameter("clientDevis");
+        String agence = request.getParameter("idage");
+        String devis = request.getParameter("iddev");
+        String client = request.getParameter("idcli");
         String message = null;
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
+                Long idagence = Long.valueOf(agence);
+                Long iddevis = Long.valueOf(devis);
+                Long idclient = Long.valueOf(client);
+                Devis o= administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
+                if(motifrefus.equals("")){
+                    motifrefus = o.getMotifRefus();
+                }
+                if(saisielibre.equals("")){
+                    motifrefus = o.getSaisieLibre();
+                }
                 Facturation fact = null;
                 if(facturation.equals("Auto")){
                     fact = Facturation.Auto;
                 }
                 else if (facturation.equals("Manuel")){
                     fact = Facturation.Manuel;
+                }
+                else if (facturation==null){
+                    fact = o.getIndicateurFact();
                 }
                 Statut statuts = null;
                 if(statut.equals("Incomplet")){
@@ -855,18 +885,24 @@ public class servAdmin extends HttpServlet {
                 else if (statut.equals("Transmettre_au_client")){
                     statuts = Statut.Transmettre_au_client;
                 }
-                Long idagence = Long.valueOf(agence);
-                Long iddevis = Long.valueOf(devis);
-                Long idclient = Long.valueOf(client);
+                else if (statut.isEmpty()){
+                    statuts = o.getStatut();
+                }
                 Statut sta = administrateurHardisSession.rechercherStatutParDevis(iddevis, ut);
-                Float montantadevis = Float.valueOf(montantdevis);
+                Float montantadevis = null;
+                if(montantdevis.equals("")){
+                    montantadevis = o.getMontantDevis();
+                    }
+                else{
+                    montantadevis = Float.valueOf(montantdevis);
+                }
                 administrateurHardisSession.modifieDevis(iddevis, null, null, fact, montantadevis, motifrefus, saisielibre, statuts, idclient, idagence, ut);
                 if(sta!=statuts){
                     List<HistoriqueEtats> liste = administrateurHardisSession.rechercherHistoriqueEtatsParDevis(iddevis, ut);
                     HistoriqueEtats he = administrateurHardisSession.creerHistoriqueEtats(statuts, iddevis, ut);
                     liste.add(he);
                 }
-                Devis o= administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
+                
                 String nomentite = o.getId().toString();
                 String classe = o.getClass().toString();
                 message= " "+classe+":"+ nomentite+" créé avec succès !";
@@ -1182,6 +1218,7 @@ public class servAdmin extends HttpServlet {
         request.setAttribute("message", message);
     }
       
+            
       protected void doActionMessageDevis(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String textmessage = request.getParameter("message");
@@ -1207,6 +1244,33 @@ public class servAdmin extends HttpServlet {
         request.setAttribute("message", message);
     }
       
+      protected void doActionEnvoyerMail(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String emailto = request.getParameter("emailto");
+        String subject = request.getParameter("subject");
+        String messagemail = request.getParameter("textmail");
+        String message = null;
+        if(emailto.trim().isEmpty()||messagemail.trim().isEmpty()){
+            message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires.";
+        }
+        else {
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                
+                administrateurHardisSession.creerContactMail(ut.getNom(), ut.getPrenom(), emailto, "", subject, messagemail, ut);
+                
+                message= "Message envoyé";
+                SendMail send = new SendMail();                
+                send.sendMail(emailto,subject, messagemail); 
+
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            }
+        }
+        request.setAttribute("message", message);
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

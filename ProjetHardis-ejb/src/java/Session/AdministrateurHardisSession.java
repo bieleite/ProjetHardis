@@ -29,6 +29,7 @@ import Facades.AgenceFacadeLocal;
 import Facades.AtelierFacadeLocal;
 import Facades.ClientFacadeLocal;
 import Facades.CommunicationFacadeLocal;
+import Facades.ContactMailFacadeLocal;
 import Facades.DevisFacadeLocal;
 import Facades.DevisNonStandardFacadeLocal;
 import Facades.DisponibiliteFacadeLocal;
@@ -61,6 +62,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AdministrateurHardisSession implements AdministrateurHardisSessionLocal {
+
+    @EJB
+    private ContactMailFacadeLocal contactMailFacade;
 
     @EJB
     private NotificationFacadeLocal notificationFacade;
@@ -1372,6 +1376,26 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         return offreFacade.rechercheOffreParId(id);
     }
     
+    @Override
+    public void creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, UtilisateurHardis hardis) {
+        ContactMail cm = contactMailFacade.creerContactMail(nom, prenom, mail, tel, sujet, message);
+        contactMailFacade.majUtilisateurH(cm, hardis);
+        
+        
+        
+    }
+
+    @Override
+    public void majUtilisateurH(long idcontmail , UtilisateurHardis u) {
+        ContactMail ad = contactMailFacade.find(idcontmail);
+        contactMailFacade.majUtilisateurH(ad, u);
+    }
+    
+    @Override
+    public void majReponse(Long cm) {
+        ContactMail ad = contactMailFacade.find(cm);
+        contactMailFacade.majReponse(ad);
+    }
     
     
 }
