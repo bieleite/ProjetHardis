@@ -1397,5 +1397,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         contactMailFacade.majReponse(ad);
     }
     
+//    @Override
+//    public List<Offre_Profil_Util_CV> rechercheOPUCParUtilisateur(UtilisateurHardis u) {
+//        ContactMail ad = contactMailFacade.find(cm);
+//        contactMailFacade.majReponse(ad);
+//    }
+    
     
 }

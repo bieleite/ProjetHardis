@@ -180,8 +180,19 @@
             <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Inline charts</a></li>
           </ul>
         </li>
-        <li><a href="servAdmin?action=listesDevis"><i class="fa fa-book"></i> <span>Devis</span></a></li>
-        
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>Devis</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-book"></i> <span>Afficher Devis</span></a></li>
+            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-circle-o"></i>Affecter Devis</a></li>
+            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-circle-o"></i> Valider Devis</a></li>
+          </ul>
+        </li>        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Paramètres</span>
@@ -205,18 +216,20 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
           </ul>
         </li>
+        
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-table"></i> <span>Tables</span>
+            <i class="fa fa-table"></i> <span>Référant Local</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i>Affecter Devis</a></li>
+            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Valider Devis</a></li>
           </ul>
         </li>
+        
         <li>
           <a href="pages/calendar.html">
             <i class="fa fa-calendar"></i> <span>Calendar</span>

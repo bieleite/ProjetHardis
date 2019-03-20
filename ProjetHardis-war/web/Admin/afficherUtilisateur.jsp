@@ -60,6 +60,15 @@
       <!-- Small boxes (Stat box) -->
       <% List<UtilisateurHardis> lesUtilisateurHardis=listeUtilisateurHardis; %> 
       <!-- /.row -->
+      <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+          <input type="mail" name="champ" class="form-control" placeholder="Search...">
+          <span class="input-group-btn">
+                <button type="submit" name="action" value="RechercherUtilisateur" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+        </div>
+      </form>
       <!-- Main row -->
       <div class="row">
         <!-- left column -->
@@ -74,6 +83,7 @@
                 <tr>
                   <th>Nom Utilisateur</th>
                   <th>Prenom Utilisateur </th>
+                  <th>Mail Utilisateur </th>
                   <th>Agence</th>
                   <th>Profil Technique</th>
                   <th>Statut</th>
@@ -82,8 +92,9 @@
                 <% for (UtilisateurHardis a : lesUtilisateurHardis){%>
                 <tbody>
                 <tr>
-                  <td><%=a.getNom() %></td>
+                    <td><a href="servAdmin?action=formUtilisateur&idUtili=<%=a.getId().toString() %>" name="idUtili" value="<%=a.getId().toString() %>"><%=a.getNom() %></a></td>
                   <td><%=a.getPrenom() %></td>
+                  <td><%=a.getLogin() %></td>
                   <td><%=a.getAgence().getNomAgence() %></td>
                   <td><%=a.getProfilTechique().toString() %></td>
                   <td><%=a.getStatut().toString() %></td>

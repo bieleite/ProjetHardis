@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.UtilisateurHardis"%>
 <%@page import="Entites.HistoriqueEtats"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entites.HistoriqueTraitement"%>
@@ -35,7 +36,7 @@
     <jsp:useBean id="devistraitement" scope="session" class = "Entites.Devis"> </jsp:useBean>
     <jsp:useBean id="listeCommunicationDevis" scope="request" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeHTVide" scope="request" class= "java.util.List"></jsp:useBean>
-    
+    <jsp:useBean id="listeConsultantOffre" scope="request" class= "java.util.List"></jsp:useBean>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -134,9 +135,24 @@
             <div class="box-header with-border">
               <h3 class="box-title">Devis</h3>
               <div class="box-tools pull-right">
-                    <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>"><button type="button" class="btn btn-block btn-primary">Affecter Devis</button></a>
+                    <a href="servAdmin?action=formDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>"><button type="button" class="btn btn-block btn-primary">Affecter Devis</button></a>
             </div>
-              
+              <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4> Consultant</h4>
+                
+                <form>
+                    <select name="ConsultantAffecte" class="form-control">
+                        <% List<UtilisateurHardis> lesConsultants=listeConsultantOffre;
+                        for (UtilisateurHardis consult : lesConsultants){%>
+                    <option value="<%=consult.getId() %>"> <%=consult.getNom() %>  </option> 
+                    <%}%>
+                  </select>
+                  <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
+                     <input type="hidden" name="action" value="AffecterDevis">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
             </div>
             <!-- /.box-header -->
             <!-- form start -->

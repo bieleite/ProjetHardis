@@ -11,15 +11,22 @@
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ContactMailFacade.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceFacade.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/ContactMail.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/ProfilMetier.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Statut.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/UtilisateurHardis.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/UtilisateurHardisFacade.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/ProfilTechnique.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ContactMailFacadeLocal.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Session/InternauteSession.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/ServiceStandard.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ServiceFacadeLocal.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Offre_Profil_Util_CV.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/Offre_Profil_Util_CVFacade.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/SendMail.java</file>
             <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Utilisateur.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/HistoriqueEtatsFacade.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Expertise.java</file>
+            <file>file:/C:/Users/6171217/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Entites/NiveauHabilitation.java</file>
         </group>
     </open-files>
 </project-private>

@@ -34,6 +34,7 @@ import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.Statut;
 import Entites.TypeService;
+import Entites.TypeUtilisateur;
 import Entites.UtilisateurHardis;
 import Facades.ClientFacade;
 import Session.*;
@@ -456,6 +457,21 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
                 jspClient="/Admin/afficherUtilisateur.jsp";
             }
+             else if(act.equals("RechercherUtilisateur"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<UtilisateurHardis> listeUtilisateurHardis= new ArrayList<>();
+                String textid = request.getParameter("champ");
+                UtilisateurHardis utili = administrateurHardisSession.rechercherUtilisateurHardisParLogin(textid);
+                if(utili!=null){
+                    listeUtilisateurHardis.add(utili);
+                }else{
+                listeUtilisateurHardis=new ArrayList<>();}
+                
+                if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
+                request.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
+                jspClient="/Admin/afficherUtilisateur.jsp";
+            }
              else if(act.equals("listesCertifierClient"))
             {
                 List<Client> listClient= administrateurHardisSession.listClientNonCertifies();
@@ -562,6 +578,44 @@ public class servAdmin extends HttpServlet {
                 sess.setAttribute("devistraitement",a);
                 jspClient="/Admin/traitementDevis.jsp";
             }
+            else if(act.equals("formUtilisateur"))
+            {
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
+                String champ = request.getParameter("idDevis");
+                Long iddevis = Long.valueOf(champ);
+                Devis a = administrateurHardisSession.rechercherDevis(iddevis, 0, utilisateur);
+                List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
+                if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
+                request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
+                request.setAttribute("listeHTVide",listeHTVide);
+                sess.setAttribute("devistraitement",a);
+                jspClient="/Admin/traitementUtilisateur.jsp";
+            }
+            else if(act.equals("affecterDevis"))
+            {
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
+                String champ = request.getParameter("idDevis");
+                Long iddevis = Long.valueOf(champ);
+                Devis a = administrateurHardisSession.rechercherDevis(iddevis, 0, utilisateur);
+                Long of = a.getService().getOffre().getId();
+                List<UtilisateurHardis> listeConsultantOffre = new ArrayList<>();
+                List<Offre_Profil_Util_CV> o = administrateurHardisSession.listHistoriqueOffre_Profil_Util_CV(utilisateur);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   if ( compteur.getOffre().equals(a.getService().getOffre()))
+                       listeConsultantOffre.add(compteur.getUtilisateur());
+               }
+                List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
+                if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
+                request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
+                request.setAttribute("listeHTVide",listeHTVide);
+                request.setAttribute("listeConsultantOffre",listeConsultantOffre);
+                sess.setAttribute("devistraitement",a);
+                jspClient="/Admin/affecterDevis.jsp";
+            }
             else if(act.equals("messageDevis"))
             {
                 UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
@@ -580,6 +634,13 @@ public class servAdmin extends HttpServlet {
                 doActionModifierDevis(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
             }
+            else if(act.equals("AffecterDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionAffecterDevis(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            
             else if(act.equals("ContactMail"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
@@ -1268,6 +1329,29 @@ public class servAdmin extends HttpServlet {
             else{
                 message= "Erreur information non inserée dans la base de données";
             }
+        }
+        request.setAttribute("message", message);
+    }
+      
+      protected void doActionAffecterDevis(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String ConsultantAffecte = request.getParameter("ConsultantAffecte");
+        String idDevis = request.getParameter("iddev");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long id = Long.valueOf(ConsultantAffecte);
+                Long idref = ut.getId();
+                Long iddevis = Long.valueOf(idDevis);
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
+                java.util.Date d = new java.util.Date();
+                administrateurHardisSession.creerHistoriqueTraitement(d, null, TypeUtilisateur.r, iddevis, id, idref, 0, ut);
+
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
         }
         request.setAttribute("message", message);
     }
