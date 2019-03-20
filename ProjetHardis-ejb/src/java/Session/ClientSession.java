@@ -694,6 +694,41 @@ return e;
         return listeUH;
     }
 
+    @Override
+    public float recherchePrixOffreC(UtilisateurHardis u, Offre off) {
+    float prix = 0;
+            List<Offre_Profil_Util_CV> o = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateur(u);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   ProfilMetier pm = compteur.getProfil();
+                   if (pm.getNiveauHabilitation().toString().equals("Consultant") && 
+                           compteur.getOffre().equals(off)
+                          )
+                       prix = compteur.getPrixUnit();
+               }
+
+        return prix;
+    }
+
+    @Override
+    public String rechercheLibConsultOffre(UtilisateurHardis u, Offre off) {
+      String lib = "";
+        List<Offre_Profil_Util_CV> o = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateur(u);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   ProfilMetier pm = compteur.getProfil();
+                   if (pm.getNiveauHabilitation().toString().equals("Consultant") && 
+                           compteur.getOffre().equals(off)
+                          )
+                      lib = pm.getNiveauExpertise().toString();
+               }
+        return lib;
+    }
+    
+    
+
     
 
     

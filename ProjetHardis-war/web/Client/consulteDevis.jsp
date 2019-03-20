@@ -27,6 +27,9 @@
    <jsp:useBean id="facture" scope="request" class = "Entites.Facture"> </jsp:useBean>
     <jsp:useBean id="servS" scope="request" class = "Entites.ServiceStandard"> </jsp:useBean>
       <jsp:useBean id="listeConsu" scope="request" class = "java.util.List"> </jsp:useBean>
+         <jsp:useBean id="listeLibC" scope="request" class = "java.util.List"> </jsp:useBean>
+          <jsp:useBean id="PrixU" scope="request" class = "java.util.List"> </jsp:useBean>
+      
      
   <title>AdminLTE 2 | Dashboard</title>
  <%@include  file = "meta.jsp" %>
@@ -40,6 +43,10 @@
   Facture f= facture;
   List<UtilisateurHardis> listeC = listeConsu;
   ServiceStandard s = servS;
+   List<String> listeLib = listeLibC;
+    List<Float> PrixUnit = PrixU;
+    Float tot = 0.0F;
+  
   
   SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");%>
   
@@ -68,7 +75,7 @@
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-globe"></i> Hardis Group
-           <% if (f.getId()!=null) { %>  <small class="pull-right">Date: <%=dformat.format(f.getDateFacture())%></small> <%}%>
+        
           </h2>
         </div>
         <!-- /.col -->
@@ -95,50 +102,38 @@
                 out.print(ad.getCodePostal()+" "+ad.getVille());
             %><br>        
           </address>
+          Code contrat : <b> <% out.print(d.getClient().getEntreprise().getCodeContrat()); %> </b> 
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-            
-          <b><% if (f.getId()!=null) { %> 
-              Facture #<% out.print("F"+f.getId()); } else  { %>
-              
-              Devis #<% out.print("DEV"+d.getId()); }%></b>
-          
-          <br>
-          <br>       
-          <b>Code contrat : </b> <% out.print(d.getClient().getEntreprise().getCodeContrat()); %>
-        </div>
+       
         <!-- /.col -->
       </div>
       <!-- /.row -->
 
       <!-- Table row -->
       <div class="row">
+           
         <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
-            <thead>
-            <tr>
-               <th>Offre</th>
-              <th>Service</th>
-               <th>Type service</th>
-              <th>Description</th>
-              <th>Date intervention</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><%=d.getService().getOffre().getLibelle() %></td>
-              <td><%=d.getService().getNomService().toString() %></td>
-              <td><%=d.getService().getTypeService().toString() %></td>
+            <div >
             
-             <td><%=d.getService().getDescriptionService()%></td>
-              <td><%=dformat.format(d.getDateIntervSouhaitee()) %></td>
-  
-
-            </tr>  
-            </tbody>
-          </table>
+          <b><% if (f.getId()!=null) { %> 
+              Facture : #<% out.print(f.getId()+"     en date du : "+dformat.format(f.getDateFacture())); } else  { %>
+              
+              Devis :  #<% out.print(d.getId()+"    en date du : "+dformat.format(d.getDateDevis()));}%></b>
+          
+          <br>
+          <br>  
+          <b> Offre : <%=d.getService().getOffre().getLibelle()%> </b>
+          <br>
+              <br>
+          <b> Service : <%=d.getService().getNomService() %> </b>
+          <br>
+          <br>
+        </div>
+              
+        
+              <br>
+              <br>
             
              <table class="table table-striped">
             <thead>
@@ -151,18 +146,42 @@
             </tr>
             </thead>
             <tbody>
+                 <%  
+                     for (int i=0; i<listeC.size(); i++) { 
+                 float nbJ=0;
+                 %>
             <tr>
-              <td>Confirmé</td>
-              <td><%=s.getNbreJoursConsultantC()%></td>
+               
+              <td><%=listeLib.get(i)%></td>
+              <td><% if (listeLib.get(i).toString().equals("Junior"))
+              {  
+                  out.print(s.getNbreJoursConsultantJ());
+                  nbJ = s.getNbreJoursConsultantJ();
+              }
+              
+              else if (listeLib.get(i).toString().equals("Senior")){
+                  out.print(s.getNbreJoursConsultantS());
+                    nbJ = s.getNbreJoursConsultantS();
+              }
+              else{  
+                  out.print(s.getNbreJoursConsultantC());   
+               nbJ = s.getNbreJoursConsultantC();            
+              
+              }
+              
+              %></td>
               <td>J</td>
-              <td>1</td>
-              <td><%=d.getService().getDescriptionService()%></td>
-              <td><% %></td>
-              <td>  </td>
-              <td></td>
+              <td><%=PrixUnit.get(i)%></td>
+              <td><%
+                      out.print(nbJ*PrixUnit.get(i));
+              tot+=nbJ*PrixUnit.get(i);%></td>
+
+              <% }%>
             </tr>  
             </tbody>
           </table>
+            <br>
+            <b> Conditions de réglement : </b> 50% à la commande, 50% à la fin de la prestation, paiement à reception de facture
         </div>
         <!-- /.col -->
       </div>
@@ -175,29 +194,32 @@
       <div class="row">
         <!-- accepted payments column -->
         <div class="col-xs-6">
-          <p class="lead">Méthodes de paiement:</p>
-          <img src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/img/credit/visa.png" alt="Visa">
-          <img src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/img/credit/mastercard.png" alt="Mastercard">
-          <img src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/img/credit/american-express.png" alt="American Express">
-          <img src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/img/credit/paypal2.png" alt="Paypal">
-
-          
+         
         </div>
         <!-- /.col -->
         <div class="col-xs-6">
-          <p class="lead">Premier paiement</p>
+             <br>
+          <p class="lead">Paiement</p>
 
           <div class="table-responsive">
-            <table class="table">
-             
+            <table class="table">   
+                <tr>
+                <th>TOTAL HT</th>
+                <td><%=tot%></td>
+              </tr>
               <tr>
                 <th>TVA (%)</th>
-                <td></td>
+                <td><%=tot*0.2%></td>
               </tr>
 
               <tr>
-                <th>Total:</th>
-           <td><%=d.getMontantDevis()/2%></td>
+                <th>Total TTC</th>
+           <td><%=tot*1.2%></td>
+              </tr>
+              
+               <tr>
+                <th>Total 1er paiement</th>
+               <td><%=tot*1.2 / 2%></td>
               </tr>
             </table>
           </div>
@@ -210,8 +232,13 @@
 
       <!-- this row will not appear when printing -->
       <div class="row no-print">
-        <div class="col-xs-12">
-         <a href="servClient?action=payer&idDev=<%=d.getId()%>&idF=<%=f.getId()%>" <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Payer
+        <div class="col-xs-10">
+         <a href="servClient?action=payer&idDev=<%=d.getId()%>&idF=<%=f.getId()%>" <button type="button" class="btn btn-success pull-right">Payer
+          </button>
+        </a>
+        </div>
+          <div class="col-xs-2">
+               <a href="servClient?action=retour" <button type="button" class="btn btn-danger pull-right">Annuler
           </button>
         </a>
         </div>
@@ -236,16 +263,6 @@
   </div>
    
    
-   
-
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>
-
 
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed

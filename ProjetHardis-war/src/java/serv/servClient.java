@@ -402,14 +402,40 @@ public class servClient extends HttpServlet {
             jspClient = "/Client/consulteDevis.jsp";
             String idD = request.getParameter("idDev");
             String fact = request.getParameter("fact");
+            List<String> listeLibC =  new ArrayList<String>();
+            List<Float> PrixU =  new ArrayList<Float>();
+            
+            
+            
             long id = 0;
             Devis d = null;
             if (idD != "") {
                 id = Long.valueOf(idD);
                 d = clientSession.recupDevis(id);
+                 Service s = d.getService();
+                
+                ServiceStandard ss = clientSession.rechercheSS(s.getId());
                 sess.setAttribute("devis", d);
 
+
+                
+                List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
+                
+                for (UtilisateurHardis u : listeConsu)
+                {
+                    float prixUni = clientSession.recherchePrixOffreC(u, ss.getOffre());
+                    PrixU.add(prixUni);
+                    String lib = clientSession.rechercheLibConsultOffre(u, ss.getOffre());
+                    listeLibC.add(lib);
+                    
+                }
+                
+                request.setAttribute("listeConsu", listeConsu);
+                request.setAttribute("PrixU", PrixU);
+                  request.setAttribute("servS", ss);
+                request.setAttribute("listeLibC", listeLibC);
             }
+            
             String valide = request.getParameter("valide");
             if (valide != null && valide.equals("1")) {
                 clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
@@ -443,19 +469,15 @@ public class servClient extends HttpServlet {
             }
         } else if (act.equals("choixConsultants")) {
             String idD = request.getParameter("idDev");
-            
+             jspClient = "/Client/choixConsultants.jsp";
             if (idD != "") {
                  long id = Long.valueOf(idD);
                  Devis d = clientSession.recupDevis(id);
                  Date dateInter = d.getDateIntervSouhaitee();
                  
                 
-                 String[] listeC = request.getParameterValues("listCC");
-                  String[] listeJ = request.getParameterValues("listCJ");
-                  String[] listeS = request.getParameterValues("listCS");
-             
-                  if (listeC!=null ||listeJ!=null   ||listeS!=null)
-                    clientSession.choixConsultants(Long.valueOf(idD), listeC, listeJ, listeS);
+                 
+                   
                 
                 String date = request.getParameter("date"); 
                 
@@ -473,6 +495,25 @@ public class servClient extends HttpServlet {
                 ServiceStandard ss = clientSession.rechercheSS(s.getId());
 
                 sess.setAttribute("devis", d);
+                
+                 String[] listeC = request.getParameterValues("listCC");
+                  String[] listeJ = request.getParameterValues("listCJ");
+                  String[] listeS = request.getParameterValues("listCS");
+             boolean b1 = true;
+                  if (listeC!=null ||listeJ!=null   ||listeS!=null)
+                  {
+                       clientSession.choixConsultants(Long.valueOf(idD), listeC, listeJ, listeS);
+                       float nbJ = ss.getNbreJoursConsultantJ();
+                float nbS = ss.getNbreJoursConsultantS();
+                float nbC = ss.getNbreJoursConsultantC();
+                if (listeC!=null  && listeC.length==0 &&  nbC>0) b1 = false;
+                if (listeJ!=null && listeJ.length==0 &&  nbJ>0) b1 = false;
+                if (listeS!=null &&listeS.length==0 &&  nbS>0) b1 = false;
+                
+                      if (b1) {
+                        request.setAttribute("valide", "ok");
+                      }
+                  }
 
                
 
@@ -495,27 +536,18 @@ public class servClient extends HttpServlet {
                     b = false;
                 
                 if (!b) request.setAttribute("valide", "n");
+                
                 request.setAttribute("serviceS", s);
                 request.setAttribute("listeC", listeCCDispo);
                 request.setAttribute("listeS", listeCSDispo);
                 request.setAttribute("listeJ", listeCJDispo);
                 request.setAttribute("offreP", listeO);
-                jspClient = "/Client/choixConsultants.jsp";
+               
 
             }
         }
         
-        else if (act.equals("choisirCons"))
-        {
-             String idD = request.getParameter("idD");
-             String[] listeC = request.getParameterValues("listCC");
-             String[] listeJ = request.getParameterValues("listCJ");
-             String[] listeS = request.getParameterValues("listCS");
-             
-             clientSession.choixConsultants(Long.valueOf(idD), listeC, listeJ, listeS);
-             jspClient = "/Client/tabBord.jsp";
-        }
-        
+       
         
         else if (act.equals("majEnt")) {
             boolean b = false;
@@ -546,7 +578,9 @@ public class servClient extends HttpServlet {
             List<Interlocuteur> liste = clientSession.recupInter(clientT.getEntreprise().getId());
             request.setAttribute("listeInt", liste);
 
-        } else if (act.equals("forgot")) {
+
+        
+          }else if (act.equals("forgot")) {
 
             jspClient = "/Client/forgot.jsp";
             String repS = request.getParameter("repS");

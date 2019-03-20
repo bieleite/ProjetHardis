@@ -14,6 +14,7 @@ import Entites.Entreprise;
 import Entites.Facture;
 import Entites.Interlocuteur;
 import Entites.Notification;
+import Entites.Offre;
 import Entites.Offre_Profil_Util_CV;
 import Entites.Service;
 import Entites.ServiceStandard;
@@ -112,6 +113,10 @@ public interface ClientSessionLocal {
     ServiceStandard rechercheSS(long id);
 
     List<UtilisateurHardis> rechercheCParDevis(long idD);
+
+    float recherchePrixOffreC(UtilisateurHardis u, Offre o);
+
+    String rechercheLibConsultOffre(UtilisateurHardis u, Offre off);
 
 
     

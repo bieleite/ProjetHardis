@@ -56,6 +56,7 @@
                         <!-- Main row -->
                         <div class="row">
 
+<%   String valide = (String)request.getAttribute("valide");%>
 
                             <!-- left column -->
                             <div class="col-md-8">
@@ -63,6 +64,16 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Choisir consultants pour son devis</h3>
                                     </div>
+                                  <%  if (valide!=null && valide.equals("ok"))
+                                                      {
+                                                          out.print("Votre choix a été enregistré");
+                                                        %>   <div class="box-footer">
+                                                            <a href="servClient?action=retour"> <button type="submit" class="btn btn-primary">Retour</button></a>
+                                                        </div>
+                                                        <%
+                                                      }
+                                                     
+                                                    else { %>
 
                                     <form role="form" method="get" action="servClient">
                                         <div class="box-body">
@@ -77,9 +88,11 @@
                                                     List<UtilisateurHardis> listeUJ = listeJ;
                                                     List<UtilisateurHardis> listeUS = listeS;
                                                     List<Offre_Profil_Util_CV> listeOPC = offreP;
-                                                    String valide = (String)request.getAttribute("valide");
+                                                 
                                                      SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
-                                                    if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette date
+                                                   
+                                                      
+if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette date
                                                         
                                                     {
                                                         %>
@@ -137,7 +150,7 @@
                                                                         <td><%=u.getNom()%></td>
                                                                         <td><%=u.getPrenom()%></td>
                                                                         <td><%=lienCV%></td>
-                                                                         <td><input type="checkbox" name="listCS" value="<%=u.getId()%>"></td>
+                                                                         <td><input type="checkbox" name="listCC" value="<%=u.getId()%>"></td>
 
                                                                     </tr> <% }
                                                                     } if (listeUJ.size() > 0) {
@@ -184,7 +197,7 @@
                                                                                     %>
                                                                                 <div class="box box-info">
                                                                                     <div class="box-header with-border">
-                                                                                        <h3 class="box-title">Liste Consultants confirmés disponibles (choisir 1)</h3>
+                                                                                        <h3 class="box-title">Liste Consultants senior disponibles (choisir 1)</h3>
 
                                                                                     </div>
                                                                                     <!-- /.box-header -->
@@ -218,7 +231,7 @@
                                                                                                         <td><%=u.getNom()%></td>
                                                                                                         <td><%=u.getPrenom()%></td>
                                                                                                         <td><a href="<%=lienCV%>">Lien CV</a></td>
-                                                                                                         <td><input type="checkbox" name="listCC" value="<%=u.getId()%>"></td>
+                                                                                                         <td><input type="checkbox" name="listCS" value="<%=u.getId()%>"></td>
 
                                                                                                     </tr> <% }
                                                                                                         }
@@ -252,6 +265,7 @@
                                                                         <button type="submit" class="btn btn-primary">Valider</button>
                                                                     </div>
                                                                     </form>
+                                                                    <%}%>
                                                                 </div>
 
 
