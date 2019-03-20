@@ -44,7 +44,7 @@
                         <!-- Main row -->
                         <div class="row">
 
-                            <% if (client.getEntreprise() == null) { %>
+                            <% if (!client.getCertifie()) { %>
                             <!-- left column -->
                             <div class="col-md-6">
                                 <div class="box box-primary">

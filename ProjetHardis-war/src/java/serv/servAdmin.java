@@ -459,8 +459,10 @@ public class servAdmin extends HttpServlet {
              else if(act.equals("listesCertifierClient"))
             {
                 List<Client> listClient= administrateurHardisSession.listClientNonCertifies();
+                List<Agence> listeAg = administrateurHardisSession.listAgence();
                 if (listClient==null) listClient=new ArrayList<>();
                 request.setAttribute("listClient",listClient);
+                 request.setAttribute("listAgence",listeAg);
                 jspClient="/Admin/certifierClient.jsp";
             }
              else if(act.equals("RechercherClient"))
@@ -682,6 +684,7 @@ public class servAdmin extends HttpServlet {
     protected void doActionCertifierClient(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String idClient = request.getParameter("idClient");
+        String agence = request.getParameter("agence");
         String message = null;
         if(idClient.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires.";
@@ -690,10 +693,22 @@ public class servAdmin extends HttpServlet {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
                 Long id = Long.valueOf(idClient);
+                Agence ag = administrateurHardisSession.rechercherAgenceParId(Long.valueOf(agence));
+                administrateurHardisSession.majAgenceClient(ag.getId(), id);
+              
                 administrateurHardisSession.certifieClient(id, ut);
-                Client adresse = administrateurHardisSession.rechercherClient(id, "", "", ut);
-                String nomentite = adresse.getNom() ;
-                String classe = adresse.getClass().toString();
+                 
+          
+                Client cli = administrateurHardisSession.rechercherClient(id, "", "", ut);
+                  administrateurHardisSession.majAgenceEnt(ag.getId(), cli.getEntreprise().getId());
+                
+                 SendMail send = new SendMail();
+                 String messa = "<p>Bonjour, <br> Votre entreprise a été certifié. Veuillez accéder a votre <a href=\"http://localhost:8080/ProjetHardis-war/servInternaute?action=connexion\">compte Hardis</a> et spécifier les informations suivantes dans la partie Profil <br>"
+                 + "Code contrat :"+ cli.getEntreprise().getCodeContrat()+"<br>Mot de passe : "+cli.getEntreprise().getMdpEntreprise()+" Cordialement, Hardis</p> ";
+                 send.sendMail(cli.getLogin(),"Validation compte Hardis", messa);
+       
+                String nomentite = cli.getNom() ;
+                String classe = cli.getClass().toString();
                 message= " "+classe+":"+ nomentite+" certfiée avec succès !";
             }
             else{
@@ -1175,7 +1190,7 @@ public class servAdmin extends HttpServlet {
         }  
         
          SendMail send = new SendMail();
-         String messa = "<p>Veuillez cliquer <a href=\"http://localhost:8080/ProjetHardis-war/servEmployes?action=majMDP&email="+mailHache+"\">ici</a> pour créer votre mot de passe</p>";
+         String messa = "<p>Bonjour, <br> Veuillez cliquer <a href=\"http://localhost:8080/ProjetHardis-war/servEmployes?action=majMDP&email="+mailHache+"\">ici</a> pour créer votre mot de passe <br> Cordialement, Hardis</p> ";
          send.sendMail(login,"Création compte Hardis", messa);
        
                

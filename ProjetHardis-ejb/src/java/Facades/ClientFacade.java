@@ -113,6 +113,8 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         return cl;
     }
 
+    
+    
     @Override
     public  Client rechercheClientParNom(String nom) {
         Client cl = null;        
@@ -281,7 +283,7 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
     @Override
     public void majEntrepriseClient(Client c, Entreprise ent) {
         c.setEntreprise(ent);
-        c.getEntreprise().setCertifie(true);
+       // c.getEntreprise().setCertifie(true);
         em.merge(c);
     }
     
@@ -359,6 +361,12 @@ public class ClientFacade extends AbstractFacade<Client> implements ClientFacade
         }
        
         return b;
+    }
+
+    @Override
+    public void certifierClient(Client c) {
+        c.setCertifie(true);
+        em.merge(c);
     }
 
 

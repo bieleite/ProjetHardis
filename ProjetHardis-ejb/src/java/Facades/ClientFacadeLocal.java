@@ -84,6 +84,8 @@ public interface ClientFacadeLocal {
 
     boolean verifRepS(Client c, String rep);
 
+    void certifierClient(Client c);
+
 
 
 }

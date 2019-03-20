@@ -518,7 +518,7 @@ return e;
         Entreprise e = entrepriseFacade.rechercheEntrepriseCodeMdp(codeC,mdp);
         if (e!=null)
         {
-            clientFacade.majEntrepriseClient(c, e);
+            clientFacade.certifierClient(c);
             b= true;
         }
         return b;
@@ -726,6 +726,28 @@ return e;
                }
         return lib;
     }
+
+    @Override
+    public void certifierClient(long id) {
+        Client c =clientFacade.rechercheClient(id);
+        clientFacade.certifierClient(c);
+    }
+
+    @Override
+    public void majAgenceCli(long idA, long idC) {
+           Client c = clientFacade.rechercheClient(idC);
+        Agence a = agenceFacade.rechercheAgence(idA);
+        clientFacade.majAgenceClient(c, a);
+    }
+
+    @Override
+    public void majAgenceEnt(long idA, long idE) {
+        Entreprise c = entrepriseFacade.rechercheEntrepriseParId(idE);
+        Agence a = agenceFacade.rechercheAgence(idA);
+        entrepriseFacade.majAgenceEnt(c, a);
+    }
+    
+    
     
     
 

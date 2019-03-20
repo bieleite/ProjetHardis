@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.Agence"%>
 <%@page import="Entites.UtilisateurHardis"%>
 <%@page import="Entites.Adresse"%>
 <%@page import="Entites.Client"%>
@@ -28,6 +29,8 @@
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listClient" scope="request" class = "java.util.List"> </jsp:useBean>
+        <jsp:useBean id="listAgence" scope="request" class = "java.util.List"> </jsp:useBean>
+
 
 
 </head>
@@ -58,7 +61,8 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <% List<Client> lesClients=listClient; %> 
+      <% List<Client> lesClients=listClient;
+      List<Agence> listeA = listAgence;%> 
       <!-- /.row -->
       <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
@@ -97,7 +101,12 @@
                 <tr>
                   <td><%=a.getNom() %></td>
                   <td><%=a.getPrenom() %></td>
-                  <td><%=a.getAgence().getNomAgence() %></td>
+              
+                  <td><select  name="agence">
+                      <% for (Agence ag : listeA) {%>
+                    <option value="<%=ag.getId()%>"><%=ag.getNomAgence()%></option>
+                   <%}%>
+                      </select></td>
                   <td><%=a.getLogin() %></td>
                   <td><%=a.getEntreprise().getNomEntreprise() %></td>
                   <td><input type="checkbox" name="idClient" value="<%=a.getId() %>"></td>
