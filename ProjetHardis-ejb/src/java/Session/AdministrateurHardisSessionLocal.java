@@ -334,5 +334,11 @@ public interface AdministrateurHardisSessionLocal {
 
     Offre rechercheOffreParId(long id);
     
-     List<Service> listServiceNonStandard( );
+    List<Service> listServiceNonStandard( );
+     
+    void majReponse(Long cm);
+    
+    void majUtilisateurH(long idcontmail , UtilisateurHardis u);
+    
+    void creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, UtilisateurHardis hardis);
 }

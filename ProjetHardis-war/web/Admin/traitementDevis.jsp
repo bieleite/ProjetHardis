@@ -33,6 +33,8 @@
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="devistraitement" scope="session" class = "Entites.Devis"> </jsp:useBean>
     <jsp:useBean id="listeCommunicationDevis" scope="request" class= "java.util.List"></jsp:useBean>
+    <jsp:useBean id="listeHTVide" scope="request" class= "java.util.List"></jsp:useBean>
+    
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -53,8 +55,8 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
-        <li class="active">Paramètres</li>
         <li class="active">Adresse</li>
+        <li class="active">Paramètres</li>
         <li class="active">Creer Adresse</li>
       </ol>
     </section>
@@ -126,15 +128,16 @@
         <!--/.col (right) -->
       </div>
       <!-- /.row (main row) -->
-      <div class="col-xs-8">
+      <div class="col-lg-8 connectedSortable">
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Devis</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            
               <div class="box-body">
+                  <form role="form">
                 <div class="form-group">
                   <label for="idDevis">Id Devis</label>
                   <input type="txt" name="idDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getId() %>"  disabled>
@@ -144,27 +147,34 @@
                   <input type="txt" name="clientDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getClient().getNom() %>" disabled>
                   <label for="consultantDevis">Consultant Devis</label>
                   <% List<HistoriqueTraitement> listHistTrait = devistraitement.getHistoriqueTraitements();
-                  for (HistoriqueTraitement htde : listHistTrait){%>
+                  if (listHistTrait==null) {listHistTrait=listeHTVide; }%>
+                    <%for (HistoriqueTraitement htde : listHistTrait){%> 
+                    <input type='txt' name='validateurDevis' class='form-control' id='exampleInputEmail1' placeholder='
                   <% if (htde.getConsultant()!=null ) {%>
-                       <input type='txt' name='consultantDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=htde.getConsultant().getNom() %>' disabled>
+                       <%=htde.getConsultant().getNom() %>
                        <%}%>
                  <% if (htde.getConsultant()==null ){%>
-                      <input type='txt' name='consultantDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Choisi' disabled>
-                  <%}%>
+                      Non Choisi
+                  <%}%>' disabled><%}%>
                   <label for="validateurDevis">Validateur Devis</label>
+                  <%for (HistoriqueTraitement htde : listHistTrait){%> 
+                    <input type='txt' name='validateurDevis' class='form-control' id='exampleInputEmail1' placeholder='
                   <% if (htde.getValidateur()!=null ) {%>
-                       <input type='txt' name='validateurDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=htde.getValidateur().getNom() %>' disabled>
+                       <%=htde.getValidateur().getNom() %>
                        <%}%>
                  <% if (htde.getValidateur()==null ){%>
-                      <input type='txt' name='validateurDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Choisi' disabled>
-                  <%}%>
+                      Non Choisi
+                  <%}%>' disabled><%}%>
                   <label for="refLocalDevis">Referant Local Devis</label>
+                 <% for (HistoriqueTraitement htde : listHistTrait){%> 
+                  <input type='txt' name='refLocalDevis' class='form-control' id='exampleInputEmail1' placeholder='
                   <% if (htde.getRefLocal()!=null ) {%>
-                       <input type='txt' name='refLocalDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=htde.getRefLocal().getNom() %>' disabled>
+                       <%=htde.getRefLocal().getNom() %>
                        <%}%>
                  <% if (htde.getRefLocal()==null ){%>
-                      <input type='txt' name='refLocalDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Choisi' disabled>
+                      Non Choisi
                   <%}%>
+                  ' disabled>
                   <%}%>
                   <label for="agenceDevis">Agence Devis</label>
                   <input type="txt" name="agenceDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getAgence().getNomAgence() %>" disabled>
@@ -194,63 +204,34 @@
                       <input type='txt' name='dtIntSou' class='form-control' id='exampleInputEmail1' placeholder='Non Choisi' disabled>
                   <%}%>
                   <label for="factDevis">Facturation</label>
-                  <input type="txt" name="factDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getIndicateurFact().name() %>" disabled>
+                  <input type="txt" name="factDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getIndicateurFact().name() %>" disabled >
                   <label for="montDevis">Montant Devis</label>
                   <% if (devistraitement.getMontantDevis()>0 ) {%>
-                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' disabled>
+                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' >
                        <%}%>
                  <% if (devistraitement.getMontantDevis()==0 ){%>
-                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' disabled>
+                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' >
                   <%}%>                 
                   <label for="refusDevis">Motif Refus</label>
-                  <input type="txt" name="refusDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getMotifRefus() %>" disabled>
+                  <textarea rows="3" name="refusDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getMotifRefus() %>" ></textarea>
                   <label for="statutDevis">Statut</label>
-                  <input type='txt' name='statutDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getStatut().name() %>' disabled>                      
+                  <input type='txt' name='statutDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getStatut().name() %>' >                      
                   <label for="slDevis">Saisir Libre</label>
-                  <input type="txt" name="slDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getSaisieLibre() %>" disabled>
-                     
-                  <input type="hidden" name="idAgence" value="<%=devistraitement.getId() %>">
+                  <textarea class="form-control" rows="3" name="slDevis"  id="exampleInputEmail1" placeholder="<%=devistraitement.getSaisieLibre() %>" ></textarea>
+                     <input type="hidden" name="idcli" value="<%=devistraitement.getClient().getId() %>">
+                  <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
+                  <input type="hidden" name="idage" value="<%=devistraitement.getAgence().getId() %>">
                 </div>
                 
                 <input type="hidden" name="action" value="ModifierDevis">
-             <!--   <div class="form-group">
-                  <label>Select</label>
-                  <select class="form-control">
-                    <option>option 1</option>
-                    <option>option 2</option>
-                    <option>option 3</option>
-                    <option>option 4</option>
-                    <option>option 5</option>
-                  </select>
-                </div>
-                <!-- checkbox 
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox">
-                      Checkbox 1
-                    </label>
-                  </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <input type="file" id="exampleInputFile">
-
-                  <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Check me out
-                  </label>
-                </div>
-              </div>-->
-              <!-- /.box-body -->
+             
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-            
+             </form>
           </div>
-                </form>
+               
           <!-- /.box -->
         
         <!--/.col (left) -->
@@ -259,11 +240,11 @@
           <!-- /.box -->
         </div>
       </div>
-      <div class="col-xs-4">
+      <div class="col-lg-4 connectedSortable">
           <div class="box box-warning direct-chat direct-chat-warning">
                 <div class="box-header with-border">
                   <h3 class="box-title">Communication</h3>
- <div class="box-tools pull-right">
+                    <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                
@@ -334,7 +315,7 @@
                           </span>
                     </div>
                   </form>
-                </div>
+            </div>
       </div>
       
     </section>

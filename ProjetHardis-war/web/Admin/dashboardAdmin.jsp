@@ -68,7 +68,7 @@
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="link para lista de devis#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="servAdmin?action=listesDevis" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -154,14 +154,14 @@
                      for (Devis devis : listedevis){%>
                 <tbody>
                 <tr>
-                   <td><%=devis.getAgence().getNomAgence() %> </td>
-                  <td><%=devis.getClient().getNom() %> </td>
-                  <td><%=devis.getClient().getEntreprise().getNomEntreprise() %></td>
-                  <td><%=devis.getService().getNomService() %> </td>
-                  <td><%=devis.getService().getTypeService().name() %></td>
-                  <td><%=devis.getStatut().name() %> </td>
-                  <td><%=devis.getTypeDevis() %> </td>
-                  <td><%=dformat.format(devis.getDateDevis()) %> </td>
+                    <td><%=devis.getAgence().getNomAgence() %> </td>
+                    <td><%=devis.getClient().getNom() %> </td>
+                     <td><%=devis.getClient().getEntreprise().getNomEntreprise() %></td>
+                     <td><%=devis.getService().getNomService() %> </td>
+                     <td><%=devis.getService().getTypeService().name() %></td>
+                     <td><%=devis.getStatut().name() %> </td>
+                      <td><%=devis.getTypeDevis() %> </td>
+                      <td><%=dformat.format(devis.getDateDevis()) %> </td>
                  
                   
                 </tr>
@@ -177,7 +177,7 @@
             
           </div>
           <!-- /.nav-tabs-custom -->
-
+          
           <!-- Chat box -->
           <div class="box box-success">
             <div class="box-header">
@@ -378,7 +378,13 @@
           </div>
           <!-- /.box -->
 
-          <!-- quick email widget -->
+          
+
+        </section>
+        <!-- /.Left col -->
+        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <section class="col-lg-5 connectedSortable">
+            <!-- quick email widget -->
           <div class="box box-info">
             <div class="box-header">
               <i class="fa fa-envelope"></i>
@@ -393,7 +399,7 @@
               <!-- /. tools -->
             </div>
             <div class="box-body">
-              <form action="#" method="post">
+              <form action="servAdmin" method="post">
                 <div class="form-group">
                   <input type="email" class="form-control" name="emailto" placeholder="Email to:">
                 </div>
@@ -401,68 +407,19 @@
                   <input type="text" class="form-control" name="subject" placeholder="Subject">
                 </div>
                 <div>
-                  <textarea class="textarea" placeholder="Message"
+                  <textarea class="textarea" placeholder="Message" name="textmail"
                             style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                 </div>
-              </form>
-            </div>
-            <div class="box-footer clearfix">
-              <button type="button" class="pull-right btn btn-default" id="sendEmail">Send
+                  <input type="hidden" name="action" value="ContactMail">
+                  <div class="box-footer clearfix">
+              <button type="submit" class="pull-right btn btn-default" id="sendEmail">Send
                 <i class="fa fa-arrow-circle-right"></i></button>
             </div>
+              </form>
+            </div>
+            
           </div>
-
-        </section>
-        <!-- /.Left col -->
-        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-        <section class="col-lg-5 connectedSortable">
-
-          <!-- Map box -->
-          <div class="box box-solid bg-light-blue-gradient">
-            <div class="box-header">
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-                <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip"
-                        title="Date range">
-                  <i class="fa fa-calendar"></i></button>
-                <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse"
-                        data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
-                  <i class="fa fa-minus"></i></button>
-              </div>
-              <!-- /. tools -->
-
-              <i class="fa fa-map-marker"></i>
-
-              <h3 class="box-title">
-                Visitors
-              </h3>
-            </div>
-            <div class="box-body">
-              <div id="world-map" style="height: 250px; width: 100%;"></div>
-            </div>
-            <!-- /.box-body-->
-            <div class="box-footer no-border">
-              <div class="row">
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <div id="sparkline-1"></div>
-                  <div class="knob-label">Visitors</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <div id="sparkline-2"></div>
-                  <div class="knob-label">Online</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center">
-                  <div id="sparkline-3"></div>
-                  <div class="knob-label">Exists</div>
-                </div>
-                <!-- ./col -->
-              </div>
-              <!-- /.row -->
-            </div>
-          </div>
-          <!-- /.box -->
+          
 
           <!-- solid sales graph -->
           <div class="box box-solid bg-teal-gradient">
