@@ -134,8 +134,14 @@
         
               <br>
               <br>
+              <% if (listeC.size()==0) { %>
+                  
+         <b>Il n'y a pas de consultants attribués, vous pouvez en choisir ou en attribuer par défaut. Que voulez-vous faire ? </b>
+            <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
+              <a href="servClient?action=choixConsultantsDef&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Défaut</a>
             
-             <table class="table table-striped">
+         <%   } else {%>  
+         <table class="table table-striped">
             <thead>
             <tr>
               <th>Consultant</th>
@@ -255,7 +261,8 @@
            </a>
         </div>
       </div> 
-      <%}%>
+      <%}
+}%>
         
     </section>
     <!-- /.content -->

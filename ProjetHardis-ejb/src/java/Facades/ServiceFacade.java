@@ -52,7 +52,7 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
     @Override
     public Service creerService(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS) {
         Service s = new Service();
-        s.setConditionsContract(listeCond);
+        s.setConditionsContract("https://drive.google.com/open?id=1AGdH1XhZfQWTv3lkwn0OB_MLS3uxm4nz");
         s.setCoutService(cout);
         s.setDelaiRelance(delai);
         s.setDescriptionService(descriptionService);

@@ -1396,6 +1396,20 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         ContactMail ad = contactMailFacade.find(cm);
         contactMailFacade.majReponse(ad);
     }
+
+    @Override
+    public void majAgenceClient(long idA, long idC) {
+        Client c = clientFacade.rechercheClient(idC);
+        Agence a = agenceFacade.rechercheAgence(idA);
+        clientFacade.majAgenceClient(c, a);
+    }
+
+    @Override
+    public void majAgenceEnt(long idA, long idE) {
+         Entreprise c = entrepriseFacade.rechercheEntrepriseParId(idE);
+        Agence a = agenceFacade.rechercheAgence(idA);
+        entrepriseFacade.majAgenceEnt(c, a);
+    }
     
 //    @Override
 //    public List<Offre_Profil_Util_CV> rechercheOPUCParUtilisateur(UtilisateurHardis u) {

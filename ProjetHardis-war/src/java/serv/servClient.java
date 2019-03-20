@@ -5,6 +5,7 @@
  */
 package serv;
 
+import Entites.Agence;
 import Entites.Client;
 import Entites.Communication;
 import Entites.Devis;
@@ -17,6 +18,7 @@ import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.UtilisateurHardis;
 import Entites.testFTP;
+import Entites.testPDF;
 import Session.ClientSessionLocal;
 import java.io.File;
 import java.io.FileInputStream;
@@ -275,6 +277,7 @@ public class servClient extends HttpServlet {
 
                 if (e == null) {
                     Entreprise entreprise = clientSession.creerEntreprise(nomE, siret, Integer.valueOf(nrRue), nomRue, ville, cp);
+                    clientSession.majEntreprise(clientT.getId(), entreprise.getId());
                     clientSession.creerNotif(clientT.getId(), "Veuillez certifier votre entreprise");
                     jspClient = "/Internaute/login.jsp";
                 } else {
@@ -342,8 +345,13 @@ public class servClient extends HttpServlet {
             if (e == null) {
 
             } else {
+
                 clientSession.majEntreprise(clientT.getId(), e.getId());
-                jspClient = "/tabBord.jsp";
+                clientSession.certifierClient(clientT.getId());
+
+                Agence ag = e.getAgence();
+                clientSession.majAgenceCli(ag.getId(),clientT.getId() );
+                jspClient = "/Internaute/login.jsp";
             }
         }
 
@@ -467,7 +475,57 @@ public class servClient extends HttpServlet {
                 sess.setAttribute("listeDevis", listeDevis);
 
             }
-        } else if (act.equals("choixConsultants")) {
+        } 
+         else if (act.equals("choixConsultantsDef")) {
+              String idD = request.getParameter("idDev");     
+                if (idD != "") {
+                    boolean b = true;
+                 long id = Long.valueOf(idD);
+                 Devis d = clientSession.recupDevis(id);
+                 Date dateInter = d.getDateIntervSouhaitee();
+                 
+                 Service s = d.getService();
+                
+                ServiceStandard ss = clientSession.rechercheSS(s.getId());
+                
+                 List<Offre_Profil_Util_CV> listeO = clientSession.rechercheOPUCParU(clientT.getId(), d.getService().getOffre().getId());
+
+                //rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli)
+                List<UtilisateurHardis> listeCCDispo = clientSession.rechercheCDisponibles("Confirme", dateInter, s.getId(), "Standard", clientT.getId());
+                List<UtilisateurHardis> listeCSDispo = clientSession.rechercheCDisponibles("Senior", dateInter, s.getId(), "Standard", clientT.getId());
+                List<UtilisateurHardis> listeCJDispo = clientSession.rechercheCDisponibles("Junior", dateInter, s.getId(), "Standard", clientT.getId());
+
+                float nbJ = ss.getNbreJoursConsultantJ();
+                float nbS = ss.getNbreJoursConsultantS();
+                float nbC = ss.getNbreJoursConsultantC();
+                
+                
+                String[] listeC = new String[1];
+                String[] listeJ = new String[1];
+                String[] listeS = new String[1];
+                
+                
+                if (nbJ!=0 && listeCJDispo.size()!=0){
+                   listeJ[0]=listeCJDispo.get(0).getId().toString();
+                   clientSession.choixConsultants(Long.valueOf(idD), null, listeJ, null);
+                }
+                if (nbS!=0 && listeCSDispo.size()!=0)
+                {
+                   listeS[0]=listeCSDispo.get(0).getId().toString();
+                   clientSession.choixConsultants(Long.valueOf(idD), null, null, listeS);
+                }
+      
+                if (nbC!=0 && listeCCDispo.size()==0)
+                {
+                     listeC[0]=listeCCDispo.get(0).getId().toString();
+                   clientSession.choixConsultants(Long.valueOf(idD), listeC, null, null);
+                }
+                
+                }
+                
+         }
+        
+        else if (act.equals("choixConsultants")) {
             String idD = request.getParameter("idDev");
              jspClient = "/Client/choixConsultants.jsp";
             if (idD != "") {
@@ -577,10 +635,12 @@ public class servClient extends HttpServlet {
             jspClient = "/Client/majEntreprise.jsp";
             List<Interlocuteur> liste = clientSession.recupInter(clientT.getEntreprise().getId());
             request.setAttribute("listeInt", liste);
-
-
+    
+          }
         
-          }else if (act.equals("forgot")) {
+       
+        
+        else if (act.equals("forgot")) {
 
             jspClient = "/Client/forgot.jsp";
             String repS = request.getParameter("repS");

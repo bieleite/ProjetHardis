@@ -118,6 +118,12 @@ public interface ClientSessionLocal {
 
     String rechercheLibConsultOffre(UtilisateurHardis u, Offre off);
 
+    void certifierClient(long id);
+
+    void majAgenceCli(long idA, long idC);
+
+    void majAgenceEnt(long idA, long idE);
+
 
     
 }

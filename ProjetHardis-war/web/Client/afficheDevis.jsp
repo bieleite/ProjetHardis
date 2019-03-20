@@ -127,22 +127,25 @@
                    
                    <td><%=dformat.format(d.getDateIntervSouhaitee())%></span></td>
                    
-                   <td><a href="<%=d.getService().getConditionsContract()%>" >Conditions générales</a></span></td>
+                   <td><a href="<%=d.getService().getConditionsContract()%>">Conditions générales</a></span></td>
                    
-                   <% if (d.getTypeDevis().toString().equals("Standard")){%>
-                   <td><a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>">Devis</a></span></td>
+                   <% if (d.getTypeDevis().toString().equals("Standard")){
+                   %>
+                   <td><a href="servClient?action=consulteDevis&idDev=<%out.print(d.getId());%>">Devis</a></span></td>
                    
                    <td> <% if (d.getStatut().toString().equals("Valide") || d.getStatut().toString().equals("Acompte_regle"))
                    { 
-                   %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%=d.getId()%>">
+                   %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%out.print(d.getId());%>">
                            Facture</a> <% }
 
 else out.print("Facture non disponible"); %></td>
-                   <td> <% if (d.getStatut().toString().equals("Presta_terminee")) { %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%=d.getId()%>">
-                           Facture</a> <% }else out.print("Facture 2 non disponible");
+                   <td> <% if (d.getStatut().toString().equals("Presta_terminee"))
+                   { %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%out.print(d.getId());%>">
+                           Facture</a> <% }
+else out.print("Facture 2 non disponible");
 }%></td>
-                  <%
-   else if (d.getTypeDevis().equals("Non_Standard")){
+      <%
+    if (d.getTypeDevis().equals("Non_Standard")){
    
        if(d.getStatut().toString().equals("Envoye"))
 { %>
@@ -170,8 +173,9 @@ else out.print("Facture non disponible"); %></td>
               </div>
               <!-- /.table-responsive -->
             </div>
-                           <% if (d.getStatut().toString().equals("Rep_en_Cours")) {
-                               
+                  <% if (d.getTypeDevis().toString().equals("Standard") && d.getStatut().toString().equals("Rep_en_Cours") ||
+                         d.getTypeDevis().toString().equals("Non_Standard") && d.getStatut().toString().equals("Envoye") ) {
+                             
                            %>
                    <div row>
                           <div class="box-footer clearfix">
@@ -179,8 +183,8 @@ else out.print("Facture non disponible"); %></td>
               <a href="" class="btn btn-sm btn-info btn-flat pull-right">Changer date</a>
                               </div>
                <div class="col-md-2">
-                   <%
-                       if (listeC!=null && listeC.size()==0) { %>                        
+                   <%   
+                       if (listeC!=null && listeC.size()==0 && (d.getTypeDevis().toString().equals("Standard"))) { %>                        
               <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
  <%}%>
                </div></div>

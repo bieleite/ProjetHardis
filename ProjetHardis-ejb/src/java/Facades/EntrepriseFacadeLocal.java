@@ -57,5 +57,7 @@ public interface EntrepriseFacadeLocal {
     String creerCodeContrat(long id);
 
     Entreprise rechercheEntrepriseCodeMdp(String siret, String mdp);
+
+    void majAgenceEnt(Entreprise e, Agence a);
     
 }

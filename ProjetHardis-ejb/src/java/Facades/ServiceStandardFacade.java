@@ -54,7 +54,7 @@ public class ServiceStandardFacade extends AbstractFacade<ServiceStandard> imple
     @Override
     public ServiceStandard creerServiceStandard(String nomService, String descriptionService, LieuIntervention lieuInterv, Offre offre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA, List<Livrable> livrable, List<Atelier> listeA, float nbHS) {
         ServiceStandard s = new ServiceStandard();
-        s.setConditionsContract(listeCond);
+        s.setConditionsContract("https://drive.google.com/open?id=1JdpkqIiJyLB6jHm4vifShp10JnsQvbCk");
         s.setCoutService(cout);
         s.setDelaiRelance(delai);
         s.setDescriptionService(descriptionService);

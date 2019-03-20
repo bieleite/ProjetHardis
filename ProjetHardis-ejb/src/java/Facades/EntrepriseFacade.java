@@ -53,6 +53,7 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
         Entreprise e = new Entreprise();
    
    e.setAdresseFact(adresse);
+      e.setAdresse(adresse);
    e.setAgence(null);
    e.setCertifie(false);
    e.setInterlocuteurs(interlocuteurs);
@@ -240,6 +241,12 @@ return e;
            
         }
       return entreprise; 
+    }
+
+    @Override
+    public void majAgenceEnt(Entreprise e, Agence a) {
+        e.setAgence(a);
+        em.merge(e);
     }
     
     
