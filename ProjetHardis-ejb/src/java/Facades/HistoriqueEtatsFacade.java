@@ -78,7 +78,7 @@ public class HistoriqueEtatsFacade extends AbstractFacade<HistoriqueEtats> imple
     public  List<HistoriqueEtats> rechercheHistoriqueEtatsParDevis(Devis devis) {      
         String txt = "SELECT he FROM HistoriqueEtats AS he WHERE he.devis=:devis ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("devis",devis.getId() );
+        req = req.setParameter("devis",devis );
         List<HistoriqueEtats> res = req.getResultList();      
         return res;
     }
