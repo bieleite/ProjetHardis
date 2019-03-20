@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.HistoriqueEtats"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entites.HistoriqueTraitement"%>
 <%@page import="Entites.Service"%>
@@ -213,17 +214,29 @@
                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' >
                   <%}%>                 
                   <label for="refusDevis">Motif Refus</label>
-                  <textarea rows="3" name="refusDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getMotifRefus() %>" ></textarea>
-                  <label for="statutDevis">Statut</label>
-                  <input type='txt' name='statutDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getStatut().name() %>' >                      
+                  <textarea rows="3" name="refusDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getMotifRefus() %>" disabled ></textarea>
+                  <label for="statutDevis">Statut</label>    
+                  <select  name="statutDevis" class="form-control">
+                    <option><%=devistraitement.getStatut().name() %></option>
+                    <option value="Incomplet" >Incomplet</option>
+                    <option  value="Rep_en_Cours">Rep_en_Cours</option>
+                    <option value="Envoye">Envoye</option>
+                    <option value="Valide">Valide</option>
+                    <option value="Refuse">Refuse</option>
+                    <option  value="En_nego">En_nego</option>
+                    <option value="Acompte_regle">Acompte_regle</option>
+                    <option value="Presta_terminee">Presta_terminee</option> 
+                    <option value="Transmettre_au_client">Transmettre_au_client</option>  
+                  </select>        
                   <label for="slDevis">Saisir Libre</label>
                   <textarea class="form-control" rows="3" name="slDevis"  id="exampleInputEmail1" placeholder="<%=devistraitement.getSaisieLibre() %>" ></textarea>
                      <input type="hidden" name="idcli" value="<%=devistraitement.getClient().getId() %>">
                   <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
                   <input type="hidden" name="idage" value="<%=devistraitement.getAgence().getId() %>">
+                  <input type="hidden" name="action" value="ModifierDevis">
                 </div>
                 
-                <input type="hidden" name="action" value="ModifierDevis">
+                
              
 
               <div class="box-footer">
@@ -303,7 +316,7 @@
                   <!-- /.direct-chat-pane -->
                 </div>
               </div>
-        <div class="box-footer">
+<div class="box-footer">
                   <form action="servAdmin" method="get">
                     <div class="input-group">
                       <input type="text" name="message" placeholder="Type Message ..." class="form-control">
@@ -316,6 +329,62 @@
                     </div>
                   </form>
             </div>
+<!------ test----->
+<!------ test----->
+<!------ test----->
+        <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Timeline</h3>
+                    <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+               
+             
+                  </div>
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <!-- Conversations are loaded here -->
+                  <ul class="timeline">
+                      <% List<HistoriqueEtats> listHistEtat = devistraitement.getHistoriqueEtatss();%>
+                      
+                        <!-- timeline time label -->
+                        <li class="time-label">
+                            <span class="bg-red">
+                               DEV<%=devistraitement.getId() %>
+                            </span>
+                        </li>
+                        <!-- /.timeline-label -->
+                <%for (HistoriqueEtats htetats : listHistEtat){%>
+                        <!-- timeline item -->
+                        <li>
+                            <!-- timeline icon -->
+                            <i class="fa fa-envelope bg-blue"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> <%=htetats.getDateMAJ() %></span>
+
+                                <h3 class="timeline-header"><%=htetats.getDevis().getClient().getNom() %> </h3>
+
+                                <div class="timeline-body">
+                                   <%=htetats.getStatut().name() %>
+                                </div>
+
+                                
+                            </div>
+                        </li>
+                        <!-- END timeline item -->
+<%}%>
+                       
+
+                    </ul>
+                  <!-- /.direct-chat-pane -->
+                </div>
+              </div>
+<!------ test----->
+<!------ test----->
+<!------ test----->
+        
       </div>
       
     </section>

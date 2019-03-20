@@ -826,7 +826,7 @@ public class servAdmin extends HttpServlet {
     }
     protected void doActionModifierDevis(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        String facturation = request.getParameter("factDevis"); 
+//        String facturation = request.getParameter("factDevis"); 
         String montantdevis= request.getParameter("montDevis"); 
         String motifrefus = request.getParameter("refusDevis");
         String saisielibre= request.getParameter("slDevis"); 
@@ -841,22 +841,22 @@ public class servAdmin extends HttpServlet {
                 Long iddevis = Long.valueOf(devis);
                 Long idclient = Long.valueOf(client);
                 Devis o= administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
-                if(motifrefus.equals("")){
+                if(motifrefus==null||motifrefus.equals("")){
                     motifrefus = o.getMotifRefus();
                 }
                 if(saisielibre.equals("")){
                     motifrefus = o.getSaisieLibre();
                 }
-                Facturation fact = null;
-                if(facturation.equals("Auto")){
-                    fact = Facturation.Auto;
-                }
-                else if (facturation.equals("Manuel")){
-                    fact = Facturation.Manuel;
-                }
-                else if (facturation==null){
-                    fact = o.getIndicateurFact();
-                }
+//                Facturation fact = null;
+//                if(facturation.equals("Auto")){
+//                    fact = Facturation.Auto;
+//                }
+//                else if (facturation.equals("Manuel")){
+//                    fact = Facturation.Manuel;
+//                }
+//                else if (facturation==null){
+//                    fact = o.getIndicateurFact();
+//                }
                 Statut statuts = null;
                 if(statut.equals("Incomplet")){
                     statuts = Statut.Incomplet;
@@ -896,7 +896,7 @@ public class servAdmin extends HttpServlet {
                 else{
                     montantadevis = Float.valueOf(montantdevis);
                 }
-                administrateurHardisSession.modifieDevis(iddevis, null, null, fact, montantadevis, motifrefus, saisielibre, statuts, idclient, idagence, ut);
+                administrateurHardisSession.modifieDevis(iddevis, null, null, null, montantadevis, motifrefus, saisielibre, statuts, idclient, idagence, ut);
                 if(sta!=statuts){
                     List<HistoriqueEtats> liste = administrateurHardisSession.rechercherHistoriqueEtatsParDevis(iddevis, ut);
                     HistoriqueEtats he = administrateurHardisSession.creerHistoriqueEtats(statuts, iddevis, ut);
@@ -905,7 +905,7 @@ public class servAdmin extends HttpServlet {
                 
                 String nomentite = o.getId().toString();
                 String classe = o.getClass().toString();
-                message= " "+classe+":"+ nomentite+" créé avec succès !";
+                message= " "+classe+":"+ nomentite+" modifiée avec succès !";
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
