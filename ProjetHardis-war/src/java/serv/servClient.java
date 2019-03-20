@@ -17,6 +17,7 @@ import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.UtilisateurHardis;
 import Entites.testFTP;
+import Entites.testPDF;
 import Session.ClientSessionLocal;
 import java.io.File;
 import java.io.FileInputStream;
@@ -577,10 +578,19 @@ public class servClient extends HttpServlet {
             jspClient = "/Client/majEntreprise.jsp";
             List<Interlocuteur> liste = clientSession.recupInter(clientT.getEntreprise().getId());
             request.setAttribute("listeInt", liste);
-
-
+    
+          }
         
-          }else if (act.equals("forgot")) {
+        else if (act.equals("cond"))
+        {
+            /*testFTP test = new testFTP();
+            test.downloadFTP();*/
+            testPDF test = new testPDF();
+            test.test();
+             jspClient = "/Client/tabBord.jsp";
+        }
+        
+        else if (act.equals("forgot")) {
 
             jspClient = "/Client/forgot.jsp";
             String repS = request.getParameter("repS");

@@ -14,19 +14,7 @@
     <body>
         <h1>Hello World!</h1>
         
-      
-            <%    String server = "cpanel.freehosting.com";
-       String user = "lucialei";
-       String pass = "rj3fTOw378";
-        String remoteFile = "/public_ftp/conditions.pdf";
-  String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;  %>
-  
-<%=lien%>
- 
-  <a href="<%=lien%>">ici</a>
-  
+      <iframe src="C:\\Users\\6170361\\Desktop\\Documents\\Conditions\\cond.pdf"  width="800" height="1000" align="middle"></iframe>
 
-  
-  <iframe src="lien"></iframe>  
     </body>
 </html>

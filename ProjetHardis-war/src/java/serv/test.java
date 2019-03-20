@@ -38,16 +38,12 @@ public class test extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
           
             
-            
-            
-              String server = "cpanel.freehosting.com";
-       String user = "lucialei";
-       String pass = "rj3fTOw378";
-        String remoteFile = "/public_ftp/conditions.pdf";
-  String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile; 
-  
-  
-            
+            File file = new File("C:/Users/6170361/Documents/GitHub/ProjetHardis/Documents/Conditions/cond.pdf");
+    response.setHeader("Content-Type",    getServletContext().getMimeType(file.getName()));
+    response.setHeader("Content-Length", String.valueOf(file.length()));
+    response.setHeader("Content-Disposition", "inline; filename=\"cond.pdf\"");
+    Files.copy(file.toPath(), response.getOutputStream());
+   
           
           /*  File file = new File(lien);
     response.setHeader("Content-Type",    getServletContext().getMimeType(file.getName()));

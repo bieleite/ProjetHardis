@@ -115,7 +115,7 @@ try {
  
             // APPROACH #1: using retrieveFile(String, OutputStream)
             String remoteFile1 = "/public_ftp/conditions.docx";
-            File downloadFile1 = new File("C:\\Users\\anastasia.salari\\Desktop\\cconditions.docx");
+            File downloadFile1 = new File("conditions.docx");
             OutputStream outputStream1 = new BufferedOutputStream(new FileOutputStream(downloadFile1));
             boolean success = ftpClient.retrieveFile(remoteFile1, outputStream1);
             outputStream1.close();
