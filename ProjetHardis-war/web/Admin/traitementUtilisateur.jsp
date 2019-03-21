@@ -173,7 +173,7 @@
                         </tr>
                        <% for (Offre_Profil_Util_CV opcv : lesOPCV){%>
                         <tr>
-                            <td><%=opcv.getOffre() %></td>
+                            <td><%=opcv.getOffre().getLibelle() %></td>
                              <td><%=opcv.getProfil().getNiveauExpertise() %></td>
                              <td><%=opcv.getProfil().getNiveauHabilitation() %></td>
                              <td><%=opcv.getProfil().getPlafond() %></td>
@@ -190,25 +190,26 @@
                             </label>
                           </td>
                           <td>
-                            <select  name="1Off" class="form-control">
+                            <select  name="NivEx" class="form-control">
                                 <option value="Junior" >Junior</option>
                                 <option  value="Confirme">Confirme</option>
                                 <option value="Senior">Senior</option>  
                             </select>
                           </td>
                           <td>   
-                              <select  name="2Off" class="form-control">
+                              <select  name="NivHab" class="form-control">
                                 <option value="Consultant" >Consultant</option>
                                 <option  value="Referent">Referent</option>
                                 <option value="Porteur">Porteur</option>  
                             </select>
                           </td>
                           <td><input type="txt" name="plafondPFCV" class="form-control" id="exampleInputEmail1" placeholder="" >  </td>
+                          <td><input type="txt" name="prixPFCV" class="form-control" id="exampleInputEmail1" placeholder="" >  </td>
                           <td><input type="txt" name="cvPFCV" class="form-control" id="exampleInputEmail1" placeholder="" >  </td>
                         </tr> <%}%>                              
                     </table>
                   <input type="hidden" name="idutili" value="<%=utili.getId() %>">
-                  <input type="hidden" name="action" value="ModifierUtilisateur">
+                  <input type="hidden" name="action" value="ModifierProfilMetier">
                 </div>
                 
                 

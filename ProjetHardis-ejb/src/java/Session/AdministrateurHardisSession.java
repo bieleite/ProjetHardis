@@ -1065,11 +1065,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     public void modifierProfilMetier(long idPM, NiveauHabilitation niveau, Expertise expertise, float plafond, String[] listedesid, UtilisateurHardis hardis) {
         ProfilMetier profilmetier = profilMetierFacade.recherchePMParId(idPM);
         List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();
-        for (String offre_profil_cv: listedesid){
-            Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
-            Offre_Profil_Util_CV o_p_c= offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_profil_cv);
-            listoffres_profils_cvs.add(o_p_c);
-        }
+//        for (String offre_profil_cv: listedesid){
+//            Long idoffre_profil_cv = Long.valueOf(offre_profil_cv);
+//            Offre_Profil_Util_CV o_p_c= offre_Profil_Util_CVFacade.rechercheOPUCParId(idoffre_profil_cv);
+//            listoffres_profils_cvs.add(o_p_c);
+//        }
         profilMetierFacade.modifierProfilMetier(profilmetier, niveau, expertise, plafond, listoffres_profils_cvs);
         logsFacade.creerLogUpdate(hardis, profilmetier);
     }
