@@ -1384,9 +1384,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public void creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, UtilisateurHardis hardis) {
         ContactMail cm = contactMailFacade.creerContactMail(nom, prenom, mail, tel, sujet, message);
-        contactMailFacade.majUtilisateurH(cm, hardis);
-        
-        
+        contactMailFacade.majUtilisateurH(cm, hardis);           
         
     }
 
@@ -1427,5 +1425,32 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         return disponibiliteFacade.rechercheDisponibiliteParUtilisateur(u);
     }
     
+    @Override
+    public List<ContactMail> listContactMail(){
+        List<ContactMail> l = contactMailFacade.listCommunication();
+        return l;       
+    }
     
+    @Override
+    public List<ContactMail> listContactMailNonRepondu(){
+        List<ContactMail> l = contactMailFacade.listCommunicationNonRepondu();
+        return l;       
+    }
+    @Override
+    public void modifReponduContactMail(long idContactMail) {
+         ContactMail c = contactMailFacade.rechercheCommunication(idContactMail);
+        contactMailFacade.modifContactMailRepondu(c);
+    }
+    
+    @Override
+    public List<ContactMail> rechercheCommunicationParUtilisateurHardis(UtilisateurHardis utilisateurHardis){
+        List<ContactMail> l = contactMailFacade.rechercheCommunicationParUtilisateurHardis(utilisateurHardis);
+        return l;       
+    }
+    
+    @Override
+    public ContactMail rechercheCommunication(long id){
+        ContactMail l = contactMailFacade.rechercheCommunication(id);
+        return l;       
+    }
 }

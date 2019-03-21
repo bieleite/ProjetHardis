@@ -10,6 +10,7 @@ import Entites.Agence;
 import Entites.Atelier;
 import Entites.Client;
 import Entites.Communication;
+import Entites.ContactMail;
 import Entites.Devis;
 import Entites.DevisNonStandard;
 import Entites.Disponibilite;
@@ -349,4 +350,14 @@ public interface AdministrateurHardisSessionLocal {
     List<Disponibilite> getDispoU(UtilisateurHardis u);
     
     List<Entreprise> listEntreprise();
+    
+    ContactMail rechercheCommunication(long id);
+    
+    List<ContactMail> rechercheCommunicationParUtilisateurHardis(UtilisateurHardis utilisateurHardis);
+    
+    void modifReponduContactMail(long idContactMail);
+    
+    List<ContactMail> listContactMailNonRepondu();
+    
+    List<ContactMail> listContactMail();
 }

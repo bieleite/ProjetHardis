@@ -10,6 +10,7 @@ import Entites.Agence;
 import Entites.Atelier;
 import Entites.Client;
 import Entites.Communication;
+import Entites.ContactMail;
 import Entites.Devis;
 import Entites.Disponibilite;
 import Entites.Document;
@@ -121,18 +122,21 @@ public class servAdmin extends HttpServlet {
                         List<Client> listeClient = administrateurHardisSession.listClient();
                         List<Entreprise> listeEntreprise = administrateurHardisSession.listEntreprise();
                         List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
+                        List<ContactMail> listeContactMail = administrateurHardisSession.listContactMailNonRepondu();
                         if (listeCommunication==null) listeCommunication=new ArrayList<>();
                         if (listeNotif==null) listeNotif=new ArrayList<>();
                         if (listeDevis==null) listeDevis=new ArrayList<>();
                         if (listeClient==null) listeClient=new ArrayList<>();
                         if (listeEntreprise==null) listeEntreprise=new ArrayList<>();
                         if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
+                        if (listeContactMail==null) listeContactMail=new ArrayList<>();
                         sess.setAttribute("listeCommunication",listeCommunication);
                         sess.setAttribute("listeNotif",listeNotif);
                         sess.setAttribute("listeDevis",listeDevis);
                         sess.setAttribute("listeClient",listeClient);
                         sess.setAttribute("listeEntreprise",listeEntreprise);
                         sess.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
+                        sess.setAttribute("listeContactMail",listeContactMail);
                         jspClient="/Admin/dashboardAdmin.jsp";    
                                 }   
                     else{
@@ -193,6 +197,18 @@ public class servAdmin extends HttpServlet {
             else if(act.equals("Menu"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<UtilisateurHardis> listeUtilisateurHardisReponseContactMail = new ArrayList<>(); 
+                String test = request.getParameter("test");
+                String idContactMail = request.getParameter("idContactMail");
+                if(test.equals("affecter")){
+                    listeUtilisateurHardisReponseContactMail = administrateurHardisSession.listUtilisateurHardis();
+                    if (listeUtilisateurHardisReponseContactMail==null) listeUtilisateurHardisReponseContactMail=new ArrayList<>();
+                    
+                }
+                else if(test.equals("affecter")){
+                    
+                }
+                sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);
                 jspClient="/Admin/dashboardAdmin.jsp";
                 request.setAttribute("message","");
             }

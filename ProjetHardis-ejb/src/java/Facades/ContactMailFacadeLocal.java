@@ -37,4 +37,13 @@ public interface ContactMailFacadeLocal {
 
     void majReponse(ContactMail cm);
     
+    List<ContactMail> listCommunication();
+    
+    List<ContactMail> listCommunicationNonRepondu();
+    
+    ContactMail modifContactMailRepondu(ContactMail co);
+    
+    List<ContactMail> rechercheCommunicationParUtilisateurHardis(UtilisateurHardis utilisateurHardis);
+    
+    ContactMail rechercheCommunication(long id);
 }
