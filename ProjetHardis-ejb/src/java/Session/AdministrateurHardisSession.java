@@ -652,11 +652,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         Entreprise entreprise = entrepriseFacade.rechercheEntrepriseParId(identreprise);
         Agence agence = agenceFacade.rechercheAgence(idagence);
         List<Entites.Interlocuteur> listinterlocuteurs= new ArrayList<>();
-        for (String interlocuteur: listidinterlocuteurs){
-            Long idinterlocuteurs = Long.valueOf(interlocuteur);
-            Interlocuteur interloc= interlocuteurFacade.rechercheInterlocuteurParId(idinterlocuteurs);
-            listinterlocuteurs.add(interloc);
-        }
+//        for (String interlocuteur: listidinterlocuteurs){
+//            Long idinterlocuteurs = Long.valueOf(interlocuteur);
+//            Interlocuteur interloc= interlocuteurFacade.rechercheInterlocuteurParId(idinterlocuteurs);
+//            listinterlocuteurs.add(interloc);
+//        }
         Adresse adresse = adresseFacade.rechercheAdresse(idadresse);
         entrepriseFacade.modifEntreprise(entreprise, agence, nom, listinterlocuteurs, codeContrat, mdpEntreprise, adresse, lienJustif, numeroEnt);
         logsFacade.creerLogUpdate(hardis, entreprise);

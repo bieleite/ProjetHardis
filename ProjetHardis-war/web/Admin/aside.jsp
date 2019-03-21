@@ -37,7 +37,7 @@
             <li><a href="servAdmin?action=listesAfficherClient"><i class="fa fa-circle-o"></i> Afficher Client</a></li>
             <li><a href="servAdmin?action=listesCertifierClient"><i class="fa fa-circle-o"></i> Certifier Client</a></li>
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Valider Client</a></li>
-            <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Afficher Entreprise</a></li>
+            <li><a href="servAdmin?action=AfficherEntreprise"><i class="fa fa-circle-o"></i> Afficher Entreprise</a></li>
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Valider Entreprise</a></li>
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Effacer Entreprise</a></li>
           </ul>

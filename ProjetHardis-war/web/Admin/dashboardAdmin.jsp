@@ -105,7 +105,7 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="servAdmin?action=AfficherEntreprise" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -122,7 +122,7 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="servAdmin?action=AfficherUtilisateur" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -135,9 +135,10 @@
           <!-- Custom tabs (Charts with tabs)-->
           <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
-            <ul class="nav nav-tabs pull-right">
-                <li class="pull-left header"><i class="fa fa-inbox"></i><a href="servAdmin?action=listesDevis"> Devis</a></li>
-            </ul>
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-inbox"></i><a href="servAdmin?action=listesDevis">Devis</a></h3>
+            
+            </div>
             <div class="tab-content no-padding">
               <!-- Morris chart - Sales -->
               
@@ -180,7 +181,7 @@
                   </div>
                   
               
-            
+            </div>
           </div>
           <!-- /.nav-tabs-custom -->
           
