@@ -47,33 +47,33 @@
                  folder instead of downloading all of them to reduce the load. -->
             <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/css/skins/_all-skins.min.css">
 
-              <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/Ionicons/css/ionicons.min.css">
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-  <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-  <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/plugins/iCheck/all.css">
-  <!-- Bootstrap Color Picker -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
-  <!-- Bootstrap time Picker -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/plugins/timepicker/bootstrap-timepicker.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/select2/dist/css/select2.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/css/skins/_all-skins.min.css">
-  
-  
-  
-  <!-- Content Wrapper. Contains page content -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css">
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/font-awesome/css/font-awesome.min.css">
+            <!-- Ionicons -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/Ionicons/css/ionicons.min.css">
+            <!-- daterange picker -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+            <!-- bootstrap datepicker -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+            <!-- iCheck for checkboxes and radio inputs -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/plugins/iCheck/all.css">
+            <!-- Bootstrap Color Picker -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
+            <!-- Bootstrap time Picker -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/plugins/timepicker/bootstrap-timepicker.min.css">
+            <!-- Select2 -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/select2/dist/css/select2.min.css">
+            <!-- Theme style -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/css/AdminLTE.min.css">
+            <!-- AdminLTE Skins. Choose a skin from the css/skins
+                 folder instead of downloading all of them to reduce the load. -->
+            <link rel="stylesheet" href="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/css/skins/_all-skins.min.css">
+
+
+
+            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
@@ -91,90 +91,107 @@
                 <section class="content">
                     <div class="row">
                         <div class="col-md-3">
-                           
+
                             <!-- /. box -->
                             <div class="box box-solid">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Create Event</h3>
                                 </div>
-                                 <div class="box-body">
-                <div class="form-group">
-                  <label>Libellé</label>
-                                    <!-- /btn-group -->
-                                    <div class="input-group">
-                                        <input id="new-event" type="text"  name="lib" class="form-control" placeholder="Event Title">
+                                
+                                <form role="form">
+              <div class="box-body">
+                         <div class="form-group">
+                                            <label>Libellé</label>
+                                            <!-- /btn-group -->
+                                            <div class="input-group">
+                                                <input id="new-event" type="text"  name="lib" class="form-control" placeholder="Event Title">
 
-                                       
-                                    </div>
-                </div>
-                                 </div>
-                                    
-                      
-            <div class="box-body">
-              <!-- Date -->
-              <div class="form-group">
-                <label>Date</label>
+
+                                            </div>
+                                        </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                
+                          
+                          <div class="form-group">
+                <label>Date début</label>
 
                 <div class="input-group date">
-                
-                  <input type="text"  name="date" class="form-control pull-right" id="datepicker">
+                 
+                  <input type="text" class="form-control pull-right" id="datepicker" name="dd">
                 </div>
- </div>
-                            </div>
-                                 <!-- time Picker -->
-             
-                                                        
-          
-            <div class="box-body">
-                <div class="form-group">
+                <!-- /.input group -->
+              </div>      
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
                   <label>Heure début</label>
 
                   <div class="input-group">
-                    <input type="text" name ="heure" class="form-control timepicker ">
+                    <input type="text" class="form-control timepicker" name="hd">
 
-               
+                   
                   </div>
                   <!-- /.input group -->
                 </div>
-                 <div class="form-group">
-                  <label>Heure fin</label>
+                      </div> </div>
+                       <div class="row">
+                      <div class="col-md-6">
+                  <div class="form-group">
+                <label>Date fin </label>
+
+                <div class="input-group date">
+                 
+                  <input type="text" class="form-control pull-right" id="datepicker1" name="df">
+                </div>
+                <!-- /.input group -->
+              </div>      
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                  <label>Heure fin </label>
 
                   <div class="input-group">
-                    <input type="text" name ="heureF" class="form-control timepicker ">
+                    <input type="text" class="form-control timepicker" name="hf">
 
-               
+                   
                   </div>
                   <!-- /.input group -->
                 </div>
-                <!-- /.form group -->
-              </div>   
-                                    
-                            </div>
-                                   
-                    <div class="input-group-btn">
-                        <a href ="servAdmin?calendar" >  <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Ajouter</button></a>
-                                        </div>
-                                        <!-- /btn-group -->
-                       
-                            
+                      </div> </div>
+
+
+              
+                
+                   <input type ="hidden" name="action" value="calendar">
+   
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Valider</button>
+              </div>
+            </form>
+                  
+
+     </div>
                         </div>
-     
-                        
-                        
-                        <!-- /.col -->
-                        <div class="col-md-9">
-                            <div class="box box-primary">
-                                <div class="box-body no-padding">
-                                    <!-- THE CALENDAR -->
-                                    <div id="calendar"></div>
+
+
+                            <!-- /.col -->
+                            <div class="col-md-9">
+                                <div class="box box-primary">
+                                    <div class="box-body no-padding">
+                                        <!-- THE CALENDAR -->
+                                        <div id="calendar"></div>
+                                    </div>
+                                    <!-- /.box-body -->
                                 </div>
-                                <!-- /.box-body -->
+                                <!-- /. box -->
                             </div>
-                            <!-- /. box -->
+                            <!-- /.col -->
                         </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
+                        <!-- /.row -->
                 </section>
                 <!-- /.content -->
             </div>
@@ -216,7 +233,7 @@
 
                 /* initialize the calendar
                  -----------------------------------------------------------------*/
-             
+
                 // document.write(jsVar)
 
                 $('#calendar').fullCalendar({
@@ -235,31 +252,42 @@
                     events: [
 
             <%for (Disponibilite dispo : listeDis) {
-                 Calendar c = Calendar.getInstance();
-         
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-         Calendar ca = Calendar.getInstance();
-         
-        String test =  df.format(dispo.getDateDebut());
-       
-        
-        Timestamp dt = Timestamp.valueOf(test);
-        
-             c.setTime(dt);
-               String dat = dispo.getDateDebut().toGMTString();
-               String y =  String.format("%04d", c.get(Calendar.YEAR));
-               int mo = c.get(Calendar.MONTH);
-               String m =  String.format("%02d", mo+1);
-               String d =  String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
-               String h =  String.format("%02d", c.get(Calendar.HOUR));
-               String min =  String.format("%02d", c.get(Calendar.MINUTE));
-       
-            
-                
-                String da = "new Date('2019-"+m+"-"+d+"T"+h+":"+min+":00')";
-                
-                out.print("{ title  : '"+dispo.getLibelleActivite()+"',start          : "+da+", backgroundColor: '#f56954', borderColor    : '#f56954' },");
-                      }
+                    Calendar c = Calendar.getInstance();
+                    Calendar c1 = Calendar.getInstance();
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+
+                    String test = df.format(dispo.getDateDebut());
+                    String test1 = df.format(dispo.getDateFin());
+
+                    Timestamp dt = Timestamp.valueOf(test);
+                    Timestamp dt1 = Timestamp.valueOf(test1);
+                    c.setTime(dt);
+
+                    String y = String.format("%04d", c.get(Calendar.YEAR));
+                    int mo = c.get(Calendar.MONTH);
+                    String m = String.format("%02d", mo + 1);
+                    String d = String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
+                    String h = String.format("%02d", c.get(Calendar.HOUR));
+                    String min = String.format("%02d", c.get(Calendar.MINUTE));
+
+                    String daD = "new Date('2019-" + m + "-" + d + "T" + h + ":" + min + ":00')";
+
+                    c1.setTime(dt1);
+
+                    y = String.format("%04d", c1.get(Calendar.YEAR));
+                    mo = c1.get(Calendar.MONTH);
+                    m = String.format("%02d", mo + 1);
+                    d = String.format("%02d", c1.get(Calendar.DAY_OF_MONTH));
+                    h = String.format("%02d", c1.get(Calendar.HOUR));
+                    min = String.format("%02d", c1.get(Calendar.MINUTE));
+                    String daFi = "new Date('2019-" + m + "-" + d + "T" + h + ":" + min + ":00')";
+
+                    out.print("{ title  : "
+                            + "'" + dispo.getLibelleActivite() + "',"
+                            + "start          : " + daD + ", "
+                            + "end          : " + daFi + ", "
+                            + "backgroundColor: '#f56954', borderColor    : '#f56954' },");
+                }
 
             %>
 
@@ -332,28 +360,53 @@
                 })
             })
         </script>
-        
+
         <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
+            $(function () {
+                //Initialize Select2 Elements
+                $('.select2').select2()
 
 
 
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
+                //Date picker
+                $('#datepicker').datepicker({
+                    autoclose: true
+                })
 
+ //Date picker
+                $('#datepicker1').datepicker({
+                    autoclose: true
+                })
 
+                //Date range picker
+                $('#reservation').daterangepicker()
+                //Date range picker with time picker
+                $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'})
+                //Date range as a button
+                $('#daterange-btn').daterangepicker(
+                        {
+                            ranges: {
+                                'Today': [moment(), moment()],
+                                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                            },
+                            startDate: moment().subtract(29, 'days'),
+                            endDate: moment()
+                        },
+                        function (start, end) {
+                            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                        }
+                )
 
-
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
-  })
-</script>
+                //Timepicker
+                $('.timepicker').timepicker({
+                    showInputs: false
+                })
+            })
+        </script>
 
     </body>
 </html>
