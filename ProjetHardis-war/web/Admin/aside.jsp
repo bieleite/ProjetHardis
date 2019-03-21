@@ -37,9 +37,23 @@
             <li><a href="servAdmin?action=listesAfficherClient"><i class="fa fa-circle-o"></i> Afficher Client</a></li>
             <li><a href="servAdmin?action=listesCertifierClient"><i class="fa fa-circle-o"></i> Certifier Client</a></li>
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Valider Client</a></li>
-            <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Effacer Client</a></li>
+            <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Afficher Entreprise</a></li>
+            <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Valider Entreprise</a></li>
+            <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Effacer Entreprise</a></li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-table"></i> <span>Devis</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-book"></i> <span>Afficher Devis</span></a></li>
+            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-circle-o"></i> Valider Devis</a></li>
+          </ul>
+        </li>   
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -50,6 +64,17 @@
           </a>
           <ul class="treeview-menu">
             <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> Adresse
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="servAdmin?action=CreerAdresse"><i class="fa fa-circle-o"></i> Creer Adresse</a></li>
+                <li><a href="servAdmin?action=AfficherAdresse"><i class="fa fa-circle-o"></i> Afficher Adresse</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> Agence
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -58,7 +83,6 @@
               <ul class="treeview-menu">
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Creer Agence</a></li>
                 <li><a href="servAdmin?action=AfficherAgence"><i class="fa fa-circle-o"></i> Afficher Agence</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Agence</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Agence</a></li>
               </ul>
             </li>
@@ -100,20 +124,7 @@
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Ofrre</a></li>
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Offre</a></li>
               </ul>
-            </li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Utilisateur
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="servAdmin?action=listesCreerUtiliateurHardis"><i class="fa fa-circle-o"></i> Creer Utilisateur</a></li>
-                <li><a href="servAdmin?action=AfficherUtilisateur"><i class="fa fa-circle-o"></i> Afficher Utilisateur</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Utilisateur</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Utilisateur</a></li>
-              </ul>
-            </li>
+            </li>            
             <li class="treeview">
               <a href="#"><i class="fa fa-circle-o"></i> Service Standard
                 <span class="pull-right-container">
@@ -141,95 +152,22 @@
               </ul>
             </li>
           </ul>
-        </li>
+        </li>             
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-edit"></i> <span>Paramètres</span>
+            <i class="fa fa-files-o"></i>
+            <span>Utilisateur</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-            <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Adresse
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="servAdmin?action=CreerAdresse"><i class="fa fa-circle-o"></i> Creer Adresse</a></li>
-                <li><a href="servAdmin?action=AfficherAdresse"><i class="fa fa-circle-o"></i> Afficher Adresse</a></li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Entreprise</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <span class="label label-primary pull-right">4</span>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Morris</a></li>
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Flot</a></li>
-            <li><a href="servAdim?action=ValiderClient"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+            <li><a href="servAdmin?action=listesCreerUtiliateurHardis"><i class="fa fa-circle-o"></i> Creer Utilisateur</a></li>
+            <li><a href="servAdmin?action=AfficherUtilisateur"><i class="fa fa-circle-o"></i> Afficher Utilisateur</a></li>
+            <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Utilisateur</a></li>
+            <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Supprimer Utilisateur</a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Devis</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-book"></i> <span>Afficher Devis</span></a></li>
-            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-circle-o"></i>Affecter Devis</a></li>
-            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-circle-o"></i> Valider Devis</a></li>
-          </ul>
-        </li>        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Paramètres</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-            <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Adresse
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="servAdmin?action=CreerAdresse"><i class="fa fa-circle-o"></i> Creer Adresse</a></li>
-                <li><a href="servAdmin?action=AfficherAdresse"><i class="fa fa-circle-o"></i> Afficher Adresse</a></li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-          </ul>
-        </li>
-        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Référant Local</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i>Affecter Devis</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Valider Devis</a></li>
-          </ul>
-        </li>
-        
         <li>
           <a href="servAdmin?action=calendar">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
@@ -240,7 +178,7 @@
           </a>
         </li>
         <li>
-          <a href="pages/mailbox/mailbox.html">
+          <a href="#">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-yellow">12</small>
@@ -248,59 +186,8 @@
               <small class="label pull-right bg-red">5</small>
             </span>
           </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>Examples</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-            <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-            <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-            <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-            <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-            <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-            <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-            <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-share"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-          </ul>
-        </li>
+        </li>      
+        
       </ul>
     </section>
     <!-- /.sidebar -->

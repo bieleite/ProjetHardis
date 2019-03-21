@@ -56,9 +56,9 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
-        <li class="active">Adresse</li>
-        <li class="active">Paramètres</li>
-        <li class="active">Creer Adresse</li>
+        <li class="active">Devis</li>
+        <li class="active">Afficher Devis</li>
+        <li class="active">Modifier Devis</li>
       </ol>
     </section>
 
@@ -223,14 +223,14 @@
                   <select  name="statutDevis" class="form-control">
                     <option><%=devistraitement.getStatut().name() %></option>
                     <option value="Incomplet" >Incomplet</option>
-                    <option  value="Rep_en_Cours">Rep_en_Cours</option>
+                    <option  value="Rep_en_Cours">Reponse en Cours</option>
                     <option value="Envoye">Envoye</option>
                     <option value="Valide">Valide</option>
                     <option value="Refuse">Refuse</option>
-                    <option  value="En_nego">En_nego</option>
-                    <option value="Acompte_regle">Acompte_regle</option>
-                    <option value="Presta_terminee">Presta_terminee</option> 
-                    <option value="Transmettre_au_client">Transmettre_au_client</option>  
+                    <option  value="En_nego">En Negotiation</option>
+                    <option value="Acompte_regle">Acompte Reglé</option>
+                    <option value="Presta_terminee">Prestation Terminée</option> 
+                    <option value="Transmettre_au_client">Transmettre au Client</option>  
                   </select>        
                   <label for="slDevis">Saisir Libre</label>
                   <textarea class="form-control" rows="3" name="slDevis"  id="exampleInputEmail1" placeholder="<%=devistraitement.getSaisieLibre() %>" ></textarea>

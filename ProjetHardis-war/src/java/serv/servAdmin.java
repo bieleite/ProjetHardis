@@ -14,6 +14,7 @@ import Entites.Devis;
 import Entites.Disponibilite;
 import Entites.Document;
 import Entites.EchangeTel;
+import Entites.Entreprise;
 import Entites.Expertise;
 import Entites.Facturation;
 import Entites.FacturationFrais;
@@ -101,7 +102,7 @@ public class servAdmin extends HttpServlet {
         
         if((act==null)||(act.equals("vide")))
             {   
-                request.setAttribute("message","Bienvenue s'il vous plait remplir votre login et mot de passe");
+                request.setAttribute("message","");
                 jspClient="/Admin/Login.jsp";
             }
             else if(act.equals("LoginAdmin")){
@@ -116,14 +117,20 @@ public class servAdmin extends HttpServlet {
                         List<Notification> listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
                         List<Devis> listeDevis = administrateurHardisSession.listDevis();
                         List<Client> listeClient = administrateurHardisSession.listClient();
+                        List<Entreprise> listeEntreprise = administrateurHardisSession.listEntreprise();
+                        List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
                         if (listeCommunication==null) listeCommunication=new ArrayList<>();
                         if (listeNotif==null) listeNotif=new ArrayList<>();
                         if (listeDevis==null) listeDevis=new ArrayList<>();
                         if (listeClient==null) listeClient=new ArrayList<>();
+                        if (listeEntreprise==null) listeEntreprise=new ArrayList<>();
+                        if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
                         sess.setAttribute("listeCommunication",listeCommunication);
                         sess.setAttribute("listeNotif",listeNotif);
                         sess.setAttribute("listeDevis",listeDevis);
                         sess.setAttribute("listeClient",listeClient);
+                        sess.setAttribute("listeEntreprise",listeEntreprise);
+                        sess.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
                         jspClient="/Admin/dashboardAdmin.jsp";    
                                 }   
                     else{
@@ -185,7 +192,7 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 jspClient="/Admin/dashboardAdmin.jsp";
-                request.setAttribute("message","pas d'information");
+                request.setAttribute("message","");
             }
             else if(act.equals("CreerAgence"))
             {
@@ -292,6 +299,7 @@ public class servAdmin extends HttpServlet {
             }
             else if(act.equals("InsererCommunication"))
             {
+                
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerCommunication(request,response);
             }
@@ -624,6 +632,7 @@ public class servAdmin extends HttpServlet {
             else if(act.equals("messageDevis"))
             {
                 UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
                 Devis devis = (Devis) sess.getAttribute("devistraitement");
                 String champ = request.getParameter("idDevis");
                 Long iddevis = devis.getId();
@@ -631,6 +640,7 @@ public class servAdmin extends HttpServlet {
                 List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
+                request.setAttribute("listeHTVide",listeHTVide);
                 jspClient="/Admin/traitementDevis.jsp";
             }
             else if(act.equals("ModifierDevis"))
