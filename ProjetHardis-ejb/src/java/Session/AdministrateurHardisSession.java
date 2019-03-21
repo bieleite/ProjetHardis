@@ -1359,6 +1359,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         List<Livrable> l = livrableFacade.findAll();
         return l;       
     }
+    @Override
+    public List<Entreprise> listEntreprise() {
+        List<Entreprise> l = entrepriseFacade.findAll();
+        return l;       
+    }
     
     @Override
     public List<Adresse> listAdresse(){

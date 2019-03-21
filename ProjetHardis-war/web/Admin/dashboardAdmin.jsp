@@ -4,6 +4,8 @@
     Author     : 6170361
 --%>
 
+<%@page import="Entites.UtilisateurHardis"%>
+<%@page import="Entites.Entreprise"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Entites.Client"%>
 <%@page import="Entites.Devis"%>
@@ -26,7 +28,8 @@
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
-    
+    <jsp:useBean id="listeEntreprise" scope="session" class = "java.util.List"> </jsp:useBean>    
+    <jsp:useBean id="listeUtilisateurHardis" scope="session" class = "java.util.List"> </jsp:useBean>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -89,13 +92,15 @@
           </div>
         </div>
         <!-- ./col -->
+        <% List<Entreprise> lesEntreprise=listeEntreprise;
+             int nEntreprise = lesEntreprise.size();%>
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3><%=nEntreprise%></h3>
 
-              <p>User Registrations</p>
+              <p>Entreprise </p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -104,13 +109,15 @@
           </div>
         </div>
         <!-- ./col -->
+        <% List<UtilisateurHardis> lesUtilisateurHardis=listeUtilisateurHardis;
+             int nUtilisateurHardis = lesUtilisateurHardis.size();%>
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3><%=nUtilisateurHardis%></h3>
 
-              <p>Unique Visitors</p>
+              <p>Utilisateur Hardis</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -144,7 +151,6 @@
                   <th>Client</th>
                   <th>Entreprise</th>
                   <th>Service</th>
-                  <th>Type Service</th>
                   <th>Statut</th>
                   <th>Type Devis</th>
                   <th>Date Devis</th>
@@ -158,9 +164,9 @@
                     <td><%=devis.getClient().getNom() %> </td>
                      <td><%=devis.getClient().getEntreprise().getNomEntreprise() %></td>
                      <td><%=devis.getService().getNomService() %> </td>
-                     <td><%=devis.getService().getTypeService().name() %></td>
+                    
                      <td><%=devis.getStatut().name() %> </td>
-                      <td><%=devis.getTypeDevis() %> </td>
+                      <td><%=devis.getTypeDevis().name() %> </td>
                       <td><%=dformat.format(devis.getDateDevis()) %> </td>
                  
                   

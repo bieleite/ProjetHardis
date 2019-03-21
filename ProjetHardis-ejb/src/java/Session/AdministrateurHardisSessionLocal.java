@@ -347,4 +347,6 @@ public interface AdministrateurHardisSessionLocal {
     void majAgenceEnt(long idA, long idE);
 
     List<Disponibilite> getDispoU(UtilisateurHardis u);
+    
+    List<Entreprise> listEntreprise();
 }
