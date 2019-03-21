@@ -1416,6 +1416,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
 //        ContactMail ad = contactMailFacade.find(cm);
 //        contactMailFacade.majReponse(ad);
 //    }
+
+    @Override
+    public List<Disponibilite> getDispoU(UtilisateurHardis u) {
+        return disponibiliteFacade.rechercheDisponibiliteParUtilisateur(u);
+    }
     
     
 }

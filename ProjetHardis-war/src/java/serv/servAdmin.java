@@ -649,6 +649,14 @@ public class servAdmin extends HttpServlet {
                 doActionEnvoyerMail(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
             }
+        
+            else if (act.equals("calendar"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<Disponibilite> listeD =  administrateurHardisSession.getDispoU(utilisateur);
+                request.setAttribute("listeD", listeD);
+                jspClient="/Admin/calendar.jsp";
+            }
 
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspClient);

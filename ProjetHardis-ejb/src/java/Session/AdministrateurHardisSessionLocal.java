@@ -345,4 +345,6 @@ public interface AdministrateurHardisSessionLocal {
     void majAgenceClient(long idA, long idC);
 
     void majAgenceEnt(long idA, long idE);
+
+    List<Disponibilite> getDispoU(UtilisateurHardis u);
 }
