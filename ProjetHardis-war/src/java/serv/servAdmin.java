@@ -657,6 +657,13 @@ public class servAdmin extends HttpServlet {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                doActionModifierProfilMetierUtilisateur(request,response);
                jspClient="/Admin/dashboardAdmin.jsp";
+        
+            else if (act.equals("calendar"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<Disponibilite> listeD =  administrateurHardisSession.getDispoU(utilisateur);
+                request.setAttribute("listeD", listeD);
+                jspClient="/Admin/calendar.jsp";
             }
 
         RequestDispatcher Rd;

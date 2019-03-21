@@ -21,6 +21,7 @@
 <script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/moment/min/moment.min.js"></script>
+
 <script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
@@ -36,3 +37,7 @@
 <script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/dist/js/demo.js"></script>
+
+<script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/moment/moment.js"></script>
+
+<script src="http://617981232.r.cdnsun.net/AdminLTE-2.4.10/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
