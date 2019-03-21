@@ -656,6 +656,19 @@ public class servAdmin extends HttpServlet {
                 List<Disponibilite> listeD =  administrateurHardisSession.getDispoU(utilisateur);
                 request.setAttribute("listeD", listeD);
                 jspClient="/Admin/calendar.jsp";
+                
+                 String lib = request.getParameter("lib");
+                 String date = request.getParameter("date");
+                 String heure = request.getParameter("heure");
+                  String heureF = request.getParameter("heureF");
+                 
+                 if (lib!=null && date!=null && heure!=null && heureF!=null)
+                 {
+                     if (lib!="" && date!="" && heure!="" && heureF!="")
+                     {
+                         administrateurHardisSession.creerDisponibilite(Date.valueOf(date), Date.valueOf(date), lib, utilisateur);
+                     }
+                 }
             }
 
         RequestDispatcher Rd;
