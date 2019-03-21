@@ -44,6 +44,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -717,22 +719,72 @@ public class servAdmin extends HttpServlet {
             else if (act.equals("calendar"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
-                List<Disponibilite> listeD =  administrateurHardisSession.getDispoU(utilisateur);
-                request.setAttribute("listeD", listeD);
+               
                 jspClient="/Admin/calendar.jsp";
-                
+            
+            
+              
                  String lib = request.getParameter("lib");
-                 String date = request.getParameter("date");
-                 String heure = request.getParameter("heure");
-                  String heureF = request.getParameter("heureF");
+                 String dateD = request.getParameter("dd");
+                 String dateF = request.getParameter("df");
+                 String hd = request.getParameter("hd");
                  
-                 if (lib!=null && date!=null && heure!=null && heureF!=null)
+                
+                 String hf = request.getParameter("hf");
+                 
+                 
+           
+                 
+                 if (lib!=null && dateD!=null )
                  {
-                     if (lib!="" && date!="" && heure!="" && heureF!="")
+                     if (lib!="" && dateD!="" )
                      {
-                         administrateurHardisSession.creerDisponibilite(Date.valueOf(date), Date.valueOf(date), lib, utilisateur);
+                         
+                         String dte1 = dateD.replace("/", "-");
+                         String dte2 = dateF.replace("/", "-");
+                         
+                          String heureD = hd.split(":")[0];
+                          String minutesD = hd.split(":")[1].substring(0,2);
+                          
+                          String heureF = hf.split(":")[0];
+                          String minutesF = hf.split(":")[1].substring(0,2);
+                         
+                         
+                           java.util.Date parsed = null;
+                           java.util.Date parsed1 = null;
+                           DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                          try{
+                             parsed = df.parse(dte1);
+                             if (hd.contains("PM")) {
+                             parsed.setHours(Integer.valueOf(heureD)+12);
+                             parsed.setMinutes(Integer.valueOf(minutesD));
+                             }
+                             else {
+                                  parsed.setHours(Integer.valueOf(heureD));
+                             parsed.setMinutes(Integer.valueOf(minutesD));
+                             }
+                             
+                              parsed1 = df.parse(dte2);
+                             if (hf.contains("PM")) {
+                             parsed1.setHours(Integer.valueOf(heureF)+12);
+                             parsed1.setMinutes(Integer.valueOf(minutesF));                        
+                             
+                             }    
+                             else {
+                                  parsed1.setHours(Integer.valueOf(heureF));
+                             parsed1.setMinutes(Integer.valueOf(minutesF));  
+                          }
+                          }
+                          catch(Exception ex)
+                          {
+                              ex.getMessage();
+                          }
+                  
+                       administrateurHardisSession.creerDisponibilite(parsed, parsed1, lib, utilisateur);
                      }
                  }
+                  List<Disponibilite> listeD =  administrateurHardisSession.getDispoU(utilisateur);
+                request.setAttribute("listeD", listeD);
             }
 
         RequestDispatcher Rd;
