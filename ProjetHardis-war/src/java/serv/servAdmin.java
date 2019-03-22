@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -124,6 +125,7 @@ public class servAdmin extends HttpServlet {
                         List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
                         List<ContactMail> listeContactMail = administrateurHardisSession.listContactMailNonRepondu();
                         List<UtilisateurHardis> listeUtilisateurHardisReponseContactMail = new ArrayList<>();
+                        String acao = null;
                         if (listeCommunication==null) listeCommunication=new ArrayList<>();
                         if (listeNotif==null) listeNotif=new ArrayList<>();
                         if (listeDevis==null) listeDevis=new ArrayList<>();
@@ -131,7 +133,8 @@ public class servAdmin extends HttpServlet {
                         if (listeEntreprise==null) listeEntreprise=new ArrayList<>();
                         if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
                         if (listeContactMail==null) listeContactMail=new ArrayList<>();
-                        request.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);
+                        sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);
+                                               
                         sess.setAttribute("listeCommunication",listeCommunication);
                         sess.setAttribute("listeNotif",listeNotif);
                         sess.setAttribute("listeDevis",listeDevis);
@@ -200,18 +203,20 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 List<UtilisateurHardis> listeUtilisateurHardisReponseContactMail = new ArrayList<>(); 
-                String test = request.getParameter("test");
+                String test = request.getParameter("acao");
                 String idContactMail = request.getParameter("idContactMail");
-                if(test.equals("affecter")){
+                if(test!=null&&test.equals("affecter")){
                     listeUtilisateurHardisReponseContactMail = administrateurHardisSession.listUtilisateurHardis();
                     if (listeUtilisateurHardisReponseContactMail==null) listeUtilisateurHardisReponseContactMail=new ArrayList<>();
                     
                 }
-                else if(test.equals("affecter")){
-                    
+                else if(test!=null&&test.equals("repondre")){
+                    request.setAttribute("acao",test);
                 }
+                
                 sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);
                 jspClient="/Admin/dashboardAdmin.jsp";
+                request.setAttribute("idContactMail",idContactMail);
                 request.setAttribute("message","");
             }
             else if(act.equals("CreerAgence"))
@@ -304,6 +309,18 @@ public class servAdmin extends HttpServlet {
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionModifierAgence(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
+             else if(act.equals("ContactMail"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+               doActionRepondreContactMail(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
+             else if(act.equals("AffecterContactMail"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+               doActionAffecterContactMail(request,response);
                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("CreerAdresse"))
@@ -1646,6 +1663,51 @@ public class servAdmin extends HttpServlet {
                 Long identre = Long.valueOf(idEntreprise);
                 Long idagence = Long.valueOf(agenceEntreprise);
                 administrateurHardisSession.modifieEntreprise(identre, idagence, "", null, "", "", 0, "", "", ut);
+//                long identreprise, long idagence,  String nom, String[] listidinterlocuteurs , String codeContrat, String mdpEntreprise, long idadresse, String lienJustif, String numeroEnt, UtilisateurHardis hardis
+
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+       protected void doActionRepondreContactMail(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idContactMail = request.getParameter("idContactMail");
+        String textContactMail = request.getParameter("textContactMail");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idutilisateur = ut.getId();
+                Long contactMail = Long.valueOf(idContactMail);
+                ContactMail cm=administrateurHardisSession.rechercheCommunication(contactMail);                
+                String subjetcontactmail = "Reponse:"+cm.getSujet();                
+               ContactMail cmreponse=  administrateurHardisSession.creerContactMail(ut.getNom(), ut.getPrenom(), ut.getLogin(),"00-00-00-00",subjetcontactmail, textContactMail,  ut);
+                 administrateurHardisSession.modifReponduContactMail(contactMail);
+                 administrateurHardisSession.modifReponduContactMail(cmreponse.getId());
+                 SendMail send = new SendMail();                
+                send.sendMail(cm.getEmail(),subjetcontactmail, textContactMail); 
+                message= "Message envoyé avec sucess";
+            } 
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+        protected void doActionAffecterContactMail(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idContactMail = request.getParameter("idContactMail");
+        String AgentAffecterContactMail = request.getParameter("AgentAffecterContactMail");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long identre = Long.valueOf(idContactMail);
+                Long idagence = Long.valueOf(AgentAffecterContactMail);
+                UtilisateurHardis utcontactmail = administrateurHardisSession.rechercherUtilisateurHardisParId(idagence, ut);
+                administrateurHardisSession.majUtilisateurH(identre, ut);
 //                long identreprise, long idagence,  String nom, String[] listidinterlocuteurs , String codeContrat, String mdpEntreprise, long idadresse, String lienJustif, String numeroEnt, UtilisateurHardis hardis
 
                 

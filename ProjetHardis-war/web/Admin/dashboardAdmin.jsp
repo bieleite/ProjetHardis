@@ -32,7 +32,7 @@
     <jsp:useBean id="listeEntreprise" scope="session" class = "java.util.List"> </jsp:useBean>    
     <jsp:useBean id="listeUtilisateurHardis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeContactMail" scope="session" class = "java.util.List"> </jsp:useBean>
-    <jsp:useBean id="listeUtilisateurHardisReponseContactMail" scope="request" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listeUtilisateurHardisReponseContactMail" scope="session" class = "java.util.List"> </jsp:useBean>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -201,15 +201,15 @@
              <% for (ContactMail contactMail : lesContactMail){%>
                 <!-- chat item -->
               <div class="item">
-                <img src="dist/img/user4-128x128.jpg" alt="user image" class="online">
+                <img src="https://www.hardis-group.com/sites/all/themes/hardis/logo.png" alt="user image" class="online">
 
                 <p class="message">
                   <a href="#" class="name">
                     <small class="text-muted pull-right">
                         <div class="box-tools pull-right" >
                 <div class="btn-group" data-toggle="btn-toggle">
-                    <a href="servAdmin?action=Menu&test=repondre&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i>Repondre</button></a>
-                    <a href="servAdmin?action=Menu&test=repondre&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i>Affecter</button></a>
+                    <a href="servAdmin?action=Menu&acao=repondre&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i>Repondre</button></a>
+                    <a href="servAdmin?action=Menu&acao=affecter&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i>Affecter</button></a>
                 </div>
               </div>
                     </small>
@@ -221,11 +221,13 @@
                 <!-- /.attachment -->
               </div>
               <!-- /.item -->
+              
              <%}%>
-             
+              <% String test = (String) request.getAttribute("acao");%>
+              <% String idcontactmaill = (String) request.getAttribute("idContactMail");%>
             </div>
             <!-- /.chat -->
-            <% if(utilisateur==null ){%>
+            <% if( test!=null&&test.equals("repondre") ){%>
             <form action="servAdmin" method="post" >
             
             <div class="box-footer">
@@ -234,12 +236,33 @@
 
                 <div class="input-group-btn">
                 <input type="hidden" name="action" value="ContactMail">
+                <input type="hidden" name="idContactMail" value="<% out.print(idcontactmaill); %>">
+                <input type="hidden" name="idutilisateur" value="<%=utilisateur.getId()%>">
                   <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
                   
                 </div>
               </div>
             </div>
           </div>
+            </form>
+            <%}%>
+            <% List<UtilisateurHardis> lesUHRCM=listeUtilisateurHardisReponseContactMail;%>
+            <% if( !lesUHRCM.isEmpty() ){%>
+            <form>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4> Alert!</h4>
+                    <select name="AgentAffecterContactMail" class="form-control">
+                                
+                               <% for (UtilisateurHardis age : lesUHRCM){%>
+                            <option value="<%=age.getId() %>"> <%=age.getNom()%>  </option> 
+                            <%}%>
+                    </select>
+                    <input type="hidden" name="idContactMail" value="<% out.print(idcontactmaill); %>">
+                    <input type="hidden" name="action" value="AffecterContactMail">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                </div>
+                
             </form>
             <%}%>
           <!-- /.box (chat box) -->
