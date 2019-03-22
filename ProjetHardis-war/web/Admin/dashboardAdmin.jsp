@@ -32,7 +32,7 @@
     <jsp:useBean id="listeEntreprise" scope="session" class = "java.util.List"> </jsp:useBean>    
     <jsp:useBean id="listeUtilisateurHardis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeContactMail" scope="session" class = "java.util.List"> </jsp:useBean>
-    <jsp:useBean id="listeUtilisateurHardisReponseContactMail" scope="session" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listeUtilisateurHardisReponseContactMail" scope="request" class = "java.util.List"> </jsp:useBean>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

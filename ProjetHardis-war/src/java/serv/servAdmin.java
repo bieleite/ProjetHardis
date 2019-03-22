@@ -123,6 +123,7 @@ public class servAdmin extends HttpServlet {
                         List<Entreprise> listeEntreprise = administrateurHardisSession.listEntreprise();
                         List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
                         List<ContactMail> listeContactMail = administrateurHardisSession.listContactMailNonRepondu();
+                        List<UtilisateurHardis> listeUtilisateurHardisReponseContactMail = new ArrayList<>();
                         if (listeCommunication==null) listeCommunication=new ArrayList<>();
                         if (listeNotif==null) listeNotif=new ArrayList<>();
                         if (listeDevis==null) listeDevis=new ArrayList<>();
@@ -130,6 +131,7 @@ public class servAdmin extends HttpServlet {
                         if (listeEntreprise==null) listeEntreprise=new ArrayList<>();
                         if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
                         if (listeContactMail==null) listeContactMail=new ArrayList<>();
+                        request.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);
                         sess.setAttribute("listeCommunication",listeCommunication);
                         sess.setAttribute("listeNotif",listeNotif);
                         sess.setAttribute("listeDevis",listeDevis);
