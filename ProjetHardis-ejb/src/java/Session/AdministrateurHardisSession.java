@@ -1382,9 +1382,10 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, UtilisateurHardis hardis) {
+    public ContactMail creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, UtilisateurHardis hardis) {
         ContactMail cm = contactMailFacade.creerContactMail(nom, prenom, mail, tel, sujet, message);
-        contactMailFacade.majUtilisateurH(cm, hardis);           
+        contactMailFacade.majUtilisateurH(cm, hardis);  
+        return cm;
         
     }
 

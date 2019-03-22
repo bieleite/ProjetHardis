@@ -73,7 +73,7 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
     @Override
     public Communication rechercheCommunication(long id) {
         Communication co = null;        
-        String txt = "SELECT co FROM Communication AS ad WHERE co.id=:id";
+        String txt = "SELECT co FROM Communication AS co WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("id", id);  
         List<Communication> res = req.getResultList();

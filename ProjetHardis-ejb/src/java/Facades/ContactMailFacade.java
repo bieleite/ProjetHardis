@@ -70,7 +70,7 @@ public class ContactMailFacade extends AbstractFacade<ContactMail> implements Co
     @Override
     public ContactMail rechercheCommunication(long id) {
         ContactMail co = null;        
-        String txt = "SELECT co FROM ContactMail AS ad WHERE co.id=:id";
+        String txt = "SELECT co FROM ContactMail AS co WHERE co.id=:id";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("id", id);  
         List<ContactMail> res = req.getResultList();

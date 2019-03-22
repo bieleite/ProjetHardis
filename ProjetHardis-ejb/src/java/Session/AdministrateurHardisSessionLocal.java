@@ -341,7 +341,7 @@ public interface AdministrateurHardisSessionLocal {
     
     void majUtilisateurH(long idcontmail , UtilisateurHardis u);
     
-    void creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, UtilisateurHardis hardis);
+    ContactMail creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, UtilisateurHardis hardis);
 
     void majAgenceClient(long idA, long idC);
 
