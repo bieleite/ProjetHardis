@@ -408,23 +408,19 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
      @Override
-    public Devis rechercherDevis(long id, long idclient, UtilisateurHardis hardis) {
-       Devis de = null;
-       Client client = clientFacade.rechercheClient(idclient);
-        if (client!=null)
+    public Devis rechercherDevis(long id, UtilisateurHardis hardis) {
+        
+        Devis d = null;
+        if (id!=0)
         {
-            de = devisFacade.rechercheDevisParClient(client);
-            logsFacade.creerLogResearch(hardis, de);
+             d = devisFacade.rechercheDevis(id);
+            logsFacade.creerLogResearch(hardis, d);
         }
         
-        else  if (id!=0)
-        {
-            de = devisFacade.rechercheDevis(id);
-            logsFacade.creerLogResearch(hardis, de);
-        }
-        
-        return de;
+        return d;
     }
+    
+    
     
      @Override
     public List<Devis> listDevis( ) {
@@ -1462,4 +1458,17 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     
+
+    @Override
+    public List<Devis> rechercherDevisParClient(long idCli, UtilisateurHardis u) {
+      List<Devis> de = new ArrayList<>();
+       Client client = clientFacade.rechercheClient(idCli);
+        if (client!=null)
+        {
+            de = devisFacade.rechercheDevisParClient(client);
+            logsFacade.creerLogResearch(u, de);
+        }
+        return de;
+    
+    }
 }

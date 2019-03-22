@@ -124,6 +124,8 @@ public interface ClientSessionLocal {
 
     void majAgenceEnt(long idA, long idE);
 
+    List<Devis> recupContratsParAn(int annee, long client);
+
 
     
 }

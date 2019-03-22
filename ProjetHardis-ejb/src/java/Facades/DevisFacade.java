@@ -17,7 +17,12 @@ import Entites.HistoriqueTraitement;
 import Entites.Service;
 import Entites.Statut;
 import Entites.TypeService;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -99,17 +104,13 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     }
 
     @Override
-    public  Devis rechercheDevisParClient(Client client) {
+    public  List<Devis> rechercheDevisParClient(Client client) {
         Devis de = null;        
-        String txt = "SELECT de FROM Devis AS de WHERE de.Client=:client ";
+        String txt = "SELECT de FROM Devis AS de WHERE de.client=:client ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("client",client.getId() );
-        List<Devis> res = req.getResultList();
-        if (res.size() >= 1)
-        {
-              de = (Devis) res.get(0);
-        }
-        return de;
+        req = req.setParameter("client",client);
+        return req.getResultList();
+
     }
    
     
@@ -253,6 +254,8 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
              d.setStatut(Statut.Total_regle);
         em.merge(d);
     }
+
+   
     
     
     

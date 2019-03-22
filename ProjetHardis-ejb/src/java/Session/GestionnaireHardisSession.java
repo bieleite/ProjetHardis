@@ -144,8 +144,8 @@ public class GestionnaireHardisSession implements GestionnaireHardisSessionLocal
     }
     
      @Override
-    public Devis rechercherDevis(long id, long idclient, UtilisateurHardis hardis) {
-       Devis de = null;
+    public List<Devis> rechercherDevis(long id, long idclient, UtilisateurHardis hardis) {
+       List<Devis> de = new ArrayList<>();
        Client client = clientFacade.rechercheClient(idclient);
         if (client!=null)
         {
@@ -153,12 +153,7 @@ public class GestionnaireHardisSession implements GestionnaireHardisSessionLocal
             logsFacade.creerLogResearch(hardis, de);
         }
         
-        else  if (id!=0)
-        {
-            de = devisFacade.rechercheDevis(id);
-            logsFacade.creerLogResearch(hardis, de);
-        }
-        
+      
         return de;
     }
     

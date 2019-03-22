@@ -267,7 +267,7 @@
                     int mo = c.get(Calendar.MONTH);
                     String m = String.format("%02d", mo + 1);
                     String d = String.format("%02d", c.get(Calendar.DAY_OF_MONTH));
-                    String h = String.format("%02d", c.get(Calendar.HOUR));
+                    String h = String.format("%02d", c.get(Calendar.HOUR_OF_DAY));
                     String min = String.format("%02d", c.get(Calendar.MINUTE));
 
                     String daD = "new Date('2019-" + m + "-" + d + "T" + h + ":" + min + ":00')";
@@ -278,7 +278,7 @@
                     mo = c1.get(Calendar.MONTH);
                     m = String.format("%02d", mo + 1);
                     d = String.format("%02d", c1.get(Calendar.DAY_OF_MONTH));
-                    h = String.format("%02d", c1.get(Calendar.HOUR));
+                    h = String.format("%02d", c1.get(Calendar.HOUR_OF_DAY));
                     min = String.format("%02d", c1.get(Calendar.MINUTE));
                     String daFi = "new Date('2019-" + m + "-" + d + "T" + h + ":" + min + ":00')";
 

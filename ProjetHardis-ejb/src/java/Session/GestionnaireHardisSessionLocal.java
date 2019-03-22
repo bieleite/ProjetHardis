@@ -36,7 +36,7 @@ public interface GestionnaireHardisSessionLocal {
         
     void supprimerDevis(long iddevis, UtilisateurHardis hardis);
     
-    Devis rechercherDevis(long id, long idclient, UtilisateurHardis hardis);
+    List<Devis> rechercherDevis(long id, long idclient, UtilisateurHardis hardis);
     
     void modifieDevis(long iddevis, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,long idclient, long idagence, UtilisateurHardis hardis);
     
