@@ -55,7 +55,10 @@ import Facades.ServiceFacadeLocal;
 import Facades.ServiceStandardFacadeLocal;
 import Facades.UtilisateurFacadeLocal;
 import Facades.UtilisateurHardisFacadeLocal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -746,6 +749,41 @@ return e;
         Agence a = agenceFacade.rechercheAgence(idA);
         entrepriseFacade.majAgenceEnt(c, a);
     }
+
+    @Override
+    public List<Devis> recupContratsParAn(int annee, long client) {
+        Client c = clientFacade.rechercheClient(client);
+        List<Devis> liste = devisFacade.rechercheDevisParClient(c);
+         List<Devis> listeD = new ArrayList<>();
+      for (Devis d  : liste)
+        {
+            
+            
+          Date date =  d.getDateDevis();
+SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");         
+String inActiveDate = null;
+  Calendar cal = Calendar.getInstance();
+ java.util.Date parsed = null;
+try {
+    inActiveDate = format1.format(date);
+   parsed = format1.parse(inActiveDate);
+   cal.setTime(parsed);
+   
+   int g =   cal.get(Calendar.YEAR);
+   if (g==annee)
+   {
+       listeD.add(d);
+   }
+}           
+    catch (ParseException e) {
+        e.printStackTrace();
+    }
+            
+        }
+      
+     return listeD; 
+    }
+    
     
     
     

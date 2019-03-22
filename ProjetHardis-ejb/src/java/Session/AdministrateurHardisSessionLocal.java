@@ -109,7 +109,7 @@ public interface AdministrateurHardisSessionLocal {
     
     void supprimerDevis(long iddevis, UtilisateurHardis hardis);
     
-    Devis rechercherDevis(long id, long idclient, UtilisateurHardis hardis);
+    Devis rechercherDevis(long id, UtilisateurHardis hardis);
     
     void modifieDevis(long iddevis, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,long idclient, long idagence, UtilisateurHardis hardis);
     
@@ -360,4 +360,6 @@ public interface AdministrateurHardisSessionLocal {
     List<ContactMail> listContactMailNonRepondu();
     
     List<ContactMail> listContactMail();
+
+    List<Devis> rechercherDevisParClient(long idCli, UtilisateurHardis u);
 }

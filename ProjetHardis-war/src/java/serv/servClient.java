@@ -83,6 +83,7 @@ public class servClient extends HttpServlet {
             } else {
                 List<Notification> listeNotif = clientSession.getNotifsClient(c.getId());
                 List<Devis> listeDevis = clientSession.afficherDevisClient(c.getId());
+                List<Devis> listeDevisAn =  clientSession.recupContratsParAn(2019, c.getId());
                 if (listeNotif == null) {
                     listeNotif = new ArrayList<>();
                 }
@@ -93,6 +94,7 @@ public class servClient extends HttpServlet {
 
                 sess.setAttribute("listeNotif", listeNotif);
                 sess.setAttribute("listeDevis", listeDevis);
+                sess.setAttribute("listeDevisAn", listeDevisAn);
                 sess.setAttribute("client", c);
 
                 clientT = c;

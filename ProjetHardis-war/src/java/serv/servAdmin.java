@@ -633,7 +633,7 @@ public class servAdmin extends HttpServlet {
                 String textidDevis = request.getParameter("champ");
                 String idDevis = textidDevis.substring(3);
                 Long id = Long.valueOf(idDevis);
-                Devis devis = administrateurHardisSession.rechercherDevis(id, 0, utilisateur);
+                Devis devis = administrateurHardisSession.rechercherDevis(id, utilisateur);
                 if(devis!=null){
                     listDevis.add(devis);
                 }else{
@@ -647,7 +647,7 @@ public class servAdmin extends HttpServlet {
                 List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
                 String champ = request.getParameter("idDevis");
                 Long iddevis = Long.valueOf(champ);
-                Devis a = administrateurHardisSession.rechercherDevis(iddevis, 0, utilisateur);
+                Devis a = administrateurHardisSession.rechercherDevis(iddevis, utilisateur);
                 List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
@@ -677,7 +677,7 @@ public class servAdmin extends HttpServlet {
                 List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
                 String champ = request.getParameter("idDevis");
                 Long iddevis = Long.valueOf(champ);
-                Devis a = administrateurHardisSession.rechercherDevis(iddevis, 0, utilisateur);
+                Devis a = administrateurHardisSession.rechercherDevis(iddevis, utilisateur);
                 Long of = a.getService().getOffre().getId();
                 List<UtilisateurHardis> listeConsultantOffre = new ArrayList<>();
                 List<Offre_Profil_Util_CV> o = administrateurHardisSession.listHistoriqueOffre_Profil_Util_CV(utilisateur);
@@ -1071,7 +1071,7 @@ public class servAdmin extends HttpServlet {
                 Long idagence = Long.valueOf(agence);
                 Long iddevis = Long.valueOf(devis);
                 Long idclient = Long.valueOf(client);
-                Devis o= administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
+                Devis o = administrateurHardisSession.rechercherDevis(iddevis, ut);
                 if(motifrefus==null||motifrefus.equals("")){
                     motifrefus = o.getMotifRefus();
                 }
@@ -1624,7 +1624,7 @@ public class servAdmin extends HttpServlet {
                 Long id = Long.valueOf(ConsultantAffecte);
                 Long idref = ut.getId();
                 Long iddevis = Long.valueOf(idDevis);
-                Devis devis = administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis, ut);
                 java.util.Date d = new java.util.Date();
                 administrateurHardisSession.creerHistoriqueTraitement(d, null, TypeUtilisateur.r, iddevis, id, idref, 0, ut);
 
