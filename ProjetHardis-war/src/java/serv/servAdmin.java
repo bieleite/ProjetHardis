@@ -133,8 +133,7 @@ public class servAdmin extends HttpServlet {
                         if (listeEntreprise==null) listeEntreprise=new ArrayList<>();
                         if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
                         if (listeContactMail==null) listeContactMail=new ArrayList<>();
-                        sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);
-                                               
+                        sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);                                               
                         sess.setAttribute("listeCommunication",listeCommunication);
                         sess.setAttribute("listeNotif",listeNotif);
                         sess.setAttribute("listeDevis",listeDevis);
@@ -712,6 +711,7 @@ public class servAdmin extends HttpServlet {
                 sess.setAttribute("devistraitement",a);
                 jspClient="/Admin/affecterDevis.jsp";
             }
+            
             else if(act.equals("messageDevis"))
             {
                 UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
@@ -725,6 +725,12 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
                 request.setAttribute("listeHTVide",listeHTVide);
                 jspClient="/Admin/traitementDevis.jsp";
+            }
+            else if(act.equals("ValiderDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionValiderDevisNonStandard(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("ModifierDevis"))
             {
@@ -751,6 +757,7 @@ public class servAdmin extends HttpServlet {
                doActionModifierProfilMetierUtilisateur(request,response);
                jspClient="/Admin/dashboardAdmin.jsp";
             }
+            
             else if (act.equals("calendar"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
@@ -1689,6 +1696,8 @@ public class servAdmin extends HttpServlet {
                  administrateurHardisSession.modifReponduContactMail(cmreponse.getId());
                  SendMail send = new SendMail();                
                 send.sendMail(cm.getEmail(),subjetcontactmail, textContactMail); 
+                List<ContactMail> listeContactMail = administrateurHardisSession.listContactMailNonRepondu();
+                sess.setAttribute("listeContactMail",listeContactMail);
                 message= "Message envoyé avec sucess";
             } 
             else{
@@ -1697,7 +1706,7 @@ public class servAdmin extends HttpServlet {
         }
         request.setAttribute("message", message);
     }
-        protected void doActionAffecterContactMail(HttpServletRequest request, HttpServletResponse response)
+    protected void doActionAffecterContactMail(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String idContactMail = request.getParameter("idContactMail");
         String AgentAffecterContactMail = request.getParameter("AgentAffecterContactMail");
@@ -1707,9 +1716,35 @@ public class servAdmin extends HttpServlet {
                 Long identre = Long.valueOf(idContactMail);
                 Long idagence = Long.valueOf(AgentAffecterContactMail);
                 UtilisateurHardis utcontactmail = administrateurHardisSession.rechercherUtilisateurHardisParId(idagence, ut);
-                administrateurHardisSession.majUtilisateurH(identre, ut);
+                administrateurHardisSession.majUtilisateurH(identre, utcontactmail);
 //                long identreprise, long idagence,  String nom, String[] listidinterlocuteurs , String codeContrat, String mdpEntreprise, long idadresse, String lienJustif, String numeroEnt, UtilisateurHardis hardis
-
+                List<ContactMail> listeContactMail = administrateurHardisSession.listContactMailNonRepondu();
+                sess.setAttribute("listeContactMail",listeContactMail);
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionValiderDevisNonStandard(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idDevis = request.getParameter("idDevis");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idUtili = ut.getId();
+                Long iddevis = Long.valueOf(idDevis);
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
+                Offre of = devis.getService().getOffre();                
+                Offre_Profil_Util_CV unopcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(ut, of);
+                if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
+                        administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);                  
+                }
+                else{
+                    administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
+                }                 
                 
             }
             else{

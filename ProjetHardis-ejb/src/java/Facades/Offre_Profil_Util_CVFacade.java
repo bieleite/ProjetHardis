@@ -89,7 +89,19 @@ public class Offre_Profil_Util_CVFacade extends AbstractFacade<Offre_Profil_Util
         }
         return object;
     }
-
+    @Override
+    public Offre_Profil_Util_CV rechercheOPUCParUtilisateurEtOffre(UtilisateurHardis u, Offre o) {
+               Offre_Profil_Util_CV object = null;
+        Query requete = em.createQuery("SELECT p from Offre_Profil_Util_CV as p where p.utilisateur=:u and p.offre=:o");
+        requete.setParameter("u",u);     
+        requete.setParameter("o",o);
+        List<Offre_Profil_Util_CV> list =  requete.getResultList();
+        if (!list.isEmpty()){
+            object  =  (Offre_Profil_Util_CV)list.get(list.size() - 1);
+            
+        }
+        return object;
+    }
     @Override
     public List<Offre_Profil_Util_CV> rechercheOPUCParUtilisateur(UtilisateurHardis u) {
           

@@ -105,7 +105,7 @@
                     <td><%=devis.getClient().getEntreprise().getNomEntreprise() %></td>
                     <td><%=devis.getService().getNomService() %> </td>
                     <td><%=devis.getService().getTypeService().name() %></td>
-                    <td><%=devis.getStatut().name() %> </td>
+                    <td><span class="label label-primary"><%=devis.getStatut().name() %></span> </td>
                     <td><%=devis.getTypeDevis() %> </td>
                     <td><%=dformat.format(devis.getDateDevis()) %> </td>
                  

@@ -1454,4 +1454,12 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         ContactMail l = contactMailFacade.rechercheCommunication(id);
         return l;       
     }
+    
+    @Override
+    public Offre_Profil_Util_CV rechercheOPUCParUtilisateurEtOffre(UtilisateurHardis u, Offre o){
+        Offre_Profil_Util_CV l = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateurEtOffre(u, o);
+        return l;       
+    }
+    
+    
 }

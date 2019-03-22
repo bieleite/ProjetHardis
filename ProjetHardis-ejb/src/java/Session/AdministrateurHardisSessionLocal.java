@@ -360,4 +360,6 @@ public interface AdministrateurHardisSessionLocal {
     List<ContactMail> listContactMailNonRepondu();
     
     List<ContactMail> listContactMail();
+    
+    Offre_Profil_Util_CV rechercheOPUCParUtilisateurEtOffre(UtilisateurHardis u, Offre o);
 }
