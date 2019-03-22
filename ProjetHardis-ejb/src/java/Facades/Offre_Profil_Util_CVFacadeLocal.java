@@ -47,4 +47,6 @@ public interface Offre_Profil_Util_CVFacadeLocal {
 
     List<Offre_Profil_Util_CV> rechercheOPUCParOffre(Offre o);
     
+    Offre_Profil_Util_CV rechercheOPUCParUtilisateurEtOffre(UtilisateurHardis u, Offre o);
+    
 }

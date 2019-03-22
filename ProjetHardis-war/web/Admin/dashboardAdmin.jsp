@@ -187,85 +187,7 @@
             </div>
           </div>
           <!-- /.nav-tabs-custom -->
-          <% List<ContactMail> lesContactMail=listeContactMail;%>
-          <!-- Chat box -->
-          <div class="box box-success">
-            <div class="box-header">
-              <i class="fa fa-comments-o"></i>
-
-              <h3 class="box-title">Contact Client</h3>
-
-              
-            </div>
-            <div class="box-body chat" id="chat-box">
-             <% for (ContactMail contactMail : lesContactMail){%>
-                <!-- chat item -->
-              <div class="item">
-                <img src="https://www.hardis-group.com/sites/all/themes/hardis/logo.png" alt="user image" class="online">
-
-                <p class="message">
-                  <a href="#" class="name">
-                    <small class="text-muted pull-right">
-                        <div class="box-tools pull-right" >
-                <div class="btn-group" data-toggle="btn-toggle">
-                    <a href="servAdmin?action=Menu&acao=repondre&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i>Repondre</button></a>
-                    <a href="servAdmin?action=Menu&acao=affecter&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i>Affecter</button></a>
-                </div>
-              </div>
-                    </small>
-                   <%=contactMail.getNom()  %> Sujet: <%=contactMail.getSujet()  %>
-                  </a>
-                 <%=contactMail.getMessage()  %>
-                </p>
-                
-                <!-- /.attachment -->
-              </div>
-              <!-- /.item -->
-              
-             <%}%>
-              <% String test = (String) request.getAttribute("acao");%>
-              <% String idcontactmaill = (String) request.getAttribute("idContactMail");%>
-            </div>
-            <!-- /.chat -->
-            <% if( test!=null&&test.equals("repondre") ){%>
-            <form action="servAdmin" method="post" >
-            
-            <div class="box-footer">
-              <div class="input-group">
-                <input class="form-control" name="textContactMail" placeholder="Type message...">
-
-                <div class="input-group-btn">
-                <input type="hidden" name="action" value="ContactMail">
-                <input type="hidden" name="idContactMail" value="<% out.print(idcontactmaill); %>">
-                <input type="hidden" name="idutilisateur" value="<%=utilisateur.getId()%>">
-                  <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-            </form>
-            <%}%>
-            <% List<UtilisateurHardis> lesUHRCM=listeUtilisateurHardisReponseContactMail;%>
-            <% if( !lesUHRCM.isEmpty() ){%>
-            <form>
-                <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h4> Alert!</h4>
-                    <select name="AgentAffecterContactMail" class="form-control">
-                                
-                               <% for (UtilisateurHardis age : lesUHRCM){%>
-                            <option value="<%=age.getId() %>"> <%=age.getNom()%>  </option> 
-                            <%}%>
-                    </select>
-                    <input type="hidden" name="idContactMail" value="<% out.print(idcontactmaill); %>">
-                    <input type="hidden" name="action" value="AffecterContactMail">
-                    <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
-                </div>
-                
-            </form>
-            <%}%>
-          <!-- /.box (chat box) -->
+          
 
           <!-- TO DO List -->
           <div class="box box-primary">
@@ -386,6 +308,91 @@
         <!-- /.Left col -->
         <!-- right col (We are only adding the ID to make the widgets sortable)-->
         <section class="col-lg-5 connectedSortable">
+            <% List<ContactMail> lesContactMail=listeContactMail;%>
+          <!-- Chat box -->
+          <div class="box box-success">
+            <div class="box-header">
+              <i class="fa fa-comments-o"></i>
+
+              <h3 class="box-title">Contact Client</h3>
+
+              
+            </div>
+            <div class="box-body chat" id="chat-box">
+             <% for (ContactMail contactMail : lesContactMail){%>
+                <!-- chat item -->
+              <div class="item">
+                <img src="https://www.hardis-group.com/sites/all/themes/hardis/logo.png" alt="user image" class="online">
+                <p class="message">
+                  <a href="#" class="name">
+                    <small class="text-muted pull-right">
+                        <div class="box-tools pull-right" >
+                            <div class="btn-group" data-toggle="btn-toggle">
+                                <a href="servAdmin?action=Menu&acao=repondre&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i>Repondre</button></a>
+                                <% if(contactMail.getUtilisateurHardis()!=null)   {%>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-black "></i><%=contactMail.getUtilisateurHardis().getNom() %></button>
+                                <%}%>
+                                <% if(contactMail.getUtilisateurHardis()==null )     {%>
+                                <a href="servAdmin?action=Menu&acao=affecter&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-red"></i>Affecter</button></a>
+                                <%}%>
+                            </div>
+                        </div>
+                    </small>
+                   <%=contactMail.getNom()  %> 
+                  </a>
+                   Sujet: <%=contactMail.getSujet()  %>
+                 <%=contactMail.getMessage()  %>
+                </p>
+                
+                <!-- /.attachment -->
+              </div>
+              <!-- /.item -->
+              
+             <%}%>
+              <% String test = (String) request.getAttribute("acao");%>
+              <% String idcontactmaill = (String) request.getAttribute("idContactMail");%>
+            </div>
+            <!-- /.chat -->
+            <% if( test!=null&&test.equals("repondre") ){%>
+            <form action="servAdmin" method="post" >
+            
+            <div class="box-footer">
+              <div class="input-group">
+                <input class="form-control" name="textContactMail" placeholder="Type message...">
+
+                <div class="input-group-btn">
+                <input type="hidden" name="action" value="ContactMail">
+                <input type="hidden" name="idContactMail" value="<% out.print(idcontactmaill); %>">
+                <input type="hidden" name="idutilisateur" value="<%=utilisateur.getId()%>">
+                  <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                  
+                </div>
+              </div>
+            </div>
+          
+            </form>
+            <%}%>
+            <% List<UtilisateurHardis> lesUHRCM=listeUtilisateurHardisReponseContactMail;%>
+            <% if( !lesUHRCM.isEmpty() ){%>
+            <form>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4> Alert!</h4>
+                    <select name="AgentAffecterContactMail" class="form-control">
+                                
+                               <% for (UtilisateurHardis age : lesUHRCM){%>
+                            <option value="<%=age.getId() %>"> <%=age.getNom()%>  </option> 
+                            <%}%>
+                    </select>
+                    <input type="hidden" name="idContactMail" value="<% out.print(idcontactmaill); %>">
+                    <input type="hidden" name="action" value="AffecterContactMail">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                </div>
+                
+            </form>
+            <%}%>
+            </div>
+          <!-- /.box (chat box) -->
             <!-- quick email widget -->
           <div class="box box-info">
             <div class="box-header">

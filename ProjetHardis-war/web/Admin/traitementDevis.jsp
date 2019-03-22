@@ -4,6 +4,8 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.TypeService"%>
+<%@page import="Entites.Statut"%>
 <%@page import="Entites.HistoriqueEtats"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Entites.HistoriqueTraitement"%>
@@ -111,7 +113,7 @@
                     <td><%=devis.getClient().getEntreprise().getNomEntreprise() %></td>
                     <td><%=devis.getService().getNomService() %> </td>
                     <td><%=devis.getService().getTypeService().name() %></td>
-                    <td><%=devis.getStatut().name() %> </td>
+                    <td><span class="label label-primary"><%=devis.getStatut().name() %></span></td>
                     <td><%=devis.getTypeDevis() %> </td>
                     <td><%=dformat.format(devis.getDateDevis()) %> </td>
                  
@@ -134,7 +136,53 @@
             <div class="box-header with-border">
               <h3 class="box-title">Devis</h3>
               <div class="box-tools pull-right">
-                    <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>"><button type="button" class="btn btn-block btn-primary">Affecter Devis</button></a>
+                    <div class="btn-group">
+                        <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn btn-default">Relancer Client</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Rep_en_Cours && devistraitement.getTypeDevis()==TypeService.Non_Standard )  {%>
+                        <a href="servAdmin?action=ValiderDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary" >Valider Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Envoye )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Affecter Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Valide )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Refuse )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.En_nego )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Acompte_regle )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Presta_terminee )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Transmettre_au_client )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Modif_date )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Total_regle )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <%}%>
+                    </div>
+                    
             </div>
               
             </div>
@@ -247,7 +295,8 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
              </form>
-          </div>
+                  
+              </div>
                
           <!-- /.box -->
         
