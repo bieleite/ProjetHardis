@@ -28,7 +28,10 @@
      
     </section>
 <%List<Devis> listeD = listeDevis; 
-List<Devis> listeDAn = listeDevisAn;%>
+List<Devis> listeDAn = listeDevisAn;
+String v = (String)request.getAttribute("nbD");
+String mont = (String)request.getAttribute("mont");
+%>
     <!-- Main content -->
     <section class="content">
      
@@ -40,12 +43,12 @@ List<Devis> listeDAn = listeDevisAn;%>
             <div class="inner">
               <h3><%=listeDAn.size()%></h3>
 
-              <p>Nombre devis </p>
+              <p>Devis</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
           </div>
         </div>
         <!-- ./col -->
@@ -53,9 +56,9 @@ List<Devis> listeDAn = listeDevisAn;%>
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3><%=v%></h3>
 
-              <p>Bounce Rate</p>
+              <p>Devis en cours</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -68,9 +71,9 @@ List<Devis> listeDAn = listeDevisAn;%>
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3><%=mont%></h3>
 
-              <p>User Registrations</p>
+              <p>CA facture 2019</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>

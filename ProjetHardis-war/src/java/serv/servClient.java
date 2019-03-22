@@ -83,6 +83,11 @@ public class servClient extends HttpServlet {
             } else {
                 List<Notification> listeNotif = clientSession.getNotifsClient(c.getId());
                 List<Devis> listeDevis = clientSession.afficherDevisClient(c.getId());
+                List<Devis> listeDevisC = clientSession.afficherDevisStatut(c.getId(),"Rep_en_cours");
+                  List<Devis> listeDevisN = clientSession.afficherDevisStatut(c.getId(),"En_nego");
+                    List<Devis> listeDevisE = clientSession.afficherDevisStatut(c.getId(),"Envoye");
+                     int nbre = listeDevisC.size()+listeDevisN.size()+listeDevisE.size();
+                     float mont = clientSession.getCA(2019, c.getId());
                 List<Devis> listeDevisAn =  clientSession.recupContratsParAn(2019, c.getId());
                 if (listeNotif == null) {
                     listeNotif = new ArrayList<>();
@@ -93,6 +98,8 @@ public class servClient extends HttpServlet {
                 jspClient = "/Client/tabBord.jsp";
 
                 sess.setAttribute("listeNotif", listeNotif);
+                 request.setAttribute("nbD", nbre);
+                   request.setAttribute("mont", mont);
                 sess.setAttribute("listeDevis", listeDevis);
                 sess.setAttribute("listeDevisAn", listeDevisAn);
                 sess.setAttribute("client", c);
@@ -467,6 +474,9 @@ public class servClient extends HttpServlet {
         } else if (act.equals("payer")) {
             String idD = request.getParameter("idDev");
             String idF = request.getParameter("idF");
+            String mont = request.getParameter("mont");
+
+            
             if (idD != "" && idF != "") {
                 long id = Long.valueOf(idD);
                 Devis d = clientSession.recupDevis(id);
@@ -481,16 +491,17 @@ public class servClient extends HttpServlet {
          else if (act.equals("choixConsultantsDef")) {
               String idD = request.getParameter("idDev");     
                 if (idD != "") {
+               
                     boolean b = true;
                  long id = Long.valueOf(idD);
                  Devis d = clientSession.recupDevis(id);
                  Date dateInter = d.getDateIntervSouhaitee();
                  
-                 Service s = d.getService();
+                Service s = d.getService();
                 
                 ServiceStandard ss = clientSession.rechercheSS(s.getId());
                 
-                 List<Offre_Profil_Util_CV> listeO = clientSession.rechercheOPUCParU(clientT.getId(), d.getService().getOffre().getId());
+                List<Offre_Profil_Util_CV> listeO = clientSession.rechercheOPUCParU(clientT.getId(), d.getService().getOffre().getId());
 
                 //rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli)
                 List<UtilisateurHardis> listeCCDispo = clientSession.rechercheCDisponibles("Confirme", dateInter, s.getId(), "Standard", clientT.getId());

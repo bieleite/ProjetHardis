@@ -301,31 +301,31 @@ devisFacade.majHT(d, ht);
                 st = Statut.Incomplet;
                 break;
             }
-            case "Réponse en cours" : {
+            case "Rep_en_cours" : {
                  st = Statut.Rep_en_Cours;
                 break;
             }
-             case "Envoyé" : {
+             case "Envoye" : {
                  st = Statut.Envoye;
                 break;
             }
-              case "Validé" : {
+              case "Valide" : {
                  st = Statut.Valide;
                 break;
             }
-               case "Refusé" : {
+               case "Refuse" : {
                  st = Statut.Refuse;
                 break;
             }
-                case "En négociation" : {
+                case "En_nego" : {
                  st = Statut.En_nego;
                 break;
             }
-                  case "Acompte réglé" : {
+                  case "Acompte_regle" : {
                  st = Statut.Acompte_regle;
                 break;
             }
-              case "Prestation terminée" : {
+              case "Presta_terminee" : {
                  st = Statut.Presta_terminee;
                 break;
             }
@@ -782,6 +782,54 @@ try {
         }
       
      return listeD; 
+    }
+
+    @Override
+    public float getCA(int annee, Long idCli) {
+       Client c = clientFacade.rechercheClient(idCli);
+       float mont = 0;
+       List<Devis> listeD = devisFacade.afficherDevisClient(c);
+       
+       if (listeD!=null)
+       {
+           for (Devis d : listeD)
+           {
+                Date date =  d.getDateDevis();
+SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");         
+String inActiveDate = null;
+  Calendar cal = Calendar.getInstance();
+ java.util.Date parsed = null;
+try {
+   inActiveDate = format1.format(date);
+   parsed = format1.parse(inActiveDate);
+   cal.setTime(parsed);
+   
+   int g =   cal.get(Calendar.YEAR);
+               List<Facture> listeF = factureFacade.rechercheFactParDevis(d);
+               if (listeF!=null){
+               for (Facture f : listeF)
+               {
+                   inActiveDate = format1.format(f.getDateFacture());
+   parsed = format1.parse(inActiveDate);
+   cal.setTime(parsed);
+   int a = cal.get(Calendar.YEAR);
+                   if (a==g)
+                mont+=f.getMontant();
+               }
+               }
+           }
+ catch (ParseException e) {
+        e.printStackTrace();
+    }
+       }
+       }
+       
+                   
+   
+            
+        
+              
+        return mont;
     }
     
     

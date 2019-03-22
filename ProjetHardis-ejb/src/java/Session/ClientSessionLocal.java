@@ -126,6 +126,8 @@ public interface ClientSessionLocal {
 
     List<Devis> recupContratsParAn(int annee, long client);
 
+    float getCA(int annee, Long idCli);
+
 
     
 }

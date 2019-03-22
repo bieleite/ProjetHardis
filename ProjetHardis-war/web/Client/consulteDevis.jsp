@@ -239,7 +239,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-10">
-         <a href="servClient?action=payer&idDev=<%=d.getId()%>&idF=<%=f.getId()%>" <button type="button" class="btn btn-success pull-right">Payer
+         <a href="servClient?action=payer&idDev=<%=d.getId()%>&idF=<%=f.getId()%>&mont=<%=tot%>" <button type="button" class="btn btn-success pull-right">Payer
           </button>
         </a>
         </div>
