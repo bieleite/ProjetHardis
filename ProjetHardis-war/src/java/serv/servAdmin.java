@@ -1736,7 +1736,7 @@ public class servAdmin extends HttpServlet {
             if(ut!=null){
                 Long idUtili = ut.getId();
                 Long iddevis = Long.valueOf(idDevis);
-                Devis devis = administrateurHardisSession.rechercherDevis(iddevis, 0, ut);
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
                 Offre of = devis.getService().getOffre();                
                 Offre_Profil_Util_CV unopcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(ut, of);
                 if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
