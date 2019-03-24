@@ -24,7 +24,7 @@
 
  <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
   <jsp:useBean id="listMessage" scope="session" class = "java.util.List"> </jsp:useBean>
-    <jsp:useBean id="listeConsu" scope="request" class = "java.util.List"> </jsp:useBean>
+    <jsp:useBean id="listeConsu" scope="session" class = "java.util.List"> </jsp:useBean>
   
 
      
@@ -173,22 +173,58 @@ else out.print("Facture non disponible"); %></td>
               </div>
               <!-- /.table-responsive -->
             </div>
-                  <% if (d.getTypeDevis().toString().equals("Standard") && d.getStatut().toString().equals("Rep_en_Cours") ||
-                         d.getTypeDevis().toString().equals("Non_Standard") && d.getStatut().toString().equals("Envoye") ) {
+                  <% if (d.getTypeDevis().toString().equals("Standard") && (d.getStatut().toString().equals("Rep_en_Cours") || d.getStatut().toString().equals("Valide")) ||
+                         d.getTypeDevis().toString().equals("Non_Standard") && d.getStatut().toString().equals("Envoye") || d.getStatut().toString().equals("Valide")) {
                              
                            %>
                    <div row>
                           <div class="box-footer clearfix">
                               <div class="col-md-10">
-              <a href="" class="btn btn-sm btn-info btn-flat pull-right">Changer date</a>
+                                  <a href="servClient?action=choixDate&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Changer date </a>
+                             
                               </div>
+                             
                <div class="col-md-2">
                    <%   
                        if (listeC!=null && listeC.size()==0 && (d.getTypeDevis().toString().equals("Standard"))) { %>                        
               <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
  <%}%>
-               </div></div>
-                   </div> <% }
+               </div>
+                          
+                          </div>
+                   </div>
+ <% String change = (String)request.getAttribute("change");
+                              if (change!=null && change.equals("1"))
+                              { 
+if (d.getStatut().toString().equals("Valide")) out.print("Attention, vous avez déjà validé votre devis. En choissisant une autre date le montant du devis pourrait changer !"); %>
+                                              <form role="form">
+              <div class="box-body">
+                                     
+             <div class="form-group">
+                <label>Date:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="date" id="datepicker" name="date">
+                </div>
+                <!-- /.input group -->
+              </div>
+              <!-- /.form group -->
+                      
+                   <input type ="hidden" name="action" value="choixDate">
+                    <input type ="hidden" name="idDev" value="<%=d.getId()%>">
+                     <input type ="hidden" name="typeD" value="<%=d.getTypeDevis().toString()%>">
+   
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Valider</button>
+              </div>
+            </form>
+                             <% }%> <% }
                    %>
             <!-- /.box-body -->
            

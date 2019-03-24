@@ -58,15 +58,11 @@
   <div class="line1 hidden-xs">
     <div class="container">
                   
-<div class="col-md-offset-1 col-sm-5 bg-social">
-  <ul class="nav nav-pills icon pull-right">
-    <li><a href="https://twitter.com/groupehardis" target="_blank"><img alt="Twitter" src="https://www.hardis-group.com/sites/default/files/icn-twitter-white.png" /></a></li>    <li><a href="http://www.linkedin.com/company/hardis" target="_blank"><img alt="LinkedIn" src="https://www.hardis-group.com/sites/default/files/icn-linkedin-white.png" /></a></li>    <li><a href="https://www.facebook.com/hardisgroup" target="_blank"><img alt="LinkedIn" src="https://www.hardis-group.com//sites/default/files/icn-facebook-white.png" /></a></li>    <!--<li><a href="http://fr.viadeo.com/fr/company/hardis-group" target="_blank"><img alt="Viadéo" src="/sites/default/files/icn-viadeo-white.png" /></a></li>-->
-    <!--<li><a href="http://www.scoop.it/u/groupe-hardis" target="_blank"><img alt="it!" src="/sites/default/files/icn-it-white.png" /></a></li>-->
-    <li><a href="http://www.move2digital.fr/" target="_blank"><img alt="Blogger" src="https://www.hardis-group.com/sites/default/files/icn-blogger-white.png" /></a></li>    <li><a href="http://www.infologistique.fr" target="_blank"><img alt="B" src="https://www.hardis-group.com//sites/default/files/icn-b-white.png" /></a></li>    <li><a href="http://www.youtube.com/user/GroupeHardis" target="_blank"><img alt="B" src="https://www.hardis-group.com//sites/default/files/icn-youtube-white.png" /></a></li>  </ul>
+<div class=" col-md-10 bg-social">
 </div>
 
-<div class="col-sm-2 col-md-2 text-center">
-  <ul class="nav nav-pills"><li><a href="servAdmin?">Intranet</a></li></ul>
+<div class="col-md-2 text-right">
+  <ul class="nav nav-pills glyphicon-user" ><li><a href="servInternaute?action=connexion">Espace client</a> </li></ul>
 <!--</div>
 <div class="col-sm-3 col-md-2 text-center">
   <ul class="language-switcher-locale-url nav nav-pills"><li class="fr first active"><a href="/" class="language-link active language-link active" xml:lang="fr">FR</a></li>

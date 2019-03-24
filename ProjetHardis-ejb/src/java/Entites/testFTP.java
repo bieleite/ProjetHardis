@@ -40,7 +40,7 @@ client.login("lucialei", "rj3fTOw378");
   
  
  
-String filename = "C:\\Users\\6170361\\Desktop\\test.txt";
+String filename = "C:\\Users\\anastasia.salari\\Documents\\conditi.pdf";
  
  
 fis = new FileInputStream(filename);

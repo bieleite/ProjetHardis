@@ -24,9 +24,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
-   <jsp:useBean id="facture" scope="request" class = "Entites.Facture"> </jsp:useBean>
     <jsp:useBean id="servS" scope="request" class = "Entites.ServiceStandard"> </jsp:useBean>
-      <jsp:useBean id="listeConsu" scope="request" class = "java.util.List"> </jsp:useBean>
+      <jsp:useBean id="listeConsu" scope="session" class = "java.util.List"> </jsp:useBean>
          <jsp:useBean id="listeLibC" scope="request" class = "java.util.List"> </jsp:useBean>
           <jsp:useBean id="PrixU" scope="request" class = "java.util.List"> </jsp:useBean>
       
@@ -40,7 +39,6 @@
    <%@include  file = "menu.jsp" %>
   <% 
   Devis d = devis;
-  Facture f= facture;
   List<UtilisateurHardis> listeC = listeConsu;
   ServiceStandard s = servS;
    List<String> listeLib = listeLibC;
@@ -57,11 +55,10 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <% if (f.getId()!=null) out.print("Facture"); else out.print("Devis"); %>
-        <small> <% if (f.getId()!=null)  { %> 
-           <% out.print("F"+f.getId()); } else  { %>
+          <%  out.print("Devis"); %>
+        <small> 
               
-             <% out.print("DEV"+d.getId()); }%></small>
+             <% out.print("DEV"+d.getId()); %></small>
       </h1>
      
     </section>
@@ -116,10 +113,9 @@
         <div class="col-xs-12 table-responsive">
             <div >
             
-          <b><% if (f.getId()!=null) { %> 
-              Facture : #<% out.print(f.getId()+"     en date du : "+dformat.format(f.getDateFacture())); } else  { %>
+          <b>
               
-              Devis :  #<% out.print(d.getId()+"    en date du : "+dformat.format(d.getDateDevis()));}%></b>
+              Devis :  #<% out.print(d.getId()+"    en date du : "+dformat.format(d.getDateDevis()));%></b>
           
           <br>
           <br>  
@@ -239,7 +235,7 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-10">
-         <a href="servClient?action=payer&idDev=<%=d.getId()%>&idF=<%=f.getId()%>&mont=<%=tot%>" <button type="button" class="btn btn-success pull-right">Payer
+         <a href="servClient?action=payer&idDev=<%=d.getId()%>&mont=<%=tot%>" <button type="button" class="btn btn-success pull-right">Payer
           </button>
         </a>
         </div>

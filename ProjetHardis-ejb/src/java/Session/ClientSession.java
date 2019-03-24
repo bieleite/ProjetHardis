@@ -33,6 +33,7 @@ import Entites.TypeService;
 import Entites.TypeUtilisateur;
 import Entites.Utilisateur;
 import Entites.UtilisateurHardis;
+import Entites.testPDF;
 import Facades.AdresseFacadeLocal;
 import Facades.AgenceFacadeLocal;
 import Facades.ClientFacadeLocal;
@@ -55,12 +56,15 @@ import Facades.ServiceFacadeLocal;
 import Facades.ServiceStandardFacadeLocal;
 import Facades.UtilisateurFacadeLocal;
 import Facades.UtilisateurHardisFacadeLocal;
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -442,7 +446,13 @@ return e;
     @Override
     public Facture creerFacture(long id) {
            Devis d = devisFacade.rechercheDevis(id);
-          Facture f = factureFacade.creerFacture(new Date(), d, d.getMontantDevis(), 0, "");
+           Facture f = factureFacade.creerFacture(new Date(), d, d.getMontantDevis(), 0, "");
+           /*     testPDF test = new testPDF();
+        try {
+            test.test();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ClientSession.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
            return f;
     }
     
@@ -608,6 +618,7 @@ return e;
                            int t = (int) nbreJ*24;
                            Date test = date;
                        
+                           int te = test.getHours();
                            test.setHours(test.getHours()+t);
                            
                            if (d.getDateFin().before(test))
@@ -656,26 +667,44 @@ return e;
     @Override
     public void choixConsultants(long idD, String [] c, String [] j, String [] s) {
         Devis d = devisFacade.rechercheDevis(idD);
+        List<UtilisateurHardis> listeUt = rechercheCParDevis(idD);
+        List<HistoriqueTraitement> listeHT = historiqueTraitementFacade.rechercheHistoriqueTraitementParDevis(d);
+     
+        if (listeUt.size()>0) // nous allons la vider avant de la réinitialiser
+        {
+            for (HistoriqueTraitement histo : listeHT)
+            {
+                if (histo.getUtilisateurCourant().toString().equals("p"))
+                    historiqueTraitementFacade.remove(histo);
+            }
+        }
         
         if(c!=null && c.length>0)
         for(String idU : c)
         {
             UtilisateurHardis u = utilisateurHardisFacade.rechercheUtilisateurParId(Long.valueOf(idU));
+           
             historiqueTraitementFacade.creerHistoriqueTraitement(d.getDateDebutPresta(), d.getDateFinPresta(), TypeUtilisateur.p, d, u, null, null);
+            
         }
         
         if(j!=null && j.length>0)
         for(String idU : j)
         {
+            
             UtilisateurHardis u = utilisateurHardisFacade.rechercheUtilisateurParId(Long.valueOf(idU));
+      
             historiqueTraitementFacade.creerHistoriqueTraitement(d.getDateDebutPresta(), d.getDateFinPresta(), TypeUtilisateur.p, d, u, null, null);
+             
         }
         
         if(s!=null && s.length>0)
         for(String idU : s)
         {
             UtilisateurHardis u = utilisateurHardisFacade.rechercheUtilisateurParId(Long.valueOf(idU));
+        
             historiqueTraitementFacade.creerHistoriqueTraitement(d.getDateDebutPresta(), d.getDateFinPresta(), TypeUtilisateur.p, d, u, null, null);
+             
         }
     }
 
@@ -831,6 +860,25 @@ try {
               
         return mont;
     }
+
+    @Override
+    public void changerDateInterv(Devis d, Date dte) {
+        devisFacade.modifDateInterv(d, dte);
+    }
+
+    @Override
+    public void changerStatut(Devis d, String statut) {
+                devisFacade.changerStatut(d, statut);
+
+    }
+
+    @Override
+    public void majMontantDevis(long idD, float mont) {
+        Devis d = devisFacade.rechercheDevis(idD);
+        devisFacade.majMontant(d, mont);
+    }
+    
+    
     
     
     

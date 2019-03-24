@@ -81,5 +81,9 @@ public interface DevisFacadeLocal {
 
     void changeStatutPaye(String type, Devis d);
 
+    void changerStatut(Devis d, String s);
+
+    void majMontant(Devis d, float mont);
+
   
 }

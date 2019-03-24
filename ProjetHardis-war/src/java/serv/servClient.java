@@ -19,15 +19,20 @@ import Entites.ServiceStandard;
 import Entites.UtilisateurHardis;
 import Entites.testFTP;
 import Entites.testPDF;
+import Session.ClientSession;
 import Session.ClientSessionLocal;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -62,7 +67,19 @@ public class servClient extends HttpServlet {
         //         
         //  testFTP test = new testFTP();
         //  test.downloadFTP();
-
+        
+        
+        /*    testPDF test = new testPDF();
+        try {
+            test.test();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ClientSession.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        testFTP test1 = new testFTP();
+        test1.upload();
+        
+*/
         sess = request.getSession(true);
         String email = request.getParameter("email");
         String mdp = request.getParameter("mdp");
@@ -405,7 +422,7 @@ public class servClient extends HttpServlet {
                 jspClient = "/Client/afficheDevis.jsp";
 
                 request.setAttribute("lienD", lienDevis);
-                 request.setAttribute("listeConsu", listeConsu);
+                sess.setAttribute("listeConsu", listeConsu);
                 sess.setAttribute("devis", d);
                 sess.setAttribute("listMessage", listeC);
 
@@ -418,7 +435,7 @@ public class servClient extends HttpServlet {
 
             jspClient = "/Client/consulteDevis.jsp";
             String idD = request.getParameter("idDev");
-            String fact = request.getParameter("fact");
+         
             List<String> listeLibC =  new ArrayList<String>();
             List<Float> PrixU =  new ArrayList<Float>();
             
@@ -446,48 +463,55 @@ public class servClient extends HttpServlet {
                     listeLibC.add(lib);
                     
                 }
+                  String valide = request.getParameter("valide");
+                 request.setAttribute("valide","1");
+                 if (valide != null && valide.equals("1")) {
+                    clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
+                 }
                 
+                List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
+                sess.setAttribute("listeDevis", listeDevis);
                 request.setAttribute("listeConsu", listeConsu);
                 request.setAttribute("PrixU", PrixU);
                   request.setAttribute("servS", ss);
                 request.setAttribute("listeLibC", listeLibC);
             }
-            
-            String valide = request.getParameter("valide");
-            if (valide != null && valide.equals("1")) {
-                clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
-                Facture f = clientSession.creerFacture(id);
-                request.setAttribute("facture", f);
-                request.setAttribute("valide", "1");
-            }
 
-            if (d.getStatut().toString().equals("Valide") && fact != null) {
-                request.setAttribute("valide", "1");
-                List<Facture> f = clientSession.rechercheFactParDevis(Long.valueOf(idD));
-                request.setAttribute("facture", f.get(0));
-
-            }
+           
 
             List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
             sess.setAttribute("listeDevis", listeDevis);
 
         } else if (act.equals("payer")) {
             String idD = request.getParameter("idDev");
-            String idF = request.getParameter("idF");
+     
             String mont = request.getParameter("mont");
 
             
-            if (idD != "" && idF != "") {
+            if (idD != "") {
                 long id = Long.valueOf(idD);
                 Devis d = clientSession.recupDevis(id);
 
-                clientSession.payerFacture(Long.valueOf(idF));
-                jspClient = "/Client/tabBord.jsp";
-                List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
-                sess.setAttribute("listeDevis", listeDevis);
+                
+                 
+             
+                  Facture f = clientSession.creerFacture(d.getId());
+   
+      
+            
+
+
+            
 
             }
-        } 
+
+             
+     
+                List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
+                sess.setAttribute("listeDevis", listeDevis);
+                            
+        }
+         
          else if (act.equals("choixConsultantsDef")) {
               String idD = request.getParameter("idDev");     
                 if (idD != "") {
@@ -536,6 +560,91 @@ public class servClient extends HttpServlet {
                 
                 }
                 
+         }
+         
+         
+         else if (act.equals("choixDate")) // SS et NS
+         {
+              String idD = request.getParameter("idDev");
+                if (idD != "") {
+                 long id = Long.valueOf(idD);
+                 Devis d = clientSession.recupDevis(id);
+                   sess.setAttribute("devis", d);
+                   jspClient = "/Client/afficheDevis.jsp";
+                   request.setAttribute("change", "1");
+                    String typeS = request.getParameter("typeD");
+                     Timestamp dateInter = null;
+                 String date = request.getParameter("date"); 
+                
+                     if (date!=null && date!="")
+                {
+                     String dateT = date.concat(" 00:00:00");
+                    dateInter =Timestamp.valueOf(dateT);
+
+                }
+                     
+                     if (typeS!=null && !typeS.equals(""))
+                     {
+                          request.setAttribute("change", "0");
+                         if (typeS.equals("Standard"))
+                         {
+                              clientSession.changerDateInterv(d,dateInter);
+                               clientSession.changerStatut(d, "Rep_en_Cours");
+                              Service s = d.getService();
+                
+                              ServiceStandard ss = clientSession.rechercheSS(s.getId());
+                              
+                              
+                               List<Offre_Profil_Util_CV> listeO = clientSession.rechercheOPUCParU(clientT.getId(), d.getService().getOffre().getId());
+
+                                //rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli)
+                                List<UtilisateurHardis> listeCCDispo = clientSession.rechercheCDisponibles("Confirme", dateInter, s.getId(), "Standard", clientT.getId());
+                                List<UtilisateurHardis> listeCSDispo = clientSession.rechercheCDisponibles("Senior", dateInter, s.getId(), "Standard", clientT.getId());
+                                List<UtilisateurHardis> listeCJDispo = clientSession.rechercheCDisponibles("Junior", dateInter, s.getId(), "Standard", clientT.getId());
+
+                                float nbJ = ss.getNbreJoursConsultantJ();
+                                float nbS = ss.getNbreJoursConsultantS();
+                                float nbC = ss.getNbreJoursConsultantC();
+
+
+                                String[] listeC = new String[1];
+                                String[] listeJ = new String[1];
+                                String[] listeS = new String[1];
+
+
+                                if (nbJ!=0 && listeCJDispo.size()!=0){
+                                   listeJ[0]=listeCJDispo.get(0).getId().toString();
+                                   clientSession.choixConsultants(Long.valueOf(idD), null, listeJ, null);
+                                }
+                                if (nbS!=0 && listeCSDispo.size()!=0)
+                                {
+                                   listeS[0]=listeCSDispo.get(0).getId().toString();
+                                   clientSession.choixConsultants(Long.valueOf(idD), null, null, listeS);
+                                }
+
+                                if (nbC!=0 && listeCCDispo.size()==0)
+                                {
+                                     listeC[0]=listeCCDispo.get(0).getId().toString();
+                                   clientSession.choixConsultants(Long.valueOf(idD), listeC, null, null);
+                                }
+                              
+                              
+                                jspClient = "/Client/afficheDevis.jsp";
+                              
+                         }
+                         else if (typeS.equals("Non_Standard")) // on change la date mais c'est au gestionnaire de valider
+                         {
+                             clientSession.changerDateInterv(d,dateInter);                            
+                             clientSession.changerStatut(d, "Rep_en_Cours");
+                             jspClient = "/Client/afficheDevis.jsp";
+                           //  clientSession.creerNotif(id, message);
+                         }
+                     }
+                     
+                     
+                     
+                 
+                }
          }
         
         else if (act.equals("choixConsultants")) {

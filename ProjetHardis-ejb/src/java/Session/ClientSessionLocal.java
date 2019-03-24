@@ -128,6 +128,12 @@ public interface ClientSessionLocal {
 
     float getCA(int annee, Long idCli);
 
+    void changerDateInterv(Devis d, Date dte);
+
+    void changerStatut(Devis d, String statut);
+
+    void majMontantDevis(long idD, float mont);
+
 
     
 }

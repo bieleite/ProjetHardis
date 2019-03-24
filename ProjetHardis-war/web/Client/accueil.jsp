@@ -29,8 +29,9 @@
     </section>
 <%List<Devis> listeD = listeDevis; 
 List<Devis> listeDAn = listeDevisAn;
-String v = (String)request.getAttribute("nbD");
-String mont = (String)request.getAttribute("mont");
+
+int v = Integer.valueOf(request.getAttribute("nbD").toString());
+float mont = Float.valueOf(request.getAttribute("mont").toString());
 %>
     <!-- Main content -->
     <section class="content">
@@ -60,10 +61,7 @@ String mont = (String)request.getAttribute("mont");
 
               <p>Devis en cours</p>
             </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            
           </div>
         </div>
         <!-- ./col -->
@@ -75,27 +73,11 @@ String mont = (String)request.getAttribute("mont");
 
               <p>CA facture 2019</p>
             </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+           
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>65</h3>
-
-              <p>Unique Visitors</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
+     
         <!-- ./col -->
       </div>
               

@@ -255,6 +255,21 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         em.merge(d);
     }
 
+    @Override
+    public void changerStatut(Devis d, String s) {
+        if (s.equals("Rep_en_Cours"))
+        {
+            d.setStatut(Statut.Rep_en_Cours);
+        }
+         em.merge(d);
+    }
+
+    @Override
+    public void majMontant(Devis d, float mont) {
+        d.setMontantDevis(mont);
+        em.merge(d);
+    }
+
    
     
     
