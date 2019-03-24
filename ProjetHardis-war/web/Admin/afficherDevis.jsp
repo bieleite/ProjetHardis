@@ -91,7 +91,7 @@
                   <th>Service</th>
                   <th>Type Service</th>
                   <th>Statut</th>
-                  <th>Type Devis</th>
+                  <th>Offre Devis</th>
                   <th>Date Devis</th>
                 </tr>
                 </thead>
@@ -106,7 +106,7 @@
                     <td><%=devis.getService().getNomService() %> </td>
                     <td><%=devis.getService().getTypeService().name() %></td>
                     <td><span class="label label-primary"><%=devis.getStatut().name() %></span> </td>
-                    <td><%=devis.getTypeDevis() %> </td>
+                    <td><%=devis.getService().getOffre().getLibelle() %> </td>
                     <td><%=dformat.format(devis.getDateDevis()) %> </td>
                  
                   

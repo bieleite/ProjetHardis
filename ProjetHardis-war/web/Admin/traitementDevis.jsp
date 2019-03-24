@@ -138,48 +138,49 @@
               <div class="box-tools pull-right">
                     <div class="btn-group">
                         <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
-                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                        <a href="servAdmin?action=RelancerDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn btn-default">Relancer Client</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Rep_en_Cours && devistraitement.getTypeDevis()==TypeService.Non_Standard )  {%>
                         <a href="servAdmin?action=ValiderDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn  btn-primary" >Valider Devis</button></a>
                         <%}%>
+                        <% if(devistraitement.getStatut()==Statut.Transmettre_au_client )  {%>
+                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary" disabled >Valider Devis</button></a>
+                        <%}%>
                         <% if(devistraitement.getStatut()==Statut.Envoye )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Affecter Devis</button></a>
+                            <button type="button" class="btn  btn-primary" disabled>Affecter Devis</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Valide )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                            <button type="button" class="btn  btn-primary" disabled>Valider Devis</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Refuse )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                            <button type="button" class="btn  btn-primary" disabled>Valider Devis</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.En_nego )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                            <button type="button" class="btn  btn-primary" disabled>Valider Devis</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Acompte_regle )  {%>
-                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                        <a href="servAdmin?action=PrestationtermineeDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary">Prestation Terminnée</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Presta_terminee )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                            <button type="button" class="btn  btn-primary" disabled>Prestation Terminnée</button></a>
                         <%}%>
-                        <% if(devistraitement.getStatut()==Statut.Transmettre_au_client )  {%>
-                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
-                        <%}%>
+                        
                         <% if(devistraitement.getStatut()==Statut.Modif_date )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                            <button type="button" class="btn  btn-primary" disabled>Prestation Terminnée</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Total_regle )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary">Valider Devis</button></a>
+                            <button type="button" class="btn  btn-primary" disabled>Prestation Terminnée</button></a>
                         <%}%>
                     </div>
                     

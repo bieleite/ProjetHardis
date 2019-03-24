@@ -732,6 +732,18 @@ public class servAdmin extends HttpServlet {
                 doActionValiderDevisNonStandard(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
             }
+            else if(act.equals("RelancerDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionRelancerDevisNonStandard(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("PrestationtermineeDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionPrestationtermineeDevis(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
+            }
             else if(act.equals("ModifierDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
@@ -744,6 +756,7 @@ public class servAdmin extends HttpServlet {
                 doActionAffecterDevis(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
             }
+            
             
             else if(act.equals("ContactMail"))
             {
@@ -1671,7 +1684,17 @@ public class servAdmin extends HttpServlet {
                 Long idagence = Long.valueOf(agenceEntreprise);
                 administrateurHardisSession.modifieEntreprise(identre, idagence, "", null, "", "", 0, "", "", ut);
 //                long identreprise, long idagence,  String nom, String[] listidinterlocuteurs , String codeContrat, String mdpEntreprise, long idadresse, String lienJustif, String numeroEnt, UtilisateurHardis hardis
-
+                List<Entreprise> listeEntreprise = administrateurHardisSession.listEntreprise();
+                if (listeEntreprise==null) listeEntreprise=new ArrayList<>();
+                 List<Agence> listeAgence = new ArrayList<>(); 
+                String test = request.getParameter("test");
+                if(test!=null && !test.isEmpty()){
+                    listeAgence = administrateurHardisSession.listAgence();
+                    if (listeAgence==null) listeAgence=new ArrayList<>();
+                    
+                }
+                request.setAttribute("listeAgence",listeAgence);
+                request.setAttribute("listeEntreprise",listeEntreprise);
                 
             }
             else{
@@ -1745,6 +1768,46 @@ public class servAdmin extends HttpServlet {
                 else{
                     administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
                 }                 
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionRelancerDevisNonStandard(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idDevis = request.getParameter("idDevis");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idUtili = ut.getId();
+                Long iddevis = Long.valueOf(idDevis);
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
+                SendMail send = new SendMail();
+                String messa = "<p>Bonjour, <br> Vous avez envoyée un devis avec nous, mais il parait qu'il manque quelque informations afin que nous puissions traiter vos devis cliquer <a href=\"\">ici</a> pour finaliser votre devis. <br> Si vous avez des questions, n'hesitez pas à nous contacter<br> Cordialement, Hardis</p> ";
+                send.sendMail(devis.getClient().getLogin(),"Devis Hardis: DEV"+devis.getId(), messa);                
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionPrestationtermineeDevis(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idDevis = request.getParameter("idDevis");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idUtili = ut.getId();
+                Long iddevis = Long.valueOf(idDevis);
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
+                Offre of = devis.getService().getOffre(); 
+                administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Presta_terminee, devis.getClient().getId(), devis.getAgence().getId(), ut);
+                              
                 
             }
             else{
