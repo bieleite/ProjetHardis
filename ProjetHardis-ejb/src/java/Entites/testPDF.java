@@ -24,14 +24,17 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.List;
+
 
 /**
  *
  * @author 6170361
  */
 public class testPDF {
-    public void test(String dest, List<List<String>> lignes) throws FileNotFoundException
+    public void test(Facture f) throws FileNotFoundException
     {
   
 
@@ -39,16 +42,18 @@ public class testPDF {
        try{
     //Read file using PdfReader
   
+String s = System.getProperty("user.name"); 
+    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\"+s+"\\Documents\\FACT"+f.getId()+".pdf"));
+ 
 
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\anastasia.salari\\Documents\\conditio.pdf"));
+
          document.open();
          Paragraph p = new Paragraph();
          
         
-           Paragraph p1 = new Paragraph();
+         Paragraph p1 = new Paragraph();
 
-      
-         
+    
         
        p1.setSpacingAfter(10);
        p1.setSpacingBefore(50);
@@ -60,7 +65,7 @@ public class testPDF {
        p.setSpacingBefore(50);
        p.setAlignment(2);
        p.setIndentationLeft(3);
-       p.add(dest);
+       p.add(f.getDevis().getClient().getEntreprise().getAdresseFact().getCodePostal().toString());
        document.add(p);
         
         
@@ -71,25 +76,42 @@ public class testPDF {
         table.setSpacingAfter(10f); //Space after table
  
         //Set Column widths
-        float[] columnWidths = {1f, 1f, 1f};
+        float[] columnWidths = {1f, 1f, 1f,1f,1f};
         table.setWidths(columnWidths);
         
-        for (List<String> list : lignes){
-            table = new PdfPTable(5);
-            for (String s : list){
- 
-        PdfPCell cell1 = new PdfPCell(new Paragraph(s));
+        PdfPCell cell1 = new PdfPCell(new Paragraph("Consultant"));
         cell1.setBorderColor(BaseColor.BLUE);
         cell1.setPaddingLeft(10);
         cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
  
         table.addCell(cell1);
-
-            }
         
-        }
+        PdfPCell cel = new PdfPCell(new Paragraph("Quantité"));
+        cel.setBorderColor(BaseColor.BLUE);
+        cel.setPaddingLeft(10);
+        cel.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cel.setVerticalAlignment(Element.ALIGN_MIDDLE);
  
+        table.addCell(cel);
+        
+         PdfPCell cell = new PdfPCell(new Paragraph("Unité"));
+        cell.setBorderColor(BaseColor.BLUE);
+        cell.setPaddingLeft(10);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+ 
+        table.addCell(cell);
+        
+         PdfPCell cellll = new PdfPCell(new Paragraph("PrixHT/jour"));
+        cellll.setBorderColor(BaseColor.BLUE);
+        cellll.setPaddingLeft(10);
+        cellll.setHorizontalAlignment(Element.ALIGN_CENTER);
+        cellll.setVerticalAlignment(Element.ALIGN_MIDDLE);
+ 
+        table.addCell(cellll);
+
+  
         document.add(table);
  
         document.close();
