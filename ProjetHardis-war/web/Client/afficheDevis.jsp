@@ -4,6 +4,7 @@
     Author     : 6170361
 --%>
 
+<%@page import="Entites.Facture"%>
 <%@page import="Entites.UtilisateurHardis"%>
 <%@page import="java.security.Signature"%>
 <%@page import="Entites.HistoriqueDevis"%>
@@ -25,6 +26,7 @@
  <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
   <jsp:useBean id="listMessage" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeConsu" scope="session" class = "java.util.List"> </jsp:useBean>
+      <jsp:useBean id="facture1" scope="request" class = "Entites.Facture"> </jsp:useBean>
   
 
      
@@ -38,6 +40,7 @@
   <% Devis d = devis;%>
   
     <% List<Communication> liste = listMessage;
+    Facture f = facture1;
 %>
    <body>
         <!-- Content Wrapper. Contains page content -->
@@ -135,7 +138,7 @@
                    
                    <td> <% if ( d.getStatut().toString().equals("Acompte_regle"))
                    { 
-                   %><a href="">
+                   %><a href="<%=f.getLienFact()%>">
                            Facture</a> <% }
 
 else out.print("Facture non disponible"); %></td>
@@ -151,7 +154,7 @@ else out.print("Facture 2 non disponible");
 { %>
   <td><a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>">Devis</a></span></td>
                    <td> <% if ( d.getStatut().toString().equals("Acompte_regle")) {
-                       %><a href="">
+                       %><a href="servClient?action=recupF&idDev=<%=d.getId()%>">
                            Facture</a> <% }
 else out.print("Facture non disponible"); %></td>
                    

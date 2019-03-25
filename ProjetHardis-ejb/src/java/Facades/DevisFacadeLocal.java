@@ -85,5 +85,8 @@ public interface DevisFacadeLocal {
 
     void majMontant(Devis d, float mont);
 
+    void majMotifRefus(Devis d, String motif);
+
+
   
 }

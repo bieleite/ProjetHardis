@@ -39,13 +39,14 @@ public class FactureFacade extends AbstractFacade<Facture> implements FactureFac
     }
 
     @Override
-    public Facture creerFacture(Date date, Devis devis, float montant, float montantDepass, String motifDepass) {
+    public Facture creerFacture(Date date, Devis devis, float montant, float montantDepass, String motifDepas, String lienF) {
         Facture f = new Facture();
         f.setDateFacture(date);
         f.setDevis(devis);
         f.setMontant(montant);
         f.setMontantDepass(montantDepass);
-        f.setMotifDepass(motifDepass);
+        f.setMotifDepass(motifDepas);
+        f.setLienFact(lienF);
         f.setPaye(false);
         em.persist(f);
         return f;
@@ -97,6 +98,12 @@ public class FactureFacade extends AbstractFacade<Facture> implements FactureFac
     @Override
     public void payerFacture(Facture f) {
         f.setPaye(true);
+        em.merge(f);
+    }
+
+    @Override
+    public void majLienF(Facture f, String lien) {
+        f.setLienFact(lien);
         em.merge(f);
     }
     

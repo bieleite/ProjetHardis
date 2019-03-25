@@ -30,8 +30,8 @@
 <%List<Devis> listeD = listeDevis; 
 List<Devis> listeDAn = listeDevisAn;
 
-int v = Integer.valueOf(request.getAttribute("nbD").toString());
-float mont = Float.valueOf(request.getAttribute("mont").toString());
+int v = Integer.valueOf(session.getAttribute("nbD").toString());
+float mont = Float.valueOf(session.getAttribute("mont").toString());
 %>
     <!-- Main content -->
     <section class="content">
@@ -131,7 +131,7 @@ float mont = Float.valueOf(request.getAttribute("mont").toString());
                       
                       else if (d.getStatut().toString().equals("Refuse"))
                       
-                           out.print("<span class=\"label label-warning\">Validé, en attente de paiement</span>");
+                           out.print("<span class=\"label label-warning\">Refusé</span>");
                      
                       else if (d.getStatut().toString().equals("Acompte_regle"))
                        

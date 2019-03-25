@@ -159,7 +159,7 @@ public interface AdministrateurHardisSessionLocal {
 
     void modifieEntreprise(long identreprise,long aidgence,  String nom, String[] listidinterlocuteurs, String codeContrat, String mdpEntreprise, long idadresse, String lienJustif, String numeroEnt, UtilisateurHardis hardis);
 
-    Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis);
+    Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis, String lienF);
     
     void modifierFacture(long idfacture, Date date, long iddevis, float montant, long montantD, String motifD, UtilisateurHardis hardis);
     
