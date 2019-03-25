@@ -133,14 +133,14 @@
                    %>
                    <td><a href="servClient?action=consulteDevis&idDev=<%out.print(d.getId());%>">Devis</a></span></td>
                    
-                   <td> <% if (d.getStatut().toString().equals("Valide") || d.getStatut().toString().equals("Acompte_regle"))
+                   <td> <% if ( d.getStatut().toString().equals("Acompte_regle"))
                    { 
-                   %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%out.print(d.getId());%>">
+                   %><a href="">
                            Facture</a> <% }
 
 else out.print("Facture non disponible"); %></td>
                    <td> <% if (d.getStatut().toString().equals("Presta_terminee"))
-                   { %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%out.print(d.getId());%>">
+                   { %><a href="">
                            Facture</a> <% }
 else out.print("Facture 2 non disponible");
 }%></td>
@@ -150,8 +150,8 @@ else out.print("Facture 2 non disponible");
        if(d.getStatut().toString().equals("Envoye"))
 { %>
   <td><a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>">Devis</a></span></td>
-                   <td> <% if (d.getStatut().toString().equals("Envoye") || d.getStatut().toString().equals("Acompte_regle")) {
-                       %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%=d.getId()%>">
+                   <td> <% if ( d.getStatut().toString().equals("Acompte_regle")) {
+                       %><a href="">
                            Facture</a> <% }
 else out.print("Facture non disponible"); %></td>
                    

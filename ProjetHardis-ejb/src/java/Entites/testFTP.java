@@ -24,7 +24,7 @@ import org.apache.commons.net.ftp.FTPClient;
 public class testFTP {
     
     
-  public void upload(){
+  public void upload(String lien){
       FTPClient client = new FTPClient();
  
   FileInputStream fis = null;
@@ -38,9 +38,13 @@ client.connect("cpanel.freehosting.com");
  
 client.login("lucialei", "rj3fTOw378");
   
+String s = System.getProperty("user.name"); 
+
+ String lienComplet =  "C:\\Users\\"+s+"\\Documents\\"+lien;
  
  
-String filename = "C:\\Users\\anastasia.salari\\Documents\\conditi.pdf";
+ 
+String filename = lienComplet;
  
  
 fis = new FileInputStream(filename);
@@ -49,8 +53,14 @@ fis = new FileInputStream(filename);
  
 // Store file on server and logout
  
- 
-client.storeFile(filename, fis);
+
+boolean b = client.storeFile("/public_html/"+lien, fis);
+
+if (b)
+{
+    File file = new File(lienComplet);
+  //  file.delete();
+}
  
  
 client.logout();
@@ -114,8 +124,8 @@ try {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
  
             // APPROACH #1: using retrieveFile(String, OutputStream)
-            String remoteFile1 = "/public_ftp/conditions.docx";
-            File downloadFile1 = new File("conditions.docx");
+            String remoteFile1 = "/public_html/conditions.docx";
+            File downloadFile1 = new File("C:\\Users\\pedago\\Desktop\\conditions.docx");
             OutputStream outputStream1 = new BufferedOutputStream(new FileOutputStream(downloadFile1));
             boolean success = ftpClient.retrieveFile(remoteFile1, outputStream1);
             outputStream1.close();

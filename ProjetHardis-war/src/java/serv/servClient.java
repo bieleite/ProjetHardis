@@ -64,22 +64,8 @@ public class servClient extends HttpServlet {
 
     protected Client connexion(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //         
-        //  testFTP test = new testFTP();
-        //  test.downloadFTP();
+
         
-        
-        /*    testPDF test = new testPDF();
-        try {
-            test.test();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ClientSession.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        testFTP test1 = new testFTP();
-        test1.upload();
-        
-*/
         sess = request.getSession(true);
         String email = request.getParameter("email");
         String mdp = request.getParameter("mdp");
@@ -250,7 +236,17 @@ public class servClient extends HttpServlet {
                 if (listeDevis == null) {
                     listeDevis = new ArrayList<>();
                 }
+                 List<Devis> listeDevisC = clientSession.afficherDevisStatut(clientT.getId(),"Rep_en_cours");
+                  List<Devis> listeDevisN = clientSession.afficherDevisStatut(clientT.getId(),"En_nego");
+                    List<Devis> listeDevisE = clientSession.afficherDevisStatut(clientT.getId(),"Envoye");
+                int nbre = listeDevisC.size()+listeDevisN.size()+listeDevisE.size();
+                     float mont = clientSession.getCA(2019, clientT.getId());
+                List<Devis> listeDevisAn =  clientSession.recupContratsParAn(2019, clientT.getId());
                 jspClient = "/Client/tabBord.jsp";
+                   request.setAttribute("nbD", nbre);
+                   request.setAttribute("mont", mont);
+
+                sess.setAttribute("listeDevisAn", listeDevisAn);
 
                 sess.setAttribute("listeNotif", listeNotif);
                 sess.setAttribute("listeDevis", listeDevis);
@@ -497,10 +493,6 @@ public class servClient extends HttpServlet {
              
                   Facture f = clientSession.creerFacture(d.getId());
    
-      
-            
-
-
             
 
             }
@@ -519,7 +511,11 @@ public class servClient extends HttpServlet {
                     boolean b = true;
                  long id = Long.valueOf(idD);
                  Devis d = clientSession.recupDevis(id);
-                 Date dateInter = d.getDateIntervSouhaitee();
+                 Date ddt = d.getDateIntervSouhaitee();
+              //   String dd = ddt.toString();
+              //   dd.concat(" 00:00:00");
+              //   Date dateInter=Timestamp.valueOf(dd);
+       
                  
                 Service s = d.getService();
                 
@@ -528,9 +524,9 @@ public class servClient extends HttpServlet {
                 List<Offre_Profil_Util_CV> listeO = clientSession.rechercheOPUCParU(clientT.getId(), d.getService().getOffre().getId());
 
                 //rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli)
-                List<UtilisateurHardis> listeCCDispo = clientSession.rechercheCDisponibles("Confirme", dateInter, s.getId(), "Standard", clientT.getId());
-                List<UtilisateurHardis> listeCSDispo = clientSession.rechercheCDisponibles("Senior", dateInter, s.getId(), "Standard", clientT.getId());
-                List<UtilisateurHardis> listeCJDispo = clientSession.rechercheCDisponibles("Junior", dateInter, s.getId(), "Standard", clientT.getId());
+                List<UtilisateurHardis> listeCCDispo = clientSession.rechercheCDisponibles("Confirme", ddt, s.getId(), "Standard", clientT.getId());
+                List<UtilisateurHardis> listeCSDispo = clientSession.rechercheCDisponibles("Senior", ddt, s.getId(), "Standard", clientT.getId());
+                List<UtilisateurHardis> listeCJDispo = clientSession.rechercheCDisponibles("Junior", ddt, s.getId(), "Standard", clientT.getId());
 
                 float nbJ = ss.getNbreJoursConsultantJ();
                 float nbS = ss.getNbreJoursConsultantS();
@@ -560,6 +556,7 @@ public class servClient extends HttpServlet {
                 
                 }
                 
+                  jspClient = "/Client/consulteDevis.jsp";
          }
          
          

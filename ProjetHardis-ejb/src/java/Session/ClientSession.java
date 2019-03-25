@@ -25,6 +25,7 @@ import Entites.Notification;
 import Entites.Offre;
 import Entites.Offre_Profil_Util_CV;
 import Entites.ProfilMetier;
+import Entites.SendMail;
 import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.Statut;
@@ -33,6 +34,7 @@ import Entites.TypeService;
 import Entites.TypeUtilisateur;
 import Entites.Utilisateur;
 import Entites.UtilisateurHardis;
+import Entites.testFTP;
 import Entites.testPDF;
 import Facades.AdresseFacadeLocal;
 import Facades.AgenceFacadeLocal;
@@ -447,12 +449,21 @@ return e;
     public Facture creerFacture(long id) {
            Devis d = devisFacade.rechercheDevis(id);
            Facture f = factureFacade.creerFacture(new Date(), d, d.getMontantDevis(), 0, "");
-           /*     testPDF test = new testPDF();
+      
+           
+           testPDF test = new testPDF();
+          
         try {
-            test.test();
+            test.test(f);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ClientSession.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
+        
+        testFTP test1 = new testFTP();
+        test1.upload("FACT"+f.getId()+".pdf");
+        
+        SendMail send = new SendMail();
+        send.sendMailA(d.getClient().getLogin(), "Facture Hardis", "Ci-joint facture hardis","FACT"+f.getId()+".pdf");
            return f;
     }
     
