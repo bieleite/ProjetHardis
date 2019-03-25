@@ -145,7 +145,7 @@ else out.print("Facture non disponible"); %></td>
 else out.print("Facture 2 non disponible");
 }%></td>
       <%
-    if (d.getTypeDevis().equals("Non_Standard")){
+    if (d.getTypeDevis().toString().equals("Non_Standard")){
    
        if(d.getStatut().toString().equals("Envoye"))
 { %>
