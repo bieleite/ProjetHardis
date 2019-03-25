@@ -10,5 +10,5 @@ package Entites;
  * @author anastasia.salari
  */
 public enum Expertise {
-    Junior, Senior, Confirme
+    Junior, Senior, Confirme , vide
 }
