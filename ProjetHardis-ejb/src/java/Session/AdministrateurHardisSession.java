@@ -50,6 +50,7 @@ import Facades.ProfilMetierFacadeLocal;
 import Facades.ServiceFacadeLocal;
 import Facades.ServiceStandardFacadeLocal;
 import Facades.UtilisateurHardisFacadeLocal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -1470,5 +1471,129 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         }
         return de;
     
+    }
+    
+    @Override
+    public List<UtilisateurHardis> rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli,float nbreJ) {
+         Client c = clientFacade.rechercheClient(idCli);
+         List<UtilisateurHardis>  listeUD = new ArrayList<>();
+         if (date instanceof java.sql.Date)
+         {
+               String dateT = date.toString().concat(" 00:00:00");
+               date = Timestamp.valueOf(dateT);
+         }
+       
+         
+        Service servSt = null;
+        if (typeS.equals("Non_Standard"))
+        {
+              servSt = serviceFacade.rechercheServiceParId(idS);
+             
+              
+      
+       
+         
+        
+        List<UtilisateurHardis>  listeU =  utilisateurHardisFacade.rechercheUtilisateurHParAgence(c.getAgence());
+          
+     
+           
+           for (UtilisateurHardis u : listeU )
+           {
+               List<Offre_Profil_Util_CV> o = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateur(u);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   ProfilMetier pm = compteur.getProfil();
+                   if (pm.getNiveauHabilitation().toString().equals("Consultant") && 
+                           compteur.getOffre().equals(servSt.getOffre())&&
+                           pm.getNiveauExpertise().toString().equals(typeC))
+                       listeUD.add(u);
+               }
+           }
+           
+           for (UtilisateurHardis u : listeUD)
+           {
+               List<Disponibilite> liste = disponibiliteFacade.rechercheDisponibiliteParUtilisateur(u);
+               boolean b = true;
+               
+               for (Disponibilite d : liste)
+               {
+                   
+                   if (d.getDateDebut().getDate()==date.getDate() && 
+                           d.getDateDebut().getMonth()==date.getMonth() &&
+                           d.getDateDebut().getYear()==date.getYear())
+                   {
+                       if (nbreJ<1) //demi-journée
+                       {
+                           if (d.getDateDebut().getHours()>=8 && d.getDateFin().getHours()>=14) //si un truc le matin et fini apres 14h
+                               b = false;
+                           else if (d.getDateDebut().getHours()>=14)
+                               b = false;
+                       }
+                       else b = false;
+                   }
+                   
+                   else {
+                       if (nbreJ>1)
+                       {
+                           int t = (int) nbreJ*24;
+                           Date test = date;
+                       
+                           int te = test.getHours();
+                           test.setHours(test.getHours()+t);
+                           
+                           if (d.getDateFin().before(test))
+                               
+                               b= false;
+                       }
+                   }
+                       
+               }
+           }
+        
+        
+        
+        
+        
+                }
+        
+        
+        
+        
+        return listeUD;
+    }
+    
+    @Override
+    public float recherchePrixOffreC(UtilisateurHardis u, Offre off) {
+    float prix = 0;
+            List<Offre_Profil_Util_CV> o = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateur(u);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   ProfilMetier pm = compteur.getProfil();
+                   if (pm.getNiveauHabilitation().toString().equals("Consultant") && 
+                           compteur.getOffre().equals(off)
+                          )
+                       prix = compteur.getPrixUnit();
+               }
+
+        return prix;
+    }
+    
+    @Override
+    public String rechercheLibConsultOffre(UtilisateurHardis u, Offre off) {
+      String lib = "";
+        List<Offre_Profil_Util_CV> o = offre_Profil_Util_CVFacade.rechercheOPUCParUtilisateur(u);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   ProfilMetier pm = compteur.getProfil();
+                   if (pm.getNiveauHabilitation().toString().equals("Consultant") && 
+                           compteur.getOffre().equals(off)
+                          )
+                      lib = pm.getNiveauExpertise().toString();
+               }
+        return lib;
     }
 }

@@ -364,4 +364,10 @@ public interface AdministrateurHardisSessionLocal {
     Offre_Profil_Util_CV rechercheOPUCParUtilisateurEtOffre(UtilisateurHardis u, Offre o);
 
     List<Devis> rechercherDevisParClient(long idCli, UtilisateurHardis u);
+    
+    List<UtilisateurHardis> rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli,float nbreJ);
+    
+    float recherchePrixOffreC(UtilisateurHardis u, Offre off);
+    
+    String rechercheLibConsultOffre(UtilisateurHardis u, Offre off);
 }

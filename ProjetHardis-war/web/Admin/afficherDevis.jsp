@@ -49,10 +49,9 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Tableau de bord</li>
-        <li class="active">Devis</li>
-        <li class="active">Afficher Devis</li>
+        <li><a href="servAdmin?action=Menu"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="servAdmin?action=Menu"> Tableau de Bord</a></li>
+        <li><a href="servAdmin?action=listesDevis"> Devis</a></li>
       </ol>
     </section>
 

@@ -662,14 +662,74 @@ public class servAdmin extends HttpServlet {
                 UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
                 List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
                 String champ = request.getParameter("idDevis");
+                String faire = request.getParameter("faire");
                 Long iddevis = Long.valueOf(champ);
                 Devis a = administrateurHardisSession.rechercherDevis(iddevis, utilisateur);
+                List<UtilisateurHardis> listeConsultantOffre = new ArrayList<>();
+                if(faire!=null&&faire.equals("valider")){
+                faire = "valider";
+                request.setAttribute("faire",faire);}
+                if(faire!=null&&faire.equals("affecter")){
+                Long of = a.getService().getOffre().getId();                
+                List<Offre_Profil_Util_CV> o = administrateurHardisSession.listHistoriqueOffre_Profil_Util_CV(utilisateur);
+             
+               for (Offre_Profil_Util_CV compteur : o)
+               {
+                   if ( compteur.getOffre().equals(a.getService().getOffre()))
+                       listeConsultantOffre.add(compteur.getUtilisateur());
+               }}
                 List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
                 request.setAttribute("listeHTVide",listeHTVide);
+                request.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 sess.setAttribute("devistraitement",a);
                 jspClient="/Admin/traitementDevis.jsp";
+                
+            }
+             else if(act.equals("affecterConsultantDevis"))
+            {
+                UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
+                List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
+                String champ = request.getParameter("idDevis");             
+                String nombreJour = request.getParameter("nombreJour");
+                    Float numJour = Float.valueOf(nombreJour);
+                Long iddevis = Long.valueOf(champ);
+                Devis a = administrateurHardisSession.rechercherDevis(iddevis, utilisateur);
+                List<UtilisateurHardis> listeConsultantOffre = new ArrayList<>();
+                    
+                Long of = a.getService().getOffre().getId();         
+                 List<UtilisateurHardis> listeCCDispo = administrateurHardisSession.rechercheCDisponibles("Confirme", a.getDateIntervSouhaitee(), a.getService().getId(), "Non_Standard", a.getClient().getId(), numJour);
+                List<UtilisateurHardis> listeCSDispo = administrateurHardisSession.rechercheCDisponibles("Senior", a.getDateIntervSouhaitee(), a.getService().getId(), "Non_Standard", a.getClient().getId(), numJour);
+                List<UtilisateurHardis> listeCJDispo = administrateurHardisSession.rechercheCDisponibles("Junior", a.getDateIntervSouhaitee(), a.getService().getId(), "Non_Standard", a.getClient().getId(), numJour);
+                List<Offre_Profil_Util_CV> o = administrateurHardisSession.listHistoriqueOffre_Profil_Util_CV(utilisateur);             
+               
+                       listeConsultantOffre.addAll(listeCCDispo);
+                        listeConsultantOffre.addAll(listeCSDispo);
+                        listeConsultantOffre.addAll(listeCJDispo);
+               
+               List<Float> PrixU =  new ArrayList<Float>();
+                  List<String> listeLibC =  new ArrayList<String>();
+                
+                for (UtilisateurHardis u : listeConsultantOffre)
+                {
+                    float prixUni = administrateurHardisSession.recherchePrixOffreC(u, a.getService().getOffre());
+                    PrixU.add(prixUni);
+                    String lib = administrateurHardisSession.rechercheLibConsultOffre(u, a.getService().getOffre());
+                    listeLibC.add(lib);
+                 
+                }
+                   request.setAttribute("listeLibC", listeLibC);
+                    request.setAttribute("PrixU", PrixU);
+                List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
+                if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
+                request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
+                request.setAttribute("listeHTVide",listeHTVide);
+                request.setAttribute("listeConsultantOffre",listeConsultantOffre);
+                request.setAttribute("nombreJour",numJour);
+                sess.setAttribute("devistraitement",a);
+                jspClient="/Admin/affecterConsultant.jsp";
+                
             }
             else if(act.equals("formUtilisateur"))
             {
@@ -770,6 +830,12 @@ public class servAdmin extends HttpServlet {
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                doActionModifierProfilMetierUtilisateur(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("AffecterConsultantAUnDevis"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+               doActionAffecterConsultantAUnDevis(request,response);
                jspClient="/Admin/dashboardAdmin.jsp";
             }
             
@@ -1694,7 +1760,7 @@ public class servAdmin extends HttpServlet {
                 Devis devis = administrateurHardisSession.rechercherDevis(iddevis, ut);
                 java.util.Date d = new java.util.Date();
                 administrateurHardisSession.creerHistoriqueTraitement(d, null, TypeUtilisateur.r, iddevis, id, idref, 0, ut);
-
+                sess.setAttribute("devistraitement",devis);
                 
             }
             else{
@@ -1790,15 +1856,17 @@ public class servAdmin extends HttpServlet {
                 Long idUtili = ut.getId();
                 Long iddevis = Long.valueOf(idDevis);
                 Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
-                Offre of = devis.getService().getOffre();                
+                Offre of = devis.getService().getOffre();   
                 Offre_Profil_Util_CV unopcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(ut, of);
                 if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
                         administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);   
                         administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
+                        administrateurHardisSession.creerHistoriqueTraitement(null, null, TypeUtilisateur.v, iddevis, 0, 0, ut.getId(), ut);
                 }
                 else{
                     administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
                     administrateurHardisSession.creerHistoriqueEtats(Statut.Transmettre_au_client, devis.getId(), ut);
+                    administrateurHardisSession.creerHistoriqueTraitement(null, null, TypeUtilisateur.v, iddevis, 0, 0, ut.getId(), ut);
                 }                 
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();    
                           if (listeDevis==null) listeDevis=new ArrayList<>();
@@ -1852,6 +1920,56 @@ public class servAdmin extends HttpServlet {
                           sess.setAttribute("listeDevis",listeDevis);
                           sess.setAttribute("devistraitement",devis);
                 
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionAffecterConsultantAUnDevis(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String iddevis = request.getParameter("iddev");
+        String numJour = request.getParameter("numJour");        
+        String[] idConsultant = request.getParameterValues("idConsultant");
+        String idage = request.getParameter("idage");
+        String idcli = request.getParameter("idcli");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idDevis = Long.valueOf(iddevis);
+                Long idAgence = Long.valueOf(idage);
+                Long idClient = Long.valueOf(idcli);
+                Devis devis = administrateurHardisSession.rechercherDevis(idDevis, ut);
+                Agence agence = administrateurHardisSession.rechercherAgenceParId(idAgence);
+                Client client = administrateurHardisSession.rechercherClient(idClient, null, null, ut);
+                float somm = 0;
+                for (String consult : idConsultant){
+                Long idconsultant = Long.valueOf(consult);
+                UtilisateurHardis utili = administrateurHardisSession.rechercherUtilisateurHardisParId(idconsultant, ut);
+                float prixUni = administrateurHardisSession.recherchePrixOffreC(utili, devis.getService().getOffre());
+                somm +=prixUni;
+                administrateurHardisSession.creerHistoriqueTraitement(devis.getDateIntervSouhaitee() , null, TypeUtilisateur.c, idDevis, idconsultant, 0, ut.getId(), ut);
+                }
+                Long idUtili = ut.getId();
+                float jours = Float.valueOf(numJour);
+                somm*=jours;
+                Offre of = devis.getService().getOffre();   
+                Offre_Profil_Util_CV unopcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(ut, of);
+                if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
+                        administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);   
+                        administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
+                        
+                }
+                else{
+                    administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(),somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
+                    administrateurHardisSession.creerHistoriqueEtats(Statut.Transmettre_au_client, devis.getId(), ut);
+                    
+                }                 
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();    
+                          if (listeDevis==null) listeDevis=new ArrayList<>();
+                          sess.setAttribute("listeDevis",listeDevis);
+                          sess.setAttribute("devistraitement",devis);
             }
             else{
                 message= "Erreur information non inserée dans la base de données";

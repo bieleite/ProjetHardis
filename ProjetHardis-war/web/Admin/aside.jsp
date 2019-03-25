@@ -42,18 +42,15 @@
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Effacer Entreprise</a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Devis</span>
+        <li>
+          <a href="servAdmin?action=listesDevis">
+            <i class="fa fa-files-o"></i> <span>Devis</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-book"></i> <span>Afficher Devis</span></a></li>
-            <li><a href="servAdmin?action=listesDevis"><i class="fa fa-circle-o"></i> Valider Devis</a></li>
-          </ul>
-        </li>   
+        </li>
+         
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>

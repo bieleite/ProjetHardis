@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.UtilisateurHardis"%>
 <%@page import="Entites.TypeService"%>
 <%@page import="Entites.Statut"%>
 <%@page import="Entites.HistoriqueEtats"%>
@@ -37,6 +38,7 @@
     <jsp:useBean id="devistraitement" scope="session" class = "Entites.Devis"> </jsp:useBean>
     <jsp:useBean id="listeCommunicationDevis" scope="request" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeHTVide" scope="request" class= "java.util.List"></jsp:useBean>
+    <jsp:useBean id="listeConsultantOffre" scope="request" class= "java.util.List"></jsp:useBean>
     
 
 </head>
@@ -56,76 +58,23 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Tableau de bord</li>
-        <li class="active">Devis</li>
-        <li class="active">Afficher Devis</li>
-        <li class="active">Modifier Devis</li>
+        <li><a href="servAdmin?action=Menu"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="servAdmin?action=Menu"> Tableau de Bord</a></li>
+        <li><a href="servAdmin?action=listesDevis"> Devis</a></li>
+        <li><a href="#"> Afficher Devis</a></li>
       </ol>
     </section>
-
+<% SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");%>
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <% List<Devis> lesDeevis=listeDevis; %> 
       <!-- /.row -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="champ" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="action" value="RechercherDevis" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
+      <!--Form Recherche-->
       <!-- Main row -->
       <div class="row">
         <!-- left column -->
-        <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Devis</h3>
-              
-            </div>
-            
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                <th>ID</th>
-                  <th>Agence</th>
-                  <th>Client</th>
-                  <th>Entreprise</th>
-                  <th>Service</th>
-                  <th>Type Service</th>
-                  <th>Statut</th>
-                  <th>Type Devis</th>
-                  <th>Date Devis</th>
-                </tr>
-                </thead>
-                 <% SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
-                     for (Devis devis : lesDeevis){%>
-                <tbody>
-                <tr>
-                    <td><a href="servAdmin?action=formDevis&idDevis=<%=devis.getId().toString() %>" name="idDevis" value="<%=devis.getId().toString() %>">DEV<%=devis.getId()%></a></td>
-                    <td><%=devis.getAgence().getNomAgence() %> </td>
-                    <td><%=devis.getClient().getNom() %> </td>
-                    <td><%=devis.getClient().getEntreprise().getNomEntreprise() %></td>
-                    <td><%=devis.getService().getNomService() %> </td>
-                    <td><%=devis.getService().getTypeService().name() %></td>
-                    <td><span class="label label-primary"><%=devis.getStatut().name() %></span></td>
-                    <td><%=devis.getTypeDevis() %> </td>
-                    <td><%=dformat.format(devis.getDateDevis()) %> </td>
-                 
-                  
-                </tr>
-                </tbody>
-                <%}%>
-                
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+        <!-- Div Class Box -->
          
           
         <!--/.col (right) -->
@@ -140,10 +89,13 @@
                         <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
                         <a href="servAdmin?action=RelancerDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn btn-default">Relancer Client</button></a>
+                            
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Rep_en_Cours && devistraitement.getTypeDevis()==TypeService.Non_Standard )  {%>
-                        <a href="servAdmin?action=ValiderDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                        <a href="servAdmin?action=formDevis&faire=valider&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn  btn-primary" >Valider Devis</button></a>
+                            <a href="servAdmin?action=formDevis&faire=affecter&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary" >Affecter Devis</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Transmettre_au_client )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
@@ -185,7 +137,38 @@
                     </div>
                     
             </div>
-              
+                    <% List<UtilisateurHardis> lesConsultants=listeConsultantOffre;
+                    if (!lesConsultants.isEmpty()){%>
+              <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4> Consultant</h4>
+                
+                <form>
+                    <select name="ConsultantAffecte" class="form-control">
+                        
+                       <% for (UtilisateurHardis consult : lesConsultants){%>
+                    <option value="<%=consult.getId() %>"> <%=consult.getNom() %>  </option> 
+                    <%}%>
+                  </select>
+                  <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
+                     <input type="hidden" name="action" value="AffecterDevis">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div> <%}%>
+              <% String faire = (String) request.getAttribute("faire");
+                    if (faire!=null&&faire.equals("valider")){%>
+              <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4> Nombre de Jour </h4>
+                
+                <form>
+                    <label for="nombreJour">Nombre de Jours</label>
+                  <input type="txt" name="nombreJour" class="form-control" id="exampleInputEmail1" placeholder=""  >
+                  <input type="hidden" name="idDevis" value="<%=devistraitement.getId() %>">
+                     <input type="hidden" name="action" value="affecterConsultantDevis">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div> <%}%>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -199,9 +182,9 @@
                   <input type='txt' name='tpDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getTypeDevis().name() %>' disabled>
                   <label for="clientDevis">Client Devis</label>
                   <input type="txt" name="clientDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getClient().getNom() %>" disabled>
+                   <% List<HistoriqueTraitement> listHistTrait = devistraitement.getHistoriqueTraitements();%>
+                  
                   <label for="consultantDevis">Consultant Devis</label>
-                  <% List<HistoriqueTraitement> listHistTrait = devistraitement.getHistoriqueTraitements();
-                  if (listHistTrait==null) {listHistTrait=listeHTVide; }%>
                     <%for (HistoriqueTraitement htde : listHistTrait){%> 
                     <input type='txt' name='validateurDevis' class='form-control' id='exampleInputEmail1' placeholder='
                   <% if (htde.getConsultant()!=null ) {%>
@@ -261,26 +244,16 @@
                   <input type="txt" name="factDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getIndicateurFact().name() %>" disabled >
                   <label for="montDevis">Montant Devis</label>
                   <% if (devistraitement.getMontantDevis()>0 ) {%>
-                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' >
+                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' disabled>
                        <%}%>
                  <% if (devistraitement.getMontantDevis()==0 ){%>
-                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' >
+                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' disabled>
                   <%}%>                 
                   <label for="refusDevis">Motif Refus</label>
                   <textarea rows="3" name="refusDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getMotifRefus() %>" disabled ></textarea>
                   <label for="statutDevis">Statut</label>    
-                  <select  name="statutDevis" class="form-control">
-                    <option><%=devistraitement.getStatut().name() %></option>
-                    <option value="Incomplet" >Incomplet</option>
-                    <option  value="Rep_en_Cours">Reponse en Cours</option>
-                    <option value="Envoye">Envoye</option>
-                    <option value="Valide">Valide</option>
-                    <option value="Refuse">Refuse</option>
-                    <option  value="En_nego">En Negotiation</option>
-                    <option value="Acompte_regle">Acompte Reglé</option>
-                    <option value="Presta_terminee">Prestation Terminée</option> 
-                    <option value="Transmettre_au_client">Transmettre au Client</option>  
-                  </select>        
+                  <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder="<%=devistraitement.getStatut().name() %>" disabled ></textarea>
+                
                   <label for="slDevis">Saisir Libre</label>
                   <textarea class="form-control" rows="3" name="slDevis"  id="exampleInputEmail1" placeholder="<%=devistraitement.getSaisieLibre() %>" ></textarea>
                      <input type="hidden" name="idcli" value="<%=devistraitement.getClient().getId() %>">
