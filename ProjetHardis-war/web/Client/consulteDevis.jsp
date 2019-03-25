@@ -190,9 +190,7 @@
       <!-- /.row -->
 
       
-      <% String valide = (String)request.getAttribute("valide");
-      if (valide!=null && valide.equals("1"))
-      { %>
+      
       <div class="row">
         <!-- accepted payments column -->
         <div class="col-xs-6">
@@ -231,7 +229,9 @@
             
               
       <!-- /.row -->
-
+<% String valide = (String)request.getAttribute("valide");
+      if (valide!=null && valide.equals("1"))
+      { %>
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-10">
@@ -256,6 +256,19 @@
           </button>
            </a>
         </div>
+           <%  if (valide!=null && valide.equals("0")){%>
+            <form role="form">
+             <input type ="text" name="motifRefus" placeholder="Motif refus">
+                    <input type ="hidden" name="action" value="consulteDevis">
+                      <input type ="hidden" name="idDev" value="<%=d.getId()%>">
+                    
+             <a><button type="submit" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                     
+            <i class="fa fa-download"></i> Valider réfus
+          </button>
+           </a>
+            </form>
+       <%    }%>
       </div> 
       <%}
 }%>

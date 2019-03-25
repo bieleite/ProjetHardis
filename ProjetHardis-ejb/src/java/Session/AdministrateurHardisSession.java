@@ -660,9 +660,9 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis) {
+    public Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis, String lienF) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
-        Facture facture = factureFacade.creerFacture(date, devis, montant, montantDepass, motifDepass);
+        Facture facture = factureFacade.creerFacture(date, devis, montant, montantDepass, motifDepass, lienF);
         logsFacade.creerLogCreate(hardis, facture);
         return facture;
     }

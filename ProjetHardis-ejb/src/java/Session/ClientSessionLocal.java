@@ -42,7 +42,7 @@ public interface ClientSessionLocal {
 
 
 
-    void refuserDevis(long idCli, long idDevis);
+    void refuserDevis(long idCli, long idDevis, String motif);
 
 
 
@@ -86,7 +86,7 @@ public interface ClientSessionLocal {
 
     String rechercheDocDevis(long id);
 
-    Facture creerFacture(long id);
+    Facture creerFacture(long id, String lienF);
 
     void payerFactureFinale(long id);
 
@@ -135,5 +135,4 @@ public interface ClientSessionLocal {
     void majMontantDevis(long idD, float mont);
 
 
-    
 }

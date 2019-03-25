@@ -94,7 +94,8 @@ public class servInternaute extends HttpServlet {
         }
          else if (act.equals("afficheFormContact"))
         {
-             jspClient = "/Internaute/FormContact.jsp";
+             jspClient = "/PageAccueil.jsp";
+             request.setAttribute("contact", "contact");
           
 
         }

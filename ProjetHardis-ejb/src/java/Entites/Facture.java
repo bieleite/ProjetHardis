@@ -127,6 +127,27 @@ public class Facture implements Serializable {
         this.montant = montant;
     }
 
+    
+        private String lienFact;
+
+    /**
+     * Get the value of lienFact
+     *
+     * @return the value of lienFact
+     */
+    public String getLienFact() {
+        return lienFact;
+    }
+
+    /**
+     * Set the value of lienFact
+     *
+     * @param lienFact new value of lienFact
+     */
+    public void setLienFact(String lienFact) {
+        this.lienFact = lienFact;
+    }
+
     @ManyToOne
        private Devis devis;
 
@@ -139,6 +160,7 @@ public class Facture implements Serializable {
         return devis;
     }
 
+    
     /**
      * Set the value of devis
      *

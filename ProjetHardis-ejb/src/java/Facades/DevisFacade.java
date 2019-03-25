@@ -82,7 +82,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     }
     @Override
     public List<Devis> listDevis() {
-        String txt="SELECT co FROM Devis AS co ";
+        String txt="SELECT co FROM Devis AS co order by co.dateDevis desc ";
         Query req=getEntityManager().createQuery(txt);
         List<Devis> result=req.getResultList();
         return result;
@@ -198,6 +198,8 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         em.merge(d);
     }
     
+    
+    
     @Override
     public void modifDateInterv(Devis d, Date date) {
         d.setDateIntervSouhaitee(date);
@@ -206,7 +208,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
 
     @Override
     public List<Devis> afficherDevisClient(Client cli) {
-        Query requete = em.createQuery("SELECT s from Devis as s where s.client=:cli");
+        Query requete = em.createQuery("SELECT s from Devis as s where s.client=:cli order by s.dateDevis desc");
         requete.setParameter("cli",cli);     
         List<Devis> liste =  requete.getResultList();
         return liste;
@@ -261,6 +263,10 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         {
             d.setStatut(Statut.Rep_en_Cours);
         }
+        if (s.equals("Acompte_regle"))
+        {
+            d.setStatut(Statut.Acompte_regle);
+        }
          em.merge(d);
     }
 
@@ -269,6 +275,14 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         d.setMontantDevis(mont);
         em.merge(d);
     }
+
+    @Override
+    public void majMotifRefus(Devis d, String motif) {
+        d.setMotifRefus(motif);
+        em.merge(d);
+    }
+
+
 
    
     

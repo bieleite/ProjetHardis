@@ -101,7 +101,7 @@ public class SendMail {
          String filename = lienComplet;
          DataSource source = new FileDataSource(filename);
          messageBodyPart.setDataHandler(new DataHandler(source));
-         messageBodyPart.setFileName(filename);
+         messageBodyPart.setFileName(att);
          multipart.addBodyPart(messageBodyPart);
 
          // Send the complete message parts

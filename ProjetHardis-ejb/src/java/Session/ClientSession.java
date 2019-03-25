@@ -255,12 +255,12 @@ devisFacade.majHT(d, ht);
    
 
     @Override
-    public void refuserDevis(long idCli, long idDevis) {
+    public void refuserDevis(long idCli, long idDevis, String motif) {
        Client cli = clientFacade.rechercheClient(idCli);
         Devis d = devisFacade.rechercheDevis(idDevis);
-          devisFacade.accepterRefuserDevis(d, "r");
+         devisFacade.accepterRefuserDevis(d, "r");
          historiqueEtatsFacade.creerHistoriqueEtats( Statut.Refuse, d);
-         
+         devisFacade.majMotifRefus(d, motif);
           logsFacade.creerLog(Action.Update, new Date(), "maj devis avec id : "+d.getId(), cli);
     }
 
@@ -279,7 +279,8 @@ devisFacade.majHT(d, ht);
     @Override
     public void payerFacture(long idF) {
         Facture f = factureFacade.rechercheFactParId(idF);
-        factureFacade.payerFacture(f);    
+        factureFacade.payerFacture(f);  
+        
         devisFacade.changeStatutPaye("1",f.getDevis());
           historiqueEtatsFacade.creerHistoriqueEtats( Statut.Acompte_regle, f.getDevis());
         logsFacade.creerLog(Action.Create, new Date(), "creation facture pour devis id : "+f.getDevis().getId(), f.getDevis().getClient()); 
@@ -447,11 +448,18 @@ return e;
     }
 
     @Override
-    public Facture creerFacture(long id) {
+    public Facture creerFacture(long id, String lienF) {
            Devis d = devisFacade.rechercheDevis(id);
-           Facture f = factureFacade.creerFacture(new Date(), d, d.getMontantDevis(), 0, "");
+           Facture f = factureFacade.creerFacture(new Date(), d, d.getMontantDevis()/2, 0, "", "");
       
-           
+            String server = "cpanel.freehosting.com";
+       String user = "lucialei";
+       String pass = "rj3fTOw378";
+        String remoteFile = "/public_html/FACT"+f.getId()+".pdf";
+       String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
+  
+       factureFacade.majLienF(f, lien);
+  
            testPDF test = new testPDF();
           
         try {
@@ -895,6 +903,10 @@ try {
         Devis d = devisFacade.rechercheDevis(idD);
         devisFacade.majMontant(d, mont);
     }
+
+ 
+
+
     
     
     

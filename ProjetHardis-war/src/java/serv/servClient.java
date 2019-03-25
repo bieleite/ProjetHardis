@@ -21,12 +21,20 @@ import Entites.testFTP;
 import Entites.testPDF;
 import Session.ClientSession;
 import Session.ClientSessionLocal;
+import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +44,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import static javax.servlet.SessionTrackingMode.URL;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -101,8 +110,8 @@ public class servClient extends HttpServlet {
                 jspClient = "/Client/tabBord.jsp";
 
                 sess.setAttribute("listeNotif", listeNotif);
-                 request.setAttribute("nbD", nbre);
-                   request.setAttribute("mont", mont);
+                 sess.setAttribute("nbD", nbre);
+                   sess.setAttribute("mont", mont);
                 sess.setAttribute("listeDevis", listeDevis);
                 sess.setAttribute("listeDevisAn", listeDevisAn);
                 sess.setAttribute("client", c);
@@ -416,10 +425,26 @@ public class servClient extends HttpServlet {
                  
                 List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
                 jspClient = "/Client/afficheDevis.jsp";
-
+                Facture f1 = null;
+                Facture f2 = null;
+                List<Facture> listeF = clientSession.rechercheFactParDevis(id);
+                if (listeF!=null){
+                if (listeF.size()>1)
+                {
+                    f1 = listeF.get(0);
+                    f2 = listeF.get(1);
+                }
+                else if (listeF.size()==1)
+                {
+                      f1 = listeF.get(0);
+                }
+                }
                 request.setAttribute("lienD", lienDevis);
                 sess.setAttribute("listeConsu", listeConsu);
                 sess.setAttribute("devis", d);
+                request.setAttribute("facture1", f1);
+                request.setAttribute("facture2", f2);
+                
                 sess.setAttribute("listMessage", listeC);
 
             }
@@ -432,6 +457,8 @@ public class servClient extends HttpServlet {
             jspClient = "/Client/consulteDevis.jsp";
             String idD = request.getParameter("idDev");
          
+                        String motif = request.getParameter("motifRefus");
+
             List<String> listeLibC =  new ArrayList<String>();
             List<Float> PrixU =  new ArrayList<Float>();
             
@@ -459,11 +486,24 @@ public class servClient extends HttpServlet {
                     listeLibC.add(lib);
                     
                 }
-                  String valide = request.getParameter("valide");
-                 request.setAttribute("valide","1");
+                 String valide = request.getParameter("valide");
+                
                  if (valide != null && valide.equals("1")) {
                     clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
+                    request.setAttribute("valide", "1");
                  }
+                 
+                   if (valide != null && valide.equals("0")) {
+                    request.setAttribute("valide", "0");
+                 }
+                   
+                   if (motif!=null && motif!="")
+                   {
+                       clientSession.refuserDevis(clientT.getId(), id, motif);
+                        jspClient = "/Client/afficheDevis.jsp";
+                      
+                   }
+                 
                 
                 List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
                 sess.setAttribute("listeDevis", listeDevis);
@@ -491,8 +531,10 @@ public class servClient extends HttpServlet {
                   List<Float> PrixU =  new ArrayList<Float>();
                   List<String> listeLibC =  new ArrayList<String>();
                  
-             
-                Facture f = clientSession.creerFacture(d.getId());
+                    
+                Facture f = clientSession.creerFacture(d.getId(),"");
+                clientSession.payerFacture(f.getId());
+                clientSession.changerStatut(d,"Acompte_regle");
    
                      List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
                 
@@ -504,9 +546,15 @@ public class servClient extends HttpServlet {
                     listeLibC.add(lib);
                     
                 }
-                request.setAttribute("listeLibC", listeLibC);
-                request.setAttribute("PrixU", PrixU);
+                
+             
+                  jspClient = "/Client/afficheDevis.jsp";
+                sess.setAttribute("listeLibC", listeLibC);
+                  request.setAttribute("facture1", f);
+                sess.setAttribute("PrixU", PrixU);
+                 sess.setAttribute("devis", d);
                    sess.setAttribute("listeConsu", listeConsu);
+                  
 
             }
             
@@ -517,11 +565,12 @@ public class servClient extends HttpServlet {
                 sess.setAttribute("listeDevis", listeDevis);
                             
         }
+        
          
          else if (act.equals("choixConsultantsDef")) {
               String idD = request.getParameter("idDev");     
                 if (idD != "") {
-               
+               float somme = 0;
                     boolean b = true;
                  long id = Long.valueOf(idD);
                  Devis d = clientSession.recupDevis(id);
@@ -552,6 +601,7 @@ public class servClient extends HttpServlet {
                 if (nbJ!=0 && listeCJDispo.size()!=0){
                    listeJ[0]=listeCJDispo.get(0).getId().toString();
                    clientSession.choixConsultants(Long.valueOf(idD), null, listeJ, null);
+                   
                 }
                 if (nbS!=0 && listeCSDispo.size()!=0)
                 {
@@ -561,7 +611,7 @@ public class servClient extends HttpServlet {
       
                 if (nbC!=0 && listeCCDispo.size()==0)
                 {
-                     listeC[0]=listeCCDispo.get(0).getId().toString();
+                   listeC[0]=listeCCDispo.get(0).getId().toString();
                    clientSession.choixConsultants(Long.valueOf(idD), listeC, null, null);
                 }
                   List<Float> PrixU =  new ArrayList<Float>();
@@ -573,14 +623,24 @@ public class servClient extends HttpServlet {
                 {
                     float prixUni = clientSession.recherchePrixOffreC(u, d.getService().getOffre());
                     PrixU.add(prixUni);
+              
                     String lib = clientSession.rechercheLibConsultOffre(u, d.getService().getOffre());
                     listeLibC.add(lib);
-                 
+                    
+                    if (lib.equals("Junior"))
+                        somme+=prixUni*nbJ;
+                    else if  (lib.equals("Confirme"))
+                        somme+=prixUni*nbC;
+                    else if  (lib.equals("Senior"))
+                        somme+=prixUni*nbS;
+                                    
                 }
+                clientSession.majMontantDevis(id, somme);
+                
                    request.setAttribute("listeLibC", listeLibC);
                     request.setAttribute("PrixU", PrixU);
                        sess.setAttribute("listeConsu", listeConsu);
-                
+                   request.setAttribute("servS", ss);
                 }
                 
                   jspClient = "/Client/consulteDevis.jsp";
@@ -716,7 +776,11 @@ public class servClient extends HttpServlet {
                 
                       if (b1) {
                         request.setAttribute("valide", "ok");
-                      }
+                          
+                                    
+                }
+         
+                      
                   }
 
                

@@ -115,8 +115,6 @@ try {
        
         FTPClient ftpClient = new FTPClient();
         try {
- 
-                  
             
             ftpClient.connect(server, 21);
             ftpClient.login(user, pass);
