@@ -110,7 +110,7 @@
                   <td><%if(a.getAgence()!=null){%>
                       <%=a.getAgence().getNomAgence() %>
                       <%}else{%>
-                      <a href="servAdmin?action=AfficherEntreprise&test=test&idEntreprise=<%=a.getId().toString() %>" name="idEntreprise" value="<%=a.getId().toString() %>">Choisir Entreprise</a>
+                      <a href="servAdmin?action=AfficherEntreprise&test=test&idEntreprise=<%=a.getId().toString() %>" name="idEntreprise" value="<%=a.getId().toString() %>">Choisir Agence</a>
                       <% if(lesAgences.size()>0){%>
                       <form>
                     <select name="AgenceEntreprise" class="form-control">
