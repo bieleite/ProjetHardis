@@ -1793,12 +1793,17 @@ public class servAdmin extends HttpServlet {
                 Offre of = devis.getService().getOffre();                
                 Offre_Profil_Util_CV unopcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(ut, of);
                 if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
-                        administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);                  
+                        administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);   
+                        administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
                 }
                 else{
                     administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
+                    administrateurHardisSession.creerHistoriqueEtats(Statut.Transmettre_au_client, devis.getId(), ut);
                 }                 
-                
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();    
+                          if (listeDevis==null) listeDevis=new ArrayList<>();
+                          sess.setAttribute("listeDevis",listeDevis);
+                          sess.setAttribute("devistraitement",devis);
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
@@ -1818,7 +1823,11 @@ public class servAdmin extends HttpServlet {
                 SendMail send = new SendMail();
                 String messa = "<p>Bonjour, <br> Vous avez envoyée un devis avec nous, mais il parait qu'il manque quelque informations afin que nous puissions traiter vos devis cliquer <a href=\"\">ici</a> pour finaliser votre devis. <br> Si vous avez des questions, n'hesitez pas à nous contacter<br> Cordialement, Hardis</p> ";
                 send.sendMail(devis.getClient().getLogin(),"Devis Hardis: DEV"+devis.getId(), messa);                
-                
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();    
+                          if (listeDevis==null) listeDevis=new ArrayList<>();
+                          sess.setAttribute("listeDevis",listeDevis);
+                          sess.setAttribute("devistraitement",devis);
+                          
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
@@ -1837,7 +1846,11 @@ public class servAdmin extends HttpServlet {
                 Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
                 Offre of = devis.getService().getOffre(); 
                 administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Presta_terminee, devis.getClient().getId(), devis.getAgence().getId(), ut);
-                              
+                administrateurHardisSession.creerHistoriqueEtats(Statut.Presta_terminee, devis.getId(), ut);         
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();    
+                          if (listeDevis==null) listeDevis=new ArrayList<>();
+                          sess.setAttribute("listeDevis",listeDevis);
+                          sess.setAttribute("devistraitement",devis);
                 
             }
             else{

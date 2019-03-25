@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>Group Hardis - LogIn</title>
 <%@include  file = "meta.jsp" %>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
