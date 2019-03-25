@@ -24,10 +24,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
-    <jsp:useBean id="servS" scope="request" class = "Entites.ServiceStandard"> </jsp:useBean>
-      <jsp:useBean id="listeConsu" scope="session" class = "java.util.List"> </jsp:useBean>
-         <jsp:useBean id="listeLibC" scope="request" class = "java.util.List"> </jsp:useBean>
-          <jsp:useBean id="PrixU" scope="request" class = "java.util.List"> </jsp:useBean>
+   <jsp:useBean id="servS" scope="request" class = "Entites.ServiceStandard"> </jsp:useBean>
+   <jsp:useBean id="listeConsu" scope="session" class = "java.util.List"> </jsp:useBean>
+   <jsp:useBean id="listeLibC" scope="request" class = "java.util.List"> </jsp:useBean>
+   <jsp:useBean id="PrixU" scope="request" class = "java.util.List"> </jsp:useBean>
       
      
   <title>AdminLTE 2 | Dashboard</title>

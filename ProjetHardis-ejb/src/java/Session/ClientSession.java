@@ -59,6 +59,7 @@ import Facades.ServiceStandardFacadeLocal;
 import Facades.UtilisateurFacadeLocal;
 import Facades.UtilisateurHardisFacadeLocal;
 import java.io.FileNotFoundException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -563,7 +564,13 @@ return e;
     @Override
     public List<UtilisateurHardis> rechercheCDisponibles(String typeC, Date date, long idS, String typeS, long idCli) {
          Client c = clientFacade.rechercheClient(idCli);
-            List<UtilisateurHardis>  listeUD = new ArrayList<>();
+         List<UtilisateurHardis>  listeUD = new ArrayList<>();
+         if (date instanceof java.sql.Date)
+         {
+               String dateT = date.toString().concat(" 00:00:00");
+               date = Timestamp.valueOf(dateT);
+         }
+       
          
         ServiceStandard servSt = null;
         if (typeS.equals("Standard"))

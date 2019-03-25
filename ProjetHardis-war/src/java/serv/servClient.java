@@ -467,7 +467,7 @@ public class servClient extends HttpServlet {
                 
                 List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
                 sess.setAttribute("listeDevis", listeDevis);
-                request.setAttribute("listeConsu", listeConsu);
+                sess.setAttribute("listeConsu", listeConsu);
                 request.setAttribute("PrixU", PrixU);
                   request.setAttribute("servS", ss);
                 request.setAttribute("listeLibC", listeLibC);
@@ -488,15 +488,29 @@ public class servClient extends HttpServlet {
                 long id = Long.valueOf(idD);
                 Devis d = clientSession.recupDevis(id);
 
-                
+                  List<Float> PrixU =  new ArrayList<Float>();
+                  List<String> listeLibC =  new ArrayList<String>();
                  
              
-                  Facture f = clientSession.creerFacture(d.getId());
+                Facture f = clientSession.creerFacture(d.getId());
    
-            
+                     List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
+                
+                for (UtilisateurHardis u : listeConsu)
+                {
+                    float prixUni = clientSession.recherchePrixOffreC(u, d.getService().getOffre());
+                    PrixU.add(prixUni);
+                    String lib = clientSession.rechercheLibConsultOffre(u, d.getService().getOffre());
+                    listeLibC.add(lib);
+                    
+                }
+                request.setAttribute("listeLibC", listeLibC);
+                request.setAttribute("PrixU", PrixU);
+                   sess.setAttribute("listeConsu", listeConsu);
 
             }
-
+            
+          
              
      
                 List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
@@ -512,10 +526,7 @@ public class servClient extends HttpServlet {
                  long id = Long.valueOf(idD);
                  Devis d = clientSession.recupDevis(id);
                  Date ddt = d.getDateIntervSouhaitee();
-              //   String dd = ddt.toString();
-              //   dd.concat(" 00:00:00");
-              //   Date dateInter=Timestamp.valueOf(dd);
-       
+           
                  
                 Service s = d.getService();
                 
@@ -553,6 +564,22 @@ public class servClient extends HttpServlet {
                      listeC[0]=listeCCDispo.get(0).getId().toString();
                    clientSession.choixConsultants(Long.valueOf(idD), listeC, null, null);
                 }
+                  List<Float> PrixU =  new ArrayList<Float>();
+                  List<String> listeLibC =  new ArrayList<String>();
+                  
+                   List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
+                
+                for (UtilisateurHardis u : listeConsu)
+                {
+                    float prixUni = clientSession.recherchePrixOffreC(u, d.getService().getOffre());
+                    PrixU.add(prixUni);
+                    String lib = clientSession.rechercheLibConsultOffre(u, d.getService().getOffre());
+                    listeLibC.add(lib);
+                 
+                }
+                   request.setAttribute("listeLibC", listeLibC);
+                    request.setAttribute("PrixU", PrixU);
+                       sess.setAttribute("listeConsu", listeConsu);
                 
                 }
                 
@@ -576,7 +603,7 @@ public class servClient extends HttpServlet {
                      if (date!=null && date!="")
                 {
                      String dateT = date.concat(" 00:00:00");
-                    dateInter =Timestamp.valueOf(dateT);
+                    dateInter = Timestamp.valueOf(dateT);
 
                 }
                      

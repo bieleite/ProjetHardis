@@ -144,7 +144,9 @@ float mont = Float.valueOf(request.getAttribute("mont").toString());
                            out.print("<span class=\"label label-info\">Traitement demande</span>");
 
 
+                       else if (d.getStatut().toString().equals("Envoye"))
                        
+                           out.print("<span class=\"label label-info\">En attent de validation</span>");
                    
                        
                       
