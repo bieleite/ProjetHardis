@@ -158,7 +158,8 @@
                     <option  value="Gestion">Gestion</option>
                     <option value="Admin">Admin</option>
                   </select> 
-                  <label for="metUtili">Profil Metier</label>
+                  <label for="metUtili">Profil Metier</label><a href="servAdmin?action=formUtilisateur&acao=modif&idUtili=<%=utili.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-edit"></i></button></a>
+                  
                   <%    List<Offre> lesOffress = listeOffress;
                         List<Offre_Profil_Util_CV> lesOPCV = utili.getOffre_Profil_Utils();%>
                      
@@ -181,16 +182,22 @@
                              <td><%=opcv.getLienCV() %></td>
                         </tr>
                         <%}%>
+                        
+                        <% String acao = (String) request.getAttribute("acao");%>
+                        <% if( acao!=null&&acao.equals("modif") ){%>
                         <%    for (Offre off : lesOffress){%>
                         <tr>
                           <td>
-                              <label>
-                                <input name="offreProf" value="<%=off.getId() %>" type="checkbox">
-                                <%=off.getLibelle() %>
-                            </label>
+                              <select  name="offreProf" class="form-control">
+                                  <option value="vide" ></option>
+                                  <option value="<%=off.getId() %>" >
+                              <span class="label label-primary"><%=off.getLibelle() %></span></option>
+                              <option value="vide" ></option>
+                              </select>
                           </td>
                           <td>
                             <select  name="NivEx" class="form-control">
+                                <option value="vide" ></option>
                                 <option value="Junior" >Junior</option>
                                 <option  value="Confirme">Confirme</option>
                                 <option value="Senior">Senior</option>  
@@ -198,16 +205,18 @@
                           </td>
                           <td>   
                               <select  name="NivHab" class="form-control">
+                                  <option value="vide" ></option>
                                 <option value="Consultant" >Consultant</option>
                                 <option  value="Referent">Referent</option>
                                 <option value="Porteur">Porteur</option>  
                             </select>
                           </td>
-                          <td><input type="txt" name="plafondPFCV" class="form-control" id="exampleInputEmail1" placeholder="" >  </td>
-                          <td><input type="txt" name="prixPFCV" class="form-control" id="exampleInputEmail1" placeholder="" >  </td>
-                          <td><input type="txt" name="cvPFCV" class="form-control" id="exampleInputEmail1" placeholder="" >  </td>
-                        </tr> <%}%>                              
+                          <td><input type="txt" name="plafondPFCV" class="form-control" id="exampleInputEmail1" placeholder="0" >  </td>
+                          <td><input type="txt" name="prixPFCV" class="form-control" id="exampleInputEmail1" placeholder="0" >  </td>
+                          <td><input type="txt" name="cvPFCV" class="form-control" id="exampleInputEmail1" placeholder="lien" >  </td>
+                        </tr><%}%>          <%}%>                    
                     </table>
+                  
                   <input type="hidden" name="idutili" value="<%=utili.getId() %>">
                   <input type="hidden" name="action" value="ModifierProfilMetier">
                 </div>

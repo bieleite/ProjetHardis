@@ -10,5 +10,5 @@ package Entites;
  * @author anastasia.salari
  */
 public enum NiveauHabilitation {
-    Porteur, Referent, Consultant
+    Porteur, Referent, Consultant, vide
 }

@@ -676,6 +676,7 @@ public class servAdmin extends HttpServlet {
                 UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");
                 List<HistoriqueTraitement> listeHTVide =new ArrayList<>();
                 String champ = request.getParameter("idUtili");
+                String test = request.getParameter("acao");
                 Long idutili = Long.valueOf(champ);
                 UtilisateurHardis utili = administrateurHardisSession.rechercherUtilisateurHardisParId(idutili, utilisateur);
                 List<Offre> listeOffress = administrateurHardisSession.listOffre();
@@ -685,6 +686,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
                 request.setAttribute("listeOffress",listeOffress);
                 request.setAttribute("utili",utili);
+                request.setAttribute("acao",test);
                 jspClient="/Admin/traitementUtilisateur.jsp";
             }
             else if(act.equals("affecterDevis"))
@@ -1509,34 +1511,50 @@ public class servAdmin extends HttpServlet {
                 NiveauHabilitation niveauH =null;
                 Expertise exp = null;
                 for (String offre : offreProf ){
-                    Long idoffre = Long.valueOf(offre);                    
+                    if(!offre.equalsIgnoreCase("vide")){
+                    Long idoffre = Long.valueOf(offre); 
+                    Offre offree = administrateurHardisSession.rechercherOffre(idoffre, utili);
                     idPM = Long.valueOf(0);
                     String liencvPFCV = "";
                     Float prixFCV = Float.valueOf(0);
-                    Offre_Profil_Util_CV opcv = administrateurHardisSession.creerOffre_Profil_Util_CV(idoffre, idPM, iduili, liencvPFCV, ut, prixFCV);
-                    idopcv.add(opcv.getId());
+                    Offre_Profil_Util_CV opcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(utili, offree);;
+                    if(opcv==null){
+                    
+                    opcv = administrateurHardisSession.creerOffre_Profil_Util_CV(idoffre, idPM, iduili, liencvPFCV, ut, prixFCV);}
+                    else{
+//                        opcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(utili, offree);
+                        Long idididi = opcv.getId();
+                        administrateurHardisSession.modifierOffre_Profil_Util_CV( idididi ,idoffre, idPM, iduili, liencvPFCV, utili);
+                    }
+                    idopcv.add(opcv.getId());}
+                    
                 }             
                 for (String prixpfcv : prixPFCV ){
+                    if(!prixpfcv.equalsIgnoreCase("")){
                     for (Long iddopcv : idopcv ){
+                        
                         Offre_Profil_Util_CV opcv = administrateurHardisSession.rechercherOffre_Profil_Util_CV(iddopcv, utili);
                         String liencvPFCV = "";
                         idPM = Long.valueOf(0);
-                        Float prixFCV = Float.valueOf(prixpfcv);
+                        Float prixFCV = Float.valueOf(prixpfcv);                                
                         Long idoffre = opcv.getOffre().getId();
                         administrateurHardisSession.modifierOffre_Profil_Util_CV(opcv.getId(), idoffre, idPM, iduili, liencvPFCV, utili);
-                    }
+                        }}
                 }
                 for (String cvpfcv : cvPFCV ){
+                    if(!cvpfcv.equalsIgnoreCase("")){
                     for (Long iddopcv : idopcv ){
+                        
                         Offre_Profil_Util_CV opcv = administrateurHardisSession.rechercherOffre_Profil_Util_CV(iddopcv, utili);
                         String liencvPFCV = cvpfcv;
                         idPM = Long.valueOf(0);
                         Float prixFCV = Float.valueOf(0);
                         Long idoffre = opcv.getOffre().getId();
                         administrateurHardisSession.modifierOffre_Profil_Util_CV(opcv.getId(), idoffre, idPM, iduili, liencvPFCV, utili);
-                    }                   
+                    }  }                 
                 }
                 for (String nivhab : NivHab ){
+                    if(!nivhab.equalsIgnoreCase("vide")){
                     if(nivhab.equals("Consultant")){
                         niveauH = NiveauHabilitation.Consultant;
                     }
@@ -1546,12 +1564,16 @@ public class servAdmin extends HttpServlet {
                     else if (nivhab.equals("Porteur")){
                         niveauH = NiveauHabilitation.Porteur;
                     }
+                    else if (nivhab.equals("vide")){
+                        niveauH = NiveauHabilitation.vide;
+                    }
                     exp = Expertise.Junior;
                     Float plafond = Float.valueOf(0);
                     ProfilMetier pm = administrateurHardisSession.creerProfilMetier(niveauH, exp, plafond, null, utili);
                     liidPM.add(pm.getId());
-                }
+                }}
                 for (String nivex : NivEx ){
+                    if(!nivex.equalsIgnoreCase("vide")){
                     for (Long ididPM : liidPM ){
                     ProfilMetier pmm = administrateurHardisSession.rechercherProfilMetier(ididPM, utili);
                     if(nivex.equals("Confirme")){
@@ -1563,20 +1585,28 @@ public class servAdmin extends HttpServlet {
                     else if(nivex.equals("Senior")){
                         exp = Expertise.Senior;
                     }
+                    else if(nivex.equals("vide")){
+                        exp = Expertise.vide;
+                    }
                     niveauH = pmm.getNiveauHabilitation();
                     Float plafond = Float.valueOf(0);
                     administrateurHardisSession.modifierProfilMetier(pmm.getId(), niveauH, exp, plafond, null, utili);}
-                }
+                }}
                 for (String plafondpfcv : plafondPFCV ){
+                    if(!plafondpfcv.equalsIgnoreCase("")){
                     for (Long ididPM : liidPM ){
                     ProfilMetier pmm = administrateurHardisSession.rechercherProfilMetier(ididPM, utili);                    
                     niveauH = pmm.getNiveauHabilitation();
                     exp = pmm.getNiveauExpertise();
-                    Float plafond = Float.valueOf(plafondpfcv);
+                    Float plafond  = null;
+                    if(plafondpfcv.equalsIgnoreCase("")){
+                    plafond = Float.valueOf(0);}
+                    else{plafond = Float.valueOf(plafondpfcv);}
                     administrateurHardisSession.modifierProfilMetier(pmm.getId(), niveauH, exp, plafond, null, utili);
-                    }                    
+                    }  }                  
                 }   
                 for (Long iddopcv : idopcv ){
+                    
                     for (Long ididPM : liidPM ){
                         Offre_Profil_Util_CV opcv = administrateurHardisSession.rechercherOffre_Profil_Util_CV(iddopcv, utili);
                         String liencvPFCV = "";
@@ -1585,7 +1615,7 @@ public class servAdmin extends HttpServlet {
                         Long idoffre = opcv.getOffre().getId();
                         administrateurHardisSession.modifierOffre_Profil_Util_CV(opcv.getId(), idoffre, idPM, iduili, liencvPFCV, utili);
                     }}
-                
+                request.setAttribute("utili",utili);
             message= "Mot de passe modifié";
                 
 
