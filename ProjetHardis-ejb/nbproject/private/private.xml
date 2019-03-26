@@ -3,29 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/InternauteSessionLocal.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/CommunicationFacadeLocal.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSessionLocal.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Devis.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSession.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ContactMailFacadeLocal.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/ClientSessionLocal.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/CommunicationFacade.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/DevisFacadeLocal.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSession.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/StatutUtilisateur.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/testPDF.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ClientFacadeLocal.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/UtilisateurHardis.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/HistoriqueTraitementFacade.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/Offre_Profil_Util_CVFacade.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/Statut.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/ContactMailFacade.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/testFTP.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Session/InternauteSession.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Facades/DevisFacade.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/SendMail.java</file>
-            <file>file:/C:/Users/pedago/Documents/GitHub/ProjetHardis/ProjetHardis-ejb/src/java/Entites/ContactMail.java</file>
+            <file>file:/C:/Users/pedago/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Facades/DevisFacade.java</file>
+            <file>file:/C:/Users/pedago/Desktop/ProjetHardis/ProjetHardis-ejb/src/java/Session/AdministrateurHardisSession.java</file>
         </group>
     </open-files>
 </project-private>

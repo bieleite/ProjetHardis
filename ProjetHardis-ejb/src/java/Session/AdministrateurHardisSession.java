@@ -380,7 +380,6 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     
      @Override
     public List<Communication> rechercherCommunication(long iddevis,long idutilisateur, UtilisateurHardis hardis) {
-        Devis devis = devisFacade.rechercheDevis(iddevis);
         UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(idutilisateur);
         List<Communication> co = null;
         if (utilisateur!=null)
@@ -388,8 +387,9 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
             co=communicationFacade.rechercheCommunicationParUtilisateurHardis(utilisateur);
             logsFacade.creerLogResearch(hardis, utilisateur);
         }
-        else if (devis!=null)
+        else if (iddevis!=0)
         {
+            Devis devis = devisFacade.rechercheDevis(iddevis);
             co =communicationFacade.rechercheCommunicationParDevis(devis);
             logsFacade.creerLogResearch(hardis, devis);
         }

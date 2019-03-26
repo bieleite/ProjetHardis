@@ -117,24 +117,24 @@ public class servAdmin extends HttpServlet {
                     if(utilisateur!=null){
                         request.setAttribute("message","Bienvenue: "+ utilisateur.getNom());
                         sess.setAttribute("utilisateur", utilisateur);
-                        List<Communication> listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
-                        List<Notification> listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
-                        List<Devis> listeDevis = administrateurHardisSession.listDevis();
-                        List<Client> listeClient = administrateurHardisSession.listClient();
-                        List<Entreprise> listeEntreprise = administrateurHardisSession.listEntreprise();
-                        List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
-                        List<ContactMail> listeContactMail = administrateurHardisSession.listContactMailNonRepondu();
-                        List<HistoriqueTraitement> listeHistoriqueTraitement = administrateurHardisSession.listHistoriqueTraitementSansConsultant();
+                        List<Communication> listeCommunication= new ArrayList<>();
+                        listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
+                        List<Notification> listeNotif =new ArrayList<>();
+                        listeNotif = administrateurHardisSession.getNotifsAdmin(utilisateur);
+                        List<Devis> listeDevis = new ArrayList<>();
+                        listeDevis = administrateurHardisSession.listDevis();
+                        List<Client> listeClient = new ArrayList<>();
+                        listeClient = administrateurHardisSession.listClient();
+                        List<Entreprise> listeEntreprise = new ArrayList<>();
+                        listeEntreprise = administrateurHardisSession.listEntreprise();
+                        List<UtilisateurHardis> listeUtilisateurHardis = new ArrayList<>();
+                        listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
+                        List<ContactMail> listeContactMail = new ArrayList<>();
+                        listeContactMail = administrateurHardisSession.listContactMailNonRepondu();
+                        List<HistoriqueTraitement> listeHistoriqueTraitement = new ArrayList<>();
+                        listeHistoriqueTraitement = administrateurHardisSession.listHistoriqueTraitementSansConsultant();
                         List<UtilisateurHardis> listeUtilisateurHardisReponseContactMail = new ArrayList<>();
                         String acao = null;
-                        if (listeHistoriqueTraitement==null) listeHistoriqueTraitement=new ArrayList<>();
-                        if (listeCommunication==null) listeCommunication=new ArrayList<>();
-                        if (listeNotif==null) listeNotif=new ArrayList<>();
-                        if (listeDevis==null) listeDevis=new ArrayList<>();
-                        if (listeClient==null) listeClient=new ArrayList<>();
-                        if (listeEntreprise==null) listeEntreprise=new ArrayList<>();
-                        if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
-                        if (listeContactMail==null) listeContactMail=new ArrayList<>();
                         sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);                                               
                         sess.setAttribute("listeCommunication",listeCommunication);
                         sess.setAttribute("listeNotif",listeNotif);
@@ -219,7 +219,7 @@ public class servAdmin extends HttpServlet {
                 sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);
                 jspClient="/Admin/dashboardAdmin.jsp";
                 request.setAttribute("idContactMail",idContactMail);
-                request.setAttribute("message","");
+               // request.setAttribute("message","");
             }
             else if(act.equals("CreerAgence"))
             {
@@ -1966,8 +1966,7 @@ public class servAdmin extends HttpServlet {
                 Agence agence = administrateurHardisSession.rechercherAgenceParId(idAgence);
                 Client client = administrateurHardisSession.rechercherClient(idClient, null, null, ut);
                 float somm = 0;
-            
-             
+                
                 for (String consult : idConsultant){
                 Long idconsultant = Long.valueOf(consult);
                 UtilisateurHardis utili = administrateurHardisSession.rechercherUtilisateurHardisParId(idconsultant, ut);
@@ -1984,17 +1983,19 @@ public class servAdmin extends HttpServlet {
                 if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
                         administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);   
                         administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
-                                
+                        java.util.Date nowDate = new java.util.Date();                        
+                        message= "Devis: DEV"+iddevis+" validé!";
                 }
                 else{
                     administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(),somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
                     administrateurHardisSession.creerHistoriqueEtats(Statut.Transmettre_au_client, devis.getId(), ut);
-                    
+                    message= "Vous n'avez pas de plafond pour valider le devis DEV:"+iddevis;
                 }}                 
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();    
-                          if (listeDevis==null) listeDevis=new ArrayList<>();
-                          sess.setAttribute("listeDevis",listeDevis);
-                          sess.setAttribute("devistraitement",devis);
+                if (listeDevis==null) listeDevis=new ArrayList<>();
+                Devis devisapres = administrateurHardisSession.rechercherDevis(idDevis, ut);
+                sess.setAttribute("listeDevis",listeDevis);
+                sess.setAttribute("devistraitement",devisapres);
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
