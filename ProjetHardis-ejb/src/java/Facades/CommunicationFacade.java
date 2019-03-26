@@ -11,6 +11,7 @@ import Entites.Devis;
 import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -173,7 +174,9 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
               co = (Communication) liste.get(0);
               Date dtanco = co.getDateHeure();
               long diff = dtnow.getTime() - dtanco.getTime();
-              delai = (int) diff;   
+            delai = (int) ((diff / (1000*60)) % 60);
+              
+      
         }
         
         return delai;
