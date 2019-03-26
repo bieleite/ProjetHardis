@@ -109,7 +109,7 @@ public class ContactMailFacade extends AbstractFacade<ContactMail> implements Co
     @Override
     public List<ContactMail> listCommunicationNonRepondu() {
         String txt = "SELECT co FROM ContactMail AS co WHERE co.repondu=0 ";
-        Query req = getEntityManager().createQuery(txt);;
+        Query req = getEntityManager().createQuery(txt);
         List<ContactMail> co = req.getResultList();
         return co;
     }
