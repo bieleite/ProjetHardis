@@ -124,8 +124,10 @@ public class servAdmin extends HttpServlet {
                         List<Entreprise> listeEntreprise = administrateurHardisSession.listEntreprise();
                         List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
                         List<ContactMail> listeContactMail = administrateurHardisSession.listContactMailNonRepondu();
+                        List<HistoriqueTraitement> listeHistoriqueTraitement = administrateurHardisSession.listHistoriqueTraitementSansConsultant();
                         List<UtilisateurHardis> listeUtilisateurHardisReponseContactMail = new ArrayList<>();
                         String acao = null;
+                        if (listeHistoriqueTraitement==null) listeHistoriqueTraitement=new ArrayList<>();
                         if (listeCommunication==null) listeCommunication=new ArrayList<>();
                         if (listeNotif==null) listeNotif=new ArrayList<>();
                         if (listeDevis==null) listeDevis=new ArrayList<>();
@@ -141,6 +143,7 @@ public class servAdmin extends HttpServlet {
                         sess.setAttribute("listeEntreprise",listeEntreprise);
                         sess.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
                         sess.setAttribute("listeContactMail",listeContactMail);
+                        sess.setAttribute("listeHistoriqueTraitement",listeHistoriqueTraitement);
                         jspClient="/Admin/dashboardAdmin.jsp";    
                                 }   
                     else{
@@ -1862,6 +1865,13 @@ public class servAdmin extends HttpServlet {
                         administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);   
                         administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
                         administrateurHardisSession.creerHistoriqueTraitement(null, null, TypeUtilisateur.v, iddevis, 0, 0, ut.getId(), ut);
+                        java.util.Date nowDate = new java.util.Date();
+                        String server = "cpanel.freehosting.com";
+                        String user = "lucialei";
+                        String pass = "rj3fTOw378";
+                        String remoteFile = "/public_html/FACT"+devis.getId()+".pdf";
+                        String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
+                        administrateurHardisSession.creerFacture(nowDate, devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, lien);
                 }
                 else{
                     administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
@@ -1869,9 +1879,9 @@ public class servAdmin extends HttpServlet {
                     administrateurHardisSession.creerHistoriqueTraitement(null, null, TypeUtilisateur.v, iddevis, 0, 0, ut.getId(), ut);
                 }                 
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();    
-                          if (listeDevis==null) listeDevis=new ArrayList<>();
-                          sess.setAttribute("listeDevis",listeDevis);
-                          sess.setAttribute("devistraitement",devis);
+                if (listeDevis==null) listeDevis=new ArrayList<>();
+                sess.setAttribute("listeDevis",listeDevis);
+                sess.setAttribute("devistraitement",devis);
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
@@ -1912,13 +1922,20 @@ public class servAdmin extends HttpServlet {
                 Long idUtili = ut.getId();
                 Long iddevis = Long.valueOf(idDevis);
                 Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
-                Offre of = devis.getService().getOffre(); 
+                Offre of = devis.getService().getOffre();
+                java.util.Date nowDate = new java.util.Date();
                 administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Presta_terminee, devis.getClient().getId(), devis.getAgence().getId(), ut);
-                administrateurHardisSession.creerHistoriqueEtats(Statut.Presta_terminee, devis.getId(), ut);         
+                administrateurHardisSession.creerHistoriqueEtats(Statut.Presta_terminee, devis.getId(), ut); 
+                String server = "cpanel.freehosting.com";
+                String user = "lucialei";
+                String pass = "rj3fTOw378";
+                String remoteFile = "/public_html/FACT"+devis.getId()+".pdf";
+                String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
+                administrateurHardisSession.creerFacture(nowDate, devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, lien);
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();    
-                          if (listeDevis==null) listeDevis=new ArrayList<>();
-                          sess.setAttribute("listeDevis",listeDevis);
-                          sess.setAttribute("devistraitement",devis);
+                if (listeDevis==null) listeDevis=new ArrayList<>();
+                sess.setAttribute("listeDevis",listeDevis);
+                sess.setAttribute("devistraitement",devis);
                 
             }
             else{

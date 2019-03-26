@@ -57,4 +57,6 @@ public interface HistoriqueTraitementFacadeLocal {
      List<HistoriqueTraitement> rechercheHistoriqueTraitementParUtilisateurCourant(UtilisateurHardis utilisateurCourant);
     
     void modifHistoriqueTraitement(HistoriqueTraitement entite, Date datedebut, Date datefin,TypeUtilisateur utilisateurcourant, Devis devis,UtilisateurHardis consultant, UtilisateurHardis reflocal, UtilisateurHardis validateur);
+    
+    List<HistoriqueTraitement> listHistoriqueTraitementSansConsultant();
 }

@@ -168,4 +168,12 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
         super(HistoriqueTraitement.class);
     }
     
+    @Override
+    public List<HistoriqueTraitement> listHistoriqueTraitementSansConsultant() {
+        String txt="SELECT co FROM HistoriqueTraitement AS co WHERE co.validateur=null and co.consultant=null";
+        Query req=getEntityManager().createQuery(txt);
+        List<HistoriqueTraitement> result=req.getResultList();
+        return result;
+    }
+    
 }

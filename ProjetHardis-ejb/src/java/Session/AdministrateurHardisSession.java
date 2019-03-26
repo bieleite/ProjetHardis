@@ -1430,6 +1430,12 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
+    public List<HistoriqueTraitement> listHistoriqueTraitementSansConsultant(){
+        List<HistoriqueTraitement> l = historiqueTraitementFacade.listHistoriqueTraitementSansConsultant();
+        return l;       
+    }
+    
+    @Override
     public List<ContactMail> listContactMailNonRepondu(){
         List<ContactMail> l = contactMailFacade.listCommunicationNonRepondu();
         return l;       

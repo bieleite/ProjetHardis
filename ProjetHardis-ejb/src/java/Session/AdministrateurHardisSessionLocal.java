@@ -370,4 +370,6 @@ public interface AdministrateurHardisSessionLocal {
     float recherchePrixOffreC(UtilisateurHardis u, Offre off);
     
     String rechercheLibConsultOffre(UtilisateurHardis u, Offre off);
+    
+    List<HistoriqueTraitement> listHistoriqueTraitementSansConsultant();
 }
