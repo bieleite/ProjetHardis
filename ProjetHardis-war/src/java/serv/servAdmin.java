@@ -1966,8 +1966,8 @@ public class servAdmin extends HttpServlet {
                 Agence agence = administrateurHardisSession.rechercherAgenceParId(idAgence);
                 Client client = administrateurHardisSession.rechercherClient(idClient, null, null, ut);
                 float somm = 0;
-                Offre of = devis.getService().getOffre();   
-                Offre_Profil_Util_CV unopcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(ut, of);
+            
+             
                 for (String consult : idConsultant){
                 Long idconsultant = Long.valueOf(consult);
                 UtilisateurHardis utili = administrateurHardisSession.rechercherUtilisateurHardisParId(idconsultant, ut);
@@ -1984,14 +1984,7 @@ public class servAdmin extends HttpServlet {
                 if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
                         administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);   
                         administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
-                        java.util.Date nowDate = new java.util.Date();
-                        String server = "cpanel.freehosting.com";
-                        String user = "lucialei";
-                        String pass = "rj3fTOw378";
-                        String remoteFile = "/public_html/FACT"+devis.getId()+".pdf";
-                        String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
-                        administrateurHardisSession.creerFacture(nowDate, devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, lien);
-                        
+                                
                 }
                 else{
                     administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(),somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);

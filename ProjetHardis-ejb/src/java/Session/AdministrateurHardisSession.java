@@ -50,10 +50,13 @@ import Facades.ProfilMetierFacadeLocal;
 import Facades.ServiceFacadeLocal;
 import Facades.ServiceStandardFacadeLocal;
 import Facades.UtilisateurHardisFacadeLocal;
+import java.io.FileNotFoundException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -627,7 +630,30 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis, String lienF) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
-        Facture facture = factureFacade.creerFacture(date, devis, montant, montantDepass, motifDepass, lienF);
+        Facture facture = factureFacade.creerFacture(date, devis, devis.getMontantDevis()/2, montantDepass, motifDepass, lienF);
+        
+     
+       String server = "cpanel.freehosting.com";
+       String user = "lucialei";
+       String pass = "rj3fTOw378";
+        String remoteFile = "/public_html/FACT"+facture.getId()+".pdf";
+       String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
+
+       testPDF test = new testPDF();
+          
+        try {
+            test.test(facture);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ClientSession.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         SendMail send = new SendMail();
+        send.sendMailA(devis.getClient().getLogin(), "Facture Hardis", "Ci-joint facture hardis","FACT"+facture.getId()+".pdf");
+     
+        
+        testFTP test1 = new testFTP();
+        test1.upload("FACT"+facture.getId()+".pdf");
+    
         logsFacade.creerLogCreate(hardis, facture);
         return facture;
     }

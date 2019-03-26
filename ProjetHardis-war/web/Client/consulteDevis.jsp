@@ -158,18 +158,39 @@
                
               <td><%=listeLib.get(i)%></td>
               <td><% if (listeLib.get(i).toString().equals("Junior"))
-              {  
+              {  if (s.getId()!=null){
                   out.print(s.getNbreJoursConsultantJ());
                   nbJ = s.getNbreJoursConsultantJ();
               }
+              else if (sns.getId()!=null)
+              {
+                  out.print(d.getNbJoursPresta());
+                  nbJ = d.getNbJoursPresta();
+              }
+              }
               
               else if (listeLib.get(i).toString().equals("Senior")){
+                   if (s.getId()!=null){
                   out.print(s.getNbreJoursConsultantS());
-                    nbJ = s.getNbreJoursConsultantS();
+                  nbJ = s.getNbreJoursConsultantS();
+              }
+              else if (sns.getId()!=null)
+              {
+                  out.print(d.getNbJoursPresta());
+                  nbJ = d.getNbJoursPresta();
+              }
+               
               }
               else{  
-                  out.print(s.getNbreJoursConsultantC());   
-               nbJ = s.getNbreJoursConsultantC();            
+                  if (s.getId()!=null){
+                  out.print(s.getNbreJoursConsultantC());
+                  nbJ = s.getNbreJoursConsultantC();
+              }
+              else if (sns.getId()!=null)
+              {
+                  out.print(d.getNbJoursPresta());
+                  nbJ = d.getNbJoursPresta();
+              }          
               
               }
               
@@ -232,7 +253,7 @@
               
       <!-- /.row -->
 <% String valide = (String)request.getAttribute("valide");
-      if (valide!=null && valide.equals("1"))
+      if (d.getStatut().toString().equals("Valide"))
       { %>
       <!-- this row will not appear when printing -->
       <div class="row no-print">
@@ -247,11 +268,17 @@
         </a>
         </div>
       </div>
-         <%} else if (d.getStatut().toString().equals("Rep_en_Cours")){%>
+         <%} else if (d.getStatut().toString().equals("Envoye") || d.getStatut().toString().equals("Rep_en_Cours")){%>
         
         <div class="row no-print">
         <div class="col-xs-12">
-            <a href="servClient?action=consulteDevis&valide=1&idDev=<%=d.getId()%>"><button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Valider
+            <% String ss = "";
+                if (d.getTypeDevis().toString().equals("Standard")) ss="ss";
+                else if (d.getTypeDevis().toString().equals("Non_Standard"))
+                    ss="sns";
+            %>
+                
+            <a href="servClient?action=consulteDevis&typeD=<%=ss%>&valide=1&idDev=<%=d.getId()%>"><button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Valider
                 </button></a>
            <a href="servClient?action=consulteDevis&valide=0&idDev=<%=d.getId()%>"><button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
             <i class="fa fa-download"></i> Réfuser
