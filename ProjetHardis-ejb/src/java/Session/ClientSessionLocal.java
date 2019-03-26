@@ -136,5 +136,7 @@ public interface ClientSessionLocal {
 
     UtilisateurHardis recupValidateur(long idD, String type);
 
+    float calculDelaiMDevis(long idD);
+
 
 }

@@ -977,6 +977,12 @@ try {
        
     }
 
+    @Override
+    public float calculDelaiMDevis(long idD) {
+          Devis d = devisFacade.rechercheDevis(idD);
+        return communicationFacade.calculDelaiMDevis(d);
+    }
+
  
 
 

@@ -11,6 +11,7 @@ import Entites.Devis;
 import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -165,22 +166,56 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
     public int calculerDelai(Devis devis, Date dtnow) {
         int delai = 0;
         Communication co = null;     
-        Query requete = em.createQuery("SELECT c FROM Communication AS c WHERE c.devis=:de");
+        Query requete = em.createQuery("SELECT c FROM Communication AS c WHERE c.devis=:de and c.typeQR=:t order by c.dateHeure desc");
         requete.setParameter("de",devis);     
+            requete.setParameter("t","Q"); 
         List<Communication> liste =  requete.getResultList();
         if (liste.size() >= 1)
-        {
+        {     
               co = (Communication) liste.get(0);
               Date dtanco = co.getDateHeure();
               long diff = dtnow.getTime() - dtanco.getTime();
-              delai = (int) diff;   
+              delai = (int)TimeUnit.MILLISECONDS.toMinutes(diff);
+            //  delai = (int) ((diff / (1000*60)) % 60);
+              
+      
         }
+      
         
         return delai;
     }
     
+    
+    
     public CommunicationFacade() {
         super(Communication.class);
+    }
+
+    @Override
+    public float calculDelaiMDevis(Devis d) {
+       Query requete = em.createQuery("SELECT c FROM Communication AS c WHERE c.devis=:de");
+        requete.setParameter("de",d);   
+        int k = 0;
+        float res = 0;
+        float somme = 0;
+         List<Communication> liste =  requete.getResultList();
+         
+        if (liste!=null && liste.size()>0)
+        {
+            for (Communication c : liste)
+            {
+                if (c.getDelai()>0)
+                {
+                    k++;
+                    somme+=c.getDelai();
+                }
+            }
+            res = somme/k;
+            
+        }
+       
+        
+        return res;
     }
 
     

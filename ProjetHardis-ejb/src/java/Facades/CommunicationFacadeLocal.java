@@ -59,6 +59,8 @@ public interface CommunicationFacadeLocal {
     List<Communication> rechercheCommunicationParDevis(Devis devis);
 
     int calculerDelai(Devis devis, Date dtnow);
+
+    float calculDelaiMDevis(Devis d);
     
     
 }
