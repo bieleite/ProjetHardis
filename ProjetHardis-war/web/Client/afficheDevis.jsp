@@ -152,7 +152,7 @@ else out.print("Facture 2 non disponible");
    
        if(d.getStatut().toString().equals("Envoye"))
 { %>
-  <td><a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>">Devis</a></span></td>
+  <td><a href="servClient?action=consulteDevis&typeD=ns&idDev=<%=d.getId()%>">Devis</a></span></td>
                    <td> <% if ( d.getStatut().toString().equals("Acompte_regle")) {
                        %><a href="servClient?action=recupF&idDev=<%=d.getId()%>">
                            Facture</a> <% }

@@ -9,7 +9,7 @@ import Entites.Adresse;
 import Entites.Client;
 import Entites.Communication;
 import Entites.Devis;
-import Entites.DevisNonStandard;
+
 import Entites.Entreprise;
 import Entites.Facture;
 import Entites.Interlocuteur;
@@ -137,6 +137,12 @@ public interface ClientSessionLocal {
     UtilisateurHardis recupValidateur(long idD, String type);
 
     float calculDelaiMDevis(long idD);
+
+    boolean verifDevisR(long idD);
+
+    int calculQSansRep(long idD);
+
+    void majDateDPresta(long id);
 
 
 }

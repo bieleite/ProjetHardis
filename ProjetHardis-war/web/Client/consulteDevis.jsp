@@ -25,6 +25,7 @@
 
   <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
    <jsp:useBean id="servS" scope="request" class = "Entites.ServiceStandard"> </jsp:useBean>
+   <jsp:useBean id="servNS" scope="request" class = "Entites.Service"> </jsp:useBean>
    <jsp:useBean id="listeConsu" scope="session" class = "java.util.List"> </jsp:useBean>
    <jsp:useBean id="listeLibC" scope="request" class = "java.util.List"> </jsp:useBean>
    <jsp:useBean id="PrixU" scope="request" class = "java.util.List"> </jsp:useBean>
@@ -41,6 +42,7 @@
   Devis d = devis;
   List<UtilisateurHardis> listeC = listeConsu;
   ServiceStandard s = servS;
+  Service sns = servNS;
    List<String> listeLib = listeLibC;
     List<Float> PrixUnit = PrixU;
     Float tot = 0.0F;

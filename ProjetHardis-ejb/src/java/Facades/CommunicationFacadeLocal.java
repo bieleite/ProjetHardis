@@ -61,6 +61,10 @@ public interface CommunicationFacadeLocal {
     int calculerDelai(Devis devis, Date dtnow);
 
     float calculDelaiMDevis(Devis d);
+
+    boolean verifDevisR(Devis d);
+
+    int calculQSansRep(Devis d);
     
     
 }

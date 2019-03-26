@@ -7,7 +7,7 @@ package Session;
 
 import Entites.Communication;
 import Entites.Devis;
-import Entites.DevisNonStandard;
+
 import Entites.Disponibilite;
 import Entites.Facturation;
 import Entites.Statut;
@@ -42,14 +42,7 @@ public interface GestionnaireHardisSessionLocal {
     
     void devisFactures(long iddevis, String[] listidfacture, UtilisateurHardis hardis);
     
-    void accepterdevisNonStandard(long iddevis, String choix, UtilisateurHardis hardis);
-    
-    DevisNonStandard rechercherDevisNonStandart(long id, long idclient, UtilisateurHardis hardis);
-    
-    void supprimerDevisNonStandard(long iddevis, UtilisateurHardis hardis);
-    
-    void modifieDevisNonStandard(long iddevis, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,long idclient, long idagence, UtilisateurHardis hardis);
-    
+   
     void creerDisponibilite(Date dateDebut, Date dateFin, String libelle, UtilisateurHardis hardis);
     
     void modifierDisponibilite(long iddisponibilite, Date dateDebut, Date dateFin, String libelle, UtilisateurHardis hardis);

@@ -12,7 +12,7 @@ import Entites.Atelier;
 import Entites.Client;
 import Entites.Communication;
 import Entites.Devis;
-import Entites.DevisNonStandard;
+
 import Entites.Disponibilite;
 import Entites.Entreprise;
 import Entites.Facturation;
@@ -31,7 +31,7 @@ import Facades.ClientFacadeLocal;
 import Facades.CommunicationFacadeLocal;
 import Facades.ContactMailFacadeLocal;
 import Facades.DevisFacadeLocal;
-import Facades.DevisNonStandardFacadeLocal;
+
 import Facades.DisponibiliteFacadeLocal;
 import Facades.DocumentFacadeLocal;
 import Facades.EchangeTelFacadeLocal;
@@ -112,8 +112,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @EJB
     private DisponibiliteFacadeLocal disponibiliteFacade;
 
-    @EJB
-    private DevisNonStandardFacadeLocal devisNonStandardFacade;
+
 
     @EJB
     private CommunicationFacadeLocal communicationFacade;
@@ -452,47 +451,8 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
   
        
-    @Override
-    public void supprimerDevisNonStandard(long iddevis, UtilisateurHardis hardis) {
-        DevisNonStandard devis = devisNonStandardFacade.rechercheDevisNonStandard(iddevis);
-        devisNonStandardFacade.supprimerDevisNonStandard(devis);
-        logsFacade.creerLogDelete(hardis, devis);
-    }
-    
-     @Override
-    public DevisNonStandard rechercherDevisNonStandart(long id, long idclient, UtilisateurHardis hardis) {
-       Client client = clientFacade.rechercheClient(id);
-        DevisNonStandard de = null;
-        if (client!=null)
-        {
-            de = devisNonStandardFacade.rechercheDevisNonStandardParClient(client);
-            logsFacade.creerLogResearch(hardis, de);
-        }
-        
-        else  if (id!=0)
-        {
-            de = devisNonStandardFacade.rechercheDevisNonStandard(id);
-            logsFacade.creerLogResearch(hardis, de);
-        }
-        
-        return de;
-    }
-    
-    @Override
-    public void modifieDevisNonStandard(long iddevis, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,long idclient, long idagence, UtilisateurHardis hardis) {
-        DevisNonStandard devis = devisNonStandardFacade.rechercheDevisNonStandard(iddevis);
-        Client client = clientFacade.rechercheClient(idclient);
-        Agence agence = agenceFacade.rechercheAgence(idagence);
-        devisNonStandardFacade.modifDevis(devis, date_devis, date_intev_souh, facturation, montantdevis, motifrefus, saisielibre, statut, client, agence);
-        logsFacade.creerLogUpdate(hardis, devis);
-    }
-    
-    @Override
-    public void accepterdevisNonStandard(long iddevis, String choix, UtilisateurHardis hardis) {
-        DevisNonStandard devis = devisNonStandardFacade.rechercheDevisNonStandard(iddevis);
-        devisNonStandardFacade.accepterRefuserDevisNS(devis, choix);
-        logsFacade.creerLogUpdate(hardis, devis);
-    }
+ 
+  
   
     @Override
     public Disponibilite creerDisponibilite(Date dateDebut, Date dateFin, String libelle, UtilisateurHardis hardis) {
@@ -1602,4 +1562,13 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
                }
         return lib;
     }
+
+    @Override
+    public void majNBJ(long idD, float nb) {
+        Devis d  =devisFacade.rechercheDevis(idD);
+        devisFacade.majNbJP(d, nb);
+    }
+    
+    
+    
 }

@@ -9,6 +9,7 @@ import Entites.Communication;
 
 import Entites.Devis;
 import Entites.UtilisateurHardis;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -191,6 +192,8 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         super(Communication.class);
     }
 
+    
+    
     @Override
     public float calculDelaiMDevis(Devis d) {
        Query requete = em.createQuery("SELECT c FROM Communication AS c WHERE c.devis=:de");
@@ -204,7 +207,7 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         {
             for (Communication c : liste)
             {
-                if (c.getDelai()>0)
+                if (c.getTypeQR().equals("R"))
                 {
                     k++;
                     somme+=c.getDelai();
@@ -218,6 +221,37 @@ public class CommunicationFacade extends AbstractFacade<Communication> implement
         return res;
     }
 
+    @Override
+    public boolean verifDevisR(Devis d) {
+      Query requete = em.createQuery("SELECT c FROM Communication AS c WHERE c.devis=:de");
+        requete.setParameter("de",d);  
+        boolean b = false;
+        List<Communication> liste =  requete.getResultList();    
+        for (Communication c : liste)
+        {
+            if (c.getTypeQR().equals("R")){
+                b = true;break;
+            }
+        }
+        
+        return b;
+    }
+
+    @Override
+    public int calculQSansRep(Devis d) {
+       Query requete = em.createQuery("SELECT c FROM Communication AS c WHERE c.devis=:de order by c.dateHeure desc");
+        requete.setParameter("de",d);     
+        int i =0;
+        List<Communication> liste =  requete.getResultList();
+        if (liste!=null && liste.size()>0)
+        {
+            if (liste.get(0).getTypeQR().equals("Q")) i= 1;
+        }
+        else i= 0;
+        return i;
+    }
+
+    
     
     
 }

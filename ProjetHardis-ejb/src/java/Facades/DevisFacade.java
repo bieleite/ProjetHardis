@@ -76,7 +76,7 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         de.setHistoriqueTraitements(new ArrayList<>());
         de.setEchangeTels(new ArrayList<>());
         de.setCommunications(new ArrayList<>());
-        
+        de.setNbJoursPresta(0);
         em.persist(de);
         return de;
     }
@@ -279,6 +279,18 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     @Override
     public void majMotifRefus(Devis d, String motif) {
         d.setMotifRefus(motif);
+        em.merge(d);
+    }
+
+    @Override
+    public void majDateDPresta(Devis d) {
+        d.setDateDebutPresta(d.getDateIntervSouhaitee());
+        em.merge(d);
+    }
+
+    @Override
+    public void majNbJP(Devis d, float nbJ) {
+        d.setNbJoursPresta(nbJ);
         em.merge(d);
     }
 

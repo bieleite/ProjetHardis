@@ -31,6 +31,7 @@
 List<Devis> listeDAn = listeDevisAn;
 
 int v = Integer.valueOf(session.getAttribute("nbD").toString());
+int QSR = Integer.valueOf(session.getAttribute("nbQSR").toString());
 float mont = Float.valueOf(session.getAttribute("mont").toString());
 float delM = Float.valueOf(session.getAttribute("delM").toString());
 
@@ -40,7 +41,7 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
      
               <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-2 col-xs-2">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
@@ -48,14 +49,12 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
 
               <p>Devis</p>
             </div>
-            <div class="icon">
-              <i class="ion ion-bag"></i>
-            </div>
+           
 
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-2 col-xs-2">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
@@ -67,7 +66,7 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-2 col-xs-2">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
@@ -79,13 +78,25 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
           </div>
         </div>
         <!-- ./col -->
-      <div class="col-lg-3 col-xs-6">
+      <div class="col-lg-2 col-xs-2">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3><%=delM%></h3>
+              <h3><%=(int)delM/60/24%></h3>
 
-              <p>Délai moyen</p>
+              <p>Délai moyen (jours)</p>
+            </div>
+           
+          </div>
+        </div>
+              
+                <div class="col-lg-2 col-xs-2">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3><%=QSR%></h3>
+
+              <p>Questions sans réponse</p>
             </div>
            
           </div>

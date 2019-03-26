@@ -15,7 +15,7 @@ import Entites.Atelier;
 import Entites.Client;
 import Entites.Communication;
 import Entites.Devis;
-import Entites.DevisNonStandard;
+
 import Entites.Disponibilite;
 import Entites.Document;
 import Entites.EchangeTel;
@@ -113,10 +113,7 @@ public class LogsFacade extends AbstractFacade<Logs> implements LogsFacadeLocal 
              id = ((Devis) o).getId();
              clas = o.getClass().toString();
         }
-        else if (o instanceof DevisNonStandard ){
-             id = ((DevisNonStandard) o).getId();
-             clas = o.getClass().toString();
-        }
+       
         else if (o instanceof Document ){
              id = ((Document) o).getId();
              clas = o.getClass().toString();
@@ -218,10 +215,7 @@ public class LogsFacade extends AbstractFacade<Logs> implements LogsFacadeLocal 
              id = ((Devis) o).getId();
              clas = o.getClass().toString();
         }
-        else if (o instanceof DevisNonStandard ){
-             id = ((DevisNonStandard) o).getId();
-             clas = o.getClass().toString();
-        }
+   
         else if (o instanceof Document ){
              id = ((Document) o).getId();
              clas = o.getClass().toString();
@@ -323,10 +317,7 @@ public class LogsFacade extends AbstractFacade<Logs> implements LogsFacadeLocal 
              id = ((Devis) o).getId();
              clas = o.getClass().toString();
         }
-        else if (o instanceof DevisNonStandard ){
-             id = ((DevisNonStandard) o).getId();
-             clas = o.getClass().toString();
-        }
+        
         else if (o instanceof Document ){
              id = ((Document) o).getId();
              clas = o.getClass().toString();
@@ -428,10 +419,7 @@ public class LogsFacade extends AbstractFacade<Logs> implements LogsFacadeLocal 
              id = ((Devis) o).getId();
              clas = o.getClass().toString();
         }
-        else if (o instanceof DevisNonStandard ){
-             id = ((DevisNonStandard) o).getId();
-             clas = o.getClass().toString();
-        }
+       
         else if (o instanceof Document ){
              id = ((Document) o).getId();
              clas = o.getClass().toString();

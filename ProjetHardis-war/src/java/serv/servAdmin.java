@@ -697,7 +697,9 @@ public class servAdmin extends HttpServlet {
                 String champ = request.getParameter("idDevis");             
                 String nombreJour = request.getParameter("nombreJour");
                     Float numJour = Float.valueOf(nombreJour);
+                   
                 Long iddevis = Long.valueOf(champ);
+                 administrateurHardisSession.majNBJ(iddevis,numJour);
                 Devis a = administrateurHardisSession.rechercherDevis(iddevis, utilisateur);
                 List<UtilisateurHardis> listeConsultantOffre = new ArrayList<>();
                     
@@ -1968,13 +1970,14 @@ public class servAdmin extends HttpServlet {
                 UtilisateurHardis utili = administrateurHardisSession.rechercherUtilisateurHardisParId(idconsultant, ut);
                 float prixUni = administrateurHardisSession.recherchePrixOffreC(utili, devis.getService().getOffre());
                 somm +=prixUni;
-                administrateurHardisSession.creerHistoriqueTraitement(devis.getDateIntervSouhaitee() , null, TypeUtilisateur.c, idDevis, idconsultant, 0, ut.getId(), ut);
+                administrateurHardisSession.creerHistoriqueTraitement(devis.getDateIntervSouhaitee() , null, TypeUtilisateur.p, idDevis, idconsultant, 0, ut.getId(), ut);
                 }
                 Long idUtili = ut.getId();
                 float jours = Float.valueOf(numJour);
                 somm*=jours;
                 Offre of = devis.getService().getOffre();   
                 Offre_Profil_Util_CV unopcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(ut, of);
+                if (unopcv!=null){
                 if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
                         administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);   
                         administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
@@ -1984,7 +1987,7 @@ public class servAdmin extends HttpServlet {
                     administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(),somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
                     administrateurHardisSession.creerHistoriqueEtats(Statut.Transmettre_au_client, devis.getId(), ut);
                     
-                }                 
+                }}                 
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();    
                           if (listeDevis==null) listeDevis=new ArrayList<>();
                           sess.setAttribute("listeDevis",listeDevis);

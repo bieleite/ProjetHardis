@@ -11,7 +11,7 @@ import Entites.Agence;
 import Entites.Client;
 import Entites.Communication;
 import Entites.Devis;
-import Entites.DevisNonStandard;
+
 import Entites.Disponibilite;
 import Entites.Document;
 import Entites.Entreprise;
@@ -41,7 +41,6 @@ import Facades.AgenceFacadeLocal;
 import Facades.ClientFacadeLocal;
 import Facades.CommunicationFacadeLocal;
 import Facades.DevisFacadeLocal;
-import Facades.DevisNonStandardFacadeLocal;
 import Facades.DisponibiliteFacadeLocal;
 import Facades.DocumentFacadeLocal;
 import Facades.EntrepriseFacadeLocal;
@@ -136,8 +135,6 @@ public class ClientSession implements ClientSessionLocal {
     @EJB
     private HistoriqueDevisFacadeLocal historiqueDevisFacade;
 
-    @EJB
-    private DevisNonStandardFacadeLocal devisNonStandardFacade;
 
     @EJB
     private DevisFacadeLocal devisFacade;
@@ -185,7 +182,7 @@ public class ClientSession implements ClientSessionLocal {
          
         if (servSt!=null) //service standard
         {      
-           Devis d =  devisFacade.creerDevis(TypeService.Standard, servSt, dateDevis, dateInterv, Facturation.Auto, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getEntreprise().getAgence());
+           Devis d =  devisFacade.creerDevis(TypeService.Standard, servSt, dateDevis, dateInterv, Facturation.Auto, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getAgence());
                     
            HistoriqueEtats he =   historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
           
@@ -205,7 +202,7 @@ devisFacade.majHE(d, he);
         }
         else if (serv!=null)
         {
-           Devis d  =  devisFacade.creerDevis(TypeService.Non_Standard, serv, dateDevis, dateInterv, Facturation.Manuel, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getEntreprise().getAgence());
+           Devis d  =  devisFacade.creerDevis(TypeService.Non_Standard, serv, dateDevis, dateInterv, Facturation.Manuel, 0, "", infosC, Statut.Rep_en_Cours, cli, cli.getAgence());
            
            HistoriqueEtats he = historiqueEtatsFacade.creerHistoriqueEtats( Statut.Rep_en_Cours, d);
            
@@ -982,6 +979,25 @@ try {
           Devis d = devisFacade.rechercheDevis(idD);
         return communicationFacade.calculDelaiMDevis(d);
     }
+
+    @Override
+    public boolean verifDevisR(long idD) {
+         Devis d = devisFacade.rechercheDevis(idD);
+        return communicationFacade.verifDevisR(d);
+    }
+
+    @Override
+    public int calculQSansRep(long idD) {
+       Devis d = devisFacade.rechercheDevis(idD);
+        return communicationFacade.calculQSansRep(d);
+    }
+
+    @Override
+    public void majDateDPresta(long id) {
+         Devis d = devisFacade.rechercheDevis(id);
+         devisFacade.majDateDPresta(d);
+    }
+    
 
  
 

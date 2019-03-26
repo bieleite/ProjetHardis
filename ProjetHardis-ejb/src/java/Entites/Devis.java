@@ -32,6 +32,27 @@ import javax.persistence.Temporal;
 
 public class Devis implements Serializable {
 
+    
+        private float nbJoursPresta;
+
+    /**
+     * Get the value of nbJoursPresta
+     *
+     * @return the value of nbJoursPresta
+     */
+    public float getNbJoursPresta() {
+        return nbJoursPresta;
+    }
+
+    /**
+     * Set the value of nbJoursPresta
+     *
+     * @param nbJoursPresta new value of nbJoursPresta
+     */
+    public void setNbJoursPresta(float nbJoursPresta) {
+        this.nbJoursPresta = nbJoursPresta;
+    }
+
     @OneToMany(mappedBy = "devis")
     private List<HistoriqueDevis> historiqueDeviss;
 

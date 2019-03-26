@@ -87,6 +87,10 @@ public interface DevisFacadeLocal {
 
     void majMotifRefus(Devis d, String motif);
 
+    void majDateDPresta(Devis d);
+
+    void majNbJP(Devis d, float nbJ);
+
 
   
 }
