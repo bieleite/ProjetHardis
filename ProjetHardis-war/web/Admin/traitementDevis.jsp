@@ -196,17 +196,34 @@
               <div class="box-body">
                   <form role="form">
                 <div class="form-group">
-                  <label for="idDevis">Id Devis</label>
-                  <input type="txt" name="idDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getId() %>"  disabled>
-                  <label for="tpDevis">Type Devis</label>
-                  <input type='txt' name='tpDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getTypeDevis().name() %>' disabled>
-                  <label for="clientDevis">Client Devis</label>
-                  <input type="txt" name="clientDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getClient().getNom() %>" disabled>
-                 
-                  
+                    <div class="row">
+                        <div class="col-md-4">
+                  <label for="idDevis">Id : <%=devistraitement.getId() %></label>
+          </div>
+                  <div class="col-md-4">
+                  <label for="tpDevis">Type Devis : <%=devistraitement.getTypeDevis().toString()%></label>
+                  </div>
+                  <div class="col-md-4">
+                  <label for="clientDevis">Client : <%=devistraitement.getClient().getNom() %></label>
+                   </div>
+                    </div>
+                   <br>
+                   
+                            <div class="row"> <div class="col-md-4">
+                  <label for="agenceDevis">Agence : <%=devistraitement.getAgence().getNomAgence() %></label>
+                      </div>
+                      <div class="col-md-4">
+                  <label for="serviceDevis">Service : <%=devistraitement.getService().getNomService()%></label>
+                      </div>
+                      <div class="col-md-4">
+                  <label for="dtDevis">Date Devis : <%=dformat.format(devistraitement.getDateDevis()) %></label>
+                      </div>
+                  </div>
+                      <br>
                   <% List<HistoriqueTraitement> listHistTrait = devistraitement.getHistoriqueTraitements();%>
-                  
-                  <label for="consultantDevis">Consultant Devis</label>
+                  <div class="row">
+                      <div class="col-md-4">
+                  <label for="consultantDevis">Consultant Devis </label>
                     <%for (HistoriqueTraitement htde : listHistTrait){%> 
                     <input type='txt' name='validateurDevis' class='form-control' id='exampleInputEmail1' placeholder='
                   <% if (htde.getConsultant()!=null ) {%>
@@ -215,6 +232,7 @@
                  <% if (htde.getConsultant()==null ){%>
                       Non Choisi
                   <%}%>' disabled><%}%>
+                      </div><div class="col-md-4">
                   <label for="validateurDevis">Validateur Devis</label>
                   <%for (HistoriqueTraitement htde : listHistTrait){%> 
                     <input type='txt' name='validateurDevis' class='form-control' id='exampleInputEmail1' placeholder='
@@ -224,6 +242,7 @@
                  <% if (htde.getValidateur()==null ){%>
                       Non Choisi
                   <%}%>' disabled><%}%>
+                    </div><div class="col-md-4">
                   <label for="refLocalDevis">Referant Local Devis</label>
                  <% for (HistoriqueTraitement htde : listHistTrait){%> 
                   <input type='txt' name='refLocalDevis' class='form-control' id='exampleInputEmail1' placeholder='
@@ -235,12 +254,9 @@
                   <%}%>
                   ' disabled>
                   <%}%>
-                  <label for="agenceDevis">Agence Devis</label>
-                  <input type="txt" name="agenceDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getAgence().getNomAgence() %>" disabled>
-                  <label for="serviceDevis">Service Devis</label>
-                  <input type="txt" name="serviceDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getClient().getEntreprise().getNomEntreprise() %>" disabled>
-                  <label for="dtDevis">Date Devis</label>
-                  <input type="txt" name="dtDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=dformat.format(devistraitement.getDateDevis()) %>" disabled>
+                   </div>
+                  </div>
+         
                   <label for="dtDebPrestation">Date Debut Prestation</label>
                   <% if (devistraitement.getDateDebutPresta()!=null ) {%>
                        <input type='txt' name='dtDebPrestation' class='form-control' id='exampleInputEmail1' placeholder='<%=dformat.format(devistraitement.getDateDebutPresta())%>' disabled>
