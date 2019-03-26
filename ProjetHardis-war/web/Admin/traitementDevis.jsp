@@ -89,7 +89,7 @@
               <div class="box-tools pull-right">
                     <div class="btn-group">
                         <a href="servAdmin?action=formDevis&faire=modifier&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="submit" class="btn btn-default"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-default"><i class="fa fa-edit"></i></button></a>
                         
                         <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
                         <a href="servAdmin?action=RelancerDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
