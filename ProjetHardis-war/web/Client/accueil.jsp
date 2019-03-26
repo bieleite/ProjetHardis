@@ -189,8 +189,8 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
             <!-- /.box-footer -->
           </div>
         </div>
-        
-        
+                  
+          
           <!-- 
             <div class="col-md-4">
 
@@ -282,6 +282,8 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
     </section>
     <!-- /.content -->
   </div>
+                  
+                  
   <!-- /.content-wrapper -->
     </body>
 </html>

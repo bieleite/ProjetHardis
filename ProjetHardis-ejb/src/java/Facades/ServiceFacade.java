@@ -142,7 +142,9 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
 
     @Override
     public List<Service> rechercheServiceParOffre(Offre o) {
-        Query requete = em.createQuery("SELECT s from Service as s where s.offre=:o");
+         TypeService tps = TypeService.Non_Standard;
+        Query requete = em.createQuery("SELECT s from Service as s where s.offre=:o and s.typeService=:s");
+         requete.setParameter("s",tps);
         requete.setParameter("o",o);     
         List<Service> liste =  requete.getResultList();    
         return liste;

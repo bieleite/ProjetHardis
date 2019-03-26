@@ -13,6 +13,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.CMYKColor;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -71,15 +72,9 @@ String s = System.getProperty("user.name");
         
     
         PdfPTable table = new PdfPTable(5); // 3 columns.
-        table.setWidthPercentage(100); //Width 100%
-        table.setSpacingBefore(10f); //Space before table
-        table.setSpacingAfter(10f); //Space after table
- 
-        //Set Column widths
-        float[] columnWidths = {1f, 1f, 1f,1f,1f};
-        table.setWidths(columnWidths);
+
         
-        PdfPCell cell1 = new PdfPCell(new Paragraph("Consultant"));
+        PdfPCell cell1 = new PdfPCell(new Phrase("Consultant"));
         cell1.setBorderColor(BaseColor.BLUE);
         cell1.setPaddingLeft(10);
         cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -87,7 +82,7 @@ String s = System.getProperty("user.name");
  
         table.addCell(cell1);
         
-        PdfPCell cel = new PdfPCell(new Paragraph("Quantité"));
+        PdfPCell cel = new PdfPCell(new Phrase("Quantité"));
         cel.setBorderColor(BaseColor.BLUE);
         cel.setPaddingLeft(10);
         cel.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -95,7 +90,7 @@ String s = System.getProperty("user.name");
  
         table.addCell(cel);
         
-         PdfPCell cell = new PdfPCell(new Paragraph("Unité"));
+         PdfPCell cell = new PdfPCell(new Phrase("Unité"));
         cell.setBorderColor(BaseColor.BLUE);
         cell.setPaddingLeft(10);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -103,7 +98,7 @@ String s = System.getProperty("user.name");
  
         table.addCell(cell);
         
-         PdfPCell cellll = new PdfPCell(new Paragraph("PrixHT/jour"));
+         PdfPCell cellll = new PdfPCell(new Phrase("PrixHT/jour"));
         cellll.setBorderColor(BaseColor.BLUE);
         cellll.setPaddingLeft(10);
         cellll.setHorizontalAlignment(Element.ALIGN_CENTER);

@@ -1,0 +1,183 @@
+/*-----------------------------------------------------------------------------------
+Template Name: Classic One Page Template,
+Template URI: http://www.quomodotheme.com
+Description: This is html5 template
+Author: Ashekur Rahman
+Author URI: http://www.quomodotheme.com
+Version: 1.0
+-----------------------------------------------------------------------------------
+CSS INDEX
+===================
+1. Google font
+2. Theme Default CSS
+3. Helper-Class
+4. Button-Style
+5. Mainmenu-Area
+6. Header-Area
+7. Vdieo-Box
+8. Tabs-list
+9. Feature-Box
+10.Easy Pie Chart
+11. Filter-Controls
+12. FIlter-Box
+13. Team-Area
+14. Price-box
+15. Blog-Area
+16. Count-Box
+17. Footer-Area
+18. Preloader
+19. Accordion-style
+20. Service-Box-Style
+21. process-area
+22. Testimonials
+23. Contact-Area
+-----------------------------------------------------------------------------------*/
+
+/*-----------------
+1. Google font
+------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Roboto:300,400,500,700,900|Satisfy');
+
+/*-------------------
+2. Theme Default CSS
+--------------------*/
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.8em;
+    color: #898989;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    color: #898989;
+}
+
+
+input:focus,
+button:focus,
+a:focus,
+a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #4f4f4f;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 0 15px;
+    font-weight: 600;
+    line-height: 1.4em;
+}
+
+.satisfy {
+    font-family: 'Satisfy', cursive;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+
+
+
+/*-- 9. Feature-Box --*/
+
+.feature-box {
+    padding: 30px;
+    -webkit-box-shadow: 0 0 0 0 rgba(31, 69, 113, 0.4);
+    box-shadow: 0 0 0 0 rgba(31, 69, 113, 0.4);
+    margin-bottom: 30px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.feature-box:hover {
+    -webkit-box-shadow: 0 0 30px 0 rgba(31, 69, 113, 0.2);
+    box-shadow: 0 0 30px 0 rgba(31, 69, 113, 0.2);
+}
+
+.feature-box .box-icon {
+    float: left;
+    margin-right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    background: -webkit-linear-gradient(#800080, #ffc0cb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.read-more {
+    color: #bdbdbd;
+    display: inline-block;
+    padding: 5px 0;
+}
+
+.read-more:after {
+    content: "\eb55";
+    display: inline-block;
+    font-family: "icofont";
+    color: #800080;
+    font-size: 22px;
+    -webkit-transform: translate(0, 3px);
+    transform: translate(0, 3px);
+    opacity: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s
+}
+
+.read-more:hover:after {
+    opacity: 1;
+    -webkit-transform: translate(3px, 3px);
+    transform: translate(3px, 3px);
+}
+
+/*-- 10.Easy Pie Chart --*/
+
+.skills .skill {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.skills .skill .chart {
+    position: relative;
+}
+
+.skills .skill .chart > span {
+    position: absolute;
+    left: 50%;
+    top: 27%;
+    font-weight: 600;
+    -webkit-transform: translate(-50%);
+    transform: translate(-50%)
+}
+
+.skill .counter:after {
+    content: "%";
+}
+

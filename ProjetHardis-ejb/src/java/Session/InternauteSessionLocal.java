@@ -10,6 +10,8 @@ import Entites.Agence;
 import Entites.Client;
 import Entites.Entreprise;
 import Entites.Offre;
+import Entites.Service;
+import Entites.ServiceStandard;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -31,5 +33,9 @@ public interface InternauteSessionLocal {
     void contacterHardis(String mess, String email, String nom, String prenom, String tel, String sujet, String societe);
 
     List<Offre> afficheOffres();
+
+    List<ServiceStandard> recupServicesSOffre(long idO);
+
+    List<Service> recupServiceNSOffre(long idO);
     
 }

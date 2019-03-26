@@ -4,11 +4,19 @@
     Author     : 6170361
 --%>
 
+<%@page import="Entites.ServiceStandard"%>
+<%@page import="Entites.Service"%>
+<%@page import="java.util.List"%>
+<%@page import="Entites.Offre"%>
+<%@page import="Entites.Offre"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <html class="no-js" lang="fr" dir="ltr" prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# book: http://ogp.me/ns/book# profile: http://ogp.me/ns/profile# video: http://ogp.me/ns/video# product: http://ogp.me/ns/product# content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/"> <!--<![endif]-->
     <head profile="http://www.w3.org/1999/xhtml/vocab">
+           <jsp:useBean id="listeO" scope="session" class = "java.util.List"> </jsp:useBean>
+             <jsp:useBean id="listeSS" scope="session" class = "java.util.List"> </jsp:useBean>
+               <jsp:useBean id="listeSN" scope="session" class = "java.util.List"> </jsp:useBean>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -20,6 +28,8 @@
         <meta itemprop="name" content="Page d&#039;accueil" />
         <title>Hardis Group, SSII, ESN Grenoble, Lyon, Paris, Nantes, Lille, Bordeaux</title>
         <link rel="stylesheet" href="https://www.hardis-group.com/sites/all/themes/hardis/bootstrap/css/bootstrap.min.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="style3.css" type="text/css" media="all" />
+ 
         <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6730332/646866/css/fonts.css" />
         <link type="text/css" rel="stylesheet" href="https://www.hardis-group.com/sites/default/files/css/css_lQaZfjVpwP_oGNqdtWCSpJT1EMqXdMiU84ekLLxQnc4.css" media="all" />
         <link type="text/css" rel="stylesheet" href="https://www.hardis-group.com/sites/default/files/css/css_-s5yoERteuGjJDrLxz9Kggu6sThyaBYUz8x_6tN7g4I.css" media="all" />
@@ -144,9 +154,74 @@
     <div class="main-container">
         <div class="white">
             <div class="container">
+             
                 
-                <% String val = (String)request.getAttribute("contact");
-                if (val!=null && val!="")
+               <% String val = (String)request.getAttribute("valeur");
+               List<Offre> listeOf = listeO;
+               List<ServiceStandard> listeSSt = listeSS;
+                  List<Service> listeSNS = listeSN;
+               
+                if (val!=null && val!="" && val.equals("offres")) { %>
+    <section class="section-padding" id="service-area">
+        <div class="container">
+            <div class="row">
+                <% for (Offre o : listeOf){ %>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="feature-box wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="box-icon">
+                            <i class="icofont icofont-idea"></i>
+                        </div>
+                        <h4><%=o.getLibelle()%></h4>
+                        
+                        <a href="servInternaute?action=afficheService&idO=<%=o.getId()%>" class="read-more">En savoir +</a>
+                    </div>
+                </div>
+                <%}%>
+                
+               
+           
+            </div>
+        </div>
+    </section>
+                
+                <% } else if (val!=null && val!="" && val.equals("services")){ %>
+                
+                <section class="section-padding" id="service-area">
+        <div class="container">
+            <div class="row">
+                <% for (Service o : listeSNS){ %>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="feature-box wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="box-icon">
+                            <i class="icofont icofont-idea"></i>
+                        </div>
+                        <h4><%=o.getNomService()%></h4>
+                        
+                        <p><%=o.getDescriptionService()%> </p>
+                    </div>
+                </div>
+                <%}%>
+                
+                 <% for (ServiceStandard o : listeSSt){ %>
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="feature-box wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="box-icon">
+                            <i class="icofont icofont-idea"></i>
+                        </div>
+                        <h4><%=o.getNomService()%></h4>
+                        
+                        <p><%=o.getDescriptionService()%> </p>
+                    </div>
+                </div>
+                <%}%>
+                
+               
+           
+            </div>
+        </div>
+    </section>
+                
+             <%}  else if (val!=null && val!="" && val.equals("contacter"))
                 {%>
                 
                 <form role="form">

@@ -7,6 +7,8 @@ package serv;
  */
 
 import Entites.Offre;
+import Entites.Service;
+import Entites.ServiceStandard;
 import Session.InternauteSessionLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,7 +44,7 @@ public class servInternaute extends HttpServlet {
      * 
      * 
      */
-    
+
     protected void envoiMessage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nom = request.getParameter("nom");
@@ -72,7 +74,7 @@ public class servInternaute extends HttpServlet {
             throws ServletException, IOException {
         
       //  HttpSession sess = request.getSession(true);
-
+    HttpSession sess = request.getSession(true);
         String message = "";
 
         response.setContentType("text/html;charset=UTF-8");
@@ -83,26 +85,31 @@ public class servInternaute extends HttpServlet {
         
         if (act == null) {
             jspClient = "/PageAccueil.jsp";
+              List<Offre> listeO = gestionInternaute.afficheOffres();
+             if (listeO==null)
+                 listeO=new ArrayList();
+             sess.setAttribute("listeO", listeO);
+             sess.setAttribute("listeSS", new ArrayList<>());
+                sess.setAttribute("listeSN", new ArrayList<>());
             request.setAttribute("message", "");
 }
         else if (act.equals("afficheOffres"))
         {
-             jspClient = "/Internaute/AfficheOffres.jsp";
-             List<Offre> listeO = gestionInternaute.afficheOffres();
-             if (listeO==null)
-                 listeO=new ArrayList();
-             request.setAttribute("listeO", listeO);
+             jspClient = "/PageAccueil.jsp";
+           
+             request.setAttribute("valeur", "offres");
              
 
         }
          else if (act.equals("afficheFormContact"))
         {
              jspClient = "/PageAccueil.jsp";
-             request.setAttribute("contact", "contact");
+             request.setAttribute("valeur", "contacter");
+         ;
           
 
         }
-                 else if (act.equals("contacter"))
+            else if (act.equals("contacter"))
         {
           
              jspClient = "/PageAccueil.jsp";
@@ -127,6 +134,25 @@ public class servInternaute extends HttpServlet {
   
              
         
+
+        }
+         else if (act.equals("afficheService"))
+        {
+          
+             jspClient = "/PageAccueil.jsp";
+  
+             String idO = request.getParameter("idO");
+             
+             if (idO!=null && idO!="")
+             {
+                 List<Service> listeServ = gestionInternaute.recupServiceNSOffre(Long.valueOf(idO));
+                 List<ServiceStandard> listeServS = gestionInternaute.recupServicesSOffre(Long.valueOf(idO)); 
+                 sess.setAttribute("listeSS", listeServS);
+                 sess.setAttribute("listeSN", listeServ);
+             }
+             
+             request.setAttribute("valeur", "services");
+            
 
         }
         

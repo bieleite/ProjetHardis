@@ -10,11 +10,15 @@ import Entites.Agence;
 import Entites.Client;
 import Entites.Entreprise;
 import Entites.Offre;
+import Entites.Service;
+import Entites.ServiceStandard;
 import Facades.AdresseFacadeLocal;
 import Facades.ClientFacadeLocal;
 import Facades.ContactMailFacadeLocal;
 import Facades.EntrepriseFacadeLocal;
 import Facades.OffreFacadeLocal;
+import Facades.ServiceFacadeLocal;
+import Facades.ServiceStandardFacadeLocal;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -26,6 +30,12 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class InternauteSession implements InternauteSessionLocal {
+
+    @EJB
+    private ServiceStandardFacadeLocal serviceStandardFacade;
+
+    @EJB
+    private ServiceFacadeLocal serviceFacade;
 
     @EJB
     private OffreFacadeLocal offreFacade;
@@ -89,7 +99,23 @@ public class InternauteSession implements InternauteSessionLocal {
       return   offreFacade.listOffres();
     }
 
+    @Override
+    public List<ServiceStandard> recupServicesSOffre(long idO) {
+        Offre o = offreFacade.rechercheOffreParId(idO);
+   
+        return serviceStandardFacade.rechercheServiceStandardParOffre(o);
+        
+    }
 
+    @Override
+    public List<Service> recupServiceNSOffre(long idO) {
+         Offre o = offreFacade.rechercheOffreParId(idO);
+        return serviceFacade.rechercheServiceParOffre(o);
+    }
+    
+
+
+    
     
     
 
