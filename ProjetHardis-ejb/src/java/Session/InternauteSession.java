@@ -80,8 +80,8 @@ public class InternauteSession implements InternauteSessionLocal {
     }
 
     @Override
-    public void contacterHardis(String mess, String email, String nom, String prenom, String tel, String sujet) {
-        contactMailFacade.creerContactMail(nom, prenom, email, tel, sujet, mess);
+    public void contacterHardis(String mess, String email, String nom, String prenom, String tel, String sujet, String societe) {
+        contactMailFacade.creerContactMail(nom, prenom, email, tel, sujet, mess,societe );
     }
 
     @Override

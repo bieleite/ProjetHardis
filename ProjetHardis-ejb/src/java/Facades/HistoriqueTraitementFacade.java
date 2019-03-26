@@ -95,7 +95,7 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
         HistoriqueTraitement he = null;        
         String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.consultant=:consultant ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("consultant",consultant.getId() );
+        req = req.setParameter("consultant",consultant);
         List<HistoriqueTraitement> res = req.getResultList();
         
         return res;
@@ -106,7 +106,7 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
         HistoriqueTraitement he = null;        
         String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.validateur=:validateur ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("validateur",validateur.getId() );
+        req = req.setParameter("validateur",validateur );
         List<HistoriqueTraitement> res = req.getResultList();
      
         return res;
@@ -117,7 +117,7 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
         HistoriqueTraitement he = null;        
         String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.utilisateurCourant=:utilisateurCourant ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("utilisateurCourant",utilisateurCourant.getId() );
+        req = req.setParameter("utilisateurCourant",utilisateurCourant );
         List<HistoriqueTraitement> res = req.getResultList();
        
         return res;

@@ -49,7 +49,8 @@ public class servInternaute extends HttpServlet {
         String prenom = request.getParameter("prenom");
         String email = request.getParameter("email");
         String tel = request.getParameter("tel");
-        String mess = request.getParameter("message");
+        String mess = request.getParameter("besoin");
+        String societe = request.getParameter("entreprise");
 
         String message = "";
         String messageErreur = "";
@@ -58,11 +59,13 @@ public class servInternaute extends HttpServlet {
             messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
         } else {
 
-            gestionInternaute.contacterHardis(mess, email, nom, prenom, tel, "");
+            gestionInternaute.contacterHardis(mess, email, nom, prenom, tel, "", societe);
             message = "Message envoyé avec succès !";
         }
+        
         request.setAttribute("message", message);
         request.setAttribute("messageErreur", messageErreur);
+       
 
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -102,7 +105,7 @@ public class servInternaute extends HttpServlet {
                  else if (act.equals("contacter"))
         {
           
-             jspClient = "/Internaute/FormContact.jsp";
+             jspClient = "/PageAccueil.jsp";
              envoiMessage(request, response);
              
         

@@ -70,7 +70,7 @@
         <div class="col-xs-12" style="padding-left:10%">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> I agree to the <a href="#">terms</a>
+              <input required="required" type="checkbox"> I agree to the <a href="#">terms</a>
             </label>
           </div>
         </div>

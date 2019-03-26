@@ -149,31 +149,31 @@
                 if (val!=null && val!="")
                 {%>
                 
-                <div class="form">
-    <div>
-        <div class="form-item webform-component webform-component-textfield webform-component--company form-group form-item form-item-submitted-company form-type-textfield form-group">
+                <form role="form">
+  
+                    <div>        <div class="form-item webform-component webform-component-textfield webform-component--company form-group form-item form-item-submitted-company form-type-textfield form-group">
             <label class="control-label" for="edit-submitted-company">Société <span class="form-required" title="Ce champ est obligatoire.">*</span></label>
-            <input required="required" class="form-control form-text required" type="text" id="edit-submitted-company" name="submitted[company]" value="" size="60" maxlength="128" /></div>
+            <input required="required" class="form-control form-text required" type="text" id="edit-submitted-company" name="entreprise" value="" size="60" maxlength="128" /></div>
             
             <div class="form-item webform-component webform-component-textfield webform-component--last-name form-group form-item form-item-submitted-last-name form-type-textfield form-group"> 
                 <label class="control-label" for="edit-submitted-last-name">Nom <span class="form-required" title="Ce champ est obligatoire.">*</span></label>
-                <input required="required" class="form-control form-text required" type="text" id="edit-submitted-last-name" name="submitted[last_name]" value="" size="60" maxlength="128" /></div>
+                <input required="required" class="form-control form-text required" type="text" id="edit-submitted-last-name" name="nom" value="" size="60" maxlength="128" /></div>
 
             <div class="form-item webform-component webform-component-textfield webform-component--first-name form-group form-item form-item-submitted-first-name form-type-textfield form-group"> 
                 <label class="control-label" for="edit-submitted-first-name">Prénom <span class="form-required" title="Ce champ est obligatoire.">*</span></label>
-                <input class="form-control form-text" type="text" id="edit-submitted-title" name="submitted[title]" value="" size="60" maxlength="128" /></div>
+                <input class="form-control form-text" type="text" id="edit-submitted-title" name="prenom" value="" size="60" maxlength="128" /></div>
 
             <div class="form-item webform-component webform-component-email webform-component--email form-group form-item form-item-submitted-email form-type-webform-email form-group"> 
                 <label class="control-label" for="edit-submitted-email">Email <span class="form-required" title="Ce champ est obligatoire.">*</span></label>
-                <input required="required" class="email form-control form-text form-email required" type="email" id="edit-submitted-email" name="submitted[email]" size="60" /></div>
+                <input required="required" class="email form-control form-text form-email required" type="email" id="edit-submitted-email" name="email" size="60" /></div>
                 
             <div class="form-item webform-component webform-component-textfield webform-component--phone form-group form-item form-item-submitted-phone form-type-textfield form-group"> 
                 <label class="control-label" for="edit-submitted-phone">Téléphone</label>
-                <input class="form-control form-text" type="text" id="edit-submitted-phone" name="submitted[phone]" value="" size="60" maxlength="128" /></div>
+                <input class="form-control form-text" type="text" id="edit-submitted-phone" name="tel" value="" size="60" maxlength="128" /></div>
                 
             <div class="form-item webform-component webform-component-select webform-component--country-code form-group form-item form-item-submitted-country-code form-type-select form-group"> 
                 <label class="control-label" for="edit-submitted-description">Description de votre besoin</label>
-                <div class="form-textarea-wrapper"><textarea class="form-control form-textarea" id="edit-submitted-description" name="submitted[description]" cols="60" rows="3"></textarea></div></div>
+                <div class="form-textarea-wrapper"><textarea class="form-control form-textarea" id="edit-submitted-description" name="besoin" cols="60" rows="3"></textarea></div></div>
                 
                 
 
@@ -182,13 +182,15 @@
                 <div id="edit-submitted-mention-legale" class="form-checkboxes">
                  <div class="form-item form-item-submitted-mention-legale-1 form-type-checkbox checkbox"> <label class="control-label" for="edit-submitted-mention-legale-1"><input required="required" type="checkbox" id="edit-submitted-mention-legale-1" name="submitted[mention_legale][1]" value="1" class="form-checkbox" />J'accepte que mes données à caractère  personnel soient collectées et traitées selon les conditions décrites à la page <a href="/respect-des-donnees-personnelles">"respect des données personnelles"</a></label>
 </div></div> <label class="control-label element-invisible" for="edit-submitted-mention-legale">Mention légale <span class="form-required" title="Ce champ est obligatoire.">*</span></label>
-</div><input type="hidden" name="details[sid]" />
+            </div><br>
+        <input type="hidden" name="action" value ="contacter" />
 
-<div class="form-actions"><button class="webform-submit button-primary btn btn-default form-submit" type="submit" name="op" value="Envoyer">Envoyer</button>
-</div></div></form> 
+        <button type="submit" >Envoyer</button></div>
+</form>
                 
                 
-                <%} else {%>
+                <%} else {
+                %>
 
                 <header role="banner" id="page-header">
                     <div id="slideshow" class="">
@@ -287,13 +289,13 @@
 
 
                 </div>
-
+  <%}%>
 
             </div>
         </div>
 
     </div>
-                <%}%>
+              
     <footer class="footer">
         <div class="line1">
             <div class="container">

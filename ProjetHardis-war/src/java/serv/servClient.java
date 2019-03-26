@@ -490,6 +490,7 @@ public class servClient extends HttpServlet {
                 
                  if (valide != null && valide.equals("1")) {
                     clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
+                    
                     request.setAttribute("valide", "1");
                  }
                  

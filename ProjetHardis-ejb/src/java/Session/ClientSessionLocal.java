@@ -134,5 +134,7 @@ public interface ClientSessionLocal {
 
     void majMontantDevis(long idD, float mont);
 
+    UtilisateurHardis recupValidateur(long idD, String type);
+
 
 }

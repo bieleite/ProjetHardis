@@ -33,9 +33,10 @@ public class ContactMailFacade extends AbstractFacade<ContactMail> implements Co
     }
 
     @Override
-    public ContactMail creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message) {
+    public ContactMail creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, String societe) {
         ContactMail cm = new ContactMail();
         cm.setEmail(mail);
+        cm.setSociete(societe);
         cm.setMessage(message);
         cm.setNom(nom);
         cm.setPrenom(prenom);
