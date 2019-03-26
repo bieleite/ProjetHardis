@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.Facture"%>
 <%@page import="Entites.UtilisateurHardis"%>
 <%@page import="Entites.TypeService"%>
 <%@page import="Entites.Statut"%>
@@ -66,6 +67,7 @@
     </section>
 <% SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");%>
     <!-- Main content -->
+    
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <% List<Devis> lesDeevis=listeDevis; %> 
@@ -86,6 +88,9 @@
               <h3 class="box-title">Devis</h3>
               <div class="box-tools pull-right">
                     <div class="btn-group">
+                        <a href="servAdmin?action=formDevis&faire=modifier&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-edit"></i></button>
+                        
                         <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
                         <a href="servAdmin?action=RelancerDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn btn-default">Relancer Client</button></a>
@@ -182,7 +187,9 @@
                   <input type='txt' name='tpDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getTypeDevis().name() %>' disabled>
                   <label for="clientDevis">Client Devis</label>
                   <input type="txt" name="clientDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getClient().getNom() %>" disabled>
-                   <% List<HistoriqueTraitement> listHistTrait = devistraitement.getHistoriqueTraitements();%>
+                 
+                  
+                  <% List<HistoriqueTraitement> listHistTrait = devistraitement.getHistoriqueTraitements();%>
                   
                   <label for="consultantDevis">Consultant Devis</label>
                     <%for (HistoriqueTraitement htde : listHistTrait){%> 
@@ -244,10 +251,21 @@
                   <input type="txt" name="factDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getIndicateurFact().name() %>" disabled >
                   <label for="montDevis">Montant Devis</label>
                   <% if (devistraitement.getMontantDevis()>0 ) {%>
-                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' disabled>
+                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' 
+                              <%  if (faire!=null&&faire.equals("modifier") ){%>
+                              disabled
+                              <%}%>
+                              <%  if (faire!=null&&faire.equals("modifier")){%><%}%>
+                              >
                        <%}%>
                  <% if (devistraitement.getMontantDevis()==0 ){%>
-                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' disabled>
+                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' 
+                             <%  if (faire!=null&&!faire.equals("modifier")){%>
+                              disabled
+                              <%}%>
+                             <%  if (faire!=null&&faire.equals("modifier")){%> <%}%>
+                             >
+                     
                   <%}%>                 
                   <label for="refusDevis">Motif Refus</label>
                   <textarea rows="3" name="refusDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getMotifRefus() %>" disabled ></textarea>
@@ -264,10 +282,11 @@
                 
                 
              
-
+                <%  if (faire!=null&&faire.equals("modifier")){%>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
+              <%}%>
              </form>
                   
               </div>
@@ -403,12 +422,57 @@
                         </li>
                         <!-- END timeline item -->
 <%}%>
-                       
+                             
 
                     </ul>
                   <!-- /.direct-chat-pane -->
                 </div>
               </div>
+<!-- FACTURE LIST -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Factures</h3>
+              <% List<Facture> lesFactures = devistraitement.getFactures();%>
+            
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+             
+            <div class="box-body">
+              <ul class="products-list product-list-in-box">
+                  <% for (Facture fact : lesFactures){     %>
+                <li class="item">
+                  <div class="product-img">
+                    <img src="https://www.popcompta.com/wp-content/uploads/2016/11/facture.png" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                    <a href="javascript:void(0)" class="product-title"><%=dformat.format(fact.getDateFacture()) %>
+                      <span class="label label-warning pull-right">€  <%=fact.getMontant() %></span></a>
+                    <span class="product-description">
+                        <% if (!fact.isPaye()){%>
+                            <span class="label label-warning pull-right">Non Payé</span>
+                        <%}%>
+                        <% if (fact.isPaye()){%>
+                            <span class="label label-success pull-right">Payé</span>
+                        <%}%>
+                        </span>
+                  </div>
+                </li>
+                <%}%>
+                <!-- /.item -->
+                </ul>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+              <a href="javascript:void(0)" class="uppercase">View All Products</a>
+            </div>
+            <!-- /.box-footer -->
+          </div>
+          <!-- /.box -->
 <!------ test----->
 <!------ test----->
 <!------ test----->
@@ -419,6 +483,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0

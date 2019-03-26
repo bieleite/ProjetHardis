@@ -112,7 +112,16 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         return req.getResultList();
 
     }
-   
+   @Override
+    public  void modifDateFinDevis(Devis entite ,Date date_devis){
+        if (entite!=null){
+            if (date_devis!=null)
+        {
+            entite.setDateFinPresta(date_devis);
+        }
+        }
+    }
+            
     
     
      @Override

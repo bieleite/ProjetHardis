@@ -58,6 +58,7 @@ public interface DevisFacadeLocal {
     
     List<Devis>  rechercheDevisParClient(Client client);
     
+    void modifDateFinDevis(Devis entite ,Date date_devis);
     
     void modifDevis(Devis entite, Date date_devis, Date date_intev_souh, Facturation facturation, float montantdevis, String motifrefus, String saisielibre, Statut statut ,Client client, Agence ag);
 
