@@ -250,6 +250,31 @@ devisFacade.majHT(d, ht);
         Devis d = devisFacade.rechercheDevis(idDevis);
         devisFacade.accepterRefuserDevis(d, "a");
         historiqueEtatsFacade.creerHistoriqueEtats(Statut.Valide, d);
+        UtilisateurHardis u = recupValidateur(idDevis,"v");
+        if (d.getTypeDevis().toString().equals("Standard"))
+        { SendMail send = new SendMail();
+             UtilisateurHardis u2 = recupValidateur(idDevis,"ref");
+            if (u2!=null)
+            send.sendMail(u2.getLogin(), "Devis accepté", "Bonjour, <br>Le devis "+d.getId()+" a été accepté par la société "+d.getClient().getEntreprise().getNomEntreprise());
+           
+        }else {
+        if (u!=null && u.getStatut().toString().equals("Actif"))
+        {
+            SendMail send = new SendMail();
+            send.sendMail(u.getLogin(), "Devis accepté", "Bonjour, <br>Le devis "+d.getId()+" a été accepté par la société "+d.getClient().getEntreprise().getNomEntreprise());
+        }
+        else {
+            SendMail send = new SendMail();
+            UtilisateurHardis u1 = recupValidateur(idDevis,"p");
+            UtilisateurHardis u2 = recupValidateur(idDevis,"r");
+            if (u1!=null)
+            send.sendMail(u1.getLogin(), "Devis accepté", "Bonjour, <br>Le devis "+d.getId()+" a été accepté par la société "+d.getClient().getEntreprise().getNomEntreprise());
+            if (u2!=null)
+             send.sendMail(u2.getLogin(), "Devis accepté", "Bonjour, <br>Le devis "+d.getId()+" a été accepté par la société "+d.getClient().getEntreprise().getNomEntreprise());
+
+        }
+        }
+
         logsFacade.creerLog(Action.Update, new Date(), "maj devis avec id : "+d.getId(), cli);
     }
    
@@ -902,6 +927,54 @@ try {
     public void majMontantDevis(long idD, float mont) {
         Devis d = devisFacade.rechercheDevis(idD);
         devisFacade.majMontant(d, mont);
+    }
+
+    @Override
+    public UtilisateurHardis recupValidateur(long idD, String type) {
+       Devis d = devisFacade.rechercheDevis(idD);
+       UtilisateurHardis u =null;
+       List<HistoriqueTraitement> listeH = historiqueTraitementFacade.rechercheHistoriqueTraitementParDevis(d);
+       
+       for (HistoriqueTraitement h : listeH)
+       {
+           if (type.equals("v") && h.getValidateur()!=null)
+           {
+               u = h.getValidateur();
+           }
+           else if (type.equals("r") && h.getRefLocal()!=null)
+           {
+               u = h.getRefLocal();
+           }
+       }
+       
+       if (type.equals("p"))
+       {
+       List<Offre_Profil_Util_CV> listeOP = offre_Profil_Util_CVFacade.rechercheOPUCParOffre(d.getService().getOffre());
+       
+       for (Offre_Profil_Util_CV o : listeOP)
+       {
+           if (o.getProfil().getNiveauHabilitation().toString().equals("Porteur"))
+           {
+               u=o.getUtilisateur();
+           }
+       }
+       }
+       
+        if (type.equals("ref"))
+       {
+       List<Offre_Profil_Util_CV> listeOP = offre_Profil_Util_CVFacade.rechercheOPUCParOffre(d.getService().getOffre());
+       
+       for (Offre_Profil_Util_CV o : listeOP)
+       {
+           if (o.getProfil().getNiveauHabilitation().toString().equals("Referent"))
+           {
+               u=o.getUtilisateur();
+           }
+       }
+       }
+       return u;
+       
+       
     }
 
  

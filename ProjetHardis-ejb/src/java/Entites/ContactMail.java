@@ -179,6 +179,27 @@ public class ContactMail implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
+        private String societe;
+
+    /**
+     * Get the value of societe
+     *
+     * @return the value of societe
+     */
+    public String getSociete() {
+        return societe;
+    }
+
+    /**
+     * Set the value of societe
+     *
+     * @param societe new value of societe
+     */
+    public void setSociete(String societe) {
+        this.societe = societe;
+    }
+
 
     private static final long serialVersionUID = 1L;
     @Id

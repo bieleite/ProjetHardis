@@ -28,7 +28,7 @@ public interface InternauteSessionLocal {
     
     void ajouterEntrepriseAuClientParCode(Client client, String code);
 
-    void contacterHardis(String mess, String email, String nom, String prenom, String tel, String sujet);
+    void contacterHardis(String mess, String email, String nom, String prenom, String tel, String sujet, String societe);
 
     List<Offre> afficheOffres();
     

@@ -31,7 +31,7 @@ public interface ContactMailFacadeLocal {
 
     int count();
 
-    ContactMail creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message);
+    ContactMail creerContactMail(String nom, String prenom, String mail, String tel, String sujet, String message, String societe);
 
     void majUtilisateurH(ContactMail cm, UtilisateurHardis u);
 
