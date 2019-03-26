@@ -110,9 +110,9 @@
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn  btn-primary" disabled>Affecter Devis</button></a>
                         <%}%>
-                        <% if(devistraitement.getStatut()==Statut.Valide )  {%>
-                        <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="button" class="btn  btn-primary" disabled>Valider Devis</button></a>
+                        <% if(devistraitement.getStatut()==Statut.Valide && devistraitement.getTypeDevis()==TypeService.Non_Standard)  {%>
+                        <a href="servAdmin?action=formDevis&faire=facture&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="button" class="btn  btn-primary" >Creer Facture Devis</button></a>
                         <%}%>
                         <% if(devistraitement.getStatut()==Statut.Refuse )  {%>
                         <a href="servAdmin?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
@@ -171,6 +171,21 @@
                   <input type="txt" name="nombreJour" class="form-control" id="exampleInputEmail1" placeholder=""  >
                   <input type="hidden" name="idDevis" value="<%=devistraitement.getId() %>">
                      <input type="hidden" name="action" value="affecterConsultantDevis">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div> <%}%>
+              
+               <% if (faire!=null&&faire.equals("facture")){ %>
+              <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4> Facture Devis </h4>
+                
+                <form>
+                    <label for="nombreJour">Montant Facture</label>
+                    <p>€ <%=devistraitement.getMontantDevis() %></p>
+                  <input type="txt" name="MontantDevis" class="form-control" id="exampleInputEmail1" placeholder=""  >
+                  <input type="hidden" name="idDevis" value="<%=devistraitement.getId() %>">
+                     <input type="hidden" name="action" value="Creer1ereFactureDevis">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div> <%}%>

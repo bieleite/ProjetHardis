@@ -672,6 +672,9 @@ public class servAdmin extends HttpServlet {
                 if(faire!=null&&faire.equals("valider")){
                 faire = "valider";
                 request.setAttribute("faire",faire);}
+                if(faire!=null&&faire.equals("facture")){
+                faire = "facture";
+                request.setAttribute("faire",faire);}
                 if(faire!=null&&faire.equals("affecter")){
                 Long of = a.getService().getOffre().getId();                
                 List<Offre_Profil_Util_CV> o = administrateurHardisSession.listHistoriqueOffre_Profil_Util_CV(utilisateur);
@@ -799,6 +802,12 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionValiderDevisNonStandard(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("Creer1ereFactureDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionCreer1ereFacture(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("RelancerDevis"))
@@ -1909,6 +1918,46 @@ public class servAdmin extends HttpServlet {
                           if (listeDevis==null) listeDevis=new ArrayList<>();
                           sess.setAttribute("listeDevis",listeDevis);
                           sess.setAttribute("devistraitement",devis);
+                          
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    
+    protected void doActionCreer1ereFacture(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idDevis = request.getParameter("idDevis");
+        String montDevis = request.getParameter("MontantDevis");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idUtili = ut.getId();
+                Long iddevis = Long.valueOf(idDevis);
+                float montdevis = 0;
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
+                java.util.Date nowDate = new java.util.Date();
+                if(montDevis!=null&&!montDevis.equals("")){
+                montdevis = Float.valueOf(montDevis);}
+                else{
+                    montdevis = devis.getMontantDevis();
+                }
+                String server = "cpanel.freehosting.com";
+                String user = "lucialei";
+                String pass = "rj3fTOw378";
+                String remoteFile = "/public_html/FACT"+devis.getId()+".pdf";
+                String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
+                administrateurHardisSession.creerFacture(nowDate, iddevis, montdevis , 0, "", ut, lien);                       
+//                SendMail send = new SendMail();
+//                String messa = "<p>Bonjour, <br> Vous avez envoyée un devis avec nous, mais il parait qu'il manque quelque informations afin que nous puissions traiter vos devis cliquer <a href=\"\">ici</a> pour finaliser votre devis. <br> Si vous avez des questions, n'hesitez pas à nous contacter<br> Cordialement, Hardis</p> ";
+//                send.sendMail(devis.getClient().getLogin(),"Devis Hardis: DEV"+devis.getId(), messa);                
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();    
+                          if (listeDevis==null) listeDevis=new ArrayList<>();
+                          sess.setAttribute("listeDevis",listeDevis);
+                          sess.setAttribute("devistraitement",devis);
+                          message= "Facture crée ";
                           
             }
             else{
