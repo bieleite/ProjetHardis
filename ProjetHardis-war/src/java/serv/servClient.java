@@ -98,6 +98,23 @@ public class servClient extends HttpServlet {
                 List<Devis> listeDevisC = clientSession.afficherDevisStatut(c.getId(),"Rep_en_cours");
                   List<Devis> listeDevisN = clientSession.afficherDevisStatut(c.getId(),"En_nego");
                     List<Devis> listeDevisE = clientSession.afficherDevisStatut(c.getId(),"Envoye");
+                 /*   int s = 0;
+                    for (Devis d : listeDevis)
+                    {
+                          List<Communication> listeComm = clientSession.rechercheCommDev(d.getId());
+                          if (listeComm!=null && listeComm.size()>0)
+                          {
+                              if (listeComm.get(listeComm.size()-1).getTypeQR().equals("Q"))
+                              {
+                                  s++;
+                              }
+                                  
+                          }
+                    }
+                    
+                    */
+                    
+               
                      int nbre = listeDevisC.size()+listeDevisN.size()+listeDevisE.size();
                      float mont = clientSession.getCA(2019, c.getId());
                 List<Devis> listeDevisAn =  clientSession.recupContratsParAn(2019, c.getId());
