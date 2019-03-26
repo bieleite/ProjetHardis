@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.Facture"%>
 <%@page import="Entites.UtilisateurHardis"%>
 <%@page import="Entites.TypeService"%>
 <%@page import="Entites.Statut"%>
@@ -66,6 +67,7 @@
     </section>
 <% SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");%>
     <!-- Main content -->
+    
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <% List<Devis> lesDeevis=listeDevis; %> 
@@ -403,12 +405,57 @@
                         </li>
                         <!-- END timeline item -->
 <%}%>
-                       
+                             
 
                     </ul>
                   <!-- /.direct-chat-pane -->
                 </div>
               </div>
+<!-- FACTURE LIST -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Factures</h3>
+              <% List<Facture> lesFactures = devistraitement.getFactures();%>
+            
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+             
+            <div class="box-body">
+              <ul class="products-list product-list-in-box">
+                  <% for (Facture fact : lesFactures){     %>
+                <li class="item">
+                  <div class="product-img">
+                    <img src="dist/img/default-50x50.gif" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                    <a href="javascript:void(0)" class="product-title"><%=fact.getDevis().toString() %>
+                      <span class="label label-warning pull-right"><%=fact.getMontant() %></span></a>
+                    <span class="product-description">
+                        <% if (!fact.isPaye()){%>
+                            <span class="label label-warning pull-right">Non Payé</span>
+                        <%}%>
+                        <% if (fact.isPaye()){%>
+                            <span class="label label-success pull-right">Payé</span>
+                        <%}%>
+                        </span>
+                  </div>
+                </li>
+                <%}%>
+                <!-- /.item -->
+                </ul>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+              <a href="javascript:void(0)" class="uppercase">View All Products</a>
+            </div>
+            <!-- /.box-footer -->
+          </div>
+          <!-- /.box -->
 <!------ test----->
 <!------ test----->
 <!------ test----->
@@ -419,6 +466,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0

@@ -1968,7 +1968,7 @@ public class servAdmin extends HttpServlet {
                 UtilisateurHardis utili = administrateurHardisSession.rechercherUtilisateurHardisParId(idconsultant, ut);
                 float prixUni = administrateurHardisSession.recherchePrixOffreC(utili, devis.getService().getOffre());
                 somm +=prixUni;
-                administrateurHardisSession.creerHistoriqueTraitement(devis.getDateIntervSouhaitee() , null, TypeUtilisateur.c, idDevis, idconsultant, 0, ut.getId(), ut);
+                administrateurHardisSession.creerHistoriqueTraitement(devis.getDateIntervSouhaitee() , null, TypeUtilisateur.p, idDevis, idconsultant, 0, ut.getId(), ut);
                 }
                 Long idUtili = ut.getId();
                 float jours = Float.valueOf(numJour);
