@@ -32,6 +32,8 @@ List<Devis> listeDAn = listeDevisAn;
 
 int v = Integer.valueOf(session.getAttribute("nbD").toString());
 float mont = Float.valueOf(session.getAttribute("mont").toString());
+float delM = Float.valueOf(session.getAttribute("delM").toString());
+
 %>
     <!-- Main content -->
     <section class="content">
@@ -77,7 +79,17 @@ float mont = Float.valueOf(session.getAttribute("mont").toString());
           </div>
         </div>
         <!-- ./col -->
-     
+      <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3><%=delM%></h3>
+
+              <p>Délai moyen</p>
+            </div>
+           
+          </div>
+        </div>
         <!-- ./col -->
       </div>
               
