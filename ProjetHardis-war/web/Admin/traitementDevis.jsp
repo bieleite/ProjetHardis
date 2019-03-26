@@ -184,7 +184,9 @@
                   <input type='txt' name='tpDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getTypeDevis().name() %>' disabled>
                   <label for="clientDevis">Client Devis</label>
                   <input type="txt" name="clientDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getClient().getNom() %>" disabled>
-                   <% List<HistoriqueTraitement> listHistTrait = devistraitement.getHistoriqueTraitements();%>
+                 
+                  
+                  <% List<HistoriqueTraitement> listHistTrait = devistraitement.getHistoriqueTraitements();%>
                   
                   <label for="consultantDevis">Consultant Devis</label>
                     <%for (HistoriqueTraitement htde : listHistTrait){%> 
@@ -430,11 +432,11 @@
                   <% for (Facture fact : lesFactures){     %>
                 <li class="item">
                   <div class="product-img">
-                    <img src="dist/img/default-50x50.gif" alt="Product Image">
+                    <img src="https://www.popcompta.com/wp-content/uploads/2016/11/facture.png" alt="Product Image">
                   </div>
                   <div class="product-info">
-                    <a href="javascript:void(0)" class="product-title"><%=fact.getDevis().toString() %>
-                      <span class="label label-warning pull-right"><%=fact.getMontant() %></span></a>
+                    <a href="javascript:void(0)" class="product-title"><%=dformat.format(fact.getDateFacture()) %>
+                      <span class="label label-warning pull-right">€  <%=fact.getMontant() %></span></a>
                     <span class="product-description">
                         <% if (!fact.isPaye()){%>
                             <span class="label label-warning pull-right">Non Payé</span>
