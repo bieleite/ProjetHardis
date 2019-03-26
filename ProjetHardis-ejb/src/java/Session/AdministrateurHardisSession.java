@@ -439,6 +439,11 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
+    public void modifDateFinDevis(Devis entite ,Date date_devis) {
+         devisFacade.modifDateFinDevis(entite, date_devis);
+    }
+    
+    @Override
     public void devisFactures(long iddevis, String[] listidfacture, UtilisateurHardis hardis) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
         List<Facture> listfacture = new ArrayList<>();

@@ -51,6 +51,8 @@ import javax.ejb.Local;
 @Local
 public interface AdministrateurHardisSessionLocal {
         
+    void modifDateFinDevis(Devis entite ,Date date_devis);
+    
     Adresse creerAdresse(int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis);
     
     void modifierAdresse(long idad, int numRue, String nomRue, String ville, String CP, UtilisateurHardis hardis);

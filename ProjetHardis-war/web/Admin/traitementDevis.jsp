@@ -88,6 +88,9 @@
               <h3 class="box-title">Devis</h3>
               <div class="box-tools pull-right">
                     <div class="btn-group">
+                        <a href="servAdmin?action=formDevis&faire=modifier&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-edit"></i></button>
+                        
                         <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
                         <a href="servAdmin?action=RelancerDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn btn-default">Relancer Client</button></a>
@@ -248,10 +251,21 @@
                   <input type="txt" name="factDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getIndicateurFact().name() %>" disabled >
                   <label for="montDevis">Montant Devis</label>
                   <% if (devistraitement.getMontantDevis()>0 ) {%>
-                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' disabled>
+                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' 
+                              <%  if (faire!=null&&faire.equals("modifier") ){%>
+                              disabled
+                              <%}%>
+                              <%  if (faire!=null&&faire.equals("modifier")){%><%}%>
+                              >
                        <%}%>
                  <% if (devistraitement.getMontantDevis()==0 ){%>
-                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' disabled>
+                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' 
+                             <%  if (faire!=null&&!faire.equals("modifier")){%>
+                              disabled
+                              <%}%>
+                             <%  if (faire!=null&&faire.equals("modifier")){%> <%}%>
+                             >
+                     
                   <%}%>                 
                   <label for="refusDevis">Motif Refus</label>
                   <textarea rows="3" name="refusDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getMotifRefus() %>" disabled ></textarea>
@@ -268,10 +282,11 @@
                 
                 
              
-
+                <%  if (faire!=null&&faire.equals("modifier")){%>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
+              <%}%>
              </form>
                   
               </div>

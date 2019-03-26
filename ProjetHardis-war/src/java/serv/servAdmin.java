@@ -1927,6 +1927,7 @@ public class servAdmin extends HttpServlet {
                 Offre of = devis.getService().getOffre();
                 java.util.Date nowDate = new java.util.Date();
                 administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Presta_terminee, devis.getClient().getId(), devis.getAgence().getId(), ut);
+                administrateurHardisSession.modifDateFinDevis(devis, nowDate);
                 administrateurHardisSession.creerHistoriqueEtats(Statut.Presta_terminee, devis.getId(), ut); 
                 String server = "cpanel.freehosting.com";
                 String user = "lucialei";
