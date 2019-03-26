@@ -493,10 +493,11 @@ public class servClient extends HttpServlet {
                 sess.setAttribute("devis", d);
                 Service s = d.getService();
                  ServiceStandard ss =null;
+                 
                 List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
-                if (typeD!=null && typeD!="") //SNS
+                if (typeD!=null && typeD!="" && typeD.equals("sns")) //SNS
                 {
-                     for (UtilisateurHardis u : listeConsu) {
+                    for (UtilisateurHardis u : listeConsu) {
                     float prixUni = clientSession.recherchePrixOffreC(u, s.getOffre());
                     PrixU.add(prixUni);
                     String lib = clientSession.rechercheLibConsultOffre(u, s.getOffre());
@@ -504,7 +505,7 @@ public class servClient extends HttpServlet {
 
                 }
                 }
-                else {
+                else if (typeD!=null && typeD!="" && typeD.equals("ss")) {
     
                      ss = clientSession.rechercheSS(s.getId());
                 for (UtilisateurHardis u : listeConsu) {
@@ -515,6 +516,7 @@ public class servClient extends HttpServlet {
 
                 }
                 }
+                
                 String valide = request.getParameter("valide");
 
                 if (valide != null && valide.equals("1")) {
@@ -553,14 +555,18 @@ public class servClient extends HttpServlet {
             if (idD != "") {
                 long id = Long.valueOf(idD);
                 Devis d = clientSession.recupDevis(id);
-
+Facture f = null;
                 List<Float> PrixU = new ArrayList<Float>();
                 List<String> listeLibC = new ArrayList<String>();
-
-                Facture f = clientSession.creerFacture(d.getId(), "");
+                 if (d.getTypeDevis().toString().equals("Standard")){
+                 f = clientSession.creerFacture(d.getId(), "");
                 clientSession.payerFacture(f.getId());
                 clientSession.changerStatut(d, "Acompte_regle");
-                clientSession.majDateDPresta(d.getId());
+                clientSession.majDateDPresta(d.getId());}
+                 else {
+                        f= clientSession.rechercheFactParDevis(d.getId()).get(0);
+                       
+                 }
 
                 List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
 
