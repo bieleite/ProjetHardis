@@ -50,11 +50,17 @@
     <section class="content-header">
       <h1>
         Tableau de bord
-        <small><% 
-                String attribut = (String) request.getAttribute("message");
-                out.println(attribut);
-                %></small>
+       
       </h1>
+         <%String attribut = (String) request.getAttribute("message");%>
+        <% if(attribut!=null) {%>
+      <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-info"></i> Info!</h4><% 
+                out.println(attribut);
+                %>
+              </div>
+              <%}%>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>

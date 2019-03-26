@@ -127,13 +127,15 @@
                   <td><input type="checkbox" name="idConsultant" value="<%=ht.getId() %>"></td>
                 </tr>      <%}%>          
               </table><%}%>
-                  
+              
                   
                   
                 <input type="hidden" name="idcli" value="<%=devistraitement.getClient().getId() %>">
                   <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
                   <input type="hidden" name="numJour" value="<%=nombreJour %>">
                   <input type="hidden" name="idage" value="<%=devistraitement.getAgence().getId() %>">
+                 
+                  
                   <input type="hidden" name="action" value="AffecterConsultantAUnDevis">
                 </div>
                 
