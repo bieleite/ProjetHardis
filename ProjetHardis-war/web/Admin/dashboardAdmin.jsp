@@ -163,14 +163,16 @@
                 </tr>
                 </thead>
                  <% SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
-                     for (Devis devis : listedevis){%>
+                
+                     for (Devis devis : listedevis){
+                         
+             %>
                 <tbody>
                 <tr>
                     <td><%=devis.getAgence().getNomAgence() %> </td>
                     <td><%=devis.getClient().getNom() %> </td>
                      <td><%=devis.getClient().getEntreprise().getNomEntreprise() %></td>
-                     <td><%=devis.getService().getNomService() %> </td>
-                    
+                     <td><%=devis.getService().getNomService() %> </td>                    
                      <td><%=devis.getStatut().name() %> </td>
                       <td><%=devis.getTypeDevis().name() %> </td>
                       <td><%=dformat.format(devis.getDateDevis()) %> </td>

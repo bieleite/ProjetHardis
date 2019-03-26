@@ -342,8 +342,8 @@
                   </div>
                   <!-- /.direct-chat-pane -->
                 </div>
-              </div>
-<div class="box-footer">
+              
+            <div class="box-footer">
                   <form action="servAdmin" method="get">
                     <div class="input-group">
                       <input type="text" name="message" placeholder="Type Message ..." class="form-control">
@@ -356,6 +356,7 @@
                     </div>
                   </form>
             </div>
+          </div>
 <!------ test----->
 <!------ test----->
 <!------ test----->

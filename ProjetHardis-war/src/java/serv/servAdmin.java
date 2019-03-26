@@ -786,8 +786,10 @@ public class servAdmin extends HttpServlet {
                 Long iddevis = devis.getId();
                 doActionMessageDevis(request,response);
                 List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
+                List<UtilisateurHardis> listeConsultantOffre = new ArrayList<>();
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
+                request.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 request.setAttribute("listeHTVide",listeHTVide);
                 jspClient="/Admin/traitementDevis.jsp";
             }
