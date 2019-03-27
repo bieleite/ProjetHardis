@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
            <jsp:useBean id="client" scope="session" class = "Entites.Client"> </jsp:useBean>
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>

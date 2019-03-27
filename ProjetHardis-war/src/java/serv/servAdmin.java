@@ -2089,9 +2089,12 @@ public class servAdmin extends HttpServlet {
                 Offre of = devis.getService().getOffre();   
                 Offre_Profil_Util_CV unopcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(ut, of);
                 if (unopcv!=null){
+                    
                 if (unopcv.getProfil().getPlafond()>=devis.getMontantDevis()){
                         administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), somm, devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Envoye, devis.getClient().getId(), devis.getAgence().getId(), ut);   
                         administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
+                        administrateurHardisSession.creerFacture(new java.util.Date(), devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, "");
+
                         java.util.Date nowDate = new java.util.Date();                        
                         message= "Devis: DEV"+iddevis+" validé!";
                 }

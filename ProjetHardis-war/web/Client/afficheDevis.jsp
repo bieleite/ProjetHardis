@@ -58,19 +58,23 @@
 
     <!-- Main content -->
     <section class="content">
-        <% if (d.getStatut().toString().equals("Presta_terminee")) {%>
+        <% if (d.getStatut().toString().equals("Presta_terminee") || d.getStatut().toString().equals("Valide")) {%>
         <div class="row">
             <div class="col-md-12">
                             <div class="box-body">
     
-              <div class="callout callout-warning">
+              <div class="callout callout-info">
               
 <% String ss = "";
+String message = "";
                 if (d.getTypeDevis().toString().equals("Standard")) ss="ss";
                 else if (d.getTypeDevis().toString().equals("Non_Standard"))
                     ss="sns";
-            %>
-                  <p>Votre prestation a été finalisée, vous avez 30 jours pour payer votre facture.
+          if (d.getStatut().toString().equals("Presta_terminee")) message = "Votre prestation a été finalisée, vous avez 30 jours pour payer votre facture.";
+          else if (d.getStatut().toString().equals("Valide")) message = "Le devis a été validé";
+%>
+           
+                  <p><%=message%>
                   <h4>Cliquez <a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>&typeD=<%=ss%>">ici</a> pour payer votre facture</h4></p>
               </div>
             
@@ -80,17 +84,13 @@
       <!-- Main row -->
       <div class="row">
           
-   <div class="col-md-8">
+   <div class="col-md-6">
 
                     <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Détail devis</h3>
 
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
+             
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -103,10 +103,7 @@
                     <th>Service</th>
                     <th>Status</th>
                      <th>Date intervention</th>
-                    <th>Conditions</th>
-                     <th>Devis</th>
-                     <th>Facture 1</th>
-                     <th>Facture 2</th>
+
                   </tr>
                   </thead>
                   <tbody>
@@ -134,6 +131,9 @@
                       else if (d.getStatut().toString().equals("Acompte_regle"))
                        
                            out.print("<span class=\"label label-success\">Acompte reglé</span>");
+                        else if (d.getStatut().toString().equals("Total_regle"))
+                       
+                           out.print("<span class=\"label label-success\">Total reglé</span>");
                                               
                        else if (d.getStatut().toString().equals("Rep_en_Cours") && d.getTypeDevis().toString().equals("Standard"))
                            out.print("<span class=\"label label-info\">En attente de validation</span>");
@@ -149,44 +149,11 @@
                   %></td>
                    
                    <td><%=dformat.format(d.getDateIntervSouhaitee())%></span></td>
-                   
-                   <td><a href="<%=d.getService().getConditionsContract()%>">Conditions générales</a></span></td>
-                   
-                   <% if (d.getTypeDevis().toString().equals("Standard")){
-                   %>
-                   <td><a href="servClient?action=consulteDevis&typeD=ss&idDev=<%out.print(d.getId());%>">Devis</a></span></td>
-                   
-                   <td> <% if ( d.getStatut().toString().equals("Acompte_regle") || d.getStatut().toString().equals("Presta_terminee") )
-                   { 
-                   %><a href="<%=f.getLienFact()%>">
-                           Facture 1</a> <% }
 
-else out.print("Facture non disponible"); %></td>
-                   <td> <% if (d.getStatut().toString().equals("Total_regle"))
-                   { %><a href="<%=f1.getLienFact()%>">
-                           Facture 2</a> <% }
-else out.print("Facture 2 non disponible");
-}%></td>
-      <%
-    if (d.getTypeDevis().toString().equals("Non_Standard")){
-   
-       if(d.getStatut().toString().equals("Envoye") || d.getStatut().toString().equals("Valide") || d.getStatut().toString().equals("Acompte_regle") )
-{ %>
-  <td><a href="servClient?action=consulteDevis&typeD=sns&idDev=<%=d.getId()%>">Devis</a></span></td>
-                   <td> <% if ( d.getStatut().toString().equals("Acompte_regle")|| d.getStatut().toString().equals("Presta_terminee") ) {
-                       %><a href="<%=f.getLienFact()%>">
-                           Facture 1</a> <% }
-else out.print("Facture non disponible"); %></td>
                    
-                  
-                            
-   
-<%} 
-%> <td> <% if (d.getStatut().toString().equals("Total_regle") ) { %><a href="<%=f1.getLienFact()%>">
-                           Facture 2</a> <% }else out.print("Facture 2 non disponible"); %></td>
-
                  
-                  <%}%>
+                   
+
                   
                   
                   </tr>
@@ -254,9 +221,113 @@ if (d.getStatut().toString().equals("Valide")) out.print("Attention, vous avez d
                     </div>
             <!-- /.box-footer -->
 
-          </div>      
-            <div class="row">
+          </div>    
+            
+            <div class="col-md-2">
+          <% List<Facture> lesFactures = d.getFactures();%>
+            
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Documents</h3>
+      <div class="box-tools pull-right">
+            
+                
+              </div>
+            </div>
+            <!-- /.box-header -->
+             
+            <div class="box-body">
+              <ul class="products-list product-list-in-box">
+                  
+                   <li class="item">
+                  <div class="product-img">
+                    <img src="https://www.popcompta.com/wp-content/uploads/2016/11/facture.png" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                 
+                        <a href="<%=d.getService().getConditionsContract()%>" class="product-title">
+                            CONDITIONS GENERALES
+                 </a>
+                              
+                    <span class="product-description">
+                       
+                        </span>
+                  </div>
+                </li>
+                  
+                <li class="item">
+                  <div class="product-img">
+                    <img src="https://www.popcompta.com/wp-content/uploads/2016/11/facture.png" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                        <% if (d.getTypeDevis().toString().equals("Standard")){
+                   %>
+                        <a href="servClient?action=consulteDevis&typeD=ss&idDev=<%out.print(d.getId());%>" class="product-title">
+                            DEVIS
+                 </a>
+                            <%} else if (d.getTypeDevis().toString().equals("Non_Standard")){
+                   %>
+                        <a href="servClient?action=consulteDevis&typeD=sns&idDev=<%out.print(d.getId());%>" class="product-title">
+                             DEVIS
+                 </a>    <%}   %>      
+                    <span class="product-description">
+                       
+                        </span>
+                  </div>
+                </li>
+        
+                <!-- /.item -->
+                
+                    <% if (d.getStatut().toString().equals("Acompte_regle") || d.getStatut().toString().equals("Total_regle") ) {
+                  %>
+                  <% if (f.getId()!=null){%>
+                <li class="item">
+                  <div class="product-img">
+                    <img src="https://www.popcompta.com/wp-content/uploads/2016/11/facture.png" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                    <a href="<%=f.getLienFact()%>" class="product-title">FACTURE 1
+                      <span class="label label-warning pull-right">€  <%=f.getMontant() %></span></a>
+                    <span class="product-description">
+                       
+                        <span class="label label-warning pull-right"><%=dformat.format(f.getDateFacture())%></span>
+                    
+                        </span> 
+                  </div>
+                </li><%}%>
+                <% if (f1.getId()!=null){%>
+                   <li class="item">
+                  <div class="product-img">
+                    <img src="https://www.popcompta.com/wp-content/uploads/2016/11/facture.png" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                    <a href="<%=f1.getLienFact()%>" class="product-title">FACTURE 2
+                      <span class="label label-warning pull-right">€  <%=f1.getMontant() %></span></a>
+                    <span class="product-description">
+                       
+                        <span class="label label-warning pull-right"><%=dformat.format(f1.getDateFacture())%></span>
+                    
+                        </span>
+                  </div>
+                </li>
+                 <%}%>
+                <%
+                }%>
+                <!-- /.item -->
+
+                <!-- /.item -->
+                </ul>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+              
+            </div>
+            <!-- /.box-footer -->
+          </div>
+                </div>
+           
                 <div class="col-md-4">
+                     <div class="row">
               <!-- DIRECT CHAT -->
               <div class="box box-warning direct-chat direct-chat-warning">
                 <div class="box-header with-border">
@@ -342,6 +413,7 @@ if (d.getStatut().toString().equals("Valide")) out.print("Attention, vous avez d
    
         </div>
 
+
     </section>
    
    
@@ -355,13 +427,6 @@ if (d.getStatut().toString().equals("Valide")) out.print("Attention, vous avez d
    
    
 
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>
 
 
   <!-- /.control-sidebar -->
