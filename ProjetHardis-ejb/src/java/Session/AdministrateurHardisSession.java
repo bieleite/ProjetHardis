@@ -1599,7 +1599,29 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         Devis d  =devisFacade.rechercheDevis(idD);
         devisFacade.majNbJP(d, nb);
     }
+    @Override
+    public void majLienF(Facture f, String lien){
+        factureFacade.majLienF(f, lien);
+    }
+    @Override
+    public void payerFacture(long idF) {
+        Facture f = factureFacade.rechercheFactParId(idF);
+        factureFacade.payerFacture(f);  
+        
+        devisFacade.changeStatutPaye("1",f.getDevis());
+          historiqueEtatsFacade.creerHistoriqueEtats( Statut.Acompte_regle, f.getDevis());
+        logsFacade.creerLog(Action.Create, new Date(), "creation facture pour devis id : "+f.getDevis().getId(), f.getDevis().getClient()); 
+    }
     
+    @Override
+    public void changerStatut(Devis d, String statut) {
+                devisFacade.changerStatut(d, statut);
+
+    }
     
-    
+    @Override
+    public void majDateDPresta(long id) {
+         Devis d = devisFacade.rechercheDevis(id);
+         devisFacade.majDateDPresta(d);
+    }
 }
