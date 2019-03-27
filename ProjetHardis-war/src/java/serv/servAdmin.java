@@ -830,8 +830,36 @@ public class servAdmin extends HttpServlet {
             else if(act.equals("EnvoyerDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                String docenv = request.getParameter("docenvoye");
+                String idclient = request.getParameter("idclient");
+                String iddev = request.getParameter("iddev");
+                Long idClient = Long.valueOf(idclient);
+                Long idDevis = Long.valueOf(iddev);
+                Long idDoc = Long.valueOf(docenv);
+                Document doc = administrateurHardisSession.rechercherDocument(idDoc, utilisateur);
+                String docenvoye = doc.getDescriptif();
+                java.util.Date nowDate = new java.util.Date();
+                java.util.Date datevali =  new java.util.Date();
+                datevali.setHours(nowDate.getHours()+48);
+                SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
+                String date = dformat.format(datevali) ; 
+                Devis devistraitement  = administrateurHardisSession.rechercherDevis(idDevis, utilisateur);
+                Client client = administrateurHardisSession.rechercherClient(idClient, "", "", utilisateur);
+                HistoriqueDevis hd = administrateurHardisSession.rechercherUnHistoriqueDevisParUtilisateur(idDevis);
+                List<Document> listeDocument = administrateurHardisSession.rechercherDocumentParHistoriqueDevis(hd.getId(), utilisateur);
+                if (listeDocument==null) listeDocument=new ArrayList<>();
+                request.setAttribute("listeDocument",listeDocument);
+                request.setAttribute("devistraitement",devistraitement);
+                request.setAttribute("client",client);
+                request.setAttribute("docenvoye",docenvoye);
+                request.setAttribute("date",date);
+                jspClient="/Admin/envoyerDevisClient.jsp";
+            }
+            else if(act.equals("EnvoyerLeDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionEnvoyerDevis(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Admin/envoyerDevisClient.jsp";
             }
             else if(act.equals("AjouterDocumentAUnDevis"))
             {

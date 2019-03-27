@@ -417,7 +417,6 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         if (id!=0)
         {
              d = devisFacade.rechercheDevis(id);
-            logsFacade.creerLogResearch(hardis, d);
         }
         
         return d;

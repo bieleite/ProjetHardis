@@ -32,16 +32,14 @@
   <title>Hardis Group -¨Profil Administrateur</title>
   <!-- Tell the browser to be responsive to screen width -->
   <%@include  file = "meta.jsp" %>
-    <jsp:useBean id="utilisateur" scope="session" class="Utilisateur"></jsp:useBean>
+    <jsp:useBean id="utilisateur" scope="session" class="Utilisateur"></jsp:useBean>    
+    <jsp:useBean id="devistraitement" scope="request" class = "Entites.Devis"> </jsp:useBean> 
     <jsp:useBean id="listeCommunication" scope="session" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeClient" scope="session" class = "java.util.List"> </jsp:useBean>
-    <jsp:useBean id="devistraitement" scope="session" class = "Entites.Devis"> </jsp:useBean>
-    <jsp:useBean id="listeCommunicationDevis" scope="request" class= "java.util.List"></jsp:useBean>
-    <jsp:useBean id="listeHTVide" scope="request" class= "java.util.List"></jsp:useBean>
-    <jsp:useBean id="listeConsultantOffre" scope="request" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeDocument" scope="request" class= "java.util.List"></jsp:useBean>
+     <jsp:useBean id="client" scope="request" class = "Entites.Client"> </jsp:useBean> 
     
 
 </head>
@@ -72,7 +70,7 @@
     
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <% List<Devis> lesDeevis=listeDevis; %> 
+       
       <!-- /.row -->
       <!--Form Recherche-->
       <!-- Main row -->
@@ -85,6 +83,8 @@
       </div>
       <!-- /.row (main row) -->
       <div class="col-md-9">
+          
+          <form role="form">
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Envoyer Devis</h3>
@@ -92,56 +92,36 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div class="form-group">
-                <input class="form-control" placeholder="To:">
+                  <p>To:<input name="emailto" class="form-control" placeholder="<%=devistraitement.getClient().getLogin().toString() %>" value="<%=devistraitement.getClient().getLogin().toString()%>"></p>
               </div>
               <div class="form-group">
-                <input class="form-control" placeholder="Subject:">
+             <%     String date = (String) request.getAttribute("date");%>
+                  <p>Subject: <input name="subject" class="form-control" placeholder="Proposition du devis DEV:<%=devistraitement.getId().toString() %> valable:<%=date%>" value="Proposition du devis DEV:<%=devistraitement.getId().toString() %> valable:<%=date%>"></p>
               </div>
               <div class="form-group">
-                    <textarea id="compose-textarea" class="form-control" style="height: 300px">
-                      <h1><u>Heading Of Message</u></h1>
-                      <h4>Subheading</h4>
-                      <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
-                        was born and I will give you a complete account of the system, and expound the actual teachings
-                        of the great explorer of the truth, the master-builder of human happiness. No one rejects,
-                        dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know
-                        how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again
-                        is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain,
-                        but because occasionally circumstances occur in which toil and pain can procure him some great
-                        pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise,
-                        except to obtain some advantage from it? But who has any right to find fault with a man who
-                        chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that
-                        produces no resultant pleasure? On the other hand, we denounce with righteous indignation and
-                        dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so
-                        blinded by desire, that they cannot foresee</p>
-                      <ul>
-                        <li>List item one</li>
-                        <li>List item two</li>
-                        <li>List item three</li>
-                        <li>List item four</li>
-                      </ul>
-                      <p>Thank you,</p>
-                      <p>John Doe</p>
-                    </textarea>
+                    <textarea name="textmail" id="compose-textarea" class="form-control" style="height: 300px" placeholder="But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain" value="But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain"></textarea>
+                   
               </div>
-              <div class="form-group">
-                <div class="btn btn-default btn-file">
-                  <i class="fa fa-paperclip"></i> Attachment
-                  <input type="file" name="attachment">
-                </div>
-                <p class="help-block">Max. 32MB</p>
+              <%     String docenvoye = (String) request.getAttribute("docenvoye");%>
+              <div class="form-group">                
+                <p> Attaché<i class="fa fa-paperclip"></i></p>           
+                <p class="help-block"> <i class="fa fa-paperclip"></i><%=docenvoye%></p>
               </div>
+              <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
+                  <input type="hidden" name="action" value="ContactMail">
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-              <div class="pull-right">
-                <button type="button" class="btn btn-default"><i class="fa fa-pencil"></i> Draft</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
-              </div>
-              <button type="reset" class="btn btn-default"><i class="fa fa-times"></i> Discard</button>
+            
+                  
+                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Envoyer</button>
+              
+
             </div>
+             </form>
             <!-- /.box-footer -->
-          </div>
+          
+         
           <!-- /. box -->
         </div>
       
