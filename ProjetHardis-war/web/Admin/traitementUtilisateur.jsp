@@ -185,14 +185,14 @@
                         
                         <% String acao = (String) request.getAttribute("acao");%>
                         <% if( acao!=null&&acao.equals("modif") ){%>
-                        <%    for (Offre off : lesOffress){%>
+                        
                         <tr>
                           <td>
                               <select  name="offreProf" class="form-control">
                                   <option value="vide" ></option>
-                                  <option value="<%=off.getId() %>" >
+                              <%    for (Offre off : lesOffress){%>    <option value="<%=off.getId() %>" >
                               <span class="label label-primary"><%=off.getLibelle() %></span></option>
-                              <option value="vide" ></option>
+                              <%}%> 
                               </select>
                           </td>
                           <td>
@@ -214,7 +214,7 @@
                           <td><input type="txt" name="plafondPFCV" class="form-control" id="exampleInputEmail1" placeholder="0" >  </td>
                           <td><input type="txt" name="prixPFCV" class="form-control" id="exampleInputEmail1" placeholder="0" >  </td>
                           <td><input type="txt" name="cvPFCV" class="form-control" id="exampleInputEmail1" placeholder="lien" >  </td>
-                        </tr><%}%>          <%}%>                    
+                        </tr>         <%}%>                    
                     </table>
                   
                   <input type="hidden" name="idutili" value="<%=utili.getId() %>">

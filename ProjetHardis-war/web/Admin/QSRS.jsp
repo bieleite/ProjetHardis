@@ -42,15 +42,15 @@
     <form action="servAdmin" method="get">
     <div class="form-group has-feedback">
         <input type="mail" class="form-control" placeholder="Login" name="Login">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class=""></span>
       </div>
       <div class="form-group has-feedback">
         <input type="login" class="form-control" placeholder="Question Secret" name="QS">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class=""></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Reponse Secret" name="RS">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class=""></span>
       </div>
       <div class="row">
    
