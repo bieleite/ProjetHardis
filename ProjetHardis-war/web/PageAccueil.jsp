@@ -103,7 +103,7 @@
                     <div class="col-xs-12 col-sm-2">
                         <div class="navbar-header">
                             <div class="row">
-                                <a class="logo navbar-btn pull-left col-xs-5 col-sm-12" href="/" title="Accueil">
+                                <a class="logo navbar-btn pull-left col-xs-5 col-sm-12" href="http://localhost:8080/ProjetHardis-war/servInternaute" title="Accueil">
                                     <img src="https://www.hardis-group.com/sites/all/themes/hardis/logo.png" alt="Accueil" class="img-responsive" />
                                 </a>
 
@@ -168,9 +168,7 @@
                 <% for (Offre o : listeOf){ %>
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="feature-box wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="box-icon">
-                            <i class="icofont icofont-idea"></i>
-                        </div>
+                     
                         <h4><%=o.getLibelle()%></h4>
                         
                         <a href="servInternaute?action=afficheService&idO=<%=o.getId()%>" class="read-more">En savoir +</a>
@@ -188,13 +186,12 @@
                 
                 <section class="section-padding" id="service-area">
         <div class="container">
+            <h3><%=listeSNS.get(0).getOffre().getLibelle()%></h3>
             <div class="row">
                 <% for (Service o : listeSNS){ %>
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="feature-box wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="box-icon">
-                            <i class="icofont icofont-idea"></i>
-                        </div>
+                       
                         <h4><%=o.getNomService()%></h4>
                         
                         <p><%=o.getDescriptionService()%> </p>
@@ -205,9 +202,7 @@
                  <% for (ServiceStandard o : listeSSt){ %>
                 <div class="col-xs-12 col-sm-6 col-md-4">
                     <div class="feature-box wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="box-icon">
-                            <i class="icofont icofont-idea"></i>
-                        </div>
+                       
                         <h4><%=o.getNomService()%></h4>
                         
                         <p><%=o.getDescriptionService()%> </p>
@@ -376,7 +371,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-3 hidden-xs">
-                        <a href="/"><img src="https://www.hardis-group.com/sites/all/themes/hardis/img/logo_footer.jpg" class="img-responsive"></a>
+                        <a href="http://localhost:8080/ProjetHardis-war/servInternaute"><img src="https://www.hardis-group.com/sites/all/themes/hardis/img/logo_footer.jpg" class="img-responsive"></a>
                     </div>
                     <div class="col-sm-9 col-xs-12">
                         <form id="newsletter-form" method="GET" name="" action="/newsletter" role="form" class="form-inline">

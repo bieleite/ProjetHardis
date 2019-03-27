@@ -139,7 +139,7 @@ h2 {
 }
 
 .read-more:after {
-    content: "\eb55";
+   
     display: inline-block;
     font-family: "icofont";
     color: #800080;

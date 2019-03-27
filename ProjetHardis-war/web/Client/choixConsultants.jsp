@@ -129,6 +129,7 @@ if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette d
                                                                         <th>Nom</th>
                                                                         <th>Prénom</th>
                                                                         <th>CV</th>
+                                                                          <th>Votre choix</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -152,7 +153,13 @@ if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette d
                                                                         <td><%=lienCV%></td>
                                                                          <td><input type="checkbox" name="listCC" value="<%=u.getId()%>"></td>
 
-                                                                    </tr> <% }
+                                                                    </tr>
+                                                                    
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>                
+                                                                    <% }
                                                                     } if (listeUJ.size() > 0) {
                                                                     %>
                                                                 <div class="box box-info">
@@ -160,6 +167,8 @@ if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette d
                                                                         <h3 class="box-title">Liste Consultants Junior disponibles (choisir 1)</h3>
 
                                                                     </div>
+                                                      
+                                                 
                                                                     <!-- /.box-header -->
                                                                     <div class="box-body">
                                                                         <div class="table-responsive">
@@ -169,6 +178,7 @@ if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette d
                                                                                         <th>Nom</th>
                                                                                         <th>Prénom</th>
                                                                                         <th>CV</th>
+                                                                                         <th>Votre choix</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -192,7 +202,11 @@ if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette d
                                                                                         <td><%=lienCV%></td>
                                                                                          <td><input type="checkbox" name="listCJ" value="<%=u.getId()%>"></td>
 
-                                                                                    </tr> <% }
+                                                                                    </tr>
+                                                                                    
+                                                                            </table>
+                                                                        </div></div></div>
+                                                                                   <% }
                                                                                     }  if (listeUS.size() > 0) {
                                                                                     %>
                                                                                 <div class="box box-info">
@@ -233,14 +247,17 @@ if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette d
                                                                                                         <td><a href="<%=lienCV%>">Lien CV</a></td>
                                                                                                          <td><input type="checkbox" name="listCS" value="<%=u.getId()%>"></td>
 
-                                                                                                    </tr> <% }
+                                                                                                    </tr> </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                                    <% }
                                                                                                         }
 }
                                                                                                     %>
 
 
-                                                                                                </tbody>
-                                                                                            </table>
+                                                                                              
                                                                                         </div>
                                                                                         <!-- /.table-responsive -->
                                                                                     </div>
@@ -284,13 +301,7 @@ if (valide!=null && valide.equals("n")) //pas de consultants dispos pour cette d
 
 
 
-                                                <footer class="main-footer">
-                                                    <div class="pull-right hidden-xs">
-                                                        <b>Version</b> 2.4.0
-                                                    </div>
-                                                    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-                                                    reserved.
-                                                </footer>
+                                             
 
 
                                                 <!-- /.control-sidebar -->

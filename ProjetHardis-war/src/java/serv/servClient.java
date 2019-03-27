@@ -96,6 +96,13 @@ public class servClient extends HttpServlet {
                 List<Devis> listeDevisC = clientSession.afficherDevisStatut(c.getId(), "Rep_en_cours");
                 List<Devis> listeDevisN = clientSession.afficherDevisStatut(c.getId(), "En_nego");
                 List<Devis> listeDevisE = clientSession.afficherDevisStatut(c.getId(), "Envoye");
+                 List<Devis> listeDevisV = clientSession.afficherDevisStatut(c.getId(), "Valide");
+                 List<Devis> listeDevisR = clientSession.afficherDevisStatut(c.getId(), "Refuse");
+                 List<Devis> listeDevisPT = clientSession.afficherDevisStatut(c.getId(), "Presta_terminee");
+                 
+                 int nbDevisNP = listeDevisPT.size() + listeDevisV.size();
+                  int nbre = listeDevisC.size() + listeDevisN.size() + listeDevisE.size() +listeDevisV.size() ;
+                  
                 float delM = 0;
                 int nbQSR = 0;
                 if (listeDevis.size() > 0) {
@@ -121,7 +128,7 @@ public class servClient extends HttpServlet {
                 }
                 
 
-                int nbre = listeDevisC.size() + listeDevisN.size() + listeDevisE.size();
+               
                 float mont = clientSession.getCA(2019, c.getId());
                 List<Devis> listeDevisAn = clientSession.recupContratsParAn(2019, c.getId());
                 if (listeNotif == null) {
@@ -134,6 +141,7 @@ public class servClient extends HttpServlet {
 
                 sess.setAttribute("listeNotif", listeNotif);
                 sess.setAttribute("nbD", nbre);
+                   sess.setAttribute("nbDevisNP", nbDevisNP);
                  sess.setAttribute("nbQSR", nbQSR);
                 sess.setAttribute("delM", delM);
                 sess.setAttribute("mont", mont);
@@ -650,6 +658,13 @@ Facture f = null;
                 String[] listeJ = new String[1];
                 String[] listeS = new String[1];
 
+                boolean b1 = true;
+                String dispo = "";
+                 if (nbJ>0 && listeCJDispo.size()==0) b1 = false;
+                  if (nbC>0 && listeCCDispo.size()==0) b1 = false;
+                      if (nbS>0 && listeCSDispo.size()==0) b1 = false;
+                      if (b1) dispo="ok";
+                      else dispo="no";
                 if (nbJ != 0 && listeCJDispo.size() != 0) {
                     listeJ[0] = listeCJDispo.get(0).getId().toString();
                     clientSession.choixConsultants(Long.valueOf(idD), null, listeJ, null);
@@ -660,7 +675,7 @@ Facture f = null;
                     clientSession.choixConsultants(Long.valueOf(idD), null, null, listeS);
                 }
 
-                if (nbC != 0 && listeCCDispo.size() == 0) {
+                if (nbC != 0 && listeCCDispo.size() != 0) {
                     listeC[0] = listeCCDispo.get(0).getId().toString();
                     clientSession.choixConsultants(Long.valueOf(idD), listeC, null, null);
                 }
@@ -686,7 +701,7 @@ Facture f = null;
 
                 }
                 clientSession.majMontantDevis(id, somme);
-
+ request.setAttribute("dispo", dispo);
                 request.setAttribute("listeLibC", listeLibC);
                 request.setAttribute("PrixU", PrixU);
                 sess.setAttribute("listeConsu", listeConsu);

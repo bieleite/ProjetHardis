@@ -12,6 +12,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+          <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
             <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean> 
                <jsp:useBean id="listeDevisAn" scope="session" class = "java.util.List"> </jsp:useBean> 
             
@@ -34,6 +36,7 @@ int v = Integer.valueOf(session.getAttribute("nbD").toString());
 int QSR = Integer.valueOf(session.getAttribute("nbQSR").toString());
 float mont = Float.valueOf(session.getAttribute("mont").toString());
 float delM = Float.valueOf(session.getAttribute("delM").toString());
+int DNP = Integer.valueOf(session.getAttribute("nbDevisNP").toString());
 
 %>
     <!-- Main content -->
@@ -61,6 +64,18 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
               <h3><%=v%></h3>
 
               <p>Devis en cours</p>
+            </div>
+            
+          </div>
+        </div>
+              
+                <div class="col-lg-2 col-xs-2">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3><%=DNP%></h3>
+
+              <p>Facture(s) non payée(s)</p>
             </div>
             
           </div>
@@ -212,7 +227,7 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
     <!-- /.content -->
   </div>
                   
-                  
   <!-- /.content-wrapper -->
     </body>
 </html>
+

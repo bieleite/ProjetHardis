@@ -48,6 +48,7 @@
     List<Float> PrixUnit = PrixU;
     Float tot = 0.0F;
     Facture f = facture;
+    String dispo = (String)request.getAttribute("dispo");
   
   
   SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");%>
@@ -142,13 +143,39 @@
         
               <br>
               <br>
-              <% if (listeC.size()==0) { %>
+              <% 
+                  if (listeC.size()==0 && dispo!=null && dispo.equals("ok")){ %>
                   
          <b>Il n'y a pas de consultants attribués, vous pouvez en choisir ou en attribuer par défaut. Que voulez-vous faire ? </b>
             <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
               <a href="servClient?action=choixConsultantsDef&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Défaut</a>
             
-         <%   } else {%>  
+         <%   } else if (listeC.size()==0 && dispo!=null && dispo.equals("no")) 
+{%>  
+<p>Malheureusement il n'y a pas de consultants disponibles pour la date d'intervention choisie (<%=dformat.format(d.getDateIntervSouhaitee())%>), <br> veuillez
+                                                        choisir une autre date</p> 
+                                                          <form role="form">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                         <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="date" id="datepicker" name="date">
+                </div>
+
+                                                                        <input type ="hidden" name="action" value="choixConsultants">
+                                          <input type ="hidden" name="idDev" value="<%=d.getId()%>">
+                                                                    </div>
+                                                                    <!-- /.box-body -->
+
+                                                                    <div class="box-footer">
+                                                                        <button type="submit" class="btn btn-primary">Valider</button>
+                                                                    </div></div>
+                                                                    </form>
+                                                         <p>Si aucune date ne vous correspond, contactez Hardis au 00-00-00-00-00</p> 
+
+<} else {%> 
          <table class="table table-striped">
             <thead>
             <tr>
