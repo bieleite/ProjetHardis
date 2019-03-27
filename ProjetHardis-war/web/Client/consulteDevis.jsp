@@ -144,7 +144,7 @@
               <br>
               <br>
               <% 
-                  if (listeC.size()==0 && dispo!=null && dispo.equals("ok")){ %>
+                  if (listeC.size()==0 && dispo==null){ %>
                   
          <b>Il n'y a pas de consultants attribués, vous pouvez en choisir ou en attribuer par défaut. Que voulez-vous faire ? </b>
             <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
@@ -175,7 +175,7 @@
                                                                     </form>
                                                          <p>Si aucune date ne vous correspond, contactez Hardis au 00-00-00-00-00</p> 
 
-<} else {%> 
+<%} else {%> 
          <table class="table table-striped">
             <thead>
             <tr>

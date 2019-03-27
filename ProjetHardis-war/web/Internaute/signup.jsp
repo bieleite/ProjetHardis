@@ -33,44 +33,44 @@
     <form action="servClient" method="get">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Nom" name="nom">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <span class=""></span>
       </div>
          <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Prénom" name="prenom">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <span class=""></span>
       </div>
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class=""></span>
       </div>
           <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Code postal" name="cp">
-        <span class="glyphicon glyphicon-globe form-control-feedback"></span>
+        <span class=""></span>
       </div>
           <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Question secrète" name="qs">
-        <span class="glyphicon glyphicon-question-sign form-control-feedback"></span>
+        <span class=""></span>
       </div>
         
           <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Réponse secrète" name="rs">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class=""></span>
       </div>
         
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Mot de passe" name="mdp">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class=""></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Confirmer mot de passe" name="mdpC">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class=""></span>
       </div>
                    <input type ="hidden" name="action" value="creation">
       <div class="row">
         <div class="col-xs-12" style="padding-left:10%">
           <div class="checkbox icheck">
             <label>
-              <input required="required" type="checkbox"> I agree to the <a href="#">terms</a>
+              <input required="required" type="checkbox"> En cliquant sur "Enregistrer", j’accepte les <a href="#"> conditions générales</a>
             </label>
           </div>
         </div>
