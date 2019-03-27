@@ -936,6 +936,7 @@ public class servAdmin extends HttpServlet {
     protected void doActionCreerAgence(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String nomAgence = request.getParameter("nomAgence");
+        String adrAgence = request.getParameter("adrAgence");
         String message = null;
         if(nomAgence.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." + "<br/><a href=\"CreerContratEntraineur.jsp\">Clique ici </a>pour accéder au formulaire de creation.";
@@ -948,7 +949,7 @@ public class servAdmin extends HttpServlet {
                     message= "Erreur agence: "+nomAgence +" déjà dans la base de données";
                 }
                 else{
-                    administrateurHardisSession.creerAgence(nomAgence, ut);
+                    administrateurHardisSession.creerAgence(nomAgence, ut,adrAgence);
                     agence = administrateurHardisSession.rechercherAgence(0, nomAgence, ut);
                     String nomagence = agence.getNomAgence();
                     String classe = agence.getClass().toString();
@@ -1880,12 +1881,12 @@ public class servAdmin extends HttpServlet {
                         administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
                         administrateurHardisSession.creerHistoriqueTraitement(null, null, TypeUtilisateur.v, iddevis, 0, 0, ut.getId(), ut);
                         java.util.Date nowDate = new java.util.Date();
-                        String server = "cpanel.freehosting.com";
+                    /*    String server = "cpanel.freehosting.com";
                         String user = "lucialei";
                         String pass = "rj3fTOw378";
                         String remoteFile = "/public_html/FACT"+devis.getId()+".pdf";
-                        String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
-                        administrateurHardisSession.creerFacture(nowDate, devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, lien);
+                        String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;*/
+                        administrateurHardisSession.creerFacture(nowDate, devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, "");
                 }
                 else{
                     administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Transmettre_au_client, devis.getClient().getId(), devis.getAgence().getId(), ut);
@@ -1945,12 +1946,12 @@ public class servAdmin extends HttpServlet {
                 else{
                     montdevis = devis.getMontantDevis();
                 }
-                Facture f =  administrateurHardisSession.creerFacture(nowDate, iddevis, montdevis/2, 0, "", ut, "");
+                Facture f =  administrateurHardisSession.creerFacture(nowDate, iddevis, montdevis, 0, "", ut, "");
              
-
+/*
                 administrateurHardisSession.payerFacture(f.getId());
                 administrateurHardisSession.changerStatut(devis, "Acompte_regle");
-                administrateurHardisSession.majDateDPresta(devis.getId());
+                administrateurHardisSession.majDateDPresta(devis.getId());*/
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();    
                           if (listeDevis==null) listeDevis=new ArrayList<>();
                           sess.setAttribute("listeDevis",listeDevis);
@@ -1978,12 +1979,12 @@ public class servAdmin extends HttpServlet {
                 administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Presta_terminee, devis.getClient().getId(), devis.getAgence().getId(), ut);
                 administrateurHardisSession.modifDateFinDevis(devis, nowDate);
                 administrateurHardisSession.creerHistoriqueEtats(Statut.Presta_terminee, devis.getId(), ut); 
-                String server = "cpanel.freehosting.com";
+                /*String server = "cpanel.freehosting.com";
                 String user = "lucialei";
                 String pass = "rj3fTOw378";
                 String remoteFile = "/public_html/FACT"+devis.getId()+".pdf";
-                String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
-                administrateurHardisSession.creerFacture(nowDate, devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, lien);
+                String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;*/
+                administrateurHardisSession.creerFacture(nowDate, devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, "");
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();    
                 if (listeDevis==null) listeDevis=new ArrayList<>();
                 sess.setAttribute("listeDevis",listeDevis);

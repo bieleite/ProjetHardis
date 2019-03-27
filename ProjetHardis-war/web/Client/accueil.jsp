@@ -152,6 +152,10 @@ float delM = Float.valueOf(session.getAttribute("delM").toString());
                       
                            out.print("<span class=\"label label-danger\">Validé, en attente de paiement</span>");
                       
+                       if (d.getStatut().toString().equals("Presta_terminee"))
+                      
+                           out.print("<span class=\"label label-danger\">Prestation terminée, en attente de paiement</span>");
+                      
                       else if (d.getStatut().toString().equals("Refuse"))
                       
                            out.print("<span class=\"label label-warning\">Refusé</span>");

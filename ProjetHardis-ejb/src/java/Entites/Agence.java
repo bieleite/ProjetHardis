@@ -53,6 +53,26 @@ public class Agence implements Serializable {
         return nomAgence;
     }
 
+        private String adresse;
+
+    /**
+     * Get the value of adresse
+     *
+     * @return the value of adresse
+     */
+    public String getAdresse() {
+        return adresse;
+    }
+
+    /**
+     * Set the value of adresse
+     *
+     * @param adresse new value of adresse
+     */
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
     /**
      * Set the value of nomAgence
      *

@@ -184,8 +184,8 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public Agence creerAgence(String NomAgence, UtilisateurHardis hardis) {
-        Agence ag =agenceFacade.creerAgence(NomAgence);
+    public Agence creerAgence(String NomAgence, UtilisateurHardis hardis, String add) {
+        Agence ag =agenceFacade.creerAgence(NomAgence, add);
         logsFacade.creerLogCreate(hardis, ag);
         return ag;
     }
@@ -630,9 +630,9 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis, String lienF) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
-        Facture facture = factureFacade.creerFacture(date, devis, devis.getMontantDevis()/2, montantDepass, motifDepass, lienF);
+        Facture facture = factureFacade.creerFacture(date, devis, montant/2, montantDepass, motifDepass, lienF);
         
-     
+     /*
        String server = "cpanel.freehosting.com";
        String user = "lucialei";
        String pass = "rj3fTOw378";
@@ -652,7 +652,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
      
         
         testFTP test1 = new testFTP();
-        test1.upload("FACT"+facture.getId()+".pdf");
+        test1.upload("FACT"+facture.getId()+".pdf");*/
     
         logsFacade.creerLogCreate(hardis, facture);
         return facture;

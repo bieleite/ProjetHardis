@@ -72,8 +72,13 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="nomAgence">Nom Agence</label>
-                  <input type="txt" name="nomAgence" class="form-control" id="exampleInputEmail1" placeholder="Nom Agence">
+                  <input type="text" name="nomAgence" class="form-control" id="exampleInputEmail1" placeholder="Nom Agence">
                 </div>
+                  
+                    <div class="form-group">
+                  <label for="nomAgence">Adresse Agence</label>
+                  <input type="text" name="adrAgence" class="form-control" id="exampleInputEmail1" placeholder="Adresse Agence">
+                </div> 
                 <input type="hidden" name="action" value="InsererAgence">
              <!--   <div class="form-group">
                   <label>Select</label>

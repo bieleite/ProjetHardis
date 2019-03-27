@@ -298,13 +298,37 @@ devisFacade.majHT(d, ht);
        logsFacade.creerLog(Action.Create, new Date(), "creation communication pour devis id : "+d.getId(), cli);  
     }
 
+    
+    
     @Override
     public void payerFacture(long idF) {
         Facture f = factureFacade.rechercheFactParId(idF);
-        factureFacade.payerFacture(f);  
+        factureFacade.payerFacture(f); 
+        
+        String server = "cpanel.freehosting.com";
+        String user = "lucialei";
+        String pass = "rj3fTOw378";
+        String remoteFile = "/public_html/FACT"+f.getId()+".pdf";
+        String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
+  
+        factureFacade.majLienF(f, lien);
+  
+        testPDF test = new testPDF();
+          
+        try {
+            test.test(f);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ClientSession.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        testFTP test1 = new testFTP();
+        test1.upload("FACT"+f.getId()+".pdf");
+        
+        SendMail send = new SendMail();
+        send.sendMailA(f.getDevis().getClient().getLogin(), "Facture Hardis", "Ci-joint facture hardis","FACT"+f.getId()+".pdf");
         
         devisFacade.changeStatutPaye("1",f.getDevis());
-          historiqueEtatsFacade.creerHistoriqueEtats( Statut.Acompte_regle, f.getDevis());
+        historiqueEtatsFacade.creerHistoriqueEtats( Statut.Acompte_regle, f.getDevis());
         logsFacade.creerLog(Action.Create, new Date(), "creation facture pour devis id : "+f.getDevis().getId(), f.getDevis().getClient()); 
     }
 
@@ -474,27 +498,7 @@ return e;
            Devis d = devisFacade.rechercheDevis(id);
            Facture f = factureFacade.creerFacture(new Date(), d, d.getMontantDevis()/2, 0, "", "");
       
-            String server = "cpanel.freehosting.com";
-       String user = "lucialei";
-       String pass = "rj3fTOw378";
-        String remoteFile = "/public_html/FACT"+f.getId()+".pdf";
-       String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
-  
-       factureFacade.majLienF(f, lien);
-  
-           testPDF test = new testPDF();
-          
-        try {
-            test.test(f);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ClientSession.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        testFTP test1 = new testFTP();
-        test1.upload("FACT"+f.getId()+".pdf");
-        
-        SendMail send = new SendMail();
-        send.sendMailA(d.getClient().getLogin(), "Facture Hardis", "Ci-joint facture hardis","FACT"+f.getId()+".pdf");
+            
            return f;
     }
     
@@ -996,6 +1000,12 @@ try {
     public void majDateDPresta(long id) {
          Devis d = devisFacade.rechercheDevis(id);
          devisFacade.majDateDPresta(d);
+    }
+
+    @Override
+    public void payerFactureCree(long idF) {
+         Facture f = factureFacade.rechercheFactParId(idF);
+        factureFacade.payerFacture(f); 
     }
     
 

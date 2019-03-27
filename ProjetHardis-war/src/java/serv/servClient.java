@@ -490,6 +490,11 @@ public class servClient extends HttpServlet {
             if (idD != "") {
                 id = Long.valueOf(idD);
                 d = clientSession.recupDevis(id);
+              
+                
+                Facture f = null;
+                
+               
                 sess.setAttribute("devis", d);
                 Service s = d.getService();
                  ServiceStandard ss =null;
@@ -519,9 +524,29 @@ public class servClient extends HttpServlet {
                 
                 String valide = request.getParameter("valide");
 
+                
+                if (d.getStatut().toString().equals("Presta_terminee"))
+                {
+                     f = clientSession.rechercheFactParDevis(d.getId()).get(1);
+                      request.setAttribute("valide", "2");
+                }
+                
+                else{
+                    
                 if (valide != null && valide.equals("1")) {
-                    clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
-
+                     clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
+                     d = clientSession.recupDevis(d.getId());
+                      sess.setAttribute("devis", d);
+                     if (d.getTypeDevis().toString().equals("Standard")){
+                     f = clientSession.creerFacture(d.getId(), "");
+                }
+                 else {
+                        f= clientSession.rechercheFactParDevis(d.getId()).get(0);
+                       
+                 }
+                }
+               
+               
                     request.setAttribute("valide", "1");
                 }
 
@@ -541,6 +566,7 @@ public class servClient extends HttpServlet {
                 request.setAttribute("PrixU", PrixU);
                 request.setAttribute("servS", ss);
                  request.setAttribute("servNS", s);
+                  sess.setAttribute("facture", f);
                 request.setAttribute("listeLibC", listeLibC);
             }
 
@@ -555,18 +581,24 @@ public class servClient extends HttpServlet {
             if (idD != "") {
                 long id = Long.valueOf(idD);
                 Devis d = clientSession.recupDevis(id);
+                List<Facture> listeF = clientSession.rechercheFactParDevis(d.getId());
+               
 Facture f = null;
                 List<Float> PrixU = new ArrayList<Float>();
                 List<String> listeLibC = new ArrayList<String>();
-                 if (d.getTypeDevis().toString().equals("Standard")){
-                 f = clientSession.creerFacture(d.getId(), "");
+               if (listeF.size()==1){
+                f= clientSession.rechercheFactParDevis(d.getId()).get(0);
+               clientSession.payerFacture(f.getId());
+         
+               }
+               else if (listeF.size()==2){
+                f= clientSession.rechercheFactParDevis(d.getId()).get(1);
                 clientSession.payerFacture(f.getId());
-                clientSession.changerStatut(d, "Acompte_regle");
-                clientSession.majDateDPresta(d.getId());}
-                 else {
-                        f= clientSession.rechercheFactParDevis(d.getId()).get(0);
-                       
-                 }
+               }
+                if (listeF.size()==1) {clientSession.changerStatut(d, "Acompte_regle"); clientSession.majDateDPresta(d.getId());}
+                else if (listeF.size()==2) clientSession.changerStatut(d, "Total_regle");
+                
+           
 
                 List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
 

@@ -63,7 +63,7 @@ public interface AdministrateurHardisSessionLocal {
     
     List<Adresse> rechercherAdresseParCP(String CP, UtilisateurHardis hardis);
     
-    Agence creerAgence(String NomAgence, UtilisateurHardis hardis);
+    Agence creerAgence(String NomAgence, UtilisateurHardis hardis, String add);
 
     void modifierAgence(long idagence, String nomagence, UtilisateurHardis hardis);
     

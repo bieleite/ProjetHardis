@@ -27,6 +27,7 @@
   <jsp:useBean id="listMessage" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeConsu" scope="session" class = "java.util.List"> </jsp:useBean>
       <jsp:useBean id="facture1" scope="request" class = "Entites.Facture"> </jsp:useBean>
+       <jsp:useBean id="facture2" scope="request" class = "Entites.Facture"> </jsp:useBean>
   
 
      
@@ -41,6 +42,7 @@
   
     <% List<Communication> liste = listMessage;
     Facture f = facture1;
+       Facture f1 = facture2;
 %>
    <body>
         <!-- Content Wrapper. Contains page content -->
@@ -56,7 +58,25 @@
 
     <!-- Main content -->
     <section class="content">
-     
+        <% if (d.getStatut().toString().equals("Presta_terminee")) {%>
+        <div class="row">
+            <div class="col-md-12">
+                            <div class="box-body">
+    
+              <div class="callout callout-warning">
+              
+<% String ss = "";
+                if (d.getTypeDevis().toString().equals("Standard")) ss="ss";
+                else if (d.getTypeDevis().toString().equals("Non_Standard"))
+                    ss="sns";
+            %>
+                  <p>Votre prestation a été finalisée, vous avez 30 jours pour payer votre facture.
+                  <h4>Cliquez <a href="servClient?action=consulteDevis&idDev=<%=d.getId()%>&typeD=<%=ss%>">ici</a> pour payer votre facture</h4></p>
+              </div>
+            
+            </div>
+            </div>
+        </div> <%}%>
       <!-- Main row -->
       <div class="row">
           
@@ -136,15 +156,15 @@
                    %>
                    <td><a href="servClient?action=consulteDevis&typeD=ss&idDev=<%out.print(d.getId());%>">Devis</a></span></td>
                    
-                   <td> <% if ( d.getStatut().toString().equals("Acompte_regle"))
+                   <td> <% if ( d.getStatut().toString().equals("Acompte_regle") || d.getStatut().toString().equals("Presta_terminee") )
                    { 
                    %><a href="<%=f.getLienFact()%>">
-                           Facture</a> <% }
+                           Facture 1</a> <% }
 
 else out.print("Facture non disponible"); %></td>
-                   <td> <% if (d.getStatut().toString().equals("Presta_terminee"))
-                   { %><a href="">
-                           Facture</a> <% }
+                   <td> <% if (d.getStatut().toString().equals("Total_regle"))
+                   { %><a href="<%=f1.getLienFact()%>">
+                           Facture 2</a> <% }
 else out.print("Facture 2 non disponible");
 }%></td>
       <%
@@ -153,17 +173,17 @@ else out.print("Facture 2 non disponible");
        if(d.getStatut().toString().equals("Envoye") || d.getStatut().toString().equals("Valide") || d.getStatut().toString().equals("Acompte_regle") )
 { %>
   <td><a href="servClient?action=consulteDevis&typeD=sns&idDev=<%=d.getId()%>">Devis</a></span></td>
-                   <td> <% if ( d.getStatut().toString().equals("Acompte_regle")) {
+                   <td> <% if ( d.getStatut().toString().equals("Acompte_regle")|| d.getStatut().toString().equals("Presta_terminee") ) {
                        %><a href="<%=f.getLienFact()%>">
-                           Facture</a> <% }
+                           Facture 1</a> <% }
 else out.print("Facture non disponible"); %></td>
                    
                   
                             
    
 <%} 
-%> <td> <% if (d.getStatut().toString().equals("Presta_terminee")) { %><a href="servClient?action=consulteDevis&fact=fact&idDev=<%=d.getId()%>">
-                           Facture</a> <% }else out.print("Facture 2 non disponible"); %></td>
+%> <td> <% if (d.getStatut().toString().equals("Total_regle") ) { %><a href="<%=f1.getLienFact()%>">
+                           Facture 2</a> <% }else out.print("Facture 2 non disponible"); %></td>
 
                  
                   <%}%>

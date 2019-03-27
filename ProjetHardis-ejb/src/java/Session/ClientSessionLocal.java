@@ -144,5 +144,7 @@ public interface ClientSessionLocal {
 
     void majDateDPresta(long id);
 
+    void payerFactureCree(long idF);
+
 
 }

@@ -24,6 +24,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <jsp:useBean id="devis" scope="session" class = "Entites.Devis"> </jsp:useBean>
+   <jsp:useBean id="facture" scope="session" class = "Entites.Facture"> </jsp:useBean>
    <jsp:useBean id="servS" scope="request" class = "Entites.ServiceStandard"> </jsp:useBean>
    <jsp:useBean id="servNS" scope="request" class = "Entites.Service"> </jsp:useBean>
    <jsp:useBean id="listeConsu" scope="session" class = "java.util.List"> </jsp:useBean>
@@ -46,6 +47,7 @@
    List<String> listeLib = listeLibC;
     List<Float> PrixUnit = PrixU;
     Float tot = 0.0F;
+    Facture f = facture;
   
   
   SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");%>
@@ -57,10 +59,16 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-          <%  out.print("Devis"); %>
+      <% if (f.getId()==null) {%>   <%  out.print("Devis"); %>
         <small> 
               
-             <% out.print("DEV"+d.getId()); %></small>
+             <% out.print("DEV"+d.getId()); %></small> <% } else {%>
+             
+             <%  out.print("Facture"); %>
+        <small> 
+              
+             <% out.print("FACT"+f.getId()); %></small> <% } %>
+        
       </h1>
      
     </section>
@@ -73,7 +81,7 @@
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
-            <i class="fa fa-globe"></i> Hardis Group
+           Hardis Group
         
           </h2>
         </div>
@@ -84,8 +92,9 @@
         <div class="col-sm-4 invoice-col">
           De
           <address>
-            <strong>Hardis Group <%=d.getClient().getAgence().getNomAgence().toString()%>  </strong><br>
-            blabla adresse
+            <strong>Hardis Group <br>
+                <%=d.getClient().getAgence().getNomAgence().toString()%>  </strong><br>
+             <%=d.getClient().getAgence().getAdresse().toString()%> 
           </address>
         </div>
         <!-- /.col -->
@@ -117,8 +126,9 @@
             
           <b>
               
-              Devis :  #<% out.print(d.getId()+"    en date du : "+dformat.format(d.getDateDevis()));%></b>
-          
+          <% if (f.getId()==null) {%>    Devis :  #<% out.print(d.getId()+"    en date du : "+dformat.format(d.getDateDevis()));%></b>
+             <% } else{%> Facture :  #<% out.print(f.getId()+"    en date du : "+dformat.format(f.getDateFacture()));%></b><%}%>
+              
           <br>
           <br>  
           <b> Offre : <%=d.getService().getOffre().getLibelle()%> </b>
@@ -241,7 +251,11 @@
               </tr>
               
                <tr>
-                <th>Total 1er paiement</th>
+                   <% if (d.getStatut().toString().equals("Presta_Terminee")) 
+                       out.print("  <th>Total 1er paiement</th>");
+                       else    out.print(" <th>Total 2eme paiement</th>");
+                    %>
+              
                <td><%=tot*1.2 / 2%></td>
               </tr>
             </table>
@@ -253,7 +267,7 @@
               
       <!-- /.row -->
 <% String valide = (String)request.getAttribute("valide");
-      if (d.getStatut().toString().equals("Valide"))
+      if ((d.getStatut().toString().equals("Valide") ||d.getStatut().toString().equals("Presta_terminee")) && f.getId()!=null)
       { %>
       <!-- this row will not appear when printing -->
       <div class="row no-print">
@@ -277,13 +291,17 @@
                 else if (d.getTypeDevis().toString().equals("Non_Standard"))
                     ss="sns";
             %>
-                
-            <a href="servClient?action=consulteDevis&typeD=<%=ss%>&valide=1&idDev=<%=d.getId()%>"><button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Valider
-                </button></a>
-           <a href="servClient?action=consulteDevis&valide=0&idDev=<%=d.getId()%>"><button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-            <i class="fa fa-download"></i> Réfuser
+                <div class="row">
+                    <div class="col-md-10"> </div>
+                    <div class="col-md-1">
+            <a href="servClient?action=consulteDevis&typeD=<%=ss%>&valide=1&idDev=<%=d.getId()%>"><button type="button" class="btn btn-success"> Valider
+                </button></a></div>
+                <div class="col-md-1">
+           <a href="servClient?action=consulteDevis&valide=0&idDev=<%=d.getId()%>"><button type="button" class="btn btn-warning" style="margin-right: 5px;">
+            Réfuser
           </button>
-           </a>
+           </a></div>
+                </div>
         </div>
            <%  if (valide!=null && valide.equals("0")){%>
             <form role="form">
