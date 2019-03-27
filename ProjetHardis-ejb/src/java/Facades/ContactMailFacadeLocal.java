@@ -46,4 +46,6 @@ public interface ContactMailFacadeLocal {
     List<ContactMail> rechercheCommunicationParUtilisateurHardis(UtilisateurHardis utilisateurHardis);
     
     ContactMail rechercheCommunication(long id);
+    
+    List<ContactMail> listCommunicationNonReponduParUtilisateur(Long idutili);
 }

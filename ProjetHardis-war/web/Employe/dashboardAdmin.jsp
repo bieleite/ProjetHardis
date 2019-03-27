@@ -82,7 +82,7 @@
             <div class="icon">
               <i class="fa fa-briefcase"></i>
             </div>
-            <a href="servAdmin?action=listesDevis" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>
+            <!--<a href="servEmployes?action=listesDevis" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>-->
           </div>
         </div>
         <!-- ./col -->
@@ -99,7 +99,7 @@
             <div class="icon">
               <i class="fa fa-user"></i>
             </div>
-            <a href="servAdmin?action=listesAfficherClient" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>
+            <!--<a href="servEmployes?action=listesAfficherClient" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>-->
           </div>
         </div>
         <!-- ./col -->
@@ -116,7 +116,7 @@
             <div class="icon">
               <i class="fa fa-building-o"></i>
             </div>
-            <a href="servAdmin?action=AfficherEntreprise" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>
+            <!--<a href="servEmployes?action=AfficherEntreprise" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>-->
           </div>
         </div>
         <!-- ./col -->
@@ -133,7 +133,7 @@
             <div class="icon">
               <i class="fa fa-users"></i>
             </div>
-            <a href="servAdmin?action=AfficherUtilisateur" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>
+            <!--<a href="servEmployes?action=AfficherUtilisateur" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>-->
           </div>
         </div>
         <!-- ./col -->
@@ -147,7 +147,7 @@
           <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
             <div class="box-header">
-                <h3 class="box-title"><i class="fa fa-inbox"></i><a href="servAdmin?action=listesDevis">Devis</a></h3>
+                <h3 class="box-title"><i class="fa fa-inbox"></i><a href="servEmployes?action=listesDevis">Devis</a></h3>
             
             </div>
             <div class="tab-content no-padding">
@@ -228,7 +228,7 @@
                   <small class="label label-primary"><i class="fa fa-clock-o"></i><%=dformat.format(HDTR.getDevis().getDateDevis()) %></small>
                   <!-- General tools such as edit or delete-->
                   <div class="tools">
-                      <a href="servAdmin?action=formDevis&idDevis=<%=HDTR.getDevis().getId().toString() %>" name="idDevis" value="<%=HDTR.getDevis().getId().toString() %>"><i class="fa fa-edit"></i></a>
+                      <a href="servEmployes?action=formDevis&idDevis=<%=HDTR.getDevis().getId().toString() %>" name="idDevis" value="<%=HDTR.getDevis().getId().toString() %>"><i class="fa fa-edit"></i></a>
                     
                   </div>
                 </li>
@@ -278,12 +278,12 @@
                         <small class="text-muted pull-right">
                         <div class="box-tools pull-right" >
                             <div class="btn-group" data-toggle="btn-toggle">
-                                <a href="servAdmin?action=Menu&acao=repondre&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i>Repondre</button></a>
+                                <a href="servEmployes?action=Menu&acao=repondre&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i>Repondre</button></a>
                                 <% if(contactMail.getUtilisateurHardis()!=null)   {%>
                                 <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-black "></i><%=contactMail.getUtilisateurHardis().getNom() %></button>
                                 <%}%>
                                 <% if(contactMail.getUtilisateurHardis()==null )     {%>
-                                <a href="servAdmin?action=Menu&acao=affecter&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-red"></i>Affecter</button></a>
+                                <a href="servEmployes?action=Menu&acao=affecter&idContactMail=<%=contactMail.getId().toString() %>" ><button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-red"></i>Affecter</button></a>
                                 <%}%>
                             </div>
                         </div>
@@ -300,7 +300,7 @@
             </div>
             <!-- /.chat -->
             <% if( test!=null&&test.equals("repondre") ){%>
-            <form action="servAdmin" method="post" >
+            <form action="servEmployes" method="post" >
             
             <div class="box-footer">
               <div class="input-group">
@@ -354,7 +354,7 @@
               <!-- /. tools -->
             </div>
             <div class="box-body">
-              <form action="servAdmin" method="post">
+              <form action="servEmployes" method="post">
                 <div class="form-group">
                   <input type="email" class="form-control" name="emailto" placeholder="Email to:">
                 </div>

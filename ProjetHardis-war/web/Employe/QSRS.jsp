@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -13,6 +14,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>AdminLTE 2 | Log in</title>
 <%@include  file = "meta.jsp" %>
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,28 +39,30 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Connexion</p>
-
     <form action="servEmployes" method="get">
-      <div class="form-group has-feedback">
-        <input type="mail" class="form-control" placeholder="Email" name="login">
+    <div class="form-group has-feedback">
+        <input type="mail" class="form-control" placeholder="Login" name="Login">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="pass">
+        <input type="login" class="form-control" placeholder="Question Secret" name="QS">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Reponse Secret" name="RS">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
    
         <!-- /.col -->
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
         </div>
         <!-- /.col -->
       </div>
-              <input type ="hidden" name="action" value="LoginAdmin">
+              <input type ="hidden" name="action" value="DSRSAdmin">
     </form>
 
-    <a href="servEmployes?action=MotDePassOublie">Mot de passe oublié</a><br>
 
   </div>
   <!-- /.login-box-body -->
