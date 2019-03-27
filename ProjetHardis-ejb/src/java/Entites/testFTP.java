@@ -147,4 +147,81 @@ try {
         }
 
     }
+    public void uploadLienComplet(String lien){
+      FTPClient client = new FTPClient();
+ 
+  FileInputStream fis = null;
+  
+ 
+  try {
+ 
+ 
+client.connect("cpanel.freehosting.com");
+ 
+ 
+client.login("lucialei", "rj3fTOw378");
+  
+String s = System.getProperty("user.name"); 
+
+ String lienComplet =  lien;
+ 
+ 
+ 
+String filename = lienComplet;
+ 
+ 
+fis = new FileInputStream(filename);
+  
+ 
+ 
+// Store file on server and logout
+ 
+
+boolean b = client.storeFile("/public_html/"+lien, fis);
+
+if (b)
+{
+    File file = new File(lienComplet);
+  //  file.delete();
+}
+ 
+ 
+client.logout();
+ 
+ 
+ 
+ 
+  } catch (IOException e) {
+ 
+ 
+e.printStackTrace();
+ 
+  } finally {
+ 
+ 
+try {
+ 
+ 
+    if (fis != null) {
+ 
+ 
+ 
+  fis.close();
+ 
+ 
+    }
+ 
+ 
+    client.disconnect();
+ 
+ 
+} catch (IOException e) {
+ 
+ 
+    e.printStackTrace();
+ 
+ 
+}
+ 
+  }}
 }

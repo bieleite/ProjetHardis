@@ -12,6 +12,7 @@ import Entites.HistoriqueDevis;
 import Entites.UtilisateurHardis;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,6 +33,9 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> implements HistoriqueDevisFacadeLocal {
+
+    @EJB
+    private DevisFacadeLocal devisFacade;
 
     @PersistenceContext(unitName = "ProjetHardis-ejbPU")
     private EntityManager em;
@@ -127,7 +131,21 @@ public class HistoriqueDevisFacade extends AbstractFacade<HistoriqueDevis> imple
        h.setDocuments(d);
        return h;
                }
-
+    
+    @Override
+    public HistoriqueDevis rechercherUnHistoriqueDevisParDevis(Long id) {
+        HistoriqueDevis hd = null;    
+        Devis de = devisFacade.rechercheDevis(id);
+        String txt = "SELECT hd FROM HistoriqueDevis AS hd WHERE hd.devis=:id";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", de);  
+        List<HistoriqueDevis> res = req.getResultList();
+        if (res.size() >= 1)
+        {
+              hd = (HistoriqueDevis) res.get(0);
+        }
+        return hd;
+    }
 
     
 }

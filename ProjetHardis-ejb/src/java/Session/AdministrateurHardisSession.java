@@ -506,7 +506,8 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         else if (typeD.equals("f")) type = TypeDoc.f;
         else if (typeD.equals("c")) type = TypeDoc.c;
         else if (typeD.equals("p")) type = TypeDoc.p;
-        
+        testFTP test1 = new testFTP();
+        test1.uploadLienComplet(liendoc);
         Document doc = documentFacade.creerDocument(descriptif, liendoc, historiquedevis, type);
         logsFacade.creerLogCreate(hardis, doc);
         return doc;
@@ -630,7 +631,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public Facture creerFacture(Date date, long iddevis, float montant, float montantDepass, String motifDepass, UtilisateurHardis hardis, String lienF) {
         Devis devis = devisFacade.rechercheDevis(iddevis);
-        Facture facture = factureFacade.creerFacture(date, devis, devis.getMontantDevis()/2, montantDepass, motifDepass, lienF);
+        Facture facture = factureFacade.creerFacture(date, devis, montant/2, montantDepass, motifDepass, lienF);
         
      
        String server = "cpanel.freehosting.com";
@@ -638,7 +639,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
        String pass = "rj3fTOw378";
         String remoteFile = "/public_html/FACT"+facture.getId()+".pdf";
        String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
-
+    factureFacade.majLienF(facture, lien);
        testPDF test = new testPDF();
           
         try {
@@ -1623,5 +1624,16 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     public void majDateDPresta(long id) {
          Devis d = devisFacade.rechercheDevis(id);
          devisFacade.majDateDPresta(d);
+    }
+    
+    @Override
+    public void majMontant(Devis d, float mont) {
+        devisFacade.majMontant(d, mont);
+    }
+    
+    @Override
+    public HistoriqueDevis rechercherUnHistoriqueDevisParUtilisateur(Long idDevis) {
+    HistoriqueDevis hd =  historiqueDevisFacade.rechercherUnHistoriqueDevisParDevis(idDevis);
+      return hd;
     }
 }

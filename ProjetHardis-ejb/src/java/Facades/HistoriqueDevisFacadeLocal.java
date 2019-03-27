@@ -54,6 +54,6 @@ public interface HistoriqueDevisFacadeLocal {
 
     HistoriqueDevis ajoutDocHistoDevis(HistoriqueDevis h, List<Document> d);
 
-
+    HistoriqueDevis rechercherUnHistoriqueDevisParDevis(Long id);
 
 }
