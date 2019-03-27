@@ -843,6 +843,7 @@ public class servAdmin extends HttpServlet {
                 datevali.setHours(nowDate.getHours()+48);
                 SimpleDateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
                 String date = dformat.format(datevali) ; 
+                String textmail = "Ci-joint votre proposition liée au devis DEV:<%=devistraitement.getId().toString() %> valable jusqu\'au : <%=date%> <br>Cordialement<br> <%=utilisateur.getNom() %> ";
                 Devis devistraitement  = administrateurHardisSession.rechercherDevis(idDevis, utilisateur);
                 Client client = administrateurHardisSession.rechercherClient(idClient, "", "", utilisateur);
                 HistoriqueDevis hd = administrateurHardisSession.rechercherUnHistoriqueDevisParUtilisateur(idDevis);
@@ -853,6 +854,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("client",client);
                 request.setAttribute("docenvoye",docenvoye);
                 request.setAttribute("date",date);
+                request.setAttribute("textmail",textmail);
                 jspClient="/Admin/envoyerDevisClient.jsp";
             }
             else if(act.equals("EnvoyerLeDevis"))
@@ -893,7 +895,7 @@ public class servAdmin extends HttpServlet {
             }
             
             
-            else if(act.equals("ContactMail"))
+            else if(act.equals("EnvoyerDevisMail"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionEnvoyerMail(request,response);
@@ -1800,7 +1802,11 @@ public class servAdmin extends HttpServlet {
         throws ServletException, IOException {
         String emailto = request.getParameter("emailto");
         String subject = request.getParameter("subject");
-        String messagemail = request.getParameter("textmail");
+        String messagemail = "";
+        messagemail = request.getParameter("textmail");
+        if(messagemail.equals("")){
+        messagemail = request.getParameter("textemail");
+        }
         String message = null;
         if(emailto.trim().isEmpty()||messagemail.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires.";

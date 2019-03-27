@@ -99,7 +99,7 @@
                   <p>Subject: <input name="subject" class="form-control" placeholder="Proposition du devis DEV:<%=devistraitement.getId().toString() %> valable:<%=date%>" value="Proposition du devis DEV:<%=devistraitement.getId().toString() %> valable:<%=date%>"></p>
               </div>
               <div class="form-group">
-                    <textarea name="textmail" id="compose-textarea" class="form-control" style="height: 300px" placeholder="But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain" value="But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain"></textarea>
+                  <textarea name="textmail" id="compose-textarea" class="form-control" style="height: 300px" placeholder="Bonjour <%=devistraitement.getClient().getNom() %>, &#10;Ci-joint votre proposition li&eacute;e au devis DEV:<%=devistraitement.getId().toString() %> valable jusqu'au :<%=date%>.&#10;Cordialement, &#10;<%=utilisateur.getNom() %> " value="Bonjour <%=devistraitement.getClient().getNom() %>, &#10;Ci-joint votre proposition li&eacute;e au devis DEV:<%=devistraitement.getId().toString() %> valable jusqu'au :<%=date%>.&#10;Cordialement, &#10;<%=utilisateur.getNom() %> "></textarea>
                    
               </div>
               <%     String docenvoye = (String) request.getAttribute("docenvoye");%>
@@ -107,8 +107,10 @@
                 <p> Attaché<i class="fa fa-paperclip"></i></p>           
                 <p class="help-block"> <i class="fa fa-paperclip"></i><%=docenvoye%></p>
               </div>
+              <%     String textemail = (String) request.getAttribute("textmail");%>
+              <input type="hidden" name="textemail" value="<%=textemail %>">
               <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
-                  <input type="hidden" name="action" value="ContactMail">
+                  <input type="hidden" name="action" value="EnvoyerDevisMail">
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
