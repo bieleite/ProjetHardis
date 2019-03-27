@@ -372,4 +372,12 @@ public interface AdministrateurHardisSessionLocal {
     List<HistoriqueTraitement> listHistoriqueTraitementSansConsultant();
 
     void majNBJ(long idD, float nb);
+    
+    void majLienF(Facture f, String lien);
+    
+    void payerFacture(long idF);
+    
+    void changerStatut(Devis d, String statut);
+    
+    void majDateDPresta(long id);
 }

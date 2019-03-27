@@ -19,6 +19,7 @@ import Entites.Entreprise;
 import Entites.Expertise;
 import Entites.Facturation;
 import Entites.FacturationFrais;
+import Entites.Facture;
 import Entites.Helpers;
 import Entites.HistoriqueDevis;
 import Entites.HistoriqueEtats;
@@ -1944,15 +1945,12 @@ public class servAdmin extends HttpServlet {
                 else{
                     montdevis = devis.getMontantDevis();
                 }
-                String server = "cpanel.freehosting.com";
-                String user = "lucialei";
-                String pass = "rj3fTOw378";
-                String remoteFile = "/public_html/FACT"+devis.getId()+".pdf";
-                String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
-                administrateurHardisSession.creerFacture(nowDate, iddevis, montdevis , 0, "", ut, lien);                       
-//                SendMail send = new SendMail();
-//                String messa = "<p>Bonjour, <br> Vous avez envoyée un devis avec nous, mais il parait qu'il manque quelque informations afin que nous puissions traiter vos devis cliquer <a href=\"\">ici</a> pour finaliser votre devis. <br> Si vous avez des questions, n'hesitez pas à nous contacter<br> Cordialement, Hardis</p> ";
-//                send.sendMail(devis.getClient().getLogin(),"Devis Hardis: DEV"+devis.getId(), messa);                
+                Facture f =  administrateurHardisSession.creerFacture(nowDate, iddevis, montdevis/2, 0, "", ut, "");
+             
+
+                administrateurHardisSession.payerFacture(f.getId());
+                administrateurHardisSession.changerStatut(devis, "Acompte_regle");
+                administrateurHardisSession.majDateDPresta(devis.getId());
                 List<Devis> listeDevis = administrateurHardisSession.listDevis();    
                           if (listeDevis==null) listeDevis=new ArrayList<>();
                           sess.setAttribute("listeDevis",listeDevis);
