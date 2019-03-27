@@ -80,7 +80,7 @@ public class DocumentFacade extends AbstractFacade<Document> implements Document
     public  List<Document> rechercheDocumentParHistorique(HistoriqueDevis historiquedevis) {       
         String txt = "SELECT doc FROM Document AS doc WHERE doc.histoDevis=:historiquedevis ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("historiquedevis",historiquedevis.getId() );
+        req = req.setParameter("historiquedevis",historiquedevis );
         List<Document> res = req.getResultList();
         return res;
     }

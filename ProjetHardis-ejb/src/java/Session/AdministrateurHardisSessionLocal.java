@@ -380,4 +380,8 @@ public interface AdministrateurHardisSessionLocal {
     void changerStatut(Devis d, String statut);
     
     void majDateDPresta(long id);
+    
+    void majMontant(Devis d, float mont);
+    
+    HistoriqueDevis rechercherUnHistoriqueDevisParUtilisateur(Long idDevis);
 }

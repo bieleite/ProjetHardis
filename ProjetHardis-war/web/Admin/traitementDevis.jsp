@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.Document"%>
 <%@page import="Entites.Facture"%>
 <%@page import="Entites.UtilisateurHardis"%>
 <%@page import="Entites.TypeService"%>
@@ -40,6 +41,7 @@
     <jsp:useBean id="listeCommunicationDevis" scope="request" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeHTVide" scope="request" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeConsultantOffre" scope="request" class= "java.util.List"></jsp:useBean>
+    <jsp:useBean id="listeDocument" scope="request" class= "java.util.List"></jsp:useBean>
     
 
 </head>
@@ -78,7 +80,7 @@
         <!-- left column -->
         <!-- Div Class Box -->
          
-          
+            <% List<Document> lesDocument = listeDocument; %>
         <!--/.col (right) -->
       </div>
       <!-- /.row (main row) -->
@@ -88,8 +90,14 @@
               <h3 class="box-title">Devis</h3>
               <div class="box-tools pull-right">
                     <div class="btn-group">
+                        <% if (listeConsultantOffre.contains(utilisateur)&&!listeDocument.isEmpty()){ %>
+                        <a href="servAdmin?action=formDevis&faire=envoyer&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="submit" class="btn btn-default" title="Envoyer le Devis"><i class="fa fa-send"></i></button></a><%}%>
+                        <a href="servAdmin?action=formDevis&faire=document&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="submit" class="btn btn-default" title="Ajouter Documents"><i class="fa fa-plus"></i></button></a>
                         <a href="servAdmin?action=formDevis&faire=modifier&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
-                            <button type="submit" class="btn btn-default"><i class="fa fa-edit"></i></button></a>
+                            <button type="submit" class="btn btn-default" title="Modifier"><i class="fa fa-edit"></i></button></a>
+                        
                         
                         <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
                         <a href="servAdmin?action=RelancerDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
@@ -143,7 +151,8 @@
                     
             </div>
                     <% List<UtilisateurHardis> lesConsultants=listeConsultantOffre;
-                    if (!lesConsultants.isEmpty()){%>
+                    String faire = (String) request.getAttribute("faire");
+                    if (faire!=null&&faire.equals("affecter")){%>
               <div class="alert alert-info alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                 <h4> Consultant</h4>
@@ -160,7 +169,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div> <%}%>
-              <% String faire = (String) request.getAttribute("faire");
+              <% 
                     if (faire!=null&&faire.equals("valider")){%>
               <div class="alert alert-info alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -186,6 +195,42 @@
                   <input type="txt" name="MontantDevis" class="form-control" id="exampleInputEmail1" placeholder=""  >
                   <input type="hidden" name="idDevis" value="<%=devistraitement.getId() %>">
                      <input type="hidden" name="action" value="Creer1ereFactureDevis">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div> <%}%>
+              <% if (faire!=null&&faire.equals("document")){ %>
+              <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4> Document Devis </h4>
+                
+                <form>
+                    <label for="nombreJour">Ajouter Document</label>
+                  <input type="txt" name="DescriptionDocument" class="form-control" id="exampleInputEmail1" placeholder="Description Document"  >
+                  <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <input type="file" id="exampleInputFile" name="DocumentDevis">
+                </div>
+                  <input type="hidden" name="idDevis" value="<%=devistraitement.getId() %>">
+                     <input type="hidden" name="action" value="AjouterDocumentAUnDevis">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div> <%}%>
+              
+                <%  if (faire!=null&&faire.equals("envoyer")){ %>
+              <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4> Envoyer le Devis </h4>
+                
+                <form>
+                    <select name="docenvoye" class="form-control">
+                        
+                       <% for (Document docs : lesDocument){%>
+                        <option value="<%=docs.getId() %>"> <%=docs.getDescriptif() %>  </option> 
+                    <%}%>
+                    </select>
+                    <input type="hidden" name="idclient" value="<%=devistraitement.getClient().getId() %>">
+                    <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
+                    <input type="hidden" name="action" value="EnvoyerDevis">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div> <%}%>
@@ -461,15 +506,17 @@
                 </div>
               </div>
 <!-- FACTURE LIST -->
+<% List<Facture> lesFactures = devistraitement.getFactures();%>
+<% if (!lesFactures.isEmpty()){%>
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Factures</h3>
-              <% List<Facture> lesFactures = devistraitement.getFactures();%>
+              
             
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                
               </div>
             </div>
             <!-- /.box-header -->
@@ -500,11 +547,49 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-center">
-              <a href="javascript:void(0)" class="uppercase">View All Products</a>
+              
+            </div>
+            <!-- /.box-footer -->
+          </div><%}%>
+          <!-- /.box -->
+          <% if (!listeDocument.isEmpty()){%>
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Documents</h3>
+            
+            
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                
+              </div>
+            </div>
+            <!-- /.box-header -->
+             
+            <div class="box-body">
+              <ul class="products-list product-list-in-box">
+                  <% for (Document doc : lesDocument){     %>
+                <li class="item">
+                  <div class="product-img">
+                    <img src="https://www.popcompta.com/wp-content/uploads/2016/11/facture.png" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                    <a href="javascript:void(0)" class="product-title"><%=doc.getTypeDoc().toString() %>
+                      <span class="label label-warning pull-right">  <%=doc.getLienDoc() %></span></a>
+                    <span class="product-description"><%=doc.getDescriptif() %> </span>
+                  </div>
+                </li>
+                <%}%>
+                <!-- /.item -->
+                </ul>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+              
             </div>
             <!-- /.box-footer -->
           </div>
-          <!-- /.box -->
+                <%}%>
 <!------ test----->
 <!------ test----->
 <!------ test----->

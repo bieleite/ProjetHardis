@@ -36,9 +36,11 @@ import Entites.SendMail;
 import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.Statut;
+import Entites.TypeDoc;
 import Entites.TypeService;
 import Entites.TypeUtilisateur;
 import Entites.UtilisateurHardis;
+import Entites.testFTP;
 import Facades.ClientFacade;
 import Session.*;
 import java.io.IOException;
@@ -670,13 +672,6 @@ public class servAdmin extends HttpServlet {
                 Long iddevis = Long.valueOf(champ);
                 Devis a = administrateurHardisSession.rechercherDevis(iddevis, utilisateur);
                 List<UtilisateurHardis> listeConsultantOffre = new ArrayList<>();
-                if(faire!=null&&faire.equals("valider")){
-                faire = "valider";
-                request.setAttribute("faire",faire);}
-                if(faire!=null&&faire.equals("facture")){
-                faire = "facture";
-                request.setAttribute("faire",faire);}
-                if(faire!=null&&faire.equals("affecter")){
                 Long of = a.getService().getOffre().getId();                
                 List<Offre_Profil_Util_CV> o = administrateurHardisSession.listHistoriqueOffre_Profil_Util_CV(utilisateur);
              
@@ -684,11 +679,32 @@ public class servAdmin extends HttpServlet {
                {
                    if ( compteur.getOffre().equals(a.getService().getOffre()))
                        listeConsultantOffre.add(compteur.getUtilisateur());
-               }}
+               }
+                if(faire!=null&&faire.equals("valider")){
+                faire = "valider";
+                request.setAttribute("faire",faire);}
+                if(faire!=null&&faire.equals("document")){
+                faire = "document";
+                request.setAttribute("faire",faire);}
+                if(faire!=null&&faire.equals("facture")){
+                faire = "facture";
+                request.setAttribute("faire",faire);}
+                if(faire!=null&&faire.equals("affecter")){
+                    faire = "affecter";
+                request.setAttribute("faire",faire);
+                }
+                if(faire!=null&&faire.equals("envoyer")){
+                    faire = "envoyer";
+                request.setAttribute("faire",faire);
+                }
+                HistoriqueDevis hd = administrateurHardisSession.rechercherUnHistoriqueDevisParUtilisateur(iddevis);
+                List<Document> listeDocument = administrateurHardisSession.rechercherDocumentParHistoriqueDevis(hd.getId(), utilisateur);
+                if (listeDocument==null) listeDocument=new ArrayList<>();    
                 List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, utilisateur);
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
                 request.setAttribute("listeHTVide",listeHTVide);
+                request.setAttribute("listeDocument",listeDocument);
                 request.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 sess.setAttribute("devistraitement",a);
                 jspClient="/Admin/traitementDevis.jsp";
@@ -809,6 +825,18 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionCreer1ereFacture(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("EnvoyerDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionEnvoyerDevis(request,response);
+                jspClient="/Admin/dashboardAdmin.jsp";
+            }
+            else if(act.equals("AjouterDocumentAUnDevis"))
+            {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+                doActionAjouterDocumentAUnDevis(request,response);
                 jspClient="/Admin/dashboardAdmin.jsp";
             }
             else if(act.equals("RelancerDevis"))
@@ -1098,6 +1126,9 @@ public class servAdmin extends HttpServlet {
                 Communication communication = administrateurHardisSession.creerCommunicationHardis(messagecom, iddevis, ut);
                 String classe = communication.getClass().toString();
                 message= " "+classe+": envoiée avec succès !";
+                List<Communication> listeCommunicationDevis = administrateurHardisSession.rechercherCommunication(iddevis, 0, ut);
+                                 
+                request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
@@ -1904,6 +1935,35 @@ public class servAdmin extends HttpServlet {
         }
         request.setAttribute("message", message);
     }
+    
+    protected void doActionAjouterDocumentAUnDevis(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idDevis = request.getParameter("idDevis");
+        String descriptDocu = request.getParameter("DescriptionDocument");
+        String lienDocument = request.getParameter("DocumentDevis");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idUtili = ut.getId();
+                Long iddevis = Long.valueOf(idDevis);
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
+                HistoriqueDevis hd = administrateurHardisSession.rechercherUnHistoriqueDevisParUtilisateur(iddevis);
+                administrateurHardisSession.creerDocument(descriptDocu, lienDocument, hd.getId(), ut, TypeDoc.p.toString());
+                
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();    
+                          if (listeDevis==null) listeDevis=new ArrayList<>();
+                          sess.setAttribute("listeDevis",listeDevis);
+                          sess.setAttribute("devistraitement",devis);
+                          
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    
+    
     protected void doActionRelancerDevisNonStandard(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         String idDevis = request.getParameter("idDevis");
@@ -1942,7 +2002,8 @@ public class servAdmin extends HttpServlet {
                 Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
                 java.util.Date nowDate = new java.util.Date();
                 if(montDevis!=null&&!montDevis.equals("")){
-                montdevis = Float.valueOf(montDevis);}
+                montdevis = Float.valueOf(montDevis);
+                }
                 else{
                     montdevis = devis.getMontantDevis();
                 }
@@ -2044,6 +2105,42 @@ public class servAdmin extends HttpServlet {
                 Devis devisapres = administrateurHardisSession.rechercherDevis(idDevis, ut);
                 sess.setAttribute("listeDevis",listeDevis);
                 sess.setAttribute("devistraitement",devisapres);
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    
+    protected void doActionEnvoyerDevis(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idDevis = request.getParameter("idDevis");
+        String doc = request.getParameter("docenvoye");
+        String client = request.getParameter("idclient");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idUtili = ut.getId();
+                Long iddevis = Long.valueOf(idDevis);
+                Devis devis = administrateurHardisSession.rechercherDevis(iddevis,  ut);
+                Long iddoc = Long.valueOf(doc);
+                Document docu =administrateurHardisSession.rechercherDocument(iddoc, ut);
+                java.util.Date nowDate = new java.util.Date();
+                administrateurHardisSession.modifieDevis(devis.getId(), devis.getDateDevis(), devis.getDateIntervSouhaitee(), devis.getIndicateurFact(), devis.getMontantDevis(), devis.getMotifRefus(), devis.getSaisieLibre(), Statut.Presta_terminee, devis.getClient().getId(), devis.getAgence().getId(), ut);
+                administrateurHardisSession.modifDateFinDevis(devis, nowDate);
+                administrateurHardisSession.creerHistoriqueEtats(Statut.Presta_terminee, devis.getId(), ut); 
+                String server = "cpanel.freehosting.com";
+                String user = "lucialei";
+                String pass = "rj3fTOw378";
+                String remoteFile = "/public_html/FACT"+devis.getId()+".pdf";
+                String lien ="ftp://"+user+":"+pass+"@"+server+remoteFile;
+                administrateurHardisSession.creerFacture(nowDate, devis.getId(), devis.getMontantDevis(), 0, devis.getSaisieLibre(), ut, lien);
+                List<Devis> listeDevis = administrateurHardisSession.listDevis();    
+                if (listeDevis==null) listeDevis=new ArrayList<>();
+                sess.setAttribute("listeDevis",listeDevis);
+                sess.setAttribute("devistraitement",devis);
+                
             }
             else{
                 message= "Erreur information non inserée dans la base de données";
