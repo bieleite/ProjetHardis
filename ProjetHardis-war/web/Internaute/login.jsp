@@ -36,11 +36,11 @@
     <form action="servClient" method="get">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Email" name="email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class=""></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Password" name="mdp">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class=""></span>
       </div>
       <div class="row">
    
@@ -53,7 +53,7 @@
               <input type ="hidden" name="action" value="connexion">
     </form>
 
-    <a href="servClient?action=forgot">Mot de passe oublié</a><br>
+    <a href="servClient?action=forgot">Mot de passe oublié ?</a><br>
     <a href="servInternaute?action=register" class="text-center">S'enregistrer</a>
 
   </div>

@@ -101,7 +101,7 @@ String message = "";
                     <th>ID</th>
                     <th>Offre</th>
                     <th>Service</th>
-                    <th>Status</th>
+                    <th>Statut</th>
                      <th>Date intervention</th>
 
                   </tr>

@@ -539,7 +539,7 @@ public class servClient extends HttpServlet {
                       request.setAttribute("valide", "2");
                 }
                 
-                else{
+        
                     
                 if (valide != null && valide.equals("1")) {
                      clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
@@ -547,15 +547,17 @@ public class servClient extends HttpServlet {
                       sess.setAttribute("devis", d);
                      if (d.getTypeDevis().toString().equals("Standard")){
                      f = clientSession.creerFacture(d.getId(), "");
+                     request.setAttribute("valide", "1");
+                }
                 }
                  else {
                         f= clientSession.rechercheFactParDevis(d.getId()).get(0);
                        
-                 }
-                }
+                 request.setAttribute("valide", "1");
+                
                
                
-                    request.setAttribute("valide", "1");
+                    
                 }
 
                 if (valide != null && valide.equals("0")) {

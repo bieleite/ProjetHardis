@@ -83,7 +83,7 @@ int DNP = Integer.valueOf(session.getAttribute("nbDevisNP").toString());
         <!-- ./col -->
         <div class="col-lg-2 col-xs-2">
           <!-- small box -->
-          <div class="small-box bg-yellow">
+          <div class="small-box bg-green">
             <div class="inner">
               <h3><%=mont%></h3>
 
@@ -148,7 +148,7 @@ int DNP = Integer.valueOf(session.getAttribute("nbDevisNP").toString());
                     <th>Offre</th>
                     <th>Service</th>
               
-                    <th>Status</th>
+                    <th>Statut</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -185,6 +185,9 @@ int DNP = Integer.valueOf(session.getAttribute("nbDevisNP").toString());
                       else if (d.getStatut().toString().equals("Rep_en_Cours") && d.getTypeDevis().toString().equals("Standard"))
                            out.print("<span class=\"label label-info\">En attente de validation</span>");
  
+                      else if (d.getStatut().toString().equals("Transmettre_au_client"))
+                           out.print("<span class=\"label label-info\">Traitement demande</span>");
+                      
                        else if (d.getStatut().toString().equals("Rep_en_Cours")&& d.getTypeDevis().toString().equals("Non_Standard"))
                            out.print("<span class=\"label label-info\">Traitement demande</span>");
 
