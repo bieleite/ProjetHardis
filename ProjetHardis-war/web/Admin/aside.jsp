@@ -30,7 +30,7 @@
             <i class="fa fa-files-o"></i>
             <span>Client</span>
             <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+             
             </span>
           </a>
           <ul class="treeview-menu">
@@ -56,7 +56,7 @@
             <i class="fa fa-files-o"></i>
             <span>Hardis</span>
             <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+              
             </span>
           </a>
           <ul class="treeview-menu">
@@ -155,7 +155,7 @@
             <i class="fa fa-files-o"></i>
             <span>Utilisateur</span>
             <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+              
             </span>
           </a>
           <ul class="treeview-menu">
@@ -169,12 +169,11 @@
           <a href="servAdmin?action=calendar">
             <i class="fa fa-calendar"></i> <span>Calendar</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
+              
             </span>
           </a>
         </li>
-        <li>
+<!--        <li>
           <a href="#">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
             <span class="pull-right-container">
@@ -183,7 +182,7 @@
               <small class="label pull-right bg-red">5</small>
             </span>
           </a>
-        </li>      
+        </li>      -->
         
       </ul>
     </section>

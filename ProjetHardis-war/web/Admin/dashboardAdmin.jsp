@@ -80,9 +80,9 @@
               <p>Devis</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fa fa-briefcase"></i>
             </div>
-            <a href="servAdmin?action=listesDevis" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="servAdmin?action=listesDevis" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -97,9 +97,9 @@
               <p>Client</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-user"></i>
             </div>
-            <a href="servAdmin?action=listesAfficherClient" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="servAdmin?action=listesAfficherClient" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -114,9 +114,9 @@
               <p>Entreprise </p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="fa fa-black-tie"></i>
             </div>
-            <a href="servAdmin?action=AfficherEntreprise" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="servAdmin?action=AfficherEntreprise" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -131,9 +131,9 @@
               <p>Utilisateur Hardis</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="fa fa-users"></i>
             </div>
-            <a href="servAdmin?action=AfficherUtilisateur" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="servAdmin?action=AfficherUtilisateur" class="small-box-footer">Plus d'info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

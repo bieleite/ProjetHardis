@@ -1815,8 +1815,8 @@ public class servAdmin extends HttpServlet {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
                 
-                administrateurHardisSession.creerContactMail(ut.getNom(), ut.getPrenom(), emailto, "", subject, messagemail, ut);
-                
+               ContactMail cm=  administrateurHardisSession.creerContactMail(ut.getNom(), ut.getPrenom(), emailto, "", subject, messagemail, ut);
+                administrateurHardisSession.modifReponduContactMail(cm.getId());
                 message= "Message envoyé";
                 SendMail send = new SendMail();                
                 send.sendMail(emailto,subject, messagemail); 

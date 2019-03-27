@@ -10,7 +10,7 @@
            <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
+              <i class="fa  fa-comments-o"></i>
               <span class="label label-info"><%=ncomunication%></span>
             </a>
             <ul class="dropdown-menu">
@@ -89,8 +89,6 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          
         </ul>
       </div>
