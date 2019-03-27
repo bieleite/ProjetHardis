@@ -32,7 +32,7 @@
   <div class="register-box-body">
     <p class="login-box-msg">Création compte</p>
 
-    <form action="servEmployes" method="get">
+    <form action="servEmployess" method="get">
 
           <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Question secrète" name="qs">

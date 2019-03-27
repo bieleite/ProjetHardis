@@ -80,10 +80,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="servAdmin?action=majEnt" class="btn btn-default btn-flat">Profile</a>
+                  <a href="servEmployes?action=majEnt" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="servAdmin?action=vide" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="servEmployes?action=vide" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>

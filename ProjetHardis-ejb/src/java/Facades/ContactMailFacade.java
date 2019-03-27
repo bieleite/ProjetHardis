@@ -8,6 +8,7 @@ package Facades;
 import Entites.ContactMail;
 import Entites.UtilisateurHardis;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,9 @@ import javax.persistence.Query;
  */
 @Stateless
 public class ContactMailFacade extends AbstractFacade<ContactMail> implements ContactMailFacadeLocal {
+
+    @EJB
+    private UtilisateurHardisFacadeLocal utilisateurHardisFacade;
 
     @PersistenceContext(unitName = "ProjetHardis-ejbPU")
     private EntityManager em;
@@ -110,6 +114,16 @@ public class ContactMailFacade extends AbstractFacade<ContactMail> implements Co
     public List<ContactMail> listCommunicationNonRepondu() {
         String txt = "SELECT co FROM ContactMail AS co WHERE co.repondu=0 ";
         Query req = getEntityManager().createQuery(txt);
+        List<ContactMail> co = req.getResultList();
+        return co;
+    }
+    
+    @Override
+    public List<ContactMail> listCommunicationNonReponduParUtilisateur(Long idutili) {
+        UtilisateurHardis ut = utilisateurHardisFacade.find(idutili);
+        String txt = "SELECT co FROM ContactMail AS co WHERE co.repondu=0 and co.utilisateurHardis=:id";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("id", ut);
         List<ContactMail> co = req.getResultList();
         return co;
     }

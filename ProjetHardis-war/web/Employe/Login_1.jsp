@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>Group Hardis - LogIn</title>
 <%@include  file = "meta.jsp" %>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -26,13 +26,16 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box"> 
+    <% String attribut = (String) request.getAttribute("message");%>
+                <% if(!attribut.equals("")){%>
     <div class="alert alert-info alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                
                 <h4><i class="icon fa fa-info"></i> 
-                    <% String attribut = (String) request.getAttribute("message");
-                out.println(attribut); %>
+                    
+                   <% out.println(attribut); %>
                 </h4>
-    </div>
+    </div><%}%>
 
   <!-- /.login-logo -->
   <div class="login-box-body">

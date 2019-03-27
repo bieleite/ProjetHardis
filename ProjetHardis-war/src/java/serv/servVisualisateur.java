@@ -17,7 +17,6 @@ import Entites.Document;
 import Entites.EchangeTel;
 import Entites.Entreprise;
 import Entites.Expertise;
-import Entites.Facturation;
 import Entites.FacturationFrais;
 import Entites.Facture;
 import Entites.Helpers;
@@ -40,17 +39,16 @@ import Entites.TypeDoc;
 import Entites.TypeService;
 import Entites.TypeUtilisateur;
 import Entites.UtilisateurHardis;
-import Entites.testFTP;
 import Facades.ClientFacade;
-import Session.*;
+import Session.AdministrateurHardisSessionLocal;
+import Session.VisualisateurHardisSessionLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,18 +59,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author 6171217
+ * @author pedago
  */
-@WebServlet(name = "servAdmin", urlPatterns = {"/servAdmin"})
-public class servAdmin extends HttpServlet {
-    HttpSession sess =null;
+@WebServlet(name = "servVisualisateur", urlPatterns = {"/servVisualisateur"})
+public class servVisualisateur extends HttpServlet {
+HttpSession sess =null;
     @EJB
+    private VisualisateurHardisSessionLocal visualisateurHardisSession;
+@EJB
     private AdministrateurHardisSessionLocal administrateurHardisSession;
-
+    
+    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void envoiMessage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nom = request.getParameter("nom");
@@ -97,20 +107,26 @@ public class servAdmin extends HttpServlet {
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        sess= request.getSession(true);
-
+      
         String message = "";
 
         response.setContentType("text/html;charset=UTF-8");
         String jspClient = null;
         
+sess= request.getSession(true);
 
-        String act = request.getParameter("action");
+      
+
+        response.setContentType("text/html;charset=UTF-8");
         
+        
+
+        
+        String act = request.getParameter("action");
         if((act==null)||(act.equals("vide")))
             {   
                 request.setAttribute("message","");
-                jspClient="/Admin/Login.jsp";
+                jspClient="/Employe/login.jsp";
             }
             else if(act.equals("LoginAdmin")){
                 String login = request.getParameter("login");
@@ -147,23 +163,65 @@ public class servAdmin extends HttpServlet {
                         sess.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
                         sess.setAttribute("listeContactMail",listeContactMail);
                         sess.setAttribute("listeHistoriqueTraitement",listeHistoriqueTraitement);
-                        jspClient="/Admin/dashboardAdmin.jsp";    
+                        jspClient="/Employe/dashboardAdmin.jsp";    
                                 }   
                     else{
                         request.setAttribute("message","Utilisateur non trouvé");
-                        jspClient="/Admin/Login.jsp";
+                        jspClient="/Employe/Login.jsp";
                     }
                 }
                 else{
                     request.setAttribute("message","Login ou/et password non rempli");
-                    jspClient="/Admin/Login.jsp";
+                    jspClient="/Employe/Login.jsp";
                 }
                 
             }
+            else if (act.equals("majMDP")) {
+        
+            jspClient = "/Employe/majCompte.jsp";
+         
+        }
+        
+        else if (act.equals("majProfil"))
+        {
+     
+            
+            String mail = (String) request.getParameter("mail");
+            
+          
+            UtilisateurHardis u =  visualisateurHardisSession.rechercheUParEmailHache(mail);
+            
+            if (u!=null)
+            {
+
+         String mdp = request.getParameter("mdp");
+         System.out.println(mdp);
+        String mdpC = request.getParameter("mdpC");
+        System.out.println(mdpC);
+         String questS = request.getParameter("qs");
+         System.out.println(questS);
+         String repS = request.getParameter("rs");
+         System.out.println(repS);
+         if (mdp.equals(mdpC))
+             visualisateurHardisSession.majInfosProfil(u.getId(), mdp, questS, repS);
+          jspClient = "/Employe/Login.jsp";
+            }
+            
+        
+        }
+         
+      
+    
+
+
+    
+        
+        
+        
             else if(act.equals("MotDePassOublie"))
             {
 
-                jspClient="/Admin/QSRS.jsp";
+                jspClient="/Employe/QSRS.jsp";
             }
             else if(act.equals("DSRSAdmin")){
                 String Login = request.getParameter("Login");
@@ -176,32 +234,32 @@ public class servAdmin extends HttpServlet {
                         if(utilisateur != null){
                             if(utilisateur.equals(ut)){
                                 sess.setAttribute("utilisateur", utilisateur);
-                                jspClient="/Admin/newpass.jsp";    
+                                jspClient="/Employe/newpass.jsp";    
                             }   
                             else{
                                 request.setAttribute("message","Question Secret ou/et Response secret ne correspond pas au Login");
-                                jspClient="/Admin/Login.jsp";
+                                jspClient="/Employe/Login.jsp";
                             }
                         }
                         else{
                             request.setAttribute("message","Question Secret ou/et Response secret ne correspond pas au Login");
-                            jspClient="/Admin/Login.jsp";
+                            jspClient="/Employe/Login.jsp";
                         }
                     }
                     else{
                         request.setAttribute("message","Question Secret ou/et Response secret non rempli");
-                        jspClient="/Admin/Login.jsp";
+                        jspClient="/Employe/Login.jsp";
                     }
                 }
                 else{
                 request.setAttribute("message","Utilisateur non trouvé");
-                jspClient="/Admin/Login.jsp";}
+                jspClient="/Employe/Login.jsp";}
             }
             else if(act.equals("ModifierPass"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                doActionModifierUtilisateur(request,response);
-               jspClient="/Admin/Login.jsp";
+               jspClient="/Employe/Login.jsp";
             }
             
             else if(act.equals("Menu"))
@@ -220,19 +278,19 @@ public class servAdmin extends HttpServlet {
                 }
                 
                 sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
                 request.setAttribute("idContactMail",idContactMail);
                // request.setAttribute("message","");
             }
             else if(act.equals("CreerAgence"))
             {
-                jspClient="/Admin/creerAgence.jsp";
+                jspClient="/Employe/creerAgence.jsp";
             }
             else if(act.equals("InsererAgence"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                doActionCreerAgence(request,response);
-               jspClient="/Admin/dashboardAdmin.jsp";
+               jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("AfficherAgence"))
             {
@@ -240,7 +298,7 @@ public class servAdmin extends HttpServlet {
                 List<Agence> listeAgence = administrateurHardisSession.listAgence();
                 if (listeAgence==null) listeAgence=new ArrayList<>();
                 request.setAttribute("listeAgence",listeAgence);
-                jspClient="/Admin/afficherAgence.jsp";
+                jspClient="/Employe/afficherAgence.jsp";
             }
             else if(act.equals("AfficherEntreprise"))
             {
@@ -256,7 +314,7 @@ public class servAdmin extends HttpServlet {
                 }
                 request.setAttribute("listeAgence",listeAgence);
                 request.setAttribute("listeEntreprise",listeEntreprise);
-                jspClient="/Admin/afficherEntreprise.jsp";
+                jspClient="/Employe/afficherEntreprise.jsp";
             }
             else if(act.equals("AffecterAgenceEntreprise"))
             {
@@ -273,7 +331,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeAgence",listeAgence);
                 request.setAttribute("listeEntreprise",listeEntreprise);
                 doActionModifierAgenceEntreprise(request,response);
-                jspClient="/Admin/afficherEntreprise.jsp";
+                jspClient="/Employe/afficherEntreprise.jsp";
             }
             else if(act.equals("RechercherAgence"))
             {
@@ -286,7 +344,7 @@ public class servAdmin extends HttpServlet {
                 }else{
                 listeAgence=new ArrayList<>();}
                 request.setAttribute("listeAgence",listeAgence);
-                jspClient="/Admin/afficherAgence.jsp";
+                jspClient="/Employe/afficherAgence.jsp";
             }
             else if(act.equals("RechercherEntreprise"))
             {
@@ -299,7 +357,7 @@ public class servAdmin extends HttpServlet {
                 }else{
                 listeEntreprise=new ArrayList<>();}
                 request.setAttribute("listeEntreprise",listeEntreprise);
-                jspClient="/Admin/afficherEntreprise.jsp";
+                jspClient="/Employe/afficherEntreprise.jsp";
             }
             else if(act.equals("formAgence"))
             {
@@ -308,25 +366,25 @@ public class servAdmin extends HttpServlet {
                 Long idagence = Long.valueOf(champ);
                 Agence a = administrateurHardisSession.rechercherAgenceParId(idagence);
                 request.setAttribute("agence",a);
-                jspClient="/Admin/modifierAgence.jsp";
+                jspClient="/Employe/modifierAgence.jsp";
             }
              else if(act.equals("ModifierAgence"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionModifierAgence(request,response);
-               jspClient="/Admin/dashboardAdmin.jsp";
+               jspClient="/Employe/dashboardAdmin.jsp";
             }
              else if(act.equals("ContactMail"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionRepondreContactMail(request,response);
-               jspClient="/Admin/dashboardAdmin.jsp";
+               jspClient="/Employe/dashboardAdmin.jsp";
             }
              else if(act.equals("AffecterContactMail"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionAffecterContactMail(request,response);
-               jspClient="/Admin/dashboardAdmin.jsp";
+               jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("CreerAdresse"))
             {
@@ -343,13 +401,13 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeNotif",listeNotif);
                 request.setAttribute("listeDevis",listeDevis);
                 request.setAttribute("listeClient",listeClient);
-               jspClient="/Admin/creerAdresse.jsp";
+               jspClient="/Employe/creerAdresse.jsp";
             }
             else if(act.equals("InsererAdresse"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAdresse(request,response);
-               jspClient="/Admin/dashboardAdmin.jsp";
+               jspClient="/Employe/dashboardAdmin.jsp";
                
             }
             else if(act.equals("AfficherAdresse"))
@@ -358,17 +416,17 @@ public class servAdmin extends HttpServlet {
                 List<Adresse> listeAdresse = administrateurHardisSession.listAdresse();
                 if (listeAdresse==null) listeAdresse=new ArrayList<>();
                 request.setAttribute("listeAdresse",listeAdresse);
-                jspClient="/Admin/afficherAdresse.jsp";
+                jspClient="/Employe/afficherAdresse.jsp";
             }
             else if(act.equals("CreerAtelier"))
             {
-               jspClient="/Admin/creerAtelier.jsp";
+               jspClient="/Employe/creerAtelier.jsp";
             }
              else if(act.equals("InsererAtelier"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                doActionCreerAtelier(request,response);
-               jspClient="/Admin/dashboardAdmin.jsp";
+               jspClient="/Employe/dashboardAdmin.jsp";
             }
              else if(act.equals("AfficherAtelier"))
             {
@@ -376,14 +434,14 @@ public class servAdmin extends HttpServlet {
                 List<Atelier> listeAtelier = administrateurHardisSession.listAtelier();
                 if (listeAtelier==null) listeAtelier=new ArrayList<>();
                 request.setAttribute("listeAtelier",listeAtelier);
-                jspClient="/Admin/afficherAtelier.jsp";
+                jspClient="/Employe/afficherAtelier.jsp";
             }
              else if(act.equals("listeDevisComunnication"))
             {
                 List<Devis> listdevis= administrateurHardisSession.listDevis();
                 if (listdevis==null) listdevis=new ArrayList<>();
                 request.setAttribute("listeDevis",listdevis);
-                jspClient="/Admin/CreerCommunication.jsp";
+                jspClient="/Employe/CreerCommunication.jsp";
             }
             else if(act.equals("InsererCommunication"))
             {
@@ -393,39 +451,39 @@ public class servAdmin extends HttpServlet {
             }
             else if(act.equals("CreerDisponibilite"))
             {
-               jspClient="/Admin/creerDisponibilite.jsp";
+               jspClient="/Employe/creerDisponibilite.jsp";
             }
             else if(act.equals("InsererDisponibilite"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerDisponibilite(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("listeHistoriquesDevisDoc"))
             {
                 List<HistoriqueDevis> listhistdevis= administrateurHardisSession.listHistoriqueDevis();
                 if (listhistdevis==null) listhistdevis=new ArrayList<>();
                 request.setAttribute("listHistDevis",listhistdevis);
-                jspClient="/Admin/CreerCommunication.jsp";
+                jspClient="/Employe/CreerCommunication.jsp";
             }
             else if(act.equals("InsererDocument"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerDocument(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
              else if(act.equals("listeDevisEchangeTel"))
             {
                 List<Devis> listdevis= administrateurHardisSession.listDevis();
                 if (listdevis==null) listdevis=new ArrayList<>();
                 request.setAttribute("listeDevis",listdevis);
-                jspClient="/Admin/CreerEchangeTel.jsp";
+                jspClient="/Employe/CreerEchangeTel.jsp";
             }
             else if(act.equals("InsererEchangeTel"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerEchangeTel(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("listesPourModifierDevis"))
             {
@@ -438,24 +496,24 @@ public class servAdmin extends HttpServlet {
                 List<Devis> listdevis= administrateurHardisSession.listDevis();
                 if (listdevis==null) listdevis=new ArrayList<>();
                 request.setAttribute("listeDevis",listdevis);
-                jspClient="/Admin/ModifierDevis.jsp";
+                jspClient="/Employe/ModifierDevis.jsp";
             }
             else if(act.equals("modifierDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionModifierDevis(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("listesCreerLivrable"))
             {
                 
-                jspClient="/Admin/creerLivrable.jsp";
+                jspClient="/Employe/creerLivrable.jsp";
             }
             else if(act.equals("InsererLivrable"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerLivrable(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("AfficherLivrable"))
             {
@@ -463,17 +521,17 @@ public class servAdmin extends HttpServlet {
                 List<Livrable> listeLivrable = administrateurHardisSession.listLivrable();
                 if (listeLivrable==null) listeLivrable=new ArrayList<>();
                 request.setAttribute("listeLivrable",listeLivrable);
-                jspClient="/Admin/afficherLivrable.jsp";
+                jspClient="/Employe/afficherLivrable.jsp";
             }
             else if(act.equals("CreerOffre"))
             {
-               jspClient="/Admin/creerOffre.jsp";
+               jspClient="/Employe/creerOffre.jsp";
             }
             else if(act.equals("InsererOffre"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerOffre(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("AfficherOffre"))
             {
@@ -481,20 +539,20 @@ public class servAdmin extends HttpServlet {
                 List<Offre> listeOffre = administrateurHardisSession.listOffre();
                 if (listeOffre==null) listeOffre=new ArrayList<>();
                 request.setAttribute("listeOffre",listeOffre);
-                jspClient="/Admin/afficherOffre.jsp";
+                jspClient="/Employe/afficherOffre.jsp";
             }
             else if(act.equals("listesCreerService"))
             {
                 List<Offre> listoffre= administrateurHardisSession.listOffre();
                 if (listoffre==null) listoffre=new ArrayList<>();
                 request.setAttribute("listoffre",listoffre);
-                jspClient="/Admin/creerService.jsp";
+                jspClient="/Employe/creerService.jsp";
             }
             else if(act.equals("InsererService"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerService(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("AfficherService"))
             {
@@ -502,7 +560,7 @@ public class servAdmin extends HttpServlet {
                 List<Service> listeService = administrateurHardisSession.listServiceNonStandard();
                 if (listeService==null) listeService=new ArrayList<>();
                 request.setAttribute("listeService",listeService);
-                jspClient="/Admin/afficherService.jsp";
+                jspClient="/Employe/afficherService.jsp";
             }
             else if(act.equals("listesCreerServiceStandard"))
             {
@@ -515,13 +573,13 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listoffre",listoffre);
                 request.setAttribute("listatelier",listatelier);
                 request.setAttribute("listlivrable",listlivrable);
-                jspClient="/Admin/creerServiceStandard.jsp";
+                jspClient="/Employe/creerServiceStandard.jsp";
             }
             else if(act.equals("InsererServiceStandard"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerServiceStandard(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("AfficherServiceStandard"))
             {
@@ -529,7 +587,7 @@ public class servAdmin extends HttpServlet {
                 List<ServiceStandard> listeServiceStandard = administrateurHardisSession.listServiceStandard();
                 if (listeServiceStandard==null) listeServiceStandard=new ArrayList<>();
                 request.setAttribute("listeServiceStandard",listeServiceStandard);
-                jspClient="/Admin/afficherServiceStandard.jsp";
+                jspClient="/Employe/afficherServiceStandard.jsp";
             }
             else if(act.equals("listesCreerUtiliateurHardis"))
             {
@@ -538,13 +596,13 @@ public class servAdmin extends HttpServlet {
                 if (listagence==null) listagence=new ArrayList<>();
                 request.setAttribute("listagence",listagence);
                 request.setAttribute("listOffres",listOffres);
-                jspClient="/Admin/creerUtilisateur.jsp";
+                jspClient="/Employe/creerUtilisateur.jsp";
             }
             else if(act.equals("InsererUtilisateurHardis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCreerUtilisateur(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
              else if(act.equals("AfficherUtilisateur"))
             {
@@ -552,7 +610,7 @@ public class servAdmin extends HttpServlet {
                 List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
                 if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
                 request.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
-                jspClient="/Admin/afficherUtilisateur.jsp";
+                jspClient="/Employe/afficherUtilisateur.jsp";
             }
              else if(act.equals("RechercherUtilisateur"))
             {
@@ -567,7 +625,7 @@ public class servAdmin extends HttpServlet {
                 
                 if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
                 request.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
-                jspClient="/Admin/afficherUtilisateur.jsp";
+                jspClient="/Employe/afficherUtilisateur.jsp";
             }
              else if(act.equals("listesCertifierClient"))
             {
@@ -576,7 +634,7 @@ public class servAdmin extends HttpServlet {
                 if (listClient==null) listClient=new ArrayList<>();
                 request.setAttribute("listClient",listClient);
                  request.setAttribute("listAgence",listeAg);
-                jspClient="/Admin/certifierClient.jsp";
+                jspClient="/Employe/certifierClient.jsp";
             }
              else if(act.equals("RechercherClient"))
             {
@@ -589,13 +647,13 @@ public class servAdmin extends HttpServlet {
                 }else{
                 listClient=new ArrayList<>();}
                 request.setAttribute("listClient",listClient);
-                jspClient="/Admin/certifierClient.jsp";
+                jspClient="/Employe/certifierClient.jsp";
             }
             else if(act.equals("CertifierClient"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
                 doActionCertifierClient(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("RechercherAtelier"))
             {
@@ -608,14 +666,14 @@ public class servAdmin extends HttpServlet {
                 }else{
                 listClient=new ArrayList<>();}
                 request.setAttribute("listClient",listClient);
-                jspClient="/Admin/certifierClient.jsp";
+                jspClient="/Employe/certifierClient.jsp";
             }
          else if(act.equals("listesAfficherClient"))
             {
                 List<Client> listClient= administrateurHardisSession.listClientNonCertifies();
                 if (listClient==null) listClient=new ArrayList<>();
                 request.setAttribute("listClient",listClient);
-                jspClient="/Admin/afficherClient.jsp";
+                jspClient="/Employe/afficherClient.jsp";
             }
              else if(act.equals("RechercherClient1"))
             {
@@ -628,7 +686,7 @@ public class servAdmin extends HttpServlet {
                 }else{
                 listClient=new ArrayList<>();}
                 request.setAttribute("listClient",listClient);
-                jspClient="/Admin/afficherClient.jsp";
+                jspClient="/Employe/afficherClient.jsp";
             }
             else if(act.equals("formClient"))
             {
@@ -637,7 +695,7 @@ public class servAdmin extends HttpServlet {
                 Long idagence = Long.valueOf(champ);
                 Client a = administrateurHardisSession.rechercherClient(idagence, "", "", utilisateur);
                 request.setAttribute("client",a);
-                jspClient="/Admin/detailClient.jsp";
+                jspClient="/Employe/detailClient.jsp";
             }
              else if(act.equals("listesDevis"))
             {
@@ -646,7 +704,7 @@ public class servAdmin extends HttpServlet {
                 if (listeDevis2==null) listeDevis2=new ArrayList<>();                  
                 request.setAttribute("listeDevis2",listeDevis2);
                 
-                jspClient="/Admin/afficherDevis.jsp";
+                jspClient="/Employe/afficherDevis.jsp";
             }
             else if(act.equals("RechercherDevis"))
             {
@@ -661,7 +719,7 @@ public class servAdmin extends HttpServlet {
                 }else{
                 listDevis=new ArrayList<>();}
                 request.setAttribute("listeDevis2",listDevis);
-                jspClient="/Admin/afficherDevis.jsp";
+                jspClient="/Employe/afficherDevis.jsp";
             }
             else if(act.equals("formDevis"))
             {
@@ -707,7 +765,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeDocument",listeDocument);
                 request.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 sess.setAttribute("devistraitement",a);
-                jspClient="/Admin/traitementDevis.jsp";
+                jspClient="/Employe/traitementDevis.jsp";
                 
             }
              else if(act.equals("affecterConsultantDevis"))
@@ -753,7 +811,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 request.setAttribute("nombreJour",numJour);
                 sess.setAttribute("devistraitement",a);
-                jspClient="/Admin/affecterConsultant.jsp";
+                jspClient="/Employe/affecterConsultant.jsp";
                 
             }
             else if(act.equals("formUtilisateur"))
@@ -772,7 +830,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeOffress",listeOffress);
                 request.setAttribute("utili",utili);
                 request.setAttribute("acao",test);
-                jspClient="/Admin/traitementUtilisateur.jsp";
+                jspClient="/Employe/traitementUtilisateur.jsp";
             }
             else if(act.equals("affecterDevis"))
             {
@@ -796,7 +854,7 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeHTVide",listeHTVide);
                 request.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 sess.setAttribute("devistraitement",a);
-                jspClient="/Admin/affecterDevis.jsp";
+                jspClient="/Employe/affecterDevis.jsp";
             }
             
             else if(act.equals("messageDevis"))
@@ -813,19 +871,19 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
                 request.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 request.setAttribute("listeHTVide",listeHTVide);
-                jspClient="/Admin/traitementDevis.jsp";
+                jspClient="/Employe/traitementDevis.jsp";
             }
             else if(act.equals("ValiderDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionValiderDevisNonStandard(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("Creer1ereFactureDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionCreer1ereFacture(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("EnvoyerDevis"))
             {
@@ -855,43 +913,43 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("docenvoye",docenvoye);
                 request.setAttribute("date",date);
                 request.setAttribute("textmail",textmail);
-                jspClient="/Admin/envoyerDevisClient.jsp";
+                jspClient="/Employe/envoyerDevisClient.jsp";
             }
             else if(act.equals("EnvoyerLeDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionEnvoyerDevis(request,response);
-                jspClient="/Admin/envoyerDevisClient.jsp";
+                jspClient="/Employe/envoyerDevisClient.jsp";
             }
             else if(act.equals("AjouterDocumentAUnDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionAjouterDocumentAUnDevis(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("RelancerDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionRelancerDevisNonStandard(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("PrestationtermineeDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionPrestationtermineeDevis(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("ModifierDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionModifierDevis(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("AffecterDevis"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionAffecterDevis(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             
             
@@ -899,26 +957,26 @@ public class servAdmin extends HttpServlet {
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionEnvoyerMail(request,response);
-                jspClient="/Admin/dashboardAdmin.jsp";
+                jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("ModifierProfilMetier"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                doActionModifierProfilMetierUtilisateur(request,response);
-               jspClient="/Admin/dashboardAdmin.jsp";
+               jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("AffecterConsultantAUnDevis"))
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                doActionAffecterConsultantAUnDevis(request,response);
-               jspClient="/Admin/dashboardAdmin.jsp";
+               jspClient="/Employe/dashboardAdmin.jsp";
             }
             
             else if (act.equals("calendar"))
             {
                 UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                
-                jspClient="/Admin/calendar.jsp";
+                jspClient="/Employe/calendar.jsp";
             
             
               
@@ -988,7 +1046,6 @@ public class servAdmin extends HttpServlet {
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
-      
       
     }
     protected void doActionCreerAgence(HttpServletRequest request, HttpServletResponse response)
