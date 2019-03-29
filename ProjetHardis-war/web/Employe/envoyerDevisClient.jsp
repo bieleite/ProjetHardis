@@ -109,6 +109,7 @@
               </div>
               <%     String textemail = (String) request.getAttribute("textmail");%>
               <input type="hidden" name="textemail" value="<%=textemail %>">
+              <input type="hidden" name="listdoc" value="<%=docenvoye %>">
               <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
                   <input type="hidden" name="action" value="EnvoyerDevisMail">
             </div>

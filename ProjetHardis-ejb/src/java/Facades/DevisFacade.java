@@ -280,6 +280,10 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
         {
             d.setStatut(Statut.Total_regle);
         }
+        if (s.equals("Envoye"))
+        {
+            d.setStatut(Statut.Envoye);
+        }
         
          em.merge(d);
     }

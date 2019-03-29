@@ -1924,6 +1924,8 @@ public class servAdmin extends HttpServlet {
         String emailto = request.getParameter("emailto");
         String subject = request.getParameter("subject");
         String iddev = request.getParameter("iddev");
+        String[] listdoc = request.getParameterValues("iddev");
+        
         String messagemail = "";
         messagemail = request.getParameter("textmail");
         if(messagemail.equals("")){
@@ -1944,6 +1946,8 @@ public class servAdmin extends HttpServlet {
                 send.sendMail(emailto,subject, messagemail); 
                 if(devis.getStatut()==Statut.Refuse){
                     administrateurHardisSession.creerHistoriqueEtats(Statut.Envoye, devis.getId(), ut);
+                    administrateurHardisSession.creerHistoriqueDevis(devis.getId(),new java.util.Date(),null,2,ut.getId(),listdoc,ut);
+                    administrateurHardisSession.changerStatut(devis, "Envoye");
                 }
                 else{
                 administrateurHardisSession.modifReponduContactMail(cm.getId());}
