@@ -1076,8 +1076,10 @@ public class servAdmin extends HttpServlet {
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
         }
-        catch (javax.servlet.ServletException ex){
-           
+        catch (Exception ex){
+            
+            Rd = getServletContext().getRequestDispatcher("/404.jsp");
+        Rd.forward(request, response);
         }
       
       
