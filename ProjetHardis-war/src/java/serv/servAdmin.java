@@ -1068,8 +1068,13 @@ public class servAdmin extends HttpServlet {
                jspClient="/Admin/dashboardAdmin.jsp";
             }
         RequestDispatcher Rd;
+         try{
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
+        }
+        catch (javax.servlet.ServletException ex){
+           
+        }
       
       
     }

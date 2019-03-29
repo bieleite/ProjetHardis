@@ -191,13 +191,10 @@ public class ClientSession implements ClientSessionLocal {
       //    listeDocs.add(documentFacade.creerDocument("conditions contrat",servSt.getConditionsContract(), null, TypeDoc.c));
            
            HistoriqueDevis hd = historiqueDevisFacade.creerHistoriqueDevis(d, null, null, 1, null, listeDocs);
-           
-     //      HistoriqueTraitement ht =   historiqueTraitementFacade.creerHistoriqueTraitement(new Date(), null, TypeUtilisateur.r, d, null, ref, null);
-
-         //  historiqueDevisFacade.ajoutDocHistoDevis(hd, listeDocs);
-                 devisFacade.majHD(d, hd);
+         devisFacade.majHD(d, hd);
 devisFacade.majHE(d, he);
-//devisFacade.majHT(d, ht);
+SendMail send = new SendMail();
+send.sendMail(cli.getLogin(), "Devis disponible", "Bonjour, <br>Le devis numéro "+d.getId()+" est desormais disponible sur votre espace Hardis. <br>Cordialement, <br>Groupe Hardis");
            logsFacade.creerLog(Action.Create, new Date(), "création devis avec id : "+d.getId(), cli);
         }
         else if (serv!=null)

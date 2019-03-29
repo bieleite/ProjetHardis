@@ -389,6 +389,7 @@ public class servClient extends HttpServlet {
 
             jspClient = "/Client/tabBord.jsp";
 
+
         }
 
         if (act.equals("connexion")) {
@@ -980,8 +981,13 @@ Facture f = null;
 
         }
 
+        try{
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
+        }
+        catch (javax.servlet.ServletException ex){
+           
+        }
 
     }
 
