@@ -83,6 +83,7 @@ public class servClient extends HttpServlet {
 
         if (mdp.isEmpty() || email.isEmpty()) {
             messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
+             jspClient = "/Internaute/login.jsp";
         } else {
 
             c = clientSession.authentificationClient(email, mdp);

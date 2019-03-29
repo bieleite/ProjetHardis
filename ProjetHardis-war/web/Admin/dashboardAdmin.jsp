@@ -202,7 +202,7 @@
           <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
-              <i class="ion ion-clipboard"></i>
+              <i class="fa fa-hourglass-half"></i>
 
               <h3 class="box-title">Devis Sans Traitement</h3>
 <% List<HistoriqueTraitement> lesHistoriqueTraitement=listeHistoriqueTraitement;%>

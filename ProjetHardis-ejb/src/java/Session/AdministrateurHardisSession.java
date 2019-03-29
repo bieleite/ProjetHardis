@@ -198,10 +198,19 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void supprimerAgence(long idagence, UtilisateurHardis hardis) {
-        Agence agence = agenceFacade.rechercheAgence(idagence);
-        agenceFacade.supprimerAgence(agence);
-        logsFacade.creerLogDelete(hardis, agence);
+    public boolean supprimerAgence(long idagence, UtilisateurHardis hardis) {
+        Agence agence = agenceFacade.rechercheAgence(idagence);        
+        List<UtilisateurHardis> utili = new ArrayList<>();
+        boolean b = true;
+        utili = utilisateurHardisFacade.rechercheUtilisateurHParAgence(agence);
+        if(utili.isEmpty()){
+            agenceFacade.supprimerAgence(agence);
+            logsFacade.creerLogDelete(hardis, agence);
+        }else{
+            b = false;
+        }
+          
+        return b;
     }
     
      @Override
@@ -927,6 +936,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public void supprimerLivrable(long idLivrable, UtilisateurHardis hardis) {
         Livrable livrable = livrableFacade.rechercheLivrableParId(idLivrable);
+        
         livrableFacade.supprimerLivrable(livrable);
         logsFacade.creerLogDelete(hardis, livrable);
     }
@@ -959,10 +969,28 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
     @Override
-    public void supprimerOffre(long idOffre, UtilisateurHardis hardis) {
+    public boolean supprimerOffre(long idOffre, UtilisateurHardis hardis) {
         Offre offre = offreFacade.rechercheOffreParId(idOffre);
-        offreFacade.supprimerOffre(idOffre);;
-        logsFacade.creerLogDelete(hardis, offre);
+        boolean b = true;
+        List<Offre_Profil_Util_CV> listoffres_profils_cvs= new ArrayList<>();        
+        listoffres_profils_cvs= offre_Profil_Util_CVFacade.rechercheOPUCParOffre(offre);
+        if(listoffres_profils_cvs.isEmpty()){
+           List<Service> serv = new ArrayList<>();
+           serv = serviceFacade.rechercheServiceParOffre(offre);
+           if(serv.isEmpty()){
+                offreFacade.supprimerOffre(idOffre);;
+                 logsFacade.creerLogDelete(hardis, offre);
+           }
+           else{
+               b = false;
+           }
+           
+        }
+        else{
+                   b = false;
+                   }
+        return b;
+        
     }
     
      @Override
@@ -1114,10 +1142,20 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
      @Override
-    public void supprimerService(long idservice ,UtilisateurHardis hardis) {
+    public boolean supprimerService(long idservice ,UtilisateurHardis hardis) {
+                
+        boolean b = true;
         Service service = serviceFacade.rechercheServiceParId(idservice);
+        Offre of = null;
+        of = offreFacade.rechercheOffreParService(service);
+        if(of==null){
         serviceFacade.supprimerService(service);
-        logsFacade.creerLogCreate(hardis,service );
+        logsFacade.creerLogCreate(hardis,service );}
+        else{
+            b=false;
+            
+        }
+        return b;
     }
     
     @Override
@@ -1196,10 +1234,18 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     }
     
      @Override
-    public void supprimerServiceStandard(long idServiceStandard ,UtilisateurHardis hardis) {
-        ServiceStandard serviceStandard = serviceStandardFacade.rechercheServiceSParId(idServiceStandard);
-        serviceStandardFacade.supprimerServiceStandard(serviceStandard);
-        logsFacade.creerLogCreate(hardis,serviceStandard );
+    public boolean supprimerServiceStandard(long idServiceStandard ,UtilisateurHardis hardis) {
+        boolean b = true;
+        Service serviceStandard = serviceFacade.rechercheServiceParId(idServiceStandard);
+        List<Offre> of = offreFacade.findAll();
+        if(of.contains(serviceStandard)){
+        serviceFacade.supprimerService(serviceStandard);
+        logsFacade.creerLogCreate(hardis,serviceStandard );}
+        else{
+            b=false;
+            
+        }
+        return b;
     }
     
     @Override

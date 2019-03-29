@@ -81,6 +81,7 @@
                   <th>Coût Service</th>
                   <th>Lieu d'Intervention</th>
                   <th>Facture Frais</th>
+                  <th>Supprimer</th>
                 </tr>
                 </thead>
                 <% for (Service a : lesServiceStandard){%>
@@ -93,6 +94,8 @@
                     <td><%=a.getCoutService() %></td>
                     <td><%=a.getLieuInterv().toString() %></td>
                     <td><%=a.getFactFrais().toString() %></td>
+                    <td><a href="servAdmin?action=SupprimerService&idService=<%=a.getId().toString() %>" name="idService" value="<%=a.getId().toString() %>">
+                            <button type="submit" class="btn btn-default" title="Supprimer Supprimer"><i class="fa fa-remove"></i></button></a></td>
                 </tr>
                 </tbody>
                 <%}%>
@@ -105,6 +108,7 @@
                   <th>Coût Service</th>
                   <th>Lieu d'Intervention</th>
                   <th>Facture Frais</th>
+                  <th>Supprimer</th>
                 </tr>
                 </tfoot>
               </table>

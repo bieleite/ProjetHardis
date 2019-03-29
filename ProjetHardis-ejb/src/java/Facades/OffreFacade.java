@@ -8,6 +8,8 @@ package Facades;
 import Entites.Agence;
 import Entites.Offre;
 import Entites.Offre_Profil_Util_CV;
+import Entites.Service;
+import Entites.ServiceStandard;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
@@ -102,6 +104,30 @@ public class OffreFacade extends AbstractFacade<Offre> implements OffreFacadeLoc
     public Offre rechercheOffreParLibelle(String lib) {
         Offre s = null;
         Query requete = em.createQuery("SELECT s from Offre as s where s.libelle=:lib");
+        requete.setParameter("lib",lib);     
+        List<Offre> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            s =   (Offre)liste.get(0); 
+        }
+        return s;
+    }
+    
+    @Override
+    public Offre rechercheOffreParService(Service lib) {
+        Offre s = null;
+        Query requete = em.createQuery("SELECT s from Offre as s where s.services=:lib");
+        requete.setParameter("lib",lib);     
+        List<Offre> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            s =   (Offre)liste.get(0); 
+        }
+        return s;
+    }
+    
+    @Override
+    public Offre rechercheOffreParServiceS(ServiceStandard lib) {
+        Offre s = null;
+        Query requete = em.createQuery("SELECT s from Offre as s where s.services=:lib");
         requete.setParameter("lib",lib);     
         List<Offre> liste =  requete.getResultList();
         if (!liste.isEmpty()){
