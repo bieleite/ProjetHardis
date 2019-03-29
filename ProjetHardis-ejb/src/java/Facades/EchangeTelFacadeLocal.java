@@ -49,5 +49,7 @@ public interface EchangeTelFacadeLocal {
     List<EchangeTel> rechercheEchangeTelParUtilisateur(UtilisateurHardis utilisateur);
     
     void modifEchangeTel(EchangeTel entite, String text, Devis devis, UtilisateurHardis interlocuteur);
+    
+    List<EchangeTel> rechercheEchangeTelParDevis(Devis devis);
 
 }

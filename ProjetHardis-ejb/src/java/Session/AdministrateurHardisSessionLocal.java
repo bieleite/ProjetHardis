@@ -388,4 +388,6 @@ public interface AdministrateurHardisSessionLocal {
     void invisibiliteUtili(long id);
     
     void invisibiliteUtilihardis(long id);
+    
+    List<EchangeTel> rechercherEchangeTelPardevis(long iddevis, UtilisateurHardis hardis);
 }

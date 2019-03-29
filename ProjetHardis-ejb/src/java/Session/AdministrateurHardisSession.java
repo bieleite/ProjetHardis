@@ -592,6 +592,14 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         logsFacade.creerLogResearch(hardis, interlocuteur);
         return et;       
     }
+    
+    @Override
+    public List<EchangeTel> rechercherEchangeTelPardevis(long iddevis, UtilisateurHardis hardis) {
+        Devis dev = devisFacade.find(iddevis);
+        List<EchangeTel> et = echangeTelFacade.rechercheEchangeTelParDevis(dev);
+        
+        return et;       
+    }
    
     @Override
     public Entreprise rechercherEntreprise(long id, String siret, String nomentreprise, UtilisateurHardis hardis) {

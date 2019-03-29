@@ -83,7 +83,15 @@ public class EchangeTelFacade extends AbstractFacade<EchangeTel> implements Echa
         return res;
     }
     
-   
+    @Override
+    public  List<EchangeTel> rechercheEchangeTelParDevis(Devis devis) {     
+        String txt = "SELECT di FROM EchangeTel AS di WHERE di.devis=:utilisateur ";
+        Query req = getEntityManager().createQuery(txt);
+        req = req.setParameter("utilisateur",devis );
+        List<EchangeTel> res = req.getResultList();
+
+        return res;
+    }
 
     @Override
     public  void modifEchangeTel(EchangeTel entite, String text, Devis devis, UtilisateurHardis interlocuteur) {       
