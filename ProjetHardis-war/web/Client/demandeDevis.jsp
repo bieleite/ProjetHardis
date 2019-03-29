@@ -4,6 +4,7 @@
     Author     : 6170361
 --%>
 
+<%@page import="Entites.ServiceStandard"%>
 <%@page import="Entites.Service"%>
 <%@page import="Entites.Devis"%>
 <%@page import="Entites.Notification"%>
@@ -17,7 +18,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
- <jsp:useBean id="listeS" scope="session" class = "java.util.List"> </jsp:useBean>
+ <jsp:useBean id="listeS" scope="request" class = "java.util.List"> </jsp:useBean>
+  <jsp:useBean id="listeSS" scope="request" class = "java.util.List"> </jsp:useBean>
      
   <title>AdminLTE 2 | Dashboard</title>
  <%@include  file = "meta.jsp" %>
@@ -53,18 +55,34 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
+             <% List<Service> listeOS = listeS; 
+                         List<ServiceStandard> listeSSt = listeSS;
+                     %>
             <form role="form">
               <div class="box-body">
                        <div class="form-group">
                   <label>Offre & service</label>
                   <select class="form-control" name="idS">
-                      
-                      <% List<Service> listeOS = listeS; 
-                      for (Service s : listeOS)
+                      <optgroup label="Services standard">
+                      <%
+                      for (ServiceStandard s : listeSSt)
                       {%>
                       
                       <option  value="<%=s.getId()%>"><%out.print(s.getOffre().getLibelle()+" : "+s.getNomService());%></option>
                    <%}%>
+                     </optgroup>
+                     
+                     <optgroup label="Services non standard">
+                      <%
+                      for (Service s : listeOS)
+                      {
+%>
+                      
+                      <option  value="<%=s.getId()%>"><%out.print(s.getOffre().getLibelle()+" : "+s.getNomService());%></option>
+                   <%}%>
+                     </optgroup>
+                     
+                     
                   </select>
                 </div>
                   
@@ -87,6 +105,7 @@
                   <textarea name="libre" class="form-control" rows="3" placeholder="Saisir..."></textarea>
                 </div>
                    <input type ="hidden" name="action" value="creerDevis">
+                   
    
               </div>
               <!-- /.box-body -->

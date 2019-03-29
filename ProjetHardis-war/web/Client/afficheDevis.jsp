@@ -265,11 +265,15 @@ if (d.getStatut().toString().equals("Valide")) out.print("Attention, vous avez d
                         <a href="servClient?action=consulteDevis&typeD=ss&idDev=<%out.print(d.getId());%>" class="product-title">
                             DEVIS
                  </a>
-                            <%} else if (d.getTypeDevis().toString().equals("Non_Standard")){
+                        <%} else if (d.getTypeDevis().toString().equals("Non_Standard")){
                    %>
+                   <%if  (d.getStatut().toString().equals("Rep_en_Cours")) {%>
+                     
+                             DEVIS en attente
+                   <%} else {%>
                         <a href="servClient?action=consulteDevis&typeD=sns&idDev=<%out.print(d.getId());%>" class="product-title">
                              DEVIS
-                 </a>    <%}   %>      
+                 </a>    <%}}   %>      
                     <span class="product-description">
                        
                         </span>
