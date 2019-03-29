@@ -193,7 +193,7 @@ int DNP = Integer.valueOf(session.getAttribute("nbDevisNP").toString());
 
                        else if (d.getStatut().toString().equals("Envoye"))
                        
-                           out.print("<span class=\"label label-info\">En attent de validation</span>");
+                           out.print("<span class=\"label label-info\">En attente de validation</span>");
                    
                        
                       
