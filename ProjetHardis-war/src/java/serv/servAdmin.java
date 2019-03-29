@@ -748,6 +748,10 @@ public class servAdmin extends HttpServlet {
                     faire = "envoyer";
                 request.setAttribute("faire",faire);
                 }
+                if(faire!=null&&faire.equals("modifier")){
+                    faire = "modifier";
+                request.setAttribute("faire",faire);
+                }
                 HistoriqueDevis hd = administrateurHardisSession.rechercherUnHistoriqueDevisParUtilisateur(iddevis);
                 List<Document> listeDocument = administrateurHardisSession.rechercherDocumentParHistoriqueDevis(hd.getId(), utilisateur);
                 if (listeDocument==null) listeDocument=new ArrayList<>();    

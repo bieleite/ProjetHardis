@@ -93,7 +93,7 @@ public class HistoriqueTraitementFacade extends AbstractFacade<HistoriqueTraitem
     @Override
     public   List<HistoriqueTraitement> rechercheHistoriqueTraitementParConsultant(UtilisateurHardis consultant) {
         HistoriqueTraitement he = null;        
-        String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.consultant=:consultant ";
+        String txt = "SELECT he FROM HistoriqueTraitement AS he WHERE he.consultant=:consultant or he.refLocal=:consultant";
         Query req = getEntityManager().createQuery(txt);
         req = req.setParameter("consultant",consultant);
         List<HistoriqueTraitement> res = req.getResultList();

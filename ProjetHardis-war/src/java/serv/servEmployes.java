@@ -802,6 +802,10 @@ sess= request.getSession(true);
                     faire = "envoyer";
                 request.setAttribute("faire",faire);
                 }
+                if(faire!=null&&faire.equals("modifier")){
+                    faire = "modifier";
+                request.setAttribute("faire",faire);
+                }
                 HistoriqueDevis hd = gestionnaireHardisSession.rechercherUnHistoriqueDevisParUtilisateur(iddevis);
                 List<Document> listeDocument = gestionnaireHardisSession.rechercherDocumentParHistoriqueDevis(hd.getId(), utilisateur);
                 if (listeDocument==null) listeDocument=new ArrayList<>();    
