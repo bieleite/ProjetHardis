@@ -80,7 +80,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="servEmployes?action=majEnt" class="btn btn-default btn-flat">Profile</a>
+                  <a href="servEmployes?action=formUtilisateur&idUtili=<%=utilisateur.getId().toString() %>" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="servEmployes?action=vide" class="btn btn-default btn-flat">Sign out</a>
