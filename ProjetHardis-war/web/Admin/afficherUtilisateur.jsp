@@ -49,9 +49,8 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
-        <li class="active">Paramètres</li>
-        <li class="active">Adresse</li>
-        <li class="active">Creer Adresse</li>
+        <li class="active">Utilisateur</li>
+        <li class="active">Afficher Utilisateur</li>
       </ol>
     </section>
 
