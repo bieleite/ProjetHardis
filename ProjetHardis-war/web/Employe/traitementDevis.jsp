@@ -332,21 +332,19 @@
                   <label for="factDevis">Facturation</label>
                   <input type="txt" name="factDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=devistraitement.getIndicateurFact().name() %>" disabled >
                   <label for="montDevis">Montant Devis</label>
-                  <% if (devistraitement.getMontantDevis()>0 ) {%>
-                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>' 
-                              <%  if (faire!=null&&faire.equals("modifier") ){%>
-                              disabled
-                              <%}%>
-                              <%  if (faire!=null&&faire.equals("modifier")){%><%}%>
-                              >
+                  <% if (devistraitement.getMontantDevis()>0 ) {%>                      
+                        <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>'  disabled>
+                    <%  if (faire!=null&&faire.equals("modifier")){%>
+                              <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>'  ><%}%>
                        <%}%>
                  <% if (devistraitement.getMontantDevis()==0 ){%>
-                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' 
-                             <%  if (faire!=null&&!faire.equals("modifier")){%>
-                              disabled
-                              <%}%>
-                             <%  if (faire!=null&&faire.equals("modifier")){%> <%}%>
-                             >
+                 <%  if (faire==null&&!faire.equals("modifier")){%>
+                      <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' disabled> <%}%>
+                         <%  if (faire!=null&&faire.equals("modifier")){%>  <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' >  <%}%>
+                             
+                             
+                              
+                             
                      
                   <%}%>                 
                   <label for="refusDevis">Motif Refus</label>
@@ -355,8 +353,10 @@
                   <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder="<%=devistraitement.getStatut().name() %>" disabled ></textarea>
                 
                   <label for="slDevis">Saisir Libre</label>
-                  <textarea class="form-control" rows="3" name="slDevis"  id="exampleInputEmail1" placeholder="<%=devistraitement.getSaisieLibre() %>" ></textarea>
-                     <input type="hidden" name="idcli" value="<%=devistraitement.getClient().getId() %>">
+                  <textarea class="form-control" rows="3" name="slDevis"  id="exampleInputEmail1" placeholder="<%=devistraitement.getSaisieLibre() %>" disabled></textarea>
+                  <%  if (faire!=null&&faire.equals("modifier") ){%> 
+                  <textarea class="form-control" rows="3" name="slDevis"  id="exampleInputEmail1" placeholder="<%=devistraitement.getSaisieLibre() %>" ></textarea><%}%>
+                  <input type="hidden" name="idcli" value="<%=devistraitement.getClient().getId() %>">
                   <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
                   <input type="hidden" name="idage" value="<%=devistraitement.getAgence().getId() %>">
                   <input type="hidden" name="action" value="ModifierDevis">
@@ -366,7 +366,7 @@
              
                 <%  if (faire!=null&&faire.equals("modifier")){%>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
               </div>
               <%}%>
              </form>

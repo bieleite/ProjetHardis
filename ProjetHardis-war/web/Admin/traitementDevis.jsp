@@ -90,10 +90,13 @@
               <h3 class="box-title">Devis</h3>
               <div class="box-tools pull-right">
                     <div class="btn-group">
+                        
                         <% if (listeConsultantOffre.contains(utilisateur)&&!listeDocument.isEmpty()){ %>
                         <a href="servAdmin?action=formDevis&faire=envoyer&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="submit" class="btn btn-default" title="Envoyer le Devis"><i class="fa fa-send"></i></button></a><%}%>
-                        <a href="servAdmin?action=formDevis&faire=document&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                        <a href="servAdmin?action=formDevis&faire=tele&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
+                            <button type="submit" class="btn btn-default" title="Echange Telephonique"><i class="fa fa-phone"></i></button></a>
+                            <a href="servAdmin?action=formDevis&faire=document&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="submit" class="btn btn-default" title="Ajouter Documents"><i class="fa fa-plus"></i></button></a>
                         <a href="servAdmin?action=formDevis&faire=modifier&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="submit" class="btn btn-default" title="Modifier"><i class="fa fa-edit"></i></button></a>
@@ -166,7 +169,7 @@
                   </select>
                   <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
                      <input type="hidden" name="action" value="AffecterDevis">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </form>
               </div> <%}%>
               <% 
@@ -180,7 +183,7 @@
                   <input type="txt" name="nombreJour" class="form-control" id="exampleInputEmail1" placeholder=""  >
                   <input type="hidden" name="idDevis" value="<%=devistraitement.getId() %>">
                      <input type="hidden" name="action" value="affecterConsultantDevis">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </form>
               </div> <%}%>
               
@@ -195,7 +198,7 @@
                   <input type="txt" name="MontantDevis" class="form-control" id="exampleInputEmail1" placeholder=""  >
                   <input type="hidden" name="idDevis" value="<%=devistraitement.getId() %>">
                      <input type="hidden" name="action" value="Creer1ereFactureDevis">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </form>
               </div> <%}%>
               <% if (faire!=null&&faire.equals("document")){ %>
@@ -212,7 +215,7 @@
                 </div>
                   <input type="hidden" name="idDevis" value="<%=devistraitement.getId() %>">
                      <input type="hidden" name="action" value="AjouterDocumentAUnDevis">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </form>
               </div> <%}%>
               
@@ -231,7 +234,7 @@
                     <input type="hidden" name="idclient" value="<%=devistraitement.getClient().getId() %>">
                     <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
                     <input type="hidden" name="action" value="EnvoyerDevis">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Valider</button>
                 </form>
               </div> <%}%>
             </div>
@@ -361,7 +364,7 @@
              
                 <%  if (faire!=null&&faire.equals("modifier")){%>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
               </div>
               <%}%>
              </form>
