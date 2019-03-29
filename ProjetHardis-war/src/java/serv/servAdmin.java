@@ -24,6 +24,7 @@ import Entites.Helpers;
 import Entites.HistoriqueDevis;
 import Entites.HistoriqueEtats;
 import Entites.HistoriqueTraitement;
+import Entites.Interlocuteur;
 import Entites.LieuIntervention;
 import Entites.Livrable;
 import Entites.NiveauHabilitation;
@@ -723,6 +724,9 @@ public class servAdmin extends HttpServlet {
                 Long iddevis = Long.valueOf(champ);
                 Devis a = administrateurHardisSession.rechercherDevis(iddevis, utilisateur);
                 List<UtilisateurHardis> listeConsultantOffre = new ArrayList<>();
+                List<Interlocuteur> listInterlocuteur = new ArrayList<>();
+                List<EchangeTel> listEchangeTel = new ArrayList<>();
+                listEchangeTel = administrateurHardisSession.rechercherEchangeTelPardevis(iddevis, utilisateur);
                 Long of = a.getService().getOffre().getId();                
                 List<Offre_Profil_Util_CV> o = administrateurHardisSession.listHistoriqueOffre_Profil_Util_CV(utilisateur);
              
@@ -752,6 +756,11 @@ public class servAdmin extends HttpServlet {
                     faire = "modifier";
                 request.setAttribute("faire",faire);
                 }
+                if(faire!=null&&faire.equals("tele")){
+                    listInterlocuteur = a.getClient().getEntreprise().getInterlocuteurs();
+                    faire = "tele";
+                request.setAttribute("faire",faire);
+                }
                 HistoriqueDevis hd = administrateurHardisSession.rechercherUnHistoriqueDevisParUtilisateur(iddevis);
                 List<Document> listeDocument = administrateurHardisSession.rechercherDocumentParHistoriqueDevis(hd.getId(), utilisateur);
                 if (listeDocument==null) listeDocument=new ArrayList<>();    
@@ -759,6 +768,8 @@ public class servAdmin extends HttpServlet {
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
                 request.setAttribute("listeHTVide",listeHTVide);
+                request.setAttribute("listInterlocuteur",listInterlocuteur);
+                request.setAttribute("listEchangeTel",listEchangeTel);
                 sess.setAttribute("listeDocument",listeDocument);
                 sess.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 sess.setAttribute("devistraitement",a);
@@ -1071,6 +1082,12 @@ public class servAdmin extends HttpServlet {
                doActionSupprimerUtilisateur(request,response);
                jspClient="/Admin/dashboardAdmin.jsp";
             }
+         else if(act.equals("EchangeTel"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+               doActionCreerEchangeTel(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
         RequestDispatcher Rd;
          try{
         Rd = getServletContext().getRequestDispatcher(jspClient);
@@ -1311,17 +1328,20 @@ public class servAdmin extends HttpServlet {
     }
     protected void doActionCreerEchangeTel(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        String text = request.getParameter("dtdebutDisponibilite");
-        String devis = request.getParameter("dtdebutDisponibilite");
+        String interlocuteur = request.getParameter("interlocuteur");
+        String textEchange = request.getParameter("textEchange");
+        String idclient = request.getParameter("idclient");
+        String iddev = request.getParameter("iddev");
         String message = null;
-        if(text.trim().isEmpty()||devis.trim().isEmpty()){
+        if(textEchange.trim().isEmpty()){
             message = "Erreur - Vous n'avez pas rempli tous les champs obligatoires." ;
         }
         else {
             UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
             if(ut!=null){
-                Long iddevis = Long.valueOf(devis);
-                EchangeTel echangetel = administrateurHardisSession.creerEchangeTel(text, iddevis, ut);
+                Long iddevis = Long.valueOf(iddev);
+                Long idClient = Long.valueOf(idclient);
+                EchangeTel echangetel = administrateurHardisSession.creerEchangeTel(textEchange, iddevis, ut);
                 String nomentite = echangetel.getInterlocuteur().getNom();
                 String classe = echangetel.getClass().toString();
                 message= " Echange Telefonique avec:"+ nomentite+" créé avec succès !";

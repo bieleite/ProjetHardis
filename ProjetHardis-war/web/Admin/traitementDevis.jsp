@@ -4,6 +4,8 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.EchangeTel"%>
+<%@page import="Entites.Interlocuteur"%>
 <%@page import="Entites.Document"%>
 <%@page import="Entites.Facture"%>
 <%@page import="Entites.UtilisateurHardis"%>
@@ -42,6 +44,8 @@
     <jsp:useBean id="listeHTVide" scope="request" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeConsultantOffre" scope="session" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeDocument" scope="session" class= "java.util.List"></jsp:useBean>
+     <jsp:useBean id="listInterlocuteur" scope="request" class= "java.util.List"></jsp:useBean>
+     <jsp:useBean id="listEchangeTel" scope="request" class= "java.util.List"></jsp:useBean>
     
 
 </head>
@@ -73,6 +77,7 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <% List<Devis> lesDeevis=listeDevis; %> 
+      <% List<Interlocuteur> lesInter=listInterlocuteur; %>
       <!-- /.row -->
       <!--Form Recherche-->
       <!-- Main row -->
@@ -234,6 +239,25 @@
                     <input type="hidden" name="idclient" value="<%=devistraitement.getClient().getId() %>">
                     <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
                     <input type="hidden" name="action" value="EnvoyerDevis">
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                </form>
+              </div> <%}%>
+               <%  if (faire!=null&&faire.equals("tele")){ %>
+              <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4> Echange Telephonique </h4>
+                
+                <form>
+                    <select name="interlocuteur" class="form-control">
+                        <option value=" client"> <%=devistraitement.getClient().getNom() %>  </option> 
+                       <% for (Interlocuteur inter : lesInter){%>
+                        <option value="<%=inter.getId() %>"> <%=inter.getNomInterlocuteur() %>  </option> 
+                    <%}%>
+                    </select>
+                    <textarea class="form-control" rows="3" name="textEchange"  id="exampleInputEmail1" placeholder="" ></textarea>
+                    <input type="hidden" name="idclient" value="<%=devistraitement.getClient().getId() %>">
+                    <input type="hidden" name="iddev" value="<%=devistraitement.getId() %>">
+                    <input type="hidden" name="action" value="EchangeTel">
                     <button type="submit" class="btn btn-primary">Valider</button>
                 </form>
               </div> <%}%>
@@ -580,6 +604,45 @@
                     <a href="javascript:void(0)" class="product-title"><%=doc.getTypeDoc().toString() %>
                       <span class="label label-warning pull-right">  <%=doc.getLienDoc() %></span></a>
                     <span class="product-description"><%=doc.getDescriptif() %> </span>
+                  </div>
+                </li>
+                <%}%>
+                <!-- /.item -->
+                </ul>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+              
+            </div>
+            <!-- /.box-footer -->
+          </div>
+                <%}%>
+                <% List<EchangeTel> lesEchange=listEchangeTel; %> 
+                <% if (!listEchangeTel.isEmpty()){%>
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Echange telephonique</h3>
+            
+            
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                
+              </div>
+            </div>
+            <!-- /.box-header -->
+             
+            <div class="box-body">
+              <ul class="products-list product-list-in-box">
+                  <% for (EchangeTel echanget : lesEchange){     %>
+                <li class="item">
+                  <div class="product-img">
+                    <img src="data:image/png;base64,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" alt="Product Image">
+                  </div>
+                  <div class="product-info">
+                    <a href="javascript:void(0)" class="product-title">DEV:<%=echanget.getDevis().getId().toString() %>
+                      </a>
+                    <span class="product-description"><%=echanget.getTexte() %> </span>
                   </div>
                 </li>
                 <%}%>
