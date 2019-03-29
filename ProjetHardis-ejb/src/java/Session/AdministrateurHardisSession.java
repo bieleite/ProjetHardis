@@ -1704,4 +1704,9 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
         UtilisateurHardis entite = utilisateurHardisFacade.find(id);
          utilisateurHardisFacade.changVisibiliteUtilisateur(entite);
     }
+    @Override
+    public void signout(Long id){
+        UtilisateurHardis entite = utilisateurHardisFacade.find(id);
+        utilisateurHardisFacade.signout(entite);
+    }
 }

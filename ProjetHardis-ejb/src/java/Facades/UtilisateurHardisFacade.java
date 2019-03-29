@@ -291,6 +291,11 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
         entite.setVisible(false);
         entite.setStatut(StatutUtilisateur.Inactif);
     }
+    
+    @Override
+    public  void signout(UtilisateurHardis entite) {       
+        entite.setConnecte(false);
+    }
         
 
     

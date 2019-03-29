@@ -69,4 +69,6 @@ public interface UtilisateurHardisFacadeLocal {
 
     void changVisibiliteUtilisateur(UtilisateurHardis entite);
     
+    void signout(UtilisateurHardis entite);
+    
 }
