@@ -400,7 +400,7 @@ public class servClient extends HttpServlet {
         if (act.equals("deconnexion")) {
             Client c = (Client) sess.getAttribute("client");
             clientSession.deconnexion(c.getId());
-            sess.setAttribute("client", null);
+            sess=null;
             jspClient = "/PageAccueil.jsp";
         }
         if (act.equals("creation")) {
