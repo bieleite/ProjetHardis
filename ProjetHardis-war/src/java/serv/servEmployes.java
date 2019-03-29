@@ -129,14 +129,15 @@ sess= request.getSession(true);
                 request.setAttribute("message","");
                 jspClient="/Employe/login.jsp";
             }
-        
-//        else if (act.equals("deconnexion"))
-//        {
-//              UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
-//              gestionnaireHardisSession.signout(utilisateur.getId());
-//              sess = null;
-//           
-//        }
+     
+        else if (act.equals("deconnexion"))
+        {
+              UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+              gestionnaireHardisSession.signout(utilisateur.getId());
+          sess.invalidate();
+               jspClient = "/Admin/Login.jsp";
+           
+        }
             else if(act.equals("LoginAdmin")){
                 String login = request.getParameter("login");
                 String pass = request.getParameter("pass");

@@ -27,7 +27,7 @@
 <body class="hold-transition login-page">
 <div class="login-box"> 
     <% String attribut = (String) request.getAttribute("message");%>
-                <% if(!attribut.equals("")){%>
+                <% if(attribut!=null && !attribut.equals("")){%>
     <div class="alert alert-info alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
                 

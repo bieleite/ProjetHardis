@@ -60,6 +60,7 @@ public interface GestionnaireHardisSessionLocal {
     
     List<Communication> rechercherCommunication(long iddevis,long idutilisateur, UtilisateurHardis hardis);
     
+     public void signout(Long id);
     Communication rechercherCommunicationID(long id, UtilisateurHardis hardis);
         
     void supprimerDevis(long iddevis, UtilisateurHardis hardis);

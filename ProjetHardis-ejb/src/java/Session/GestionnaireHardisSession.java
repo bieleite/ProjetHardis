@@ -1496,7 +1496,11 @@ public class GestionnaireHardisSession implements GestionnaireHardisSessionLocal
         return l;       
     }
     
-    
+     @Override
+    public void signout(Long id){
+        UtilisateurHardis entite = utilisateurHardisFacade.find(id);
+        utilisateurHardisFacade.signout(entite);
+    }
 
     @Override
     public List<Devis> rechercherDevisParClient(long idCli, UtilisateurHardis u) {
