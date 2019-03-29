@@ -85,6 +85,7 @@
                   <th>Nombre Jours Consultant Senior</th>
                   <th>Lieu d'Intervention</th>
                   <th>Facture Frais</th>
+                  <th>Supprimer</th>
                 </tr>
                 </thead>
                 <% for (ServiceStandard a : lesServiceStandard){%>
@@ -102,6 +103,8 @@
                     <td><%=a.getNbreJoursConsultantS() %></td>
                     <td><%=a.getLieuInterv().toString() %></td>
                     <td><%=a.getFactFrais().toString() %></td>
+                    <td><a href="servAdmin?action=SupprimerServiceNon&idService=<%=a.getId().toString() %>" name="idService" value="<%=a.getId().toString() %>">
+                            <button type="submit" class="btn btn-default" title="Supprimer Supprimer"><i class="fa fa-remove"></i></button></a></td>
                 </tr>
                 </tbody>
                 <%}%>
@@ -119,6 +122,7 @@
                   <th>Nombre Jours Consultant Senior</th>
                   <th>Lieu d'Intervention</th>
                   <th>Facture Frais</th>
+                  <th>Supprimer</th>
                 </tr>
                 </tfoot>
               </table>
