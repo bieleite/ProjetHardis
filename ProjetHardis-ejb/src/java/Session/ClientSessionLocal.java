@@ -146,5 +146,13 @@ public interface ClientSessionLocal {
 
     void payerFactureCree(long idF);
 
+    Entreprise rechercheEntParId(long idEnt);
+
+    void modifEnt(String ville, String codeP, int nrRue, String nomRue, long idE);
+
+    List<ServiceStandard> recupServicesS();
+
+    List<Service> recupSNonSt();
+
 
 }

@@ -40,7 +40,8 @@
         <input type="email" class="form-control" placeholder="Email" name="email">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>  
-      <%} else if (cli.getId()!=0 && valide==null){%>
+      <%} else if (cli.getId()!=0 && valide==null){
+      %> <p> Veuillez répondre à la question secrète : </p>
       <div class="form-group has-feedback">
           <p> <%out.print(cli.getQuestionSecrete()); %></p>
         

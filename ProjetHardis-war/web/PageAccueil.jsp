@@ -80,22 +80,22 @@
             <div class="line1 hidden-xs">
                 <div class="container">
 
-                    <div class=" col-md-10 bg-social">
+                    <div class=" col-md-8 bg-social">
                     </div>
 
                     <div class="col-md-2 text-right">
                         <ul class="nav nav-pills glyphicon-user" ><li><a href="servInternaute?action=connexion">Espace client</a> </li></ul>
-                        <!--</div>
-                        <div class="col-sm-3 col-md-2 text-center">
-                          <ul class="language-switcher-locale-url nav nav-pills"><li class="fr first active"><a href="/" class="language-link active language-link active" xml:lang="fr">FR</a></li>
-                        <li class="en-en last"><a href="/en" class="language-link language-link" xml:lang="en-en">EN</a></li>
-                        </ul></div><div class="col-sm-2 text-center"><form class="form-search content-search" action="/" method="post" id="search-block-form" accept-charset="UTF-8"><div>
-                        <div class="input-group"><input title="Indiquer les termes à rechercher" placeholder="Rechercher" class="form-control form-text" type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" /><span class="input-group-btn"><button type="submit" class="btn btn-default"><span class="icon glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button></span></div><div class="form-actions form-wrapper form-group" id="edit-actions"><button class="element-invisible btn btn-primary form-submit" type="submit" id="edit-submit" name="op" value="Recherche">Recherche</button>
-                        </div><input type="hidden" name="form_build_id" value="form-D1WcHo193yPgUQ2krXsj10-gdjKOOLfmqOyx2hfrFMk" />
-                        <input type="hidden" name="form_id" value="search_block_form" />
-                        -->
-                    </div><!--</form>--></div>          </div>
+          
+                    </div>
+                    
+                    <div class="col-md-2 text-right">
+                        <ul class="nav nav-pills glyphicon-user" ><li><a href="servAdmin">Espace Hardis</a> </li></ul>
+          
+                    </div>
+                    
+                    
+                    
+                    <!--</form>--></div>          </div>
         </div>
         <div class="line2">
             <div class="container">

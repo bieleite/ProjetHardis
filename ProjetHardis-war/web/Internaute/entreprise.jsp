@@ -28,12 +28,14 @@
 
 <div class="register-box">
 
-
+  <% String messEr1 = (String)request.getAttribute("messageErreur1");
+  String messEr = (String)request.getAttribute("messageErreur1");
+ %>
   <div class="register-box-body">
       
     <p class="login-box-msg">Vous avez déjà votre code ?</p>
 
-    
+     <% if (messEr1!=null && messEr1!="") out.print("<div style='color:red'>"+messEr1+"</div><br>"); %>
     <form action="servClient" method="get">
         <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Code contrat (6 chiffres)" name="codeC">
@@ -61,6 +63,7 @@
     <br>
      <p class="login-box-msg">Créer entreprise</p>
     
+     <% if (messEr!=null && messEr!="") out.print("<div style='color:red'>"+messEr+"</div><br>"); %>
     <form action="servClient" method="get">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Nom entreprise" name="nomE">
@@ -108,8 +111,10 @@
                    <br>
                    <p> Afin de valider cette entreprise, veuillez envoyer un mail avec un justificatif à l'adresse suivante : admin@hardis.fr</p>
     </form>
-
+ <br>
+ <p><a href="servInternaute?action=connexion">Passer cette étape</a> </p>
   </div>
+   
   <!-- /.form-box -->
 </div>
 <!-- /.register-box -->
