@@ -290,6 +290,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     public  void changVisibiliteUtilisateur(UtilisateurHardis entite) {       
         entite.setVisible(false);
         entite.setStatut(StatutUtilisateur.Inactif);
+        em.merge(entite);
     }
     
     @Override
