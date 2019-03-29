@@ -243,7 +243,9 @@
              
 
               <div class="box-footer">
+                  <% if( acao!=null&&acao.equals("modif") ){%>
                 <button type="submit" class="btn btn-primary">Valider</button>
+                <%}%>
               </div>
              </form>
           </div>

@@ -72,6 +72,8 @@ public class servAdmin extends HttpServlet {
     HttpSession sess =null;
     @EJB
     private AdministrateurHardisSessionLocal administrateurHardisSession;
+    @EJB
+    private GestionnaireHardisSessionLocal gestionnaireHardisSession;
 
     protected void envoiMessage(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -120,6 +122,7 @@ public class servAdmin extends HttpServlet {
                     if(utilisateur!=null){
                         request.setAttribute("message","Bienvenue: "+ utilisateur.getNom());
                         sess.setAttribute("utilisateur", utilisateur);
+                        if(utilisateur.getProfilTechique()==ProfilTechnique.Admin||utilisateur.getProfilTechique()==ProfilTechnique.Visiteur){
                         List<Communication> listeCommunication= new ArrayList<>();
                         listeCommunication= administrateurHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
                         List<Notification> listeNotif =new ArrayList<>();
@@ -148,10 +151,52 @@ public class servAdmin extends HttpServlet {
                         sess.setAttribute("listeContactMail",listeContactMail);
                         sess.setAttribute("listeHistoriqueTraitement",listeHistoriqueTraitement);
                         if(utilisateur.getProfilTechique()==ProfilTechnique.Admin){
-                            jspClient="/Admin/dashboardAdmin.jsp";
-                        }
+                        jspClient="/Admin/dashboardAdmin.jsp";}
                         else{
-                            jspClient="/Employe/dashboardAdmin.jsp";
+                            jspClient="/Employe/dashboardAdmin.jsp"; 
+                        }
+                        }
+                        else {
+                            List<Communication> listeCommunication= new ArrayList<>();
+                        listeCommunication= gestionnaireHardisSession.rechercherCommunication(0, utilisateur.getId(), utilisateur);
+                        List<Notification> listeNotif =new ArrayList<>();
+                        listeNotif = gestionnaireHardisSession.getNotifsAdmin(utilisateur);
+                        List<Devis> listeDevis = new ArrayList<>();
+                        List<HistoriqueTraitement> ht = gestionnaireHardisSession.rechercherHistoriqueTraitementParConsultant(utilisateur.getId(), utilisateur);
+                        if (!ht.isEmpty()){
+                            for (HistoriqueTraitement lesht: ht){
+                                Devis dev = lesht.getDevis();
+                                listeDevis.add(dev);
+                            }
+                        }
+                        List<Client> listeClient = new ArrayList<>();
+                        
+                        if (!listeDevis.isEmpty()){
+                            for (Devis dev: listeDevis){
+                                Client client = dev.getClient();
+                                listeClient.add(client);
+                            }
+                        }
+                        List<Entreprise> listeEntreprise = new ArrayList<>();
+                        listeEntreprise = gestionnaireHardisSession.listEntreprise();
+                        List<UtilisateurHardis> listeUtilisateurHardis = new ArrayList<>();
+                        listeUtilisateurHardis = gestionnaireHardisSession.listUtilisateurHardis();
+                        List<ContactMail> listeContactMail = new ArrayList<>();
+                        listeContactMail = gestionnaireHardisSession.listCommunicationNonReponduParUtilisateur(utilisateur.getId());
+                        List<HistoriqueTraitement> listeHistoriqueTraitement = new ArrayList<>();
+                        listeHistoriqueTraitement = gestionnaireHardisSession.listHistoriqueTraitementSansConsultant();
+                        List<UtilisateurHardis> listeUtilisateurHardisReponseContactMail = new ArrayList<>();
+                        String acao = null;
+                        sess.setAttribute("listeUtilisateurHardisReponseContactMail",listeUtilisateurHardisReponseContactMail);                                               
+                        sess.setAttribute("listeCommunication",listeCommunication);
+                        sess.setAttribute("listeNotif",listeNotif);
+                        sess.setAttribute("listeDevis",listeDevis);
+                        sess.setAttribute("listeClient",listeClient);
+                        sess.setAttribute("listeEntreprise",listeEntreprise);
+                        sess.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
+                        sess.setAttribute("listeContactMail",listeContactMail);
+                        sess.setAttribute("listeHistoriqueTraitement",listeHistoriqueTraitement);
+                        jspClient="/Employe/dashboardAdmin.jsp";    
                         }
                             
                                 }   

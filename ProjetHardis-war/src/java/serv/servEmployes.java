@@ -150,7 +150,13 @@ sess= request.getSession(true);
                             }
                         }
                         List<Client> listeClient = new ArrayList<>();
-                        listeClient = gestionnaireHardisSession.listClient();
+                        
+                        if (!listeDevis.isEmpty()){
+                            for (Devis dev: listeDevis){
+                                Client client = dev.getClient();
+                                listeClient.add(client);
+                            }
+                        }
                         List<Entreprise> listeEntreprise = new ArrayList<>();
                         listeEntreprise = gestionnaireHardisSession.listEntreprise();
                         List<UtilisateurHardis> listeUtilisateurHardis = new ArrayList<>();
@@ -406,7 +412,14 @@ sess= request.getSession(true);
                                 listeDevis.add(dev);
                             }
                         }
-                List<Client> listeClient = gestionnaireHardisSession.listClient();
+                List<Client> listeClient = new ArrayList<>();
+                        
+                        if (!listeDevis.isEmpty()){
+                            for (Devis dev: listeDevis){
+                                Client client = dev.getClient();
+                                listeClient.add(client);
+                            }
+                        }
                 if (listeCommunication==null) listeCommunication=new ArrayList<>();
                 if (listeNotif==null) listeNotif=new ArrayList<>();
                 if (listeDevis==null) listeDevis=new ArrayList<>();
@@ -495,21 +508,34 @@ sess= request.getSession(true);
             }
             else if(act.equals("InsererEchangeTel"))
             {
-                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("entr");
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 doActionCreerEchangeTel(request,response);
                 jspClient="/Employe/dashboardAdmin.jsp";
             }
             else if(act.equals("listesPourModifierDevis"))
             {
+                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                 List<Agence> listagence= gestionnaireHardisSession.listAgence();
                 if (listagence==null) listagence=new ArrayList<>();
                 request.setAttribute("listeAgence",listagence);
-                List<Client> listclient= gestionnaireHardisSession.listClient();
-                if (listclient==null) listclient=new ArrayList<>();
-                request.setAttribute("listeClient",listclient);
-                List<Devis> listdevis= gestionnaireHardisSession.listDevis();
-                if (listdevis==null) listdevis=new ArrayList<>();
-                request.setAttribute("listeDevis",listdevis);
+                 List<Devis> listeDevis = new ArrayList<>();
+                        List<HistoriqueTraitement> ht = gestionnaireHardisSession.rechercherHistoriqueTraitementParConsultant(utilisateur.getId(), utilisateur);
+                        if (!ht.isEmpty()){
+                            for (HistoriqueTraitement lesht: ht){
+                                Devis dev = lesht.getDevis();
+                                listeDevis.add(dev);
+                            }
+                        }
+                request.setAttribute("listeDevis",listeDevis);
+                List<Client> listeClient = new ArrayList<>();
+                        
+                        if (!listeDevis.isEmpty()){
+                            for (Devis dev: listeDevis){
+                                Client client = dev.getClient();
+                                listeClient.add(client);
+                            }
+                        }
+                request.setAttribute("listeClient",listeClient);
                 jspClient="/Employe/ModifierDevis.jsp";
             }
             else if(act.equals("modifierDevis"))
