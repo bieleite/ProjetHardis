@@ -149,14 +149,26 @@
               <div class="box-body">
                   <form role="form">
                 <div class="form-group">
+                    <div class="row"> <div class="col-md-3">
                   <label for="idDevis">Id Utilisateur</label>
                   <input type="txt" name="idDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=utili.getId() %>" disabled >
-                  <label for="tpDevis">Nom Utilisateur</label>
+                        </div>
+                        <div class="col-md-3">
+                        <label for="tpDevis">Nom Utilisateur</label>
                   <input type='txt' name='tpDevis' class='form-control' id='exampleInputEmail1' placeholder="<%=utili.getNom() %>" disabled >
-                  <label for="clientDevis">Prenom Utilisateur</label>
+                  
+                  </div>
+                  <div class="col-md-3">
+                      <label for="clientDevis">Prenom Utilisateur</label>
                   <input type="txt" name="clientDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=utili.getPrenom() %>" disabled>
+                 </div>
+                        <div class="col-md-3">
+                  
                   <label for="agenceDevis">Mail Utilisateur</label>
                   <input type="txt" name="agenceDevis" class="form-control" id="exampleInputEmail1" placeholder="<%=utili.getLogin() %>" disabled>
+                 </div>
+                    </div>
+                  
                   <label for="agenceDevis">Profil Technique</label>
                   <select  name="techUtili" class="form-control">
                     <option><%=utili.getProfilTechique() %></option>
@@ -231,7 +243,7 @@
              
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
               </div>
              </form>
           </div>
