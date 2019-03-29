@@ -99,8 +99,8 @@
                             <button type="submit" class="btn btn-default" title="Ajouter Documents"><i class="fa fa-plus"></i></button></a>
                         <a href="servEmployes?action=formDevis&faire=modifier&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="submit" class="btn btn-default" title="Modifier"><i class="fa fa-edit"></i></button></a>
-                        
-                        
+                        <%}%>
+                        <% if(utilisateur.getProfilTechique()==ProfilTechnique.Gestion) {%>
                         <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
                         <a href="servEmployes?action=RelancerDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn btn-default">Relancer Client</button></a>
@@ -149,11 +149,11 @@
                         <a href="servEmployes?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn  btn-primary" disabled>Prestation Terminnée</button></a>
                         <%}%>
-                        <%}%>
+                       <%}%>
                     </div>
                     
             </div>
-                    <% if(utilisateur.getProfilTechique()==ProfilTechnique.Gestion) {%>
+                   
                     <% List<UtilisateurHardis> lesConsultants=listeConsultantOffre;
                     String faire = (String) request.getAttribute("faire");
                     if (faire!=null&&faire.equals("affecter")){%>
@@ -238,7 +238,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div> <%}%>
-              <%}%>
+              
             </div>
             <!-- /.box-header -->
             <!-- form start -->

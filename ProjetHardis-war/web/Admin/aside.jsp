@@ -39,7 +39,7 @@
             <!--<li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Valider Client</a></li>-->
             <li><a href="servAdmin?action=AfficherEntreprise"><i class="fa  fa-search-plus"></i> Afficher Entreprise</a></li>
             <!--<li><a href="servAdmin?action=ValiderClient"><i class="fa fa-check-circle"></i> Valider Entreprise</a></li>-->
-            <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-building-o"></i> Effacer Entreprise</a></li>
+            <!--<li><a href="servAdmin?action=ValiderClient"><i class="fa fa-building-o"></i> Effacer Entreprise</a></li>-->
           </ul>
         </li>
         <li>
