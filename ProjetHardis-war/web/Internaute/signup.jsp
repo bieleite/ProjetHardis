@@ -26,10 +26,12 @@
 <body class="hold-transition register-page">
 <div class="register-box">
 
+ <% String messEr = (String)request.getAttribute("messageErreur");
+ %>
 
   <div class="register-box-body">
     <p class="login-box-msg">Création compte</p>
-
+    <% if (messEr!=null && messEr!="") out.print("<div style='color:red'>"+messEr+"</div><br>"); %>
     <form action="servClient" method="get">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Nom" name="nom">

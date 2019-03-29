@@ -62,7 +62,7 @@
                                            
                                             <div class="form-group">
                                                 <label>Mot de passe : </label>
-                                                <input type="password"  class="form-control" name="mdp">
+                                                <input type="text"  class="form-control" name="mdp">
                                             </div>
                                             
                                             <input type ="hidden" name="action" value="majEnt">
@@ -85,64 +85,46 @@
                             <div class="col-md-6">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Mettre à jour information entreprise</h3>
+                                        <h3 class="box-title">Information entreprise</h3>
                                     </div>
                                
-                                    <form role="form">
+                                   
                                         
                                         <div class="box-body">
 
                                             <div class="form-group">
-                                                <label>Nom </label>             
-                                                <input type="text" class="form-control" value="<%=client.getEntreprise().getNomEntreprise()%>" disabled >            
+                                                <label>Nom :  <%=client.getEntreprise().getNomEntreprise()%></label>             
+                                                     
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Siret </label>             
-                                                <input type="text" class="form-control" value="<%=client.getEntreprise().getNumeroEntreprise()%>" disabled >            
+                                                <label>Siret : <%=client.getEntreprise().getNumeroEntreprise()%> </label>             
                                             </div>
                                             
                                             <div class="form-group">
-                                                <label>Agence de rattachement Hardis </label>             
-                                                <input type="text" class="form-control" value="<%=client.getAgence().getNomAgence()%>" disabled >            
+                                                <label>Agence de rattachement Hardis : <%=client.getAgence().getNomAgence()%></label>             
                                             </div>  
                                             
                                             <div class="form-group">
-                                                <label>Adresse </label>
+                                                <label>Adresse </label> 
 
                                                 <div class="row">
-                                                    <div  class ="col-xs-4">
-                                                        <input type="text" class="form-control" placeholder="n° rue" name="nrRue" value ="<%=client.getEntreprise().getAdresseFact().getNumeroRue()%>">
+                                                    <div  class ="col-xs-12">
+                                                        <%=client.getEntreprise().getAdresseFact().getNumeroRue()%>, <%=client.getEntreprise().getAdresseFact().getNomRue()%><br>
+                                               
 
-                                                    </div>
-
-                                                    <div  class ="col-xs-8">
-                                                        <input type="text" class="form-control" placeholder="nom rue" name="nomRue" value ="<%=client.getEntreprise().getAdresseFact().getNomRue()%>">
-
+                                                
+                                                        <%=client.getEntreprise().getAdresseFact().getCodePostal()%>, <%=client.getEntreprise().getAdresseFact().getVille()%>
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <div class="row">
-                                                    <div class ="col-xs-6">
-                                                        <input type="text" class="form-control" placeholder="Code Postal" name="cp" value ="<%=client.getEntreprise().getAdresseFact().getCodePostal()%>">
-
-                                                    </div>
-                                                    <div  class ="col-xs-6">
-                                                        <input type="text" class="form-control" placeholder="Ville" name="ville" value ="<%=client.getEntreprise().getAdresseFact().getVille()%>">
-
-                                                    </div>
-                                                </div>
-                                                
-                                                <input type ="hidden" name="action" value="majEnt">
-
+          
+                                              
                                             </div>
                                         </div>
                                             <!-- /.box-body -->
 
-                                            <div class="box-footer">
-                                                <button type="submit" class="btn btn-primary">Valider</button>
-                                            </div>
-                                    </form>
+                                          
                                 </div>
 
 

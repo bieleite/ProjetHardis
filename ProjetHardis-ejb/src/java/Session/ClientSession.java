@@ -578,10 +578,14 @@ return e;
         if (e!=null)
         {
             clientFacade.certifierClient(c);
+            clientFacade.majAgenceClient(c, e.getAgence());
+            clientFacade.majEntrepriseClient(c, e);
             b= true;
         }
         return b;
     }
+    
+    
 
     @Override
     public boolean verifRepS(long id, String rep) {
@@ -1006,6 +1010,26 @@ try {
     public void payerFactureCree(long idF) {
          Facture f = factureFacade.rechercheFactParId(idF);
         factureFacade.payerFacture(f); 
+    }
+
+    @Override
+    public Entreprise rechercheEntParId(long idEnt) {
+        return entrepriseFacade.rechercheEntrepriseParId(idEnt);
+    }
+
+    @Override
+    public void modifEnt(String ville, String codeP, int nrRue, String nomRue, long idE) {
+        Entreprise e = entrepriseFacade.rechercheEntrepriseParId(idE);   
+    }
+
+    @Override
+    public List<ServiceStandard> recupServicesS() {
+        return serviceStandardFacade.listServStandard();
+    }
+
+    @Override
+    public List<Service> recupSNonSt() {
+        return serviceFacade.listServicesNonStandard();
     }
     
 

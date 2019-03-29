@@ -203,6 +203,8 @@ public class servClient extends HttpServlet {
             } catch (NumberFormatException ex) {
                 messageErreur = "Erreur, le code postal doit être une valuer numérique";
             }
+            
+    
             if (cpo) {
                 Client c = clientSession.rechercheCliParLogin(email);
                 if (c == null) {
@@ -405,8 +407,11 @@ public class servClient extends HttpServlet {
             String codeC = request.getParameter("codeC");
 
             Entreprise e = clientSession.rechercheEntrepriseParCodeEtMdp(codeC, mdp);
-
+String messageErreur ="";
             if (e == null) {
+                
+                 messageErreur = "Erreur, le code et/ou mot de passe sont incorrects";
+                 
 
             } else {
 
@@ -417,6 +422,7 @@ public class servClient extends HttpServlet {
                 clientSession.majAgenceCli(ag.getId(), clientT.getId());
                 jspClient = "/Internaute/login.jsp";
             }
+             request.setAttribute("messageErreur1", messageErreur);
         }
 
         if (act.equals("creationE")) {
@@ -425,11 +431,15 @@ public class servClient extends HttpServlet {
 
         if (act.equals("appelDevis")) {
             jspClient = "/Client/demandeDevis.jsp";
-            List<Service> listeS = clientSession.recupServices();
+            List<Service> listeS = clientSession.recupSNonSt();
+             List<ServiceStandard> listeSS = clientSession.recupServicesS();
+            
+            
             if (listeS == null) {
                 listeS = new ArrayList<>();
             }
-            sess.setAttribute("listeS", listeS);
+            request.setAttribute("listeS", listeS);
+              request.setAttribute("listeSS", listeSS);
         }
 
         if (act.equals("creerDevis")) {
@@ -871,13 +881,16 @@ Facture f = null;
                 b = clientSession.lierEntreprise(clientT.getId(), code, mdp);
             }
 
-            if (b) {
 
-            }
-            List<Interlocuteur> liste = null;
+
+            List<Interlocuteur> liste = new ArrayList<>();
             if (clientT.getEntreprise() != null) {
                 liste = clientSession.recupInter(clientT.getEntreprise().getId());
             }
+            
+            Client c = clientSession.rechercheCliParLogin(clientT.getLogin());
+            sess.setAttribute("client", c);
+            clientT = c;
 
             request.setAttribute("listeInt", liste);
             jspClient = "/Client/majEntreprise.jsp";
