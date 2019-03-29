@@ -14,6 +14,7 @@ import Entites.Facture;
 import Entites.Interlocuteur;
 import Entites.Notification;
 import Entites.Offre_Profil_Util_CV;
+import Entites.SendMail;
 import Entites.Service;
 import Entites.ServiceStandard;
 import Entites.UtilisateurHardis;
@@ -213,6 +214,8 @@ public class servClient extends HttpServlet {
                         Client cli = clientSession.creerClient(nom, prenom, email, mdp, questS, repS, cp);
                         jspClient = "/Internaute/entreprise.jsp";
                         clientT = cli;
+                        SendMail send = new SendMail();
+                        send.sendMail(cli.getLogin(), "Création compte Hardis", "Bonjour, <br> Votre compte a été bien crée. <br> Cordialement, <br>Groupe Hardis");
                     } else {
                         messageErreur = "Erreur, les mots de passe sont différents";
                         jspClient = "/Internaute/signup.jsp";
@@ -259,6 +262,7 @@ public class servClient extends HttpServlet {
         String libre = request.getParameter("libre");
         String date = request.getParameter("date");
         String idS = request.getParameter("idS");
+   
 
         String message = "";
         String messageErreur = "";
@@ -431,6 +435,7 @@ String messageErreur ="";
         }
 
         if (act.equals("appelDevis")) {
+            
             jspClient = "/Client/demandeDevis.jsp";
             List<Service> listeS = clientSession.recupSNonSt();
              List<ServiceStandard> listeSS = clientSession.recupServicesS();
@@ -456,6 +461,32 @@ String messageErreur ="";
             String mess = request.getParameter("message");
             if (mess != null) {
                 clientSession.creerComm(mess, Long.valueOf(idD));
+                List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
+           
+                float delM = 0;
+                int nbQSR = 0;
+                if (listeDevis.size() > 0) {
+                    int s = 0;
+                    int k = 0;
+                    for (Devis d : listeDevis) {
+                        int SR = clientSession.calculQSansRep(d.getId());
+                        if (SR!=0) nbQSR++;
+                        boolean b = clientSession.verifDevisR(d.getId());
+                        if (b) {
+                            List<Communication> listeC = clientSession.rechercheCommDev(d.getId());
+                            if (listeC.size() > 0) {
+                                float del = clientSession.calculDelaiMDevis(d.getId());
+                                s += del;
+                                k++;
+                            }
+                        }
+
+                    }
+
+                   if (k!=0) delM = s / k;
+               
+                }
+                 sess.setAttribute("nbQSR", nbQSR);
             }
 
             if (idD != "") {
@@ -557,13 +588,13 @@ String messageErreur ="";
                      d = clientSession.recupDevis(d.getId());
                       sess.setAttribute("devis", d);
                      if (d.getTypeDevis().toString().equals("Standard")){
-                     f = clientSession.creerFacture(d.getId(), "");
-                     request.setAttribute("valide", "1");
-                }
-                }
+                        f = clientSession.creerFacture(d.getId(), "");
+                        request.setAttribute("valide", "1");
+                   }
+                
                  else {
                         f= clientSession.rechercheFactParDevis(d.getId()).get(0);
-                       
+                     }
                  request.setAttribute("valide", "1");
                 
                
@@ -577,7 +608,9 @@ String messageErreur ="";
 
                 if (motif != null && motif != "") {
                     clientSession.refuserDevis(clientT.getId(), id, motif);
-                    jspClient = "/Client/afficheDevis.jsp";
+                    Devis dev = clientSession.recupDevis(id);
+                    jspClient = "/Client/tabBord.jsp";
+                     sess.setAttribute("devis", dev);
 
                 }
 
@@ -880,6 +913,9 @@ Facture f = null;
 
             } else {
                 b = clientSession.lierEntreprise(clientT.getId(), code, mdp);
+                SendMail send = new SendMail();
+                send.sendMail(clientT.getLogin(), "Hardis - Ajour entreprise", "Bonjour, <br> Vous aviez bien rajouté l'entreprise a votre compte. <br> Cordialement, <br>Groupe Hardis");
+
             }
 
 

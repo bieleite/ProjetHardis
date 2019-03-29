@@ -16,7 +16,7 @@
 <%@page import="Entites.Adresse"%>
 <%@page import="Entites.Client"%>
 <%@page import="Entites.Devis"%>
-<%@page import="Entites.Utilisateur"%>
+<%@page import="Entites.UtilisateurHardis"%>
 <%@page import="Entites.Notification"%>
 <%@page import="Entites.Communication"%>
 <%@page import="java.util.List"%>
@@ -30,7 +30,7 @@
   <title>Hardis Group -¨Profil Administrateur</title>
   <!-- Tell the browser to be responsive to screen width -->
   <%@include  file = "meta.jsp" %>
-    <jsp:useBean id="utilisateur" scope="session" class="Utilisateur"></jsp:useBean>
+    <jsp:useBean id="utilisateur" scope="session" class="UtilisateurHardis"></jsp:useBean>
     <jsp:useBean id="listeCommunication" scope="session" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
@@ -224,9 +224,9 @@
                 
              
 
-              <div class="box-footer">
+            <% if ( acao!=null&&acao.equals("modif") ){%>  <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
+              </div> <%}%>
              </form>
           </div>
                

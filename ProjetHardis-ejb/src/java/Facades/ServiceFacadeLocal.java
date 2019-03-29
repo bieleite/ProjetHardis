@@ -56,5 +56,7 @@ public interface ServiceFacadeLocal {
     
     List<Service> listServicesNonStandard();
 
+    Service rechercheServParNom(String nom);
+
     
 }

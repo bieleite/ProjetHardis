@@ -154,5 +154,7 @@ public interface ClientSessionLocal {
 
     List<Service> recupSNonSt();
 
+    Service rechercheServiceParNom(String nom);
+
 
 }

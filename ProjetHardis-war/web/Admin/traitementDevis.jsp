@@ -40,8 +40,8 @@
     <jsp:useBean id="devistraitement" scope="session" class = "Entites.Devis"> </jsp:useBean>
     <jsp:useBean id="listeCommunicationDevis" scope="request" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeHTVide" scope="request" class= "java.util.List"></jsp:useBean>
-    <jsp:useBean id="listeConsultantOffre" scope="request" class= "java.util.List"></jsp:useBean>
-    <jsp:useBean id="listeDocument" scope="request" class= "java.util.List"></jsp:useBean>
+    <jsp:useBean id="listeConsultantOffre" scope="session" class= "java.util.List"></jsp:useBean>
+    <jsp:useBean id="listeDocument" scope="session" class= "java.util.List"></jsp:useBean>
     
 
 </head>

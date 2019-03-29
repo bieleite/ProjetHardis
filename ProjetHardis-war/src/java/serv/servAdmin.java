@@ -704,8 +704,8 @@ public class servAdmin extends HttpServlet {
                 if (listeCommunicationDevis==null) listeCommunicationDevis=new ArrayList<>();                  
                 request.setAttribute("listeCommunicationDevis",listeCommunicationDevis);
                 request.setAttribute("listeHTVide",listeHTVide);
-                request.setAttribute("listeDocument",listeDocument);
-                request.setAttribute("listeConsultantOffre",listeConsultantOffre);
+                sess.setAttribute("listeDocument",listeDocument);
+                sess.setAttribute("listeConsultantOffre",listeConsultantOffre);
                 sess.setAttribute("devistraitement",a);
                 jspClient="/Admin/traitementDevis.jsp";
                 
@@ -1686,10 +1686,10 @@ public class servAdmin extends HttpServlet {
                     idPM = Long.valueOf(0);
                     String liencvPFCV = "";
                     Float prixFCV = Float.valueOf(0);
-                    Offre_Profil_Util_CV opcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(utili, offree);;
+                    Offre_Profil_Util_CV opcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(utili, offree);
                     if(opcv==null){
                     
-                    opcv = administrateurHardisSession.creerOffre_Profil_Util_CV(idoffre, idPM, iduili, liencvPFCV, ut, prixFCV);}
+                    opcv = administrateurHardisSession.creerOffre_Profil_Util_CV(idoffre, idPM, iduili, liencvPFCV, ut, Float.valueOf(prixPFCV[0]));}
                     else{
 //                        opcv = administrateurHardisSession.rechercheOPUCParUtilisateurEtOffre(utili, offree);
                         Long idididi = opcv.getId();

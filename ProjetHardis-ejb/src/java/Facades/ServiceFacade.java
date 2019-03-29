@@ -139,6 +139,8 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
         }
         return s;
     }
+    
+    
 
     @Override
     public List<Service> rechercheServiceParOffre(Offre o) {
@@ -167,6 +169,18 @@ public class ServiceFacade extends AbstractFacade<Service> implements ServiceFac
         req.setParameter("o",tps);
         List<Service> result=req.getResultList();
         return result;
+    }
+
+    @Override
+    public Service rechercheServParNom(String nom) {
+        Service s = null;
+        Query requete = em.createQuery("SELECT s from Service as s where s.nomService=:id");
+        requete.setParameter("id",nom);     
+        List<Service> liste =  requete.getResultList();
+        if (!liste.isEmpty()){
+            s =  (Service) liste.get(0); 
+        }
+        return s;
     }
     
     

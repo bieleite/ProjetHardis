@@ -49,6 +49,11 @@
 
         <!-- left column -->
         <div class="col-md-8">
+            
+            <%  if(client.getEntreprise()==null){  %>
+            <h3 class="box-title">Vous ne pouvez pas créer de devis car vous n'êtes pas rattaché à une entreprise</h3>
+            <p>Vous pouvez mettre à jour cela en cliquant <a href="servClient?action=majEnt">ici</a></p>
+            <%} else {%>
     <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Demander devis</h3>
@@ -69,6 +74,7 @@
                       {%>
                       
                       <option  value="<%=s.getId()%>"><%out.print(s.getOffre().getLibelle()+" : "+s.getNomService());%></option>
+                     
                    <%}%>
                      </optgroup>
                      
@@ -76,9 +82,10 @@
                       <%
                       for (Service s : listeOS)
                       {
-%>
-                      
+%>         
                       <option  value="<%=s.getId()%>"><%out.print(s.getOffre().getLibelle()+" : "+s.getNomService());%></option>
+                        
+                     
                    <%}%>
                      </optgroup>
                      
@@ -127,18 +134,12 @@
   </div>
    
    
-   
+   <%}%>
    
    
    
 
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
-  </footer>
+  
 
 
   <!-- /.control-sidebar -->

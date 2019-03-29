@@ -26,3 +26,5 @@ ProjetHardis-ejb/nbproject/private/private.xml
 *.properties
 *.xml
 *.properties
+*.properties
+*.xml

@@ -188,7 +188,7 @@
             </thead>
             <tbody>
                  <%  
-                     for (int i=0; i<listeC.size(); i++) { 
+                 for (int i=0; i<listeC.size(); i++) { 
                  float nbJ=0;
                  %>
             <tr>
@@ -318,27 +318,34 @@
                 else if (d.getTypeDevis().toString().equals("Non_Standard"))
                     ss="sns";
             %>
+              <%  if (valide==null){%>
                 <div class="row">
                     <div class="col-md-10"> </div>
                     <div class="col-md-1">
             <a href="servClient?action=consulteDevis&typeD=<%=ss%>&valide=1&idDev=<%=d.getId()%>"><button type="button" class="btn btn-success"> Valider
                 </button></a></div>
                 <div class="col-md-1">
-           <a href="servClient?action=consulteDevis&valide=0&idDev=<%=d.getId()%>"><button type="button" class="btn btn-warning" style="margin-right: 5px;">
+           <a href="servClient?action=consulteDevis&typeD=<%=ss%>&valide=0&idDev=<%=d.getId()%>"><button type="button" class="btn btn-warning" style="margin-right: 5px;">
             Réfuser
           </button>
            </a></div>
-                </div>
+                </div> <%}%>
         </div>
+            <br>
+            <br>
            <%  if (valide!=null && valide.equals("0")){%>
             <form role="form">
+                <div class="row">
+                    <div class="col-md-10"></div>
+                     <div class="col-md-2">
              <input type ="text" name="motifRefus" placeholder="Motif refus">
                     <input type ="hidden" name="action" value="consulteDevis">
                       <input type ="hidden" name="idDev" value="<%=d.getId()%>">
-                    
+                     </div>
+                </div><br>
              <a><button type="submit" class="btn btn-primary pull-right" style="margin-right: 5px;">
                      
-            <i class="fa fa-download"></i> Valider réfus
+            <i class="fa fa-download"></i> Confirmer réfus
           </button>
            </a>
             </form>

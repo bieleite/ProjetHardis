@@ -452,6 +452,8 @@ return e;
     public Service rechercheServiceParId(long id) {
         return serviceFacade.rechercheServiceParId(id);
     }
+    
+    
 
     @Override
     public Devis recupDevis(long id) {
@@ -726,14 +728,7 @@ return e;
         List<UtilisateurHardis> listeUt = rechercheCParDevis(idD);
         List<HistoriqueTraitement> listeHT = historiqueTraitementFacade.rechercheHistoriqueTraitementParDevis(d);
      
-        if (listeUt.size()>0) // nous allons la vider avant de la réinitialiser
-        {
-            for (HistoriqueTraitement histo : listeHT)
-            {
-                if (histo.getUtilisateurCourant().toString().equals("p"))
-                    historiqueTraitementFacade.remove(histo);
-            }
-        }
+       
         
         if(c!=null && c.length>0)
         for(String idU : c)
@@ -1030,6 +1025,11 @@ try {
     @Override
     public List<Service> recupSNonSt() {
         return serviceFacade.listServicesNonStandard();
+    }
+
+    @Override
+    public Service rechercheServiceParNom(String nom) {
+        return null;
     }
     
 
