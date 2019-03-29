@@ -83,7 +83,7 @@
                   <a href="servAdmin?action=formUtilisateur&idUtili=<%=utilisateur.getId().toString() %>" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="servAdmin?action=vide" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="servAdmin?action=deconnexion" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>

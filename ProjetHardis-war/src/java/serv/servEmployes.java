@@ -129,12 +129,13 @@ sess= request.getSession(true);
                 request.setAttribute("message","");
                 jspClient="/Employe/login.jsp";
             }
-        
+     
         else if (act.equals("deconnexion"))
         {
               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
               gestionnaireHardisSession.signout(utilisateur.getId());
-              sess = null;
+          sess.invalidate();
+               jspClient = "/Admin/Login.jsp";
            
         }
             else if(act.equals("LoginAdmin")){

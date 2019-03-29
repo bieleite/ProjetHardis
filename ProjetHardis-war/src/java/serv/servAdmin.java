@@ -682,6 +682,14 @@ public class servAdmin extends HttpServlet {
                 request.setAttribute("listClient",listClient);
                 jspClient="/Admin/afficherClient.jsp";
             }
+               else if (act.equals("deconnexion"))
+        {
+              UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+              administrateurHardisSession.signout(utilisateur.getId());
+              sess = null;
+              jspClient = "/Admin/Login.jsp";
+           
+        }
             else if(act.equals("formClient"))
             {
                 UtilisateurHardis utilisateur  = (UtilisateurHardis) sess.getAttribute("utilisateur");

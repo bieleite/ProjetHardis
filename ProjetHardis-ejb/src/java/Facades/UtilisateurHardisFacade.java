@@ -295,6 +295,7 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
     @Override
     public  void signout(UtilisateurHardis entite) {       
         entite.setConnecte(false);
+        em.merge(entite);
     }
         
 
