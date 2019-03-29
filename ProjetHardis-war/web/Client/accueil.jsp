@@ -74,7 +74,6 @@ int DNP = Integer.valueOf(session.getAttribute("nbDevisNP").toString());
           <div class="small-box bg-red">
             <div class="inner">
               <h3><%=DNP%></h3>
-
               <p>Facture(s) non payée(s)</p>
             </div>
             

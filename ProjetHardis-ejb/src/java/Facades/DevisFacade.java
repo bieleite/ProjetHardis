@@ -106,9 +106,9 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
     @Override
     public  List<Devis> rechercheDevisParClient(Client client) {
         Devis de = null;        
-        String txt = "SELECT de FROM Devis AS de WHERE de.client=:client ";
+        String txt = "SELECT de FROM Devis AS de WHERE de.client.entreprise=:client ";
         Query req = getEntityManager().createQuery(txt);
-        req = req.setParameter("client",client);
+        req = req.setParameter("client",client.getEntreprise());
         return req.getResultList();
 
     }
@@ -217,16 +217,16 @@ public class DevisFacade extends AbstractFacade<Devis> implements DevisFacadeLoc
 
     @Override
     public List<Devis> afficherDevisClient(Client cli) {
-        Query requete = em.createQuery("SELECT s from Devis as s where s.client=:cli order by s.dateDevis desc");
-        requete.setParameter("cli",cli);     
+        Query requete = em.createQuery("SELECT s from Devis as s where s.client.entreprise=:cli order by s.dateDevis desc");
+        requete.setParameter("cli",cli.getEntreprise());     
         List<Devis> liste =  requete.getResultList();
         return liste;
     }
 
     @Override
     public List<Devis> afficherDevisStatut(Client cli, Statut statut) {
-        Query requete = em.createQuery("SELECT s from Devis as s where s.client=:cli and s.statut=:statut");
-        requete.setParameter("cli",cli);     
+        Query requete = em.createQuery("SELECT s from Devis as s where s.client.entreprise=:cli and s.statut=:statut");
+        requete.setParameter("cli",cli.getEntreprise());     
         requete.setParameter("statut",statut); 
         List<Devis> liste =  requete.getResultList();
         return liste;
