@@ -162,7 +162,7 @@
             <li><a href="servAdmin?action=listesCreerUtiliateurHardis"><i class="fa fa-user-plus"></i> Creer Utilisateur</a></li>
             <li><a href="servAdmin?action=AfficherUtilisateur"><i class="fa  fa-search-plus"></i> Afficher Utilisateur</a></li>
             <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Utilisateur</a></li>-->
-            <li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Utilisateur</a></li>
+            <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Utilisateur</a></li>-->
           </ul>
         </li>
         <li>

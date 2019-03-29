@@ -67,6 +67,6 @@ public interface UtilisateurHardisFacadeLocal {
 
     UtilisateurHardis rechercheParEmailHache(String email);
 
-
+    void changVisibiliteUtilisateur(UtilisateurHardis entite);
     
 }

@@ -147,7 +147,13 @@ public class servAdmin extends HttpServlet {
                         sess.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
                         sess.setAttribute("listeContactMail",listeContactMail);
                         sess.setAttribute("listeHistoriqueTraitement",listeHistoriqueTraitement);
-                        jspClient="/Admin/dashboardAdmin.jsp";    
+                        if(utilisateur.getProfilTechique()==ProfilTechnique.Admin){
+                            jspClient="/Admin/dashboardAdmin.jsp";
+                        }
+                        else{
+                            jspClient="/Employe/dashboardAdmin.jsp";
+                        }
+                            
                                 }   
                     else{
                         request.setAttribute("message","Utilisateur non trouvé");
@@ -1007,6 +1013,13 @@ public class servAdmin extends HttpServlet {
             {
                UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
                doActionSupprimerServiceNS(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
+        
+        else if(act.equals("SupprimerUtilisateur"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+               doActionSupprimerUtilisateur(request,response);
                jspClient="/Admin/dashboardAdmin.jsp";
             }
         RequestDispatcher Rd;
@@ -2301,6 +2314,31 @@ public class servAdmin extends HttpServlet {
                     else{
                         message= "Erreur: Service non supprimé";
                     }
+                }
+                
+                
+            
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionSupprimerUtilisateur(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idUtilisateur = request.getParameter("idUtilisateur");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idutili = Long.valueOf(idUtilisateur);
+               
+             //   ServiceStandard servs = null;
+             UtilisateurHardis utili = null;
+                
+                  utili = administrateurHardisSession.rechercherUtilisateurHardisParId(idutili, utili);
+                  administrateurHardisSession.invisibiliteUtilihardis(idutili);
+                  message= "Utilisateur: "+utili.getNom()+"  effacée";
+                  
                 }
                 
                 

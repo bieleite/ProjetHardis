@@ -384,4 +384,8 @@ public interface AdministrateurHardisSessionLocal {
     void majMontant(Devis d, float mont);
     
     HistoriqueDevis rechercherUnHistoriqueDevisParUtilisateur(Long idDevis);
+    
+    void invisibiliteUtili(long id);
+    
+    void invisibiliteUtilihardis(long id);
 }

@@ -34,4 +34,5 @@ public interface UtilisateurFacadeLocal {
 
     int count();
     
+    void changVisibiliteUtilisateur(Utilisateur entite);
 }

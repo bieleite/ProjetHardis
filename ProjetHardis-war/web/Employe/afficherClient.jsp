@@ -95,9 +95,20 @@
                 <tr>
                     <td><a href="servEmployes?action=formClient&idClient=<%=a.getId().toString() %>" name="idClient" value="<%=a.getId().toString() %>"><%=a.getNom() %></a></td>
                   <td><%=a.getPrenom() %></td>
-                  <td><%=a.getAgence().getNomAgence() %></td>
+                  <% if(a.getEntreprise()!=null){%>
+                  <td><%=a.getEntreprise().getAgence().getNomAgence() %></td>
+                  <%}%>
+                  <% if(a.getEntreprise()==null){%>
+                  <td>Entreprise Non Affecté</td>
+                  <%}%>
+                  
                   <td><%=a.getLogin() %></td>
+                  <% if(a.getEntreprise()!=null){%>
                   <td><%=a.getEntreprise().getNomEntreprise() %></td>
+                  <%}%>
+                  <% if(a.getEntreprise()==null){%>
+                  <td>Entreprise Non Affecté</td>
+                  <%}%>
                   
                 </tr>
                 </tbody>

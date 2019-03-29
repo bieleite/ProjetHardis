@@ -220,8 +220,9 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
         UtilisateurHardis c = null;
          try {
             String m = Helpers.sha1(mdp);
-             Query requete = em.createQuery("SELECT a from UtilisateurHardis as a where a.login=:lo and a.mdp=:m");
-        requete.setParameter("lo", log);
+             Query requete = em.createQuery("SELECT a from UtilisateurHardis as a where a.login=:lo and a.mdp=:m and a.statut=:actif");
+        requete.setParameter("actif", StatutUtilisateur.Actif);
+             requete.setParameter("lo", log);
         requete.setParameter("m", m);       
         List<UtilisateurHardis> liste =  requete.getResultList();
         if (!liste.isEmpty()) {
@@ -285,7 +286,12 @@ public class UtilisateurHardisFacade extends AbstractFacade<UtilisateurHardis> i
         return cl;
     }
     
-    
+    @Override
+    public  void changVisibiliteUtilisateur(UtilisateurHardis entite) {       
+        entite.setVisible(false);
+        entite.setStatut(StatutUtilisateur.Inactif);
+    }
+        
 
     
 }

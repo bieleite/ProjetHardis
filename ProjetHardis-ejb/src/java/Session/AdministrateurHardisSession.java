@@ -49,6 +49,7 @@ import Facades.Offre_Profil_Util_CVFacadeLocal;
 import Facades.ProfilMetierFacadeLocal;
 import Facades.ServiceFacadeLocal;
 import Facades.ServiceStandardFacadeLocal;
+import Facades.UtilisateurFacadeLocal;
 import Facades.UtilisateurHardisFacadeLocal;
 import java.io.FileNotFoundException;
 import java.sql.Timestamp;
@@ -66,6 +67,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class AdministrateurHardisSession implements AdministrateurHardisSessionLocal {
+
+    @EJB
+    private UtilisateurFacadeLocal utilisateurFacade;
 
     @EJB
     private ContactMailFacadeLocal contactMailFacade;
@@ -1323,7 +1327,6 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     @Override
     public UtilisateurHardis rechercherUtilisateurHardisParId(long id, UtilisateurHardis hardis) {
         UtilisateurHardis utilisateur = utilisateurHardisFacade.rechercheUtilisateurParId(id);
-        logsFacade.creerLogResearch(hardis, utilisateur);
         return utilisateur;
     }
     
@@ -1680,5 +1683,17 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
     public HistoriqueDevis rechercherUnHistoriqueDevisParUtilisateur(Long idDevis) {
     HistoriqueDevis hd =  historiqueDevisFacade.rechercherUnHistoriqueDevisParDevis(idDevis);
       return hd;
+    }
+    
+    @Override
+    public void invisibiliteUtili(long id) {
+        Utilisateur entite = utilisateurFacade.find(id);
+         utilisateurFacade.changVisibiliteUtilisateur(entite);
+    }
+    
+    @Override
+    public void invisibiliteUtilihardis(long id) {
+        UtilisateurHardis entite = utilisateurHardisFacade.find(id);
+         utilisateurHardisFacade.changVisibiliteUtilisateur(entite);
     }
 }
