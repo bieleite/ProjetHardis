@@ -1095,8 +1095,13 @@ sess= request.getSession(true);
             }
 
         RequestDispatcher Rd;
+         try{
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
+        }
+        catch (javax.servlet.ServletException ex){
+           
+        }
       
     }
     protected void doActionCreerAgence(HttpServletRequest request, HttpServletResponse response)
