@@ -34,7 +34,11 @@ public class UtilisateurFacade extends AbstractFacade<Utilisateur> implements Ut
     }
 
 
-
+    @Override
+    public  void changVisibiliteUtilisateur(Utilisateur entite) {       
+        entite.setVisible(false);
+        
+    }
     
     
     

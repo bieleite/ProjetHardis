@@ -84,6 +84,12 @@
                   <label for="cpAgence">CP Client</label>
                   <input type="txt" name="cpAgence" class="form-control" id="exampleInputEmail1" placeholder="<%=client.getCodepostal() %>" disabled>
                   <label for="agenceClient">Agence Client</label>
+                  <% if(client.getEntreprise()!=null){%>
+                  <input type="txt" name="agenceClient" class="form-control" id="exampleInputEmail1" placeholder="<%=client.getAgence().getNomAgence() %>" disabled>
+                  <%}%>
+                  <% if(client.getEntreprise()==null){%>
+                  <input type="txt" name="agenceClient" class="form-control" id="exampleInputEmail1" placeholder="" disabled>
+                  <%}%>
                   <input type="txt" name="agenceClient" class="form-control" id="exampleInputEmail1" placeholder="<%=client.getAgence().getNomAgence() %>" disabled>
                   <label for="dtrgpdClient">Date RGPD Client</label>
                   <input type="txt" name="dtrgpdClient" class="form-control" id="exampleInputEmail1" placeholder="<%=client.getDateRGPD() %>" disabled>
@@ -95,7 +101,13 @@
                       <input type='txt' name='visibleClient' class='form-control' id='exampleInputEmail1' placeholder='Non Visible' disabled>
                   <%}%>
                   <label for="entrepriseClient">Entreprise Client</label>
+                  <% if(client.getEntreprise()!=null){%>
                   <input type="txt" name="entrepriseClient" class="form-control" id="exampleInputEmail1" placeholder="<%=client.getEntreprise().getNomEntreprise() %>" disabled>
+                  <%}%>
+                  <% if(client.getEntreprise()==null){%>
+                  <input type="txt" name="agenceClient" class="form-control" id="exampleInputEmail1" placeholder="" disabled>
+                  <%}%>
+                  
                   <label for="certifieClient">Certifie Client</label>
                   <% if (client.getCertifie() ) {%>
                        <input type='txt' name='certifieClient' class='form-control' id='exampleInputEmail1' placeholder='Certfiée' disabled>

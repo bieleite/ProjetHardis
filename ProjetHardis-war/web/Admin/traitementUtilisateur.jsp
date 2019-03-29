@@ -114,8 +114,9 @@
                 <%}%>
                 <tfoot>
                 <tr>
-                  <th>Nom Utilisateur</th>
+                 <th>Nom Utilisateur</th>
                   <th>Prenom Utilisateur </th>
+                  <th>Mail Utilisateur </th>
                   <th>Agence</th>
                   <th>Profil Technique</th>
                   <th>Statut</th>
@@ -133,8 +134,13 @@
       <div class="col-lg-8 connectedSortable">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Profil</h3>
-              
+              <h3 class="box-title">Utilisateur</h3>
+              <div class="btn-group">
+                        
+                        <a href="servAdmin?action=SupprimerUtilisateur&idUtilisateur=<%=utili.getId().toString() %>" name="idUtilisateur" value="<%=utili.getId().toString() %>">
+                            <button type="submit" class="btn btn-default" title="Effacer Utilisateur"><i class="fa  fa-remove"></i></button></a>
+                       
+                    </div>
               
             </div>
             <!-- /.box-header -->
