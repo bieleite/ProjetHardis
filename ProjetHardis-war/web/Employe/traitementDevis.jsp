@@ -153,6 +153,7 @@
                     </div>
                     
             </div>
+                    <% if(utilisateur.getProfilTechique()==ProfilTechnique.Gestion) {%>
                     <% List<UtilisateurHardis> lesConsultants=listeConsultantOffre;
                     String faire = (String) request.getAttribute("faire");
                     if (faire!=null&&faire.equals("affecter")){%>
@@ -237,6 +238,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div> <%}%>
+              <%}%>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
