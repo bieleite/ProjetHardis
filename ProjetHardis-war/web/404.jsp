@@ -9,7 +9,7 @@
 
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>404 HTML Template by Colorlib</title>
+	<title>Ca a planté...</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -33,7 +33,12 @@
 			<div class="notfound-404">
 				<h1>4<span>0</span>4</h1>
 			</div>
-			<h2>the page you requested could not found</h2>
+			<h2>Madame, la page que vous avez demandé n'est pas disponible :(</h2>
+                        <br>
+                        Voici les éventuelles raisons : <br>
+                        - NetBeans a planté<br>
+                        - Vous avez cliqué sur un endroit sensible qu'on a pas pris en compte<br>
+                        - parce que ca peut arriver... 
 			
 		</div>
 	</div>
