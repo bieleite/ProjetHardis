@@ -141,8 +141,8 @@ public class servClient extends HttpServlet {
 
                 sess.setAttribute("listeNotif", listeNotif);
                 sess.setAttribute("nbD", nbre);
-                   sess.setAttribute("nbDevisNP", nbDevisNP);
-                 sess.setAttribute("nbQSR", nbQSR);
+                sess.setAttribute("nbDevisNP", nbDevisNP);
+                sess.setAttribute("nbQSR", nbQSR);
                 sess.setAttribute("delM", delM);
                 sess.setAttribute("mont", mont);
                 sess.setAttribute("listeDevis", listeDevis);
