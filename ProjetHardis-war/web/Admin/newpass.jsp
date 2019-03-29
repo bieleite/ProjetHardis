@@ -12,7 +12,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>Group Hardis | Log in</title>
 <%@include  file = "meta.jsp" %>
 <jsp:useBean id="utilisateur" scope="session" class="Utilisateur"></jsp:useBean>
 

@@ -50,7 +50,6 @@
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
         <li class="active">Adresse</li>
-        <li class="active">Creer Adresse</li>
       </ol>
     </section>
 

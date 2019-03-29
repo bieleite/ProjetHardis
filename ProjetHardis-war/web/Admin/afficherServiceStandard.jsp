@@ -50,9 +50,9 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
-        <li class="active">Paramètres</li>
-        <li class="active">Adresse</li>
-        <li class="active">Creer Adresse</li>
+        <li class="active">Hardis</li>
+        <li class="active">Service Standard</li>
+        <li class="active">Afficher Service Standard</li>
       </ol>
     </section>
 

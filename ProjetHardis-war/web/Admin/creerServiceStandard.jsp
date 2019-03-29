@@ -56,8 +56,8 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
-        <li class="active">Service</li>
-        <li class="active">Creer Service</li>
+        <li class="active">Service Standard</li>
+        <li class="active">Creer Service Standard</li>
       </ol>
     </section>
 
@@ -73,7 +73,7 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Quick Example</h3>
+              <h3 class="box-title">Creer Service Standard</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->

@@ -4,6 +4,7 @@
     Author     : 6171217
 --%>
 
+<%@page import="Entites.ProfilTechnique"%>
 <%@page import="Entites.Document"%>
 <%@page import="Entites.Facture"%>
 <%@page import="Entites.UtilisateurHardis"%>
@@ -32,7 +33,7 @@
   <title>Hardis Group -¨Profil Administrateur</title>
   <!-- Tell the browser to be responsive to screen width -->
   <%@include  file = "meta.jsp" %>
-    <jsp:useBean id="utilisateur" scope="session" class="Utilisateur"></jsp:useBean>
+    <jsp:useBean id="utilisateur" scope="session" class="UtilisateurHardis"></jsp:useBean>
     <jsp:useBean id="listeCommunication" scope="session" class= "java.util.List"></jsp:useBean>
     <jsp:useBean id="listeNotif" scope="session" class = "java.util.List"> </jsp:useBean>
     <jsp:useBean id="listeDevis" scope="session" class = "java.util.List"> </jsp:useBean>
@@ -90,6 +91,7 @@
               <h3 class="box-title">Devis</h3>
               <div class="box-tools pull-right">
                     <div class="btn-group">
+                        <% if(utilisateur.getProfilTechique()==ProfilTechnique.Gestion) {%>
                         <% if (listeConsultantOffre.contains(utilisateur)&&!listeDocument.isEmpty()){ %>
                         <a href="servEmployes?action=formDevis&faire=envoyer&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="submit" class="btn btn-default" title="Envoyer le Devis"><i class="fa fa-send"></i></button></a><%}%>
@@ -97,8 +99,8 @@
                             <button type="submit" class="btn btn-default" title="Ajouter Documents"><i class="fa fa-plus"></i></button></a>
                         <a href="servEmployes?action=formDevis&faire=modifier&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="submit" class="btn btn-default" title="Modifier"><i class="fa fa-edit"></i></button></a>
-                        
-                        
+                        <%}%>
+                        <% if(utilisateur.getProfilTechique()==ProfilTechnique.Gestion) {%>
                         <% if(devistraitement.getStatut()==Statut.Incomplet )  {%>
                         <a href="servEmployes?action=RelancerDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn btn-default">Relancer Client</button></a>
@@ -147,9 +149,11 @@
                         <a href="servEmployes?action=affecterDevis&idDevis=<%=devistraitement.getId().toString() %>" name="idDevis" value="<%=devistraitement.getId().toString() %>">
                             <button type="button" class="btn  btn-primary" disabled>Prestation Terminnée</button></a>
                         <%}%>
+                       <%}%>
                     </div>
                     
             </div>
+                   
                     <% List<UtilisateurHardis> lesConsultants=listeConsultantOffre;
                     String faire = (String) request.getAttribute("faire");
                     if (faire!=null&&faire.equals("affecter")){%>
@@ -234,6 +238,7 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div> <%}%>
+              
             </div>
             <!-- /.box-header -->
             <!-- form start -->

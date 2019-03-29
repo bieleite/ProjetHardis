@@ -49,9 +49,8 @@
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
-        <li class="active">Paramètres</li>
-        <li class="active">Adresse</li>
-        <li class="active">Creer Adresse</li>
+        <li class="active">Utilisateur</li>
+        <li class="active">Afficher Utilisateur</li>
       </ol>
     </section>
 
@@ -95,10 +94,11 @@
                     <td><a href="servAdmin?action=formUtilisateur&idUtili=<%=a.getId().toString() %>" name="idUtili" value="<%=a.getId().toString() %>"><%=a.getNom() %></a></td>
                   <td><%=a.getPrenom() %></td>
                   <td><%=a.getLogin() %></td>                 
-                      <td><%=a.getAgence().getNomAgence() %></td>                 
+                                      
                   <td><%=a.getAgence().getNomAgence() %></td>
                   <td><%=a.getProfilTechique().toString() %></td>
                   <td><%=a.getStatut().toString() %></td>
+                  
                 </tr>
                 </tbody>
                 <%}%>

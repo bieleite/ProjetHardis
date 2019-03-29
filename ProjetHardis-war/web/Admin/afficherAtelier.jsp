@@ -52,8 +52,8 @@
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Tableau de bord</li>
         <li class="active">Paramètres</li>
-        <li class="active">Adresse</li>
-        <li class="active">Creer Adresse</li>
+        <li class="active">Atelier</li>
+        <li class="active">Afficher Adresse</li>
       </ol>
     </section>
 
@@ -67,7 +67,7 @@
         <!-- left column -->
         <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Agence</h3>
+              <h3 class="box-title">Ateliers</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
