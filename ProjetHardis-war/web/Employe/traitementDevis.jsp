@@ -338,7 +338,7 @@
                               <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='<%=devistraitement.getMontantDevis() %>'  ><%}%>
                        <%}%>
                  <% if (devistraitement.getMontantDevis()==0 ){%>
-                 <%  if (faire==null&&!faire.equals("modifier")){%>
+                 <%  if (faire==null){%>
                       <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' disabled> <%}%>
                          <%  if (faire!=null&&faire.equals("modifier")){%>  <input type='txt' name='montDevis' class='form-control' id='exampleInputEmail1' placeholder='Non Rempli' >  <%}%>
                              

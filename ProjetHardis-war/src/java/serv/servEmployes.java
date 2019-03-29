@@ -1099,8 +1099,10 @@ sess= request.getSession(true);
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
         }
-        catch (javax.servlet.ServletException ex){
-           
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+               Rd = getServletContext().getRequestDispatcher("/404.jsp");
+        Rd.forward(request, response);     
         }
       
     }
