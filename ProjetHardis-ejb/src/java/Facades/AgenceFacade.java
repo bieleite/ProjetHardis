@@ -98,17 +98,24 @@ public class AgenceFacade extends AbstractFacade<Agence> implements AgenceFacade
     }
     
     @Override
-    public void supprimerAgence(Agence entite) {
+    public boolean supprimerAgence(Agence entite) {
         Query requete = em.createQuery("SELECT s from Agence as s where s.id=:id");
-        requete.setParameter("id",entite.getId());     
+        requete.setParameter("id",entite.getId());   
+        boolean b = true;
         List<Agence> liste =  requete.getResultList();
         if (!liste.isEmpty()){
             entite =   liste.get(0); 
-            
+            try{
             em.remove(entite);
-        }
+            }
+            catch (javax.ejb.EJBException ex)
+            {
+                b = false;
+            }
+        } return b;
     }
-
+    
+    
     public AgenceFacade() {
         super(Agence.class);
     }

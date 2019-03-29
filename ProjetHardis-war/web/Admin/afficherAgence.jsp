@@ -75,7 +75,7 @@
         <div class="box">
             <div class="box-header">
               <h3 class="box-title">Agence</h3>
-
+              
             </div>
             
             <!-- /.box-header -->
@@ -84,6 +84,7 @@
                 <thead>
                 <tr>
                   <th>Nom Agence</th>
+                  <th>Supprimer Agence</th>
                   
                 </tr>
                 </thead>
@@ -91,18 +92,22 @@
                 <tbody>
                 <tr>
                   <td><a href="servAdmin?action=formAgence&idAgence=<%=a.getId().toString() %>" name="idAgence" value="<%=a.getId().toString() %>"><%=a.getNomAgence() %></a></td>
+                  <td><a href="servAdmin?action=SupprimerAgence&idAgence=<%=a.getId().toString() %>" name="idAgence" value="<%=a.getId().toString() %>">
+                            <button type="submit" class="btn btn-default" title="Supprimer Agence"><i class="fa fa-remove"></i></button></a></td>
                 </tr>
                 </tbody>
                 <%}%>
                 <tfoot>
                 <tr>
-                  <th>Nom Agence</th>                
+                  <th>Nom Agence</th>    
+                  <th>Supprimer Agence</th>
                 </tr>
                 </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
+                
          
           
         <!--/.col (right) -->

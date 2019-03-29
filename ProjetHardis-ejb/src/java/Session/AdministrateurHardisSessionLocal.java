@@ -67,7 +67,7 @@ public interface AdministrateurHardisSessionLocal {
 
     void modifierAgence(long idagence, String nomagence, UtilisateurHardis hardis);
     
-    void supprimerAgence(long idagence, UtilisateurHardis hardis);
+    boolean supprimerAgence(long idagence, UtilisateurHardis hardis);
     
     Agence rechercherAgenceParId(long id);
     
@@ -231,7 +231,7 @@ public interface AdministrateurHardisSessionLocal {
     
     void modifierOffre(long idOffre, String lib, String[] listedesid, UtilisateurHardis hardis);
     
-    void supprimerOffre(long idOffre, UtilisateurHardis hardis);
+    boolean supprimerOffre(long idOffre, UtilisateurHardis hardis);
     
     Offre rechercherOffre(long idOffre, UtilisateurHardis hardis);
     
@@ -269,7 +269,7 @@ public interface AdministrateurHardisSessionLocal {
     
     void modifieService(long idservice, String nomService, String descriptionService, LieuIntervention idlieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, UtilisateurHardis hardis);
         
-    void supprimerService(long idservice ,UtilisateurHardis hardis);
+    boolean supprimerService(long idservice ,UtilisateurHardis hardis);
     
     List<Service> rechercherServiceParOffre(long idoffre, UtilisateurHardis hardis);
     
@@ -281,7 +281,7 @@ public interface AdministrateurHardisSessionLocal {
     
     void modifieServiceStandard(long idServiceStandard, String nomService, String descriptionService, LieuIntervention lieuInterv, long idoffre, float cout, FacturationFrais facturation, String listeCond, int delai, TypeService typeS, String descPresta, float nbJS, float nbJC, float nbJJ, float nbHA,String[] listidlivrable, String[] listeidAtelier, float nbHS, UtilisateurHardis hardis);
         
-    void supprimerServiceStandard(long idServiceStandard ,UtilisateurHardis hardis);
+    boolean supprimerServiceStandard(long idServiceStandard ,UtilisateurHardis hardis);
     
     List<ServiceStandard> rechercherServiceStandardParOffre(long idoffre, UtilisateurHardis hardis);
     

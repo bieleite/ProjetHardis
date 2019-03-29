@@ -984,7 +984,31 @@ public class servAdmin extends HttpServlet {
                   List<Disponibilite> listeD =  administrateurHardisSession.getDispoU(utilisateur);
                 request.setAttribute("listeD", listeD);
             }
-
+        
+        else if(act.equals("SupprimerAgence"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+               doActionSupprimerAgence(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
+        else if(act.equals("SupprimerOffre"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+               doActionSupprimerOffre(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
+        else if(act.equals("SupprimerService"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+               doActionSupprimerService(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
+        else if(act.equals("SupprimerServiceNon"))
+            {
+               UtilisateurHardis utilisateur= (UtilisateurHardis) sess.getAttribute("utilisateur");
+               doActionSupprimerServiceNS(request,response);
+               jspClient="/Admin/dashboardAdmin.jsp";
+            }
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
@@ -1761,7 +1785,7 @@ public class servAdmin extends HttpServlet {
                         administrateurHardisSession.modifierOffre_Profil_Util_CV(opcv.getId(), idoffre, idPM, iduili, liencvPFCV, utili);
                     }}
                 request.setAttribute("utili",utili);
-            message= "Mot de passe modifié";
+            message= "Profil Metier Utilisateur:  "+utili.getNom()+" modifié";
                 
 
             }
@@ -2179,6 +2203,108 @@ public class servAdmin extends HttpServlet {
                 sess.setAttribute("devistraitement",devis);
                 
             }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    
+    protected void doActionSupprimerAgence(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idAgence = request.getParameter("idAgence");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idagence = Long.valueOf(idAgence);
+                Agence ag = administrateurHardisSession.rechercherAgenceParId(idagence);
+                if(administrateurHardisSession.supprimerAgence(idagence, ut)){
+                    message= "Agence:"+ag.getNomAgence()+"supprimé";
+                }
+                else{
+                    message= "Erreur: agence non supprimé";
+                }
+                
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionSupprimerOffre(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idOffre = request.getParameter("idOffre");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idoffre = Long.valueOf(idOffre);
+                Offre of = administrateurHardisSession.rechercheOffreParId(idoffre);
+                if(administrateurHardisSession.supprimerOffre(idoffre, ut)){
+                    message= "Offre:"+of.getLibelle()+"supprimé";
+                }
+                else{
+                    message= "Erreur: Offre non supprimé";
+                }
+                
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionSupprimerService(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idService = request.getParameter("idService");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idservice = Long.valueOf(idService);
+                Service serv = null;
+                ServiceStandard servs = null;
+                serv = administrateurHardisSession.rechercherServiceId(idservice, ut);
+                
+                if(administrateurHardisSession.supprimerService(idservice, ut)){
+                    message= "Service:"+serv.getNomService()+"supprimé";
+                }
+                else{
+                    message= "Erreur: Service non supprimé";
+                }
+                
+                
+            }
+            else{
+                message= "Erreur information non inserée dans la base de données";
+            
+        }
+        request.setAttribute("message", message);
+    }
+    protected void doActionSupprimerServiceNS(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        String idService = request.getParameter("idService");
+        String message = null;
+            UtilisateurHardis ut = (UtilisateurHardis) sess.getAttribute("utilisateur");
+            if(ut!=null){
+                Long idservice = Long.valueOf(idService);
+               
+             //   ServiceStandard servs = null;
+             Service servs = null;
+                
+                  servs = (Service) administrateurHardisSession.rechercherServiceId(idservice, ut);
+                  
+                  if(administrateurHardisSession.supprimerServiceStandard(idservice, ut)){
+                    message= "Service standard:"+servs.getNomService()+"supprimé";
+                    }
+                    else{
+                        message= "Erreur: Service non supprimé";
+                    }
+                }
+                
+                
+            
             else{
                 message= "Erreur information non inserée dans la base de données";
             

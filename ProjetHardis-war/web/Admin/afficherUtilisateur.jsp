@@ -94,7 +94,8 @@
                 <tr>
                     <td><a href="servAdmin?action=formUtilisateur&idUtili=<%=a.getId().toString() %>" name="idUtili" value="<%=a.getId().toString() %>"><%=a.getNom() %></a></td>
                   <td><%=a.getPrenom() %></td>
-                  <td><%=a.getLogin() %></td>
+                  <td><%=a.getLogin() %></td>                 
+                      <td><%=a.getAgence().getNomAgence() %></td>                 
                   <td><%=a.getAgence().getNomAgence() %></td>
                   <td><%=a.getProfilTechique().toString() %></td>
                   <td><%=a.getStatut().toString() %></td>
@@ -105,6 +106,7 @@
                 <tr>
                   <th>Nom Utilisateur</th>
                   <th>Prenom Utilisateur </th>
+                  <th>Mail Utilisateur </th>
                   <th>Agence</th>
                   <th>Profil Technique</th>
                   <th>Statut</th>

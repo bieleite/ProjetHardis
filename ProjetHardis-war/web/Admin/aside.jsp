@@ -38,7 +38,7 @@
             <li><a href="servAdmin?action=listesCertifierClient"><i class="fa fa-check-circle"></i> Certifier Client</a></li>
             <!--<li><a href="servAdmin?action=ValiderClient"><i class="fa fa-circle-o"></i> Valider Client</a></li>-->
             <li><a href="servAdmin?action=AfficherEntreprise"><i class="fa  fa-search-plus"></i> Afficher Entreprise</a></li>
-            <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-check-circle"></i> Valider Entreprise</a></li>
+            <!--<li><a href="servAdmin?action=ValiderClient"><i class="fa fa-check-circle"></i> Valider Entreprise</a></li>-->
             <li><a href="servAdmin?action=ValiderClient"><i class="fa fa-building-o"></i> Effacer Entreprise</a></li>
           </ul>
         </li>
@@ -80,7 +80,7 @@
               <ul class="treeview-menu">
                 <li><a href="servAdmin?action=CreerAgence"><i class="fa fa-plus"></i> Creer Agence</a></li>
                 <li><a href="servAdmin?action=AfficherAgence"><i class="fa  fa-search-plus"></i> Afficher Agence</a></li>
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Agence</a></li>
+                <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Agence</a></li>-->
               </ul>
             </li>
             <li class="treeview">
@@ -93,7 +93,7 @@
                 <li><a href="servAdmin?action=CreerAtelier"><i class="fa fa-plus"></i> Creer Ateliers</a></li>
                 <li><a href="servAdmin?action=AfficherAtelier"><i class="fa  fa-search-plus"></i> Afficher Ateliers</a></li>
                 <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa fa-edit "></i> Modifier Ateliers</a></li>-->
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Ateliers</a></li>
+                <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Ateliers</a></li>-->
               </ul>
             </li>
             <li class="treeview">
@@ -106,7 +106,7 @@
                 <li><a href="servAdmin?action=listesCreerLivrable"><i class="fa fa-plus"></i> Creer Livrable</a></li>
                 <li><a href="servAdmin?action=AfficherLivrable"><i class="fa  fa-search-plus"></i> Afficher Livrable</a></li>
                 <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa fa-edit "></i> Modifier Livrable</a></li>-->
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Livrable</a></li>
+                <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Livrable</a></li>-->
               </ul>
             </li>
             <li class="treeview">
@@ -119,7 +119,7 @@
                 <li><a href="servAdmin?action=CreerOffre"><i class="fa fa-plus"></i> Creer Offre</a></li>
                 <li><a href="servAdmin?action=AfficherOffre"><i class="fa  fa-search-plus"></i> Afficher Offre</a></li>
                 <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Ofrre</a></li>-->
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Offre</a></li>
+                <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Offre</a></li>-->
               </ul>
             </li>            
             <li class="treeview">
@@ -132,7 +132,7 @@
                 <li><a href="servAdmin?action=listesCreerServiceStandard"><i class="fa fa-plus"></i> Creer Service Standard</a></li>
                 <li><a href="servAdmin?action=AfficherServiceStandard"><i class="fa  fa-search-plus"></i> Afficher Service Standard</a></li>
                 <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Service Standard</a></li>-->
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Service Standard</a></li>
+                <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Service Standard</a></li>-->
               </ul>
             </li>
             <li class="treeview">
@@ -145,7 +145,7 @@
                 <li><a href="servAdmin?action=listesCreerService"><i class="fa fa-plus"></i> Creer Service</a></li>
                 <li><a href="servAdmin?action=AfficherService"><i class="fa  fa-search-plus"></i> Afficher Service</a></li>
                 <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa fa-circle-o"></i> Modifier Service</a></li>-->
-                <li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Service</a></li>
+                <!--<li><a href="servAdmin?action=CreerAgence"><i class="fa  fa-remove"></i> Supprimer Service</a></li>-->
               </ul>
             </li>
           </ul>

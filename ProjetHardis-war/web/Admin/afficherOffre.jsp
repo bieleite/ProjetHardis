@@ -78,6 +78,7 @@
                 <thead>
                 <tr>
                   <th>Nom Offre</th>
+                  <th>Supprimer Offre</th>
                   
                 </tr>
                 </thead>
@@ -86,13 +87,15 @@
                 <tbody>
                 <tr>
                   <td><%=a.getLibelle() %></td>
-                  
+                  <td><a href="servAdmin?action=SupprimerOffre&idOffre=<%=a.getId().toString() %>" name="idOffre" value="<%=a.getId().toString() %>">
+                            <button type="submit" class="btn btn-default" title="Supprimer offre"><i class="fa fa-remove"></i></button></a></td>
                 </tr>
                 </tbody>
                 <%}%>
                 <tfoot>
                 <tr>
                   <th>Nom Offre</th>
+                  <th>Supprimer Offre</th>
             
                 </tr>
                 </tfoot>

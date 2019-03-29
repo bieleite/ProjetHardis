@@ -9,6 +9,8 @@ import Entites.Offre;
 
 
 import Entites.Offre_Profil_Util_CV;
+import Entites.Service;
+import Entites.ServiceStandard;
 
 import java.util.List;
 import javax.ejb.Local;
@@ -47,8 +49,12 @@ public interface OffreFacadeLocal {
     Offre rechercheOffreParId(long id);
     
     Offre rechercheOffreParLibelle(String lib);
+    
+    Offre rechercheOffreParService(Service lib);
 
     List<Offre> listOffres();
+    
+    Offre rechercheOffreParServiceS(ServiceStandard lib);
 
     
 }
