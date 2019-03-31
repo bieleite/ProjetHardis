@@ -1729,10 +1729,17 @@ public class servAdmin extends HttpServlet {
                         Float prixFCV = opcv.getPrixUnit();
                         Long idoffre = opcv.getOffre().getId();
                         administrateurHardisSession.modifierOffre_Profil_Util_CV(opcv.getId(), idoffre, idPM, iduili, liencvPFCV, utili);
-                    }
-                }
-                request.setAttribute("utili", utili);
-                message = "Profil Metier Utilisateur:  " + utili.getNom() + " modifié";
+                    }}
+                 UtilisateurHardis utilis = administrateurHardisSession.rechercherUtilisateurHardisParId(utili.getId(), ut);
+                List<Offre> listeOffress = administrateurHardisSession.listOffre();
+                if (listeOffress==null) listeOffress=new ArrayList<>();   
+                List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
+                if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
+                request.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
+                request.setAttribute("listeOffress",listeOffress);
+                request.setAttribute("utili",utilis);
+            message= "Profil Metier Utilisateur:  "+utili.getNom()+" modifié";
+                
 
             } else {
                 message = "Erreur information non inserée dans la base de données";
