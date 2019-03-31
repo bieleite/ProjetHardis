@@ -1881,7 +1881,14 @@ public class servAdmin extends HttpServlet {
                         Long idoffre = opcv.getOffre().getId();
                         administrateurHardisSession.modifierOffre_Profil_Util_CV(opcv.getId(), idoffre, idPM, iduili, liencvPFCV, utili);
                     }}
-                request.setAttribute("utili",utili);
+                 UtilisateurHardis utilis = administrateurHardisSession.rechercherUtilisateurHardisParId(utili.getId(), ut);
+                List<Offre> listeOffress = administrateurHardisSession.listOffre();
+                if (listeOffress==null) listeOffress=new ArrayList<>();   
+                List<UtilisateurHardis> listeUtilisateurHardis = administrateurHardisSession.listUtilisateurHardis();
+                if (listeUtilisateurHardis==null) listeUtilisateurHardis=new ArrayList<>();
+                request.setAttribute("listeUtilisateurHardis",listeUtilisateurHardis);
+                request.setAttribute("listeOffress",listeOffress);
+                request.setAttribute("utili",utilis);
             message= "Profil Metier Utilisateur:  "+utili.getNom()+" modifié";
                 
 

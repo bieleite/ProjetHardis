@@ -1559,7 +1559,7 @@ public class AdministrateurHardisSession implements AdministrateurHardisSessionL
                for (Offre_Profil_Util_CV compteur : o)
                {
                    ProfilMetier pm = compteur.getProfil();
-                   if (pm.getNiveauHabilitation().toString().equals("Consultant") && 
+                   if (
                            compteur.getOffre().equals(servSt.getOffre())&&
                            pm.getNiveauExpertise().toString().equals(typeC))
                        listeUD.add(u);
