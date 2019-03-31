@@ -40,11 +40,7 @@ public class VisualisateurHardisSession implements VisualisateurHardisSessionLoc
 
     @EJB
     private ClientFacadeLocal clientFacade;
-    
-    
-    
-    
-    
+
     @Override
     public List<Service> afficherServices() {
         return serviceFacade.listServices();
@@ -82,8 +78,4 @@ public class VisualisateurHardisSession implements VisualisateurHardisSessionLoc
         utilisateurHardisFacade.modfiUtilisateurQSRS(u, qs, rs);
     }
 
-    
-    
-    
-    
 }

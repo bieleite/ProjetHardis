@@ -70,6 +70,7 @@ public class servInternaute extends HttpServlet {
        
 
     }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -124,17 +125,13 @@ public class servInternaute extends HttpServlet {
              jspClient = "/Internaute/login.jsp";
   
              
-        
-
         }
           else if (act.equals("register"))
         {
           
              jspClient = "/Internaute/signup.jsp";
   
-             
-        
-
+                
         }
          else if (act.equals("afficheService"))
         {

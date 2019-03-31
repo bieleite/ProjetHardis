@@ -29,96 +29,83 @@ import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.util.List;
 
-
 /**
  *
  * @author 6170361
  */
 public class testPDF {
-    public void test(Facture f) throws FileNotFoundException
-    {
-  
 
-       com.itextpdf.text.Document document = new com.itextpdf.text.Document();
-       try{
-    //Read file using PdfReader
-  
-String s = System.getProperty("user.name"); 
-    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\"+s+"\\Documents\\FACT"+f.getId()+".pdf"));
- 
+    public void test(Facture f) throws FileNotFoundException {
 
+        com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+        try {
+            //Read file using PdfReader
 
-         document.open();
-         Paragraph p = new Paragraph();
-         
-        
-         Paragraph p1 = new Paragraph();
+            String s = System.getProperty("user.name");
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\" + s + "\\Documents\\FACT" + f.getId() + ".pdf"));
 
-    
-        
-       p1.setSpacingAfter(10);
-       p1.setSpacingBefore(50);
-       p1.setAlignment(10);
-       p1.add("Hardis group");
-               document.add(p1);
-       
-        p.setSpacingAfter(10);
-       p.setSpacingBefore(50);
-       p.setAlignment(2);
-       p.setIndentationLeft(3);
-       p.add(f.getDevis().getClient().getEntreprise().getAdresseFact().getCodePostal().toString());
-       document.add(p);
-        
-        
-    
-        PdfPTable table = new PdfPTable(5); // 3 columns.
+            document.open();
+            Paragraph p = new Paragraph();
 
-        
-        PdfPCell cell1 = new PdfPCell(new Phrase("Consultant"));
-        cell1.setBorderColor(BaseColor.BLUE);
-        cell1.setPaddingLeft(10);
-        cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
- 
-        table.addCell(cell1);
-        
-        PdfPCell cel = new PdfPCell(new Phrase("Quantité"));
-        cel.setBorderColor(BaseColor.BLUE);
-        cel.setPaddingLeft(10);
-        cel.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cel.setVerticalAlignment(Element.ALIGN_MIDDLE);
- 
-        table.addCell(cel);
-        
-         PdfPCell cell = new PdfPCell(new Phrase("Unité"));
-        cell.setBorderColor(BaseColor.BLUE);
-        cell.setPaddingLeft(10);
-        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
- 
-        table.addCell(cell);
-        
-         PdfPCell cellll = new PdfPCell(new Phrase("PrixHT/jour"));
-        cellll.setBorderColor(BaseColor.BLUE);
-        cellll.setPaddingLeft(10);
-        cellll.setHorizontalAlignment(Element.ALIGN_CENTER);
-        cellll.setVerticalAlignment(Element.ALIGN_MIDDLE);
- 
-        table.addCell(cellll);
+            Paragraph p1 = new Paragraph();
 
-  
-        document.add(table);
- 
-        document.close();
+            p1.setSpacingAfter(10);
+            p1.setSpacingBefore(50);
+            p1.setAlignment(10);
+            p1.add("Hardis group");
+            document.add(p1);
 
-         writer.close();
-    
- 
-  } catch (IOException e) {
-    e.printStackTrace();
-  }
-       catch (DocumentException e) {
-    e.printStackTrace();
-  }
+            p.setSpacingAfter(10);
+            p.setSpacingBefore(50);
+            p.setAlignment(2);
+            p.setIndentationLeft(3);
+            p.add(f.getDevis().getClient().getEntreprise().getAdresseFact().getCodePostal().toString());
+            document.add(p);
+
+            PdfPTable table = new PdfPTable(5); // 3 columns.
+
+            PdfPCell cell1 = new PdfPCell(new Phrase("Consultant"));
+            cell1.setBorderColor(BaseColor.BLUE);
+            cell1.setPaddingLeft(10);
+            cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+            table.addCell(cell1);
+
+            PdfPCell cel = new PdfPCell(new Phrase("Quantité"));
+            cel.setBorderColor(BaseColor.BLUE);
+            cel.setPaddingLeft(10);
+            cel.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cel.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+            table.addCell(cel);
+
+            PdfPCell cell = new PdfPCell(new Phrase("Unité"));
+            cell.setBorderColor(BaseColor.BLUE);
+            cell.setPaddingLeft(10);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+            table.addCell(cell);
+
+            PdfPCell cellll = new PdfPCell(new Phrase("PrixHT/jour"));
+            cellll.setBorderColor(BaseColor.BLUE);
+            cellll.setPaddingLeft(10);
+            cellll.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cellll.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+            table.addCell(cellll);
+
+            document.add(table);
+
+            document.close();
+
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
     }
 }

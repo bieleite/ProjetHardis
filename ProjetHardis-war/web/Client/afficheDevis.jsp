@@ -174,12 +174,7 @@ String message = "";
                              
                               </div>
                              
-               <div class="col-md-2">
-                   <%   
-                       if (listeC!=null && listeC.size()==0 && (d.getTypeDevis().toString().equals("Standard"))) { %>                        
-              <a href="servClient?action=choixConsultants&idDev=<%=d.getId()%>" class="btn btn-sm btn-info btn-flat pull-right">Choisir consultants</a>
- <%}%>
-               </div>
+            
                           
                           </div>
                    </div>

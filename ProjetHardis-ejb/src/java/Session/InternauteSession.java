@@ -51,74 +51,59 @@ public class InternauteSession implements InternauteSessionLocal {
 
     @EJB
     private ClientFacadeLocal clientFacade;
-    
-    
-    
 
     @Override
-    public void CreerCompteInternaute(String Nom,String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP,  String cp) {
+    public void CreerCompteInternaute(String Nom, String Prenom, String Login, String MDP, String QuestionSecrete, String ReponseSecrete, int RGPD, Date dateRDGP, String cp) {
 
-      clientFacade.creerClient(Nom, Prenom, Login, MDP, QuestionSecrete, ReponseSecrete, RGPD, dateRDGP, null, null, cp);
+        clientFacade.creerClient(Nom, Prenom, Login, MDP, QuestionSecrete, ReponseSecrete, RGPD, dateRDGP, null, null, cp);
 
     }
-    
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
     @Override
     public void ajouterEntrepriseAuClient(long idCli, long idEnt) {
-        
+
         Client client = clientFacade.rechercheClient(idCli);
         Entreprise entreprise = entrepriseFacade.rechercheEntrepriseParId(idEnt);
-        
-        if(entreprise!=null){
+
+        if (entreprise != null) {
             clientFacade.majEntrepriseClient(client, entreprise); // methode pour affecter entreprise au client
-        }      
+        }
     }
 
-
-    
     @Override
     public void ajouterEntrepriseAuClientParCode(Client client, String code) {
         Entreprise en = entrepriseFacade.rechercheEntrepriseParMDP(code);//modifier pour le bon methode
-        if(en!=null){
+        if (en != null) {
             clientFacade.majEntrepriseClient(client, en);// methode pour affecter entreprise au client
-        }
-        else{
+        } else {
             System.out.println("Login existant");
         }
     }
 
     @Override
     public void contacterHardis(String mess, String email, String nom, String prenom, String tel, String sujet, String societe) {
-        contactMailFacade.creerContactMail(nom, prenom, email, tel, sujet, mess,societe );
+        contactMailFacade.creerContactMail(nom, prenom, email, tel, sujet, mess, societe);
     }
 
     @Override
     public List<Offre> afficheOffres() {
-      return   offreFacade.listOffres();
+        return offreFacade.listOffres();
     }
 
     @Override
     public List<ServiceStandard> recupServicesSOffre(long idO) {
         Offre o = offreFacade.rechercheOffreParId(idO);
-   
+
         return serviceStandardFacade.rechercheServiceStandardParOffre(o);
-        
+
     }
 
     @Override
     public List<Service> recupServiceNSOffre(long idO) {
-         Offre o = offreFacade.rechercheOffreParId(idO);
+        Offre o = offreFacade.rechercheOffreParId(idO);
         return serviceFacade.rechercheServiceParOffre(o);
     }
-    
 
-
-    
-    
-    
-
-    
-    
 }

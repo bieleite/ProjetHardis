@@ -84,7 +84,7 @@ public class servClient extends HttpServlet {
 
         if (mdp.isEmpty() || email.isEmpty()) {
             messageErreur = "Erreur, vous n'avez pas rempli tous les champs";
-             jspClient = "/Internaute/login.jsp";
+            jspClient = "/Internaute/login.jsp";
         } else {
 
             c = clientSession.authentificationClient(email, mdp);
@@ -98,13 +98,13 @@ public class servClient extends HttpServlet {
                 List<Devis> listeDevisC = clientSession.afficherDevisStatut(c.getId(), "Rep_en_cours");
                 List<Devis> listeDevisN = clientSession.afficherDevisStatut(c.getId(), "En_nego");
                 List<Devis> listeDevisE = clientSession.afficherDevisStatut(c.getId(), "Envoye");
-                 List<Devis> listeDevisV = clientSession.afficherDevisStatut(c.getId(), "Valide");
-                 List<Devis> listeDevisR = clientSession.afficherDevisStatut(c.getId(), "Refuse");
-                 List<Devis> listeDevisPT = clientSession.afficherDevisStatut(c.getId(), "Presta_terminee");
-                 
-                 int nbDevisNP = listeDevisPT.size() + listeDevisV.size();
-                  int nbre = listeDevisC.size() + listeDevisN.size() + listeDevisE.size() +listeDevisV.size() ;
-                  
+                List<Devis> listeDevisV = clientSession.afficherDevisStatut(c.getId(), "Valide");
+                List<Devis> listeDevisR = clientSession.afficherDevisStatut(c.getId(), "Refuse");
+                List<Devis> listeDevisPT = clientSession.afficherDevisStatut(c.getId(), "Presta_terminee");
+
+                int nbDevisNP = listeDevisPT.size() + listeDevisV.size();
+                int nbre = listeDevisC.size() + listeDevisN.size() + listeDevisE.size() + listeDevisV.size();
+
                 float delM = 0;
                 int nbQSR = 0;
                 if (listeDevis.size() > 0) {
@@ -112,7 +112,9 @@ public class servClient extends HttpServlet {
                     int k = 0;
                     for (Devis d : listeDevis) {
                         int SR = clientSession.calculQSansRep(d.getId());
-                        if (SR!=0) nbQSR++;
+                        if (SR != 0) {
+                            nbQSR++;
+                        }
                         boolean b = clientSession.verifDevisR(d.getId());
                         if (b) {
                             List<Communication> listeC = clientSession.rechercheCommDev(d.getId());
@@ -125,12 +127,12 @@ public class servClient extends HttpServlet {
 
                     }
 
-                   if (k!=0) delM = s / k;
-               
-                }
-                
+                    if (k != 0) {
+                        delM = s / k;
+                    }
 
-               
+                }
+
                 float mont = clientSession.getCA(2019, c.getId());
                 List<Devis> listeDevisAn = clientSession.recupContratsParAn(2019, c.getId());
                 if (listeNotif == null) {
@@ -205,8 +207,7 @@ public class servClient extends HttpServlet {
             } catch (NumberFormatException ex) {
                 messageErreur = "Erreur, le code postal doit être une valuer numérique";
             }
-            
-    
+
             if (cpo) {
                 Client c = clientSession.rechercheCliParLogin(email);
                 if (c == null) {
@@ -262,7 +263,6 @@ public class servClient extends HttpServlet {
         String libre = request.getParameter("libre");
         String date = request.getParameter("date");
         String idS = request.getParameter("idS");
-   
 
         String message = "";
         String messageErreur = "";
@@ -389,7 +389,6 @@ public class servClient extends HttpServlet {
 
             jspClient = "/Client/tabBord.jsp";
 
-
         }
 
         if (act.equals("connexion")) {
@@ -400,7 +399,7 @@ public class servClient extends HttpServlet {
         if (act.equals("deconnexion")) {
             Client c = (Client) sess.getAttribute("client");
             clientSession.deconnexion(c.getId());
-            sess=null;
+            sess = null;
             jspClient = "/PageAccueil.jsp";
         }
         if (act.equals("creation")) {
@@ -413,11 +412,10 @@ public class servClient extends HttpServlet {
             String codeC = request.getParameter("codeC");
 
             Entreprise e = clientSession.rechercheEntrepriseParCodeEtMdp(codeC, mdp);
-String messageErreur ="";
+            String messageErreur = "";
             if (e == null) {
-                
-                 messageErreur = "Erreur, le code et/ou mot de passe sont incorrects";
-                 
+
+                messageErreur = "Erreur, le code et/ou mot de passe sont incorrects";
 
             } else {
 
@@ -428,7 +426,7 @@ String messageErreur ="";
                 clientSession.majAgenceCli(ag.getId(), clientT.getId());
                 jspClient = "/Internaute/login.jsp";
             }
-             request.setAttribute("messageErreur1", messageErreur);
+            request.setAttribute("messageErreur1", messageErreur);
         }
 
         if (act.equals("creationE")) {
@@ -436,17 +434,16 @@ String messageErreur ="";
         }
 
         if (act.equals("appelDevis")) {
-            
+
             jspClient = "/Client/demandeDevis.jsp";
             List<Service> listeS = clientSession.recupSNonSt();
-             List<ServiceStandard> listeSS = clientSession.recupServicesS();
-            
-            
+            List<ServiceStandard> listeSS = clientSession.recupServicesS();
+
             if (listeS == null) {
                 listeS = new ArrayList<>();
             }
             request.setAttribute("listeS", listeS);
-              request.setAttribute("listeSS", listeSS);
+            request.setAttribute("listeSS", listeSS);
         }
 
         if (act.equals("creerDevis")) {
@@ -463,7 +460,7 @@ String messageErreur ="";
             if (mess != null) {
                 clientSession.creerComm(mess, Long.valueOf(idD));
                 List<Devis> listeDevis = clientSession.afficherDevisClient(clientT.getId());
-           
+
                 float delM = 0;
                 int nbQSR = 0;
                 if (listeDevis.size() > 0) {
@@ -471,7 +468,9 @@ String messageErreur ="";
                     int k = 0;
                     for (Devis d : listeDevis) {
                         int SR = clientSession.calculQSansRep(d.getId());
-                        if (SR!=0) nbQSR++;
+                        if (SR != 0) {
+                            nbQSR++;
+                        }
                         boolean b = clientSession.verifDevisR(d.getId());
                         if (b) {
                             List<Communication> listeC = clientSession.rechercheCommDev(d.getId());
@@ -484,10 +483,12 @@ String messageErreur ="";
 
                     }
 
-                   if (k!=0) delM = s / k;
-               
+                    if (k != 0) {
+                        delM = s / k;
+                    }
+
                 }
-                 sess.setAttribute("nbQSR", nbQSR);
+                sess.setAttribute("nbQSR", nbQSR);
             }
 
             if (idD != "") {
@@ -531,7 +532,7 @@ String messageErreur ="";
             String idD = request.getParameter("idDev");
 
             String motif = request.getParameter("motifRefus");
-             String typeD = request.getParameter("typeD");
+            String typeD = request.getParameter("typeD");
 
             List<String> listeLibC = new ArrayList<String>();
             List<Float> PrixU = new ArrayList<Float>();
@@ -541,66 +542,54 @@ String messageErreur ="";
             if (idD != "") {
                 id = Long.valueOf(idD);
                 d = clientSession.recupDevis(id);
-              
-                
+
                 Facture f = null;
-                
-               
+
                 sess.setAttribute("devis", d);
                 Service s = d.getService();
-                 ServiceStandard ss =null;
-                 
+                ServiceStandard ss = null;
+
                 List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
-                if (typeD!=null && typeD!="" && typeD.equals("sns")) //SNS
+                if (typeD != null && typeD != "" && typeD.equals("sns")) //SNS
                 {
                     for (UtilisateurHardis u : listeConsu) {
-                    float prixUni = clientSession.recherchePrixOffreC(u, s.getOffre());
-                    PrixU.add(prixUni);
-                    String lib = clientSession.rechercheLibConsultOffre(u, s.getOffre());
-                    listeLibC.add(lib);
+                        float prixUni = clientSession.recherchePrixOffreC(u, s.getOffre());
+                        PrixU.add(prixUni);
+                        String lib = clientSession.rechercheLibConsultOffre(u, s.getOffre());
+                        listeLibC.add(lib);
 
-                }
-                }
-                else if (typeD!=null && typeD!="" && typeD.equals("ss")) {
-    
-                     ss = clientSession.rechercheSS(s.getId());
-                for (UtilisateurHardis u : listeConsu) {
-                    float prixUni = clientSession.recherchePrixOffreC(u, ss.getOffre());
-                    PrixU.add(prixUni);
-                    String lib = clientSession.rechercheLibConsultOffre(u, ss.getOffre());
-                    listeLibC.add(lib);
+                    }
+                } else if (typeD != null && typeD != "" && typeD.equals("ss")) {
 
+                    ss = clientSession.rechercheSS(s.getId());
+                    for (UtilisateurHardis u : listeConsu) {
+                        float prixUni = clientSession.recherchePrixOffreC(u, ss.getOffre());
+                        PrixU.add(prixUni);
+                        String lib = clientSession.rechercheLibConsultOffre(u, ss.getOffre());
+                        listeLibC.add(lib);
+
+                    }
                 }
-                }
-                
+
                 String valide = request.getParameter("valide");
 
-                
-                if (d.getStatut().toString().equals("Presta_terminee"))
-                {
-                     f = clientSession.rechercheFactParDevis(d.getId()).get(1);
-                      request.setAttribute("valide", "2");
+                if (d.getStatut().toString().equals("Presta_terminee")) {
+                    f = clientSession.rechercheFactParDevis(d.getId()).get(1);
+                    request.setAttribute("valide", "2");
                 }
-                
-        
-                    
+
                 if (valide != null && valide.equals("1")) {
-                     clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
-                     d = clientSession.recupDevis(d.getId());
-                      sess.setAttribute("devis", d);
-                     if (d.getTypeDevis().toString().equals("Standard")){
+                    clientSession.accepterDevis(clientT.getId(), Long.valueOf(idD));
+                    d = clientSession.recupDevis(d.getId());
+                    sess.setAttribute("devis", d);
+                    if (d.getTypeDevis().toString().equals("Standard")) {
                         f = clientSession.creerFacture(d.getId(), "");
                         request.setAttribute("valide", "1");
-                   }
-                
-                 else {
-                        f= clientSession.rechercheFactParDevis(d.getId()).get(0);
-                     }
-                 request.setAttribute("valide", "1");
-                
-               
-               
-                    
+                    } else {
+                        f = clientSession.rechercheFactParDevis(d.getId()).get(0);
+                    }
+                    request.setAttribute("valide", "1");
+
                 }
 
                 if (valide != null && valide.equals("0")) {
@@ -611,7 +600,7 @@ String messageErreur ="";
                     clientSession.refuserDevis(clientT.getId(), id, motif);
                     Devis dev = clientSession.recupDevis(id);
                     jspClient = "/Client/tabBord.jsp";
-                     sess.setAttribute("devis", dev);
+                    sess.setAttribute("devis", dev);
 
                 }
 
@@ -620,8 +609,8 @@ String messageErreur ="";
                 sess.setAttribute("listeConsu", listeConsu);
                 request.setAttribute("PrixU", PrixU);
                 request.setAttribute("servS", ss);
-                 request.setAttribute("servNS", s);
-                  sess.setAttribute("facture", f);
+                request.setAttribute("servNS", s);
+                sess.setAttribute("facture", f);
                 request.setAttribute("listeLibC", listeLibC);
             }
 
@@ -637,23 +626,24 @@ String messageErreur ="";
                 long id = Long.valueOf(idD);
                 Devis d = clientSession.recupDevis(id);
                 List<Facture> listeF = clientSession.rechercheFactParDevis(d.getId());
-               
-Facture f = null;
+
+                Facture f = null;
                 List<Float> PrixU = new ArrayList<Float>();
                 List<String> listeLibC = new ArrayList<String>();
-               if (listeF.size()==1){
-                f= clientSession.rechercheFactParDevis(d.getId()).get(0);
-               clientSession.payerFacture(f.getId());
-         
-               }
-               else if (listeF.size()==2){
-                f= clientSession.rechercheFactParDevis(d.getId()).get(1);
-                clientSession.payerFacture(f.getId());
-               }
-                if (listeF.size()==1) {clientSession.changerStatut(d, "Acompte_regle"); clientSession.majDateDPresta(d.getId());}
-                else if (listeF.size()==2) clientSession.changerStatut(d, "Total_regle");
-                
-           
+                if (listeF.size() == 1) {
+                    f = clientSession.rechercheFactParDevis(d.getId()).get(0);
+                    clientSession.payerFacture(f.getId());
+
+                } else if (listeF.size() == 2) {
+                    f = clientSession.rechercheFactParDevis(d.getId()).get(1);
+                    clientSession.payerFacture(f.getId());
+                }
+                if (listeF.size() == 1) {
+                    clientSession.changerStatut(d, "Acompte_regle");
+                    clientSession.majDateDPresta(d.getId());
+                } else if (listeF.size() == 2) {
+                    clientSession.changerStatut(d, "Total_regle");
+                }
 
                 List<UtilisateurHardis> listeConsu = clientSession.rechercheCParDevis(id);
 
@@ -707,11 +697,20 @@ Facture f = null;
 
                 boolean b1 = true;
                 String dispo = "";
-                 if (nbJ>0 && listeCJDispo.size()==0) b1 = false;
-                  if (nbC>0 && listeCCDispo.size()==0) b1 = false;
-                      if (nbS>0 && listeCSDispo.size()==0) b1 = false;
-                      if (b1) dispo="ok";
-                      else dispo="no";
+                if (nbJ > 0 && listeCJDispo.size() == 0) {
+                    b1 = false;
+                }
+                if (nbC > 0 && listeCCDispo.size() == 0) {
+                    b1 = false;
+                }
+                if (nbS > 0 && listeCSDispo.size() == 0) {
+                    b1 = false;
+                }
+                if (b1) {
+                    dispo = "ok";
+                } else {
+                    dispo = "no";
+                }
                 if (nbJ != 0 && listeCJDispo.size() != 0) {
                     listeJ[0] = listeCJDispo.get(0).getId().toString();
                     clientSession.choixConsultants(Long.valueOf(idD), null, listeJ, null);
@@ -748,7 +747,7 @@ Facture f = null;
 
                 }
                 clientSession.majMontantDevis(id, somme);
- request.setAttribute("dispo", dispo);
+                request.setAttribute("dispo", dispo);
                 request.setAttribute("listeLibC", listeLibC);
                 request.setAttribute("PrixU", PrixU);
                 sess.setAttribute("listeConsu", listeConsu);
@@ -919,13 +918,11 @@ Facture f = null;
 
             }
 
-
-
             List<Interlocuteur> liste = new ArrayList<>();
             if (clientT.getEntreprise() != null) {
                 liste = clientSession.recupInter(clientT.getEntreprise().getId());
             }
-            
+
             Client c = clientSession.rechercheCliParLogin(clientT.getLogin());
             sess.setAttribute("client", c);
             clientT = c;
@@ -981,13 +978,12 @@ Facture f = null;
 
         }
 
-        try{
-        Rd = getServletContext().getRequestDispatcher(jspClient);
-        Rd.forward(request, response);
-        }
-        catch (Exception ex){
+        try {
+            Rd = getServletContext().getRequestDispatcher(jspClient);
+            Rd.forward(request, response);
+        } catch (Exception ex) {
             Rd = getServletContext().getRequestDispatcher("/404.jsp");
-        Rd.forward(request, response);
+            Rd.forward(request, response);
         }
 
     }
